@@ -464,6 +464,66 @@ td:first-child { color: var(--head); }
 .seg button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
 details { border: 1px solid var(--line); border-radius: 12px; }
 
+
+/* Menu des modules */
+body { padding-top: 0; margin: 0; }
+.topnav { position: sticky; top: 0; z-index: 20; margin: 0 calc(-1 * max(16px, env(safe-area-inset-right, 0px))) 26px calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  background: rgba(22,34,61,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(217,189,122,.25); box-shadow: 0 4px 20px rgba(11,18,34,.18); }
+.tn-in { max-width: 1100px; margin: 0 auto; padding: 10px max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 18px; }
+.tn-brand { display: flex; align-items: center; gap: 10px; background: none; border: 0; color: #fff; padding: 4px 0; flex: none; }
+.tn-logo { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font: 700 14px var(--f-display); color: #16223D; background: linear-gradient(135deg, #E2C78A, #B8913A); }
+.tn-name { font: 600 1.05rem var(--f-display); white-space: nowrap; }
+.tn-name em { color: var(--gold-l); }
+.tn-mods { display: flex; gap: 6px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.tn-mods::-webkit-scrollbar { display: none; }
+.tn-mod { background: transparent; border: 1px solid rgba(255,255,255,.18); color: #D6DEEC; border-radius: 999px; padding: 8px 16px; min-height: 40px; font-weight: 600; font-size: .92rem; white-space: nowrap; transition: background .15s, color .15s, border-color .15s; }
+.tn-mod:hover { border-color: var(--gold-l); color: #fff; }
+.tn-mod[aria-current="page"] { background: linear-gradient(135deg, #D9BD7A, #B8913A); border-color: transparent; color: #16223D; }
+.pdfbox a:not(.btn) { color: var(--accent); font-weight: 600; }
+.hero .actions .btn.alt { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.3); box-shadow: none; }
+@media (max-width: 640px) {
+  .tn-in { flex-direction: column; align-items: stretch; gap: 8px; padding-top: 8px; padding-bottom: 10px; }
+  .tn-mods { margin-left: 0; }
+  .tn-mods { display: grid; grid-template-columns: 1fr 1fr 1fr; overflow: visible; }
+  .tn-mod { white-space: normal; padding: 8px 6px; font-size: .8rem; line-height: 1.2; }
+}
+
+/* Simulations veille et sécurité */
+.ord-done { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ord-done li { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 10px; background: var(--ok-soft); border: 1px solid var(--ok); }
+.ord-done li.ord-next { background: transparent; border: 1.5px dashed var(--line); color: var(--muted); }
+.ord-n { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: var(--gold-l); font: 600 13px var(--f-mono); }
+.rk-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: center; }
+table.rk { min-width: 0; text-align: center; border-collapse: separate; border-spacing: 4px; }
+table.rk th { text-align: center; padding: 4px; } table.rk td { text-align: center; border-radius: 8px; padding: 10px 4px; font: 700 1rem var(--f-mono); border: 0; }
+.rk-ok { background: var(--ok-soft); color: var(--ok); } .rk-mid { background: var(--d2-soft); color: var(--d2); } .rk-bad { background: var(--bad-soft); color: var(--bad); }
+table.rk td.on { outline: 3px solid var(--navy); transform: scale(1.08); }
+.rk-t.ok { color: var(--ok); } .rk-t.mid { color: var(--d2); } .rk-t.bad { color: var(--bad); }
+.mail { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: var(--surface); }
+.mline { text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 11px 14px; font-size: .96rem; display: flex; flex-direction: column; gap: 4px; }
+.mline:hover { background: var(--d2-soft); } .mline small { color: var(--muted); font-family: var(--f-mono); }
+.mline em { font-style: normal; font-size: .88rem; }
+.mline.hit { background: var(--bad-soft); box-shadow: inset 4px 0 0 var(--bad); } .mline.hit em { color: var(--bad); }
+.mline.miss { background: var(--ok-soft); box-shadow: inset 4px 0 0 var(--ok); } .mline.miss em { color: var(--ok); }
+.pw-bar { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.pw-bar i { display: block; height: 100%; border-radius: 6px; transition: width .3s; }
+.pw-bar i.bad { background: var(--bad); } .pw-bar i.mid { background: var(--d2); } .pw-bar i.ok { background: var(--ok); }
+.pw-cl span { opacity: .45; } .pw-cl span.on { opacity: 1; }
+code.hx { display: block; padding: 10px 12px; font-size: .86rem; overflow-wrap: anywhere; line-height: 1.6; }
+code.hx .hd { background: var(--bad); color: #fff; border-radius: 2px; }
+pre.hcfg span { display: inline; } pre.hcfg .okl { color: #7FE0B0; } pre.hcfg .kol { color: #FF9AAE; } pre.hcfg .skip { color: #8C9BA5; }
+.gq { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 999px; padding: 10px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.gq code { background: none; font-size: .95rem; overflow-wrap: anywhere; }
+.bks { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.bk { position: relative; border: 1px solid var(--line); border-radius: 10px; padding: 8px 4px; text-align: center; display: flex; flex-direction: column; gap: 2px; font-size: .78rem; background: var(--surface); }
+.bk b { font: 600 .8rem var(--f-mono); } .bk small { color: var(--muted); }
+.bk.need { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1.5px var(--accent); }
+.bk em { position: absolute; top: -8px; right: -6px; font-style: normal; background: var(--navy); color: var(--gold-l); border-radius: 999px; padding: 1px 6px; font: 600 11px var(--f-mono); }
+.bk.crash { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); } .bk.off { opacity: .35; }
+.qcmgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.qcmc .n { width: 2.4rem !important; height: 2.4rem !important; background: linear-gradient(135deg, #D9BD7A, #B8913A) !important; color: #16223D !important; }
+.cnum { font-size: 1.5rem; }
+@media (max-width: 640px) { .rk-wrap { grid-template-columns: 1fr; } .qcmgrid { grid-template-columns: 1fr; } .bks { gap: 3px; } .bk { font-size: .68rem; padding: 6px 2px; } }
 /* Petits écrans */
 @media (max-width: 560px) {
   body { font-size: 16px; }
@@ -480,6 +540,7 @@ details { border: 1px solid var(--line); border-radius: 12px; }
 }
 </style>
 
+<header class="topnav" id="topnav"></header>
 <main id="app"></main>
 
 <script>
@@ -2823,7 +2884,8 @@ THEMES.push(
     { q: "Quel est le dernier verbe de la définition de la veille ?", o: ["Partager", "Copier", "Oublier", "Stocker"], e: "Rechercher, collecter, analyser… et partager : une veille non diffusée ne sert pas à l'équipe." }
   ] },
 
-{ id: 31, ch: 7, pdf: VEILLE_PDF, t: "Le cycle de la veille", short: "5 étapes, axes de surveillance, push et pull, routine", sim: 'pick',
+{ id: 31, ch: 7, pdf: VEILLE_PDF, t: "Le cycle de la veille", short: "5 étapes, axes de surveillance, push et pull, routine", sim: 'order',
+  order: ["Cibler : choisir le sujet, les mots-clés et les objectifs", "Collecter : chercher dans des sources choisies", "Analyser : trier, vérifier, résumer", "Diffuser : transmettre aux bonnes personnes", "Exploiter : décider et agir"],
   scen: [
     { s: "Tu décides de surveiller « la 5G privée en entreprise ». Quelle étape du cycle ?", o: ["Collecter", "Cibler", "Diffuser", "Exploiter"], a: 1, e: "Choisir le sujet et les mots-clés, c'est cibler (étape 1)." },
     { s: "Tu t'abonnes à 4 blogs et tu crées une alerte Google.", o: ["Cibler", "Analyser", "Collecter", "Diffuser"], a: 2, e: "Mettre en place les sources et récupérer l'information : collecter (étape 2)." },
@@ -2856,7 +2918,7 @@ THEMES.push(
   ana: "Retiens C-C-A-D-E, qui se prononce « cascade » : Cibler, Collecter, Analyser, Diffuser, Exploiter. L'information tombe d'une étape à l'autre comme l'eau d'une cascade.",
   res: "Pour sécuriser le télétravail de 40 employés, un technicien suit deux axes : « VPN et accès distant » (Feedly, une fois par semaine) et « failles des solutions VPN » (alertes maCERT, chaque jour, car la sécurité est urgente).",
   piege: "Vouloir tout surveiller. 300 articles par jour, c'est zéro article lu. Mieux vaut 3 axes précis et 10 bonnes sources qu'une montagne d'abonnements.",
-  simIntro: "Identifie l'étape du cycle de veille ou le mode (push / pull) qui correspond à chaque situation.",
+  simIntro: "Remets les 5 étapes du cycle de veille dans le bon ordre : clique-les une par une, de la première à la dernière.",
   q: [
     { q: "Quelle est la première étape du cycle de veille ?", o: ["Cibler", "Collecter", "Diffuser", "Exploiter"], e: "On définit d'abord quoi surveiller, sinon on collecte au hasard." },
     { q: "Recevoir une alerte Google par e-mail, c'est du…", o: ["Push", "Pull", "Plagiat", "Ciblage"], e: "L'information arrive automatiquement : push." },
@@ -2906,7 +2968,7 @@ THEMES.push(
     { q: "Pour un avis neutre sur un produit, il faut…", o: ["Croiser des sources de familles différentes", "Lire uniquement le site du vendeur", "Demander au vendeur", "Choisir l'article le plus récent"], e: "Constructeur + média indépendant + retour communautaire donnent une vision équilibrée." }
   ] },
 
-{ id: 33, ch: 7, pdf: VEILLE_PDF, t: "Les outils de veille", short: "RSS, alertes, opérateurs de recherche, réseaux sociaux, IA", sim: 'pick',
+{ id: 33, ch: 7, pdf: VEILLE_PDF, t: "Les outils de veille", short: "RSS, alertes, opérateurs de recherche, réseaux sociaux, IA", sim: 'query',
   scen: [
     { s: "Tu veux lire chaque matin les nouveaux articles de 15 blogs, au même endroit.", o: ["Un agrégateur RSS (Feedly, Inoreader)", "Google Alerts", "Zotero", "Un assistant IA"], a: 0, e: "L'agrégateur centralise les flux RSS de tous tes sites." },
     { s: "Tu veux être prévenu dès qu'on parle de « IPv6 Maroc » sur le web.", o: ["Un agrégateur RSS", "Une alerte (Google Alerts, Talkwalker)", "Notion", "Un forum"], a: 1, e: "L'alerte envoie un e-mail quand le mot-clé apparaît." },
@@ -2937,7 +2999,7 @@ THEMES.push(
   ana: "Sans RSS, tu passes chaque jour dans 20 boulangeries pour voir s'il y a du pain frais. Avec RSS, les 20 boulangeries livrent leur pain dans ta boîte aux lettres. Les opérateurs de recherche, eux, fonctionnent comme une ACL : on ne laisse passer que ce qui nous intéresse.",
   res: "Une technicienne range ses flux Feedly en trois dossiers (Constructeurs, Sécurité, Wi-Fi) et lit les titres chaque matin avec son café. En 15 minutes, elle sait ce qui a changé dans son domaine.",
   piege: "Croire l'IA sur parole. Elle peut citer un article ou une RFC qui n'existe pas. On vérifie toujours dans une source fiable.",
-  simIntro: "Choisis le bon outil ou la bonne requête pour chaque besoin de veille.",
+  simIntro: "Construis la requête Google qui répond à chaque mission en combinant mots-clés et opérateurs.",
   q: [
     { q: "Feedly est…", o: ["Un agrégateur de flux RSS", "Un pare-feu", "Un moteur de recherche", "Un antivirus"], e: "Il rassemble les flux RSS de plusieurs sites au même endroit." },
     { q: "Quel opérateur limite la recherche à un seul site ?", o: ["site:", "filetype:", "intitle:", "after:"], e: "Exemple : VLAN site:cisco.com" },
@@ -2948,7 +3010,7 @@ THEMES.push(
     { q: "Quel outil prévient par e-mail quand un mot-clé apparaît en ligne ?", o: ["Google Alerts", "Zotero", "Packet Tracer", "OneNote"], e: "C'est le principe d'une alerte (mode push)." }
   ] },
 
-{ id: 34, ch: 7, pdf: VEILLE_PDF, t: "Évaluer la fiabilité d'une source", short: "Méthode CRAAP, QQOQCP, fake news, cycle de la hype", sim: 'pick',
+{ id: 34, ch: 7, pdf: VEILLE_PDF, t: "Évaluer la fiabilité d'une source", short: "Méthode CRAAP, QQOQCP, fake news, cycle de la hype", sim: 'craap',
   scen: [
     { s: "« LE ROUTEUR ZX-9000 REND LES PIRATES IMPUISSANTS !!! » — pas d'auteur, pas de date, code promo -30 %, aucune source. Verdict ?", o: ["Source fiable", "Source douteuse : à écarter", "Source officielle", "Source primaire"], a: 1, e: "Note CRAAP d'environ 1/10 : pas de date, pas d'auteur, aucune preuve, but commercial." },
     { s: "Dans CRAAP, quel critère vérifie la date de publication ?", o: ["Authority", "Purpose", "Currency (actualité)", "Accuracy"], a: 2, e: "Currency = actualité : date et mises à jour." },
@@ -2981,7 +3043,7 @@ THEMES.push(
   ana: "Vérifier une source, c'est comme vérifier un billet de banque : on regarde plusieurs détails (filigrane, hologramme, toucher). Un seul détail suspect suffit pour se méfier.",
   res: "Un message signale une faille critique dans le VPN de certains pare-feu. Le technicien applique le QQOQCP : qui publie (maCERT), quoi (exécution de code à distance), où (VPN SSL), quand (aujourd'hui), comment réagir (patch), pourquoi c'est grave (déjà exploitée).",
   piege: "Confondre « tout le monde en parle » et « c'est prêt ». Au pic de la hype, beaucoup de technologies ne sont pas encore mûres pour les clients.",
-  simIntro: "Évalue chaque information : fiabilité, critère CRAAP ou phase du cycle de la hype.",
+  simIntro: "Note chaque article avec la grille CRAAP (0, 1 ou 2 par critère), puis compare ton verdict avec celui du formateur.",
   q: [
     { q: "Dans CRAAP, le « P » (Purpose) vérifie…", o: ["L'objectif de l'auteur", "Le prix", "Le nombre de pages", "La police d'écriture"], e: "Informer, vendre ou manipuler : c'est l'objectif." },
     { q: "Un article sans auteur, sans date et avec un code promo est…", o: ["Douteux", "Fiable", "Officiel", "Une source primaire"], e: "Il cumule les signaux d'alerte de CRAAP." },
@@ -3149,6 +3211,285 @@ THEMES.push(
     { q: "Combien de fiches de veille faut-il rendre ?", o: ["4", "1", "12", "Aucune"], e: "4 fiches entre la semaine 3 et la semaine 5." },
     { q: "Pourquoi travailler un peu chaque jour plutôt qu'en une seule nuit ?", o: ["Pour montrer un vrai suivi dans le temps", "Parce que les outils ferment la nuit", "Pour avoir moins de sources", "Ce n'est pas utile"], e: "Une veille se construit dans la durée : le jury le voit aux dates des sources." },
     { q: "Lequel est un sujet de projet assez précis ?", o: ["L'adoption d'IPv6 au Maroc", "L'informatique", "Internet", "La technologie"], e: "Un sujet précis permet de vraies fiches et une vraie analyse." }
+  ] }
+);
+
+/* ---------- Thème « La sécurité informatique » (leçons 39 à 47) ---------- */
+const SECU_PDF = 'docs/securite-informatique.pdf';
+THEMES.push(
+{ id: 39, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch1', t: "Les fondamentaux de la sécurité", short: "Triade CIA, actif, menace, vulnérabilité, risque", sim: 'risk',
+  def: "La sécurité informatique regroupe les moyens techniques, organisationnels et humains qui protègent un système d'information contre les accès non autorisés, les modifications, les destructions et les interruptions.",
+  pts: [
+    "Triade CIA (en français DIC) : Confidentialité (seules les personnes autorisées lisent), Intégrité (rien n'est modifié sans autorisation), Disponibilité (le service marche quand on en a besoin).",
+    "On ajoute souvent l'authentification (prouver qui on est) et la traçabilité (garder la preuve de qui a fait quoi).",
+    "Actif = ce qui a de la valeur. Menace = ce qui peut causer un dommage. Vulnérabilité = la faiblesse exploitée. Risque = une menace qui exploite une vulnérabilité sur un actif.",
+    "Risque = Probabilité × Impact, chacun noté de 1 à 4. Un risque de 9 ou plus est prioritaire.",
+    "4 façons de traiter un risque : le réduire (contre-mesure), le transférer (assurance, prestataire), l'éviter (supprimer l'activité), l'accepter (en le documentant).",
+    "Défense en profondeur : plusieurs couches successives (périmètre, réseau, poste, application, données). Si une couche cède, la suivante protège.",
+    "Le maillon le plus faible est souvent l'humain : la sensibilisation fait partie de la sécurité."
+  ],
+  table: { h: ["Pilier", "Objectif", "Exemple d'attaque", "Protection"], r: [
+    ["Confidentialité", "Seuls les autorisés lisent", "Écoute du Wi-Fi", "Chiffrement, contrôle d'accès"],
+    ["Intégrité", "Pas de modification", "RIB changé dans une facture", "Hachage, signature"],
+    ["Disponibilité", "Service accessible", "Attaque DDoS", "Redondance, sauvegardes"]
+  ] },
+  kw: ["CIA / DIC", "Actif", "Menace", "Vulnérabilité", "Risque", "Contre-mesure", "Défense en profondeur"],
+  ana: "Protéger un réseau, c'est protéger une maison : une serrure (mot de passe), une alarme (détection), un coffre (chiffrement), une assurance (sauvegarde)… et des habitants qui n'ouvrent pas au premier inconnu (sensibilisation).",
+  res: "Un serveur de fichiers sans sauvegarde, exposé aux ransomwares : probabilité 3, impact 4, risque 12. C'est le premier chantier : sauvegarde 3-2-1, mises à jour et antivirus.",
+  piege: "Confondre menace et vulnérabilité. Le pirate est la menace ; le mot de passe « 123456 » est la vulnérabilité. On ne supprime pas les pirates, on supprime les vulnérabilités.",
+  simIntro: "Choisis un scénario ou règle toi-même la probabilité et l'impact : la matrice calcule le niveau de risque et propose un traitement.",
+  q: [
+    { q: "Que signifie le « I » de la triade CIA ?", o: ["Intégrité", "Internet", "Identification", "Isolation"], e: "Intégrité : l'information n'est pas modifiée sans autorisation." },
+    { q: "Une attaque DDoS touche surtout…", o: ["La disponibilité", "L'intégrité", "La confidentialité", "La traçabilité"], e: "Le service devient inaccessible." },
+    { q: "Le mot de passe « 123456 » est…", o: ["Une vulnérabilité", "Une menace", "Un actif", "Une contre-mesure"], e: "C'est une faiblesse que la menace (le pirate) peut exploiter." },
+    { q: "Comment calcule-t-on un niveau de risque simple ?", o: ["Probabilité × Impact", "Menace + Actif", "Coût ÷ Temps", "Impact − Probabilité"], e: "Chaque critère est noté de 1 à 4, le produit donne le niveau." },
+    { q: "Souscrire une assurance cyber, c'est…", o: ["Transférer le risque", "Éviter le risque", "Réduire le risque", "Ignorer le risque"], e: "Le risque financier est confié à un tiers." },
+    { q: "La défense en profondeur consiste à…", o: ["Empiler plusieurs couches de protection", "Acheter le pare-feu le plus cher", "Cacher le réseau", "Tout chiffrer avec une seule clé"], e: "Si une couche cède, la suivante protège encore." },
+    { q: "Un e-mail avec des données clients envoyé à la mauvaise personne touche…", o: ["La confidentialité", "La disponibilité", "L'intégrité", "Le débit"], e: "Une personne non autorisée a accès à l'information." }
+  ] },
+
+{ id: 40, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch2', t: "Les menaces et les attaques", short: "Malwares, phishing, DDoS, MITM, attaques de couche 2", sim: 'phish',
+  def: "Une attaque exploite une vulnérabilité pour nuire. Les plus courantes passent par des logiciels malveillants (malwares), par la manipulation des personnes (ingénierie sociale) ou par des faiblesses du réseau et des applications.",
+  pts: [
+    "Virus : a besoin qu'on lance le fichier. Ver : se propage seul sur le réseau. Cheval de Troie : caché dans un logiciel qui semble utile.",
+    "Ransomware : chiffre les fichiers et demande une rançon. Spyware / keylogger : espionne. Botnet : machines « zombies » pilotées à distance. Rootkit : se cache au cœur du système.",
+    "Ingénierie sociale : phishing (faux e-mail), smishing (SMS), vishing (téléphone), fraude au président, clé USB piégée, tailgating.",
+    "DoS / DDoS : saturer un service pour le rendre indisponible.",
+    "MITM (homme du milieu) : le pirate s'intercale entre deux machines, souvent grâce à l'ARP spoofing.",
+    "Couche 2 : MAC flooding (contre : port security), DHCP spoofing (contre : DHCP snooping), ARP spoofing (contre : Dynamic ARP Inspection), VLAN hopping.",
+    "Mots de passe et web : force brute, dictionnaire, credential stuffing, injection SQL, XSS, zero-day."
+  ],
+  table: { h: ["Attaque", "Principe", "Protection"], r: [
+    ["MAC flooding", "Remplir la table MAC du switch", "Port security"],
+    ["DHCP spoofing", "Faux serveur DHCP", "DHCP snooping"],
+    ["ARP spoofing", "Se faire passer pour la passerelle", "Dynamic ARP Inspection"],
+    ["Écoute (sniffing)", "Lire le trafic non chiffré", "SSH, HTTPS"],
+    ["Injection SQL", "Code SQL dans un formulaire", "Requêtes préparées"]
+  ] },
+  kw: ["Malware", "Ransomware", "Ver", "Cheval de Troie", "Phishing", "DDoS", "MITM", "ARP spoofing", "Zero-day"],
+  ana: "Le cheval de Troie de la légende : un cadeau magnifique devant les portes de la ville… avec des soldats cachés dedans. Un « crack » de logiciel gratuit fonctionne exactement pareil.",
+  res: "Un comptable reçoit un e-mail « du directeur » lui demandant un virement urgent et confidentiel. Il appelle le directeur sur son vrai numéro : c'était une fraude au président.",
+  piege: "Croire qu'un e-mail est sûr parce qu'il affiche le bon logo et le bon nom. Le nom affiché se falsifie facilement : il faut regarder l'adresse réelle et l'adresse des liens.",
+  simIntro: "Inspecte cet e-mail : clique sur chaque élément qui te semble suspect. Trouve les 6 indices de phishing.",
+  q: [
+    { q: "Un malware qui se propage tout seul sur le réseau est…", o: ["Un ver", "Un virus", "Un adware", "Un cheval de Troie"], e: "Le ver exploite une faille pour passer de machine en machine sans action humaine." },
+    { q: "Le phishing est une technique…", o: ["D'ingénierie sociale", "De chiffrement", "De routage", "De sauvegarde"], e: "On manipule la personne pour qu'elle donne ses identifiants." },
+    { q: "Quelle protection contre le MAC flooding ?", o: ["Port security", "DHCP snooping", "NAT", "OSPF"], e: "On limite le nombre d'adresses MAC par port." },
+    { q: "Un faux serveur DHCP se bloque avec…", o: ["DHCP snooping", "BPDU Guard", "Port security", "VLAN natif"], e: "Seuls les ports « trust » peuvent envoyer des offres DHCP." },
+    { q: "Un ransomware…", o: ["Chiffre les fichiers et demande une rançon", "Affiche de la publicité", "Accélère le réseau", "Protège contre les virus"], e: "La meilleure parade : une sauvegarde hors ligne." },
+    { q: "Une faille exploitée avant qu'un correctif existe s'appelle…", o: ["Un zero-day", "Un patch", "Une CVE corrigée", "Un botnet"], e: "L'éditeur n'a eu « zéro jour » pour la corriger." },
+    { q: "Quel est le bon réflexe face à un e-mail suspect ?", o: ["Ne pas cliquer et le signaler", "Répondre pour vérifier", "Cliquer pour voir", "Le transférer à tous"], e: "On vérifie par un autre canal et on prévient le service informatique." }
+  ] },
+
+{ id: 41, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch3', t: "Authentification et contrôle d'accès", short: "Mots de passe, MFA, moindre privilège, AAA", sim: 'pwd',
+  def: "L'identification dit qui on prétend être, l'authentification le prouve, l'autorisation fixe ce qu'on a le droit de faire. Le contrôle d'accès applique ces trois étapes à chaque ressource.",
+  pts: [
+    "3 facteurs : ce que je sais (mot de passe, PIN), ce que je possède (téléphone, badge), ce que je suis (empreinte, visage).",
+    "MFA : au moins deux facteurs de familles différentes. Mot de passe + PIN n'est pas une MFA.",
+    "Un bon mot de passe est long (12 caractères minimum, 16 pour les admins), unique par service et rangé dans un gestionnaire (Bitwarden, KeePass).",
+    "La longueur compte plus que la complexité : une phrase de passe comme « Le-Switch-Bleu-Clignote! » est solide et mémorisable.",
+    "Moindre privilège : chacun n'a que les droits nécessaires. RBAC : les droits sont donnés à des rôles.",
+    "AAA : Authentication, Authorization, Accounting. RADIUS (UDP, standard ouvert) et TACACS+ (TCP 49, Cisco, chiffre tout le paquet) centralisent les comptes."
+  ],
+  table: { h: ["", "RADIUS", "TACACS+"], r: [
+    ["Transport", "UDP 1812 / 1813", "TCP 49"],
+    ["Chiffrement", "Mot de passe seulement", "Tout le paquet"],
+    ["Usage typique", "Wi-Fi 802.1X, VPN", "Administration des équipements"]
+  ] },
+  kw: ["Authentification", "MFA", "Phrase de passe", "Gestionnaire de mots de passe", "Moindre privilège", "RBAC", "AAA", "RADIUS"],
+  ana: "À l'aéroport : tu donnes ton nom (identification), tu montres ton passeport (authentification), ta carte d'embarquement t'ouvre un seul avion, pas le cockpit (autorisation).",
+  res: "Une PME remplace le compte « admin » partagé par des comptes nominatifs, active la MFA sur la messagerie et centralise l'accès aux switchs sur un serveur RADIUS : chaque action est désormais tracée.",
+  piege: "Ajouter des symboles à un mot court (« P@ss1 ») ne le rend pas solide. Les substitutions classiques sont dans tous les dictionnaires d'attaque : la longueur reste le critère numéro 1.",
+  simIntro: "Tape un mot de passe d'exemple (jamais ton vrai mot de passe) : le testeur calcule sa robustesse et le temps pour le casser. Tout reste dans ton navigateur.",
+  q: [
+    { q: "Mot de passe + code de l'application sur le téléphone, c'est…", o: ["Une MFA", "Un hachage", "Un VPN", "Un seul facteur"], e: "Je sais + je possède : deux familles différentes." },
+    { q: "Quel est le critère le plus important d'un mot de passe ?", o: ["La longueur", "La présence d'un @", "La majuscule au début", "Le chiffre à la fin"], e: "Chaque caractère en plus multiplie le temps de cassage." },
+    { q: "Une empreinte digitale est un facteur…", o: ["Ce que je suis", "Ce que je sais", "Ce que je possède", "Ce que je fais"], e: "C'est de la biométrie." },
+    { q: "Le moindre privilège signifie…", o: ["Donner seulement les droits nécessaires", "Donner tous les droits aux techniciens", "Supprimer les mots de passe", "Partager un compte admin"], e: "Moins de droits = moins de dégâts en cas d'erreur ou de piratage." },
+    { q: "Quel protocole chiffre tout le paquet et utilise TCP 49 ?", o: ["TACACS+", "RADIUS", "Telnet", "SNMPv1"], e: "TACACS+ est souvent utilisé pour l'administration des équipements Cisco." },
+    { q: "Le « A » d'Accounting dans AAA sert à…", o: ["Garder une trace de ce qui a été fait", "Créer des comptes bancaires", "Chiffrer le trafic", "Bloquer les ports"], e: "Journal des connexions et des commandes." }
+  ] },
+
+{ id: 42, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch4', t: "Les bases de la cryptographie", short: "Symétrique, asymétrique, hachage, certificats, HTTPS", sim: 'hash',
+  def: "La cryptographie protège les données : le chiffrement rend un message illisible sans la clé (confidentialité), le hachage produit une empreinte qui révèle toute modification (intégrité), la signature prouve l'auteur.",
+  pts: [
+    "Symétrique : une seule clé pour chiffrer et déchiffrer. Rapide. Exemple : AES. Problème : partager la clé en sécurité.",
+    "Asymétrique : une clé publique (pour chiffrer, connue de tous) et une clé privée (pour déchiffrer, gardée secrète). Lent. Exemples : RSA, ECC.",
+    "Chiffrement hybride (HTTPS, SSH, VPN) : l'asymétrique échange une clé de session, puis AES chiffre les données.",
+    "Hachage : empreinte de taille fixe, à sens unique. Un seul caractère change → empreinte totalement différente. SHA-256 est sûr ; MD5 et SHA-1 sont cassés.",
+    "Signature : on hache le message puis on chiffre l'empreinte avec sa clé privée. Le destinataire vérifie avec la clé publique.",
+    "Certificat X.509 : associe une clé publique à une identité, signé par une autorité de certification (AC). L'ensemble forme une PKI.",
+    "On remplace HTTP (80) par HTTPS (443), Telnet (23) par SSH (22), FTP par SFTP, SNMPv1/v2c par SNMPv3."
+  ],
+  table: { h: ["", "Symétrique", "Asymétrique"], r: [
+    ["Clés", "1 clé partagée", "Publique + privée"],
+    ["Vitesse", "Rapide", "Lente"],
+    ["Exemples", "AES", "RSA, ECC"],
+    ["Usage", "Chiffrer les données", "Échanger une clé, signer"]
+  ] },
+  kw: ["Chiffrement", "AES", "RSA", "Clé publique", "Clé privée", "Hachage", "SHA-256", "Signature", "Certificat", "TLS"],
+  ana: "Le cadenas ouvert : Salma distribue des cadenas ouverts (clé publique). Tout le monde peut fermer une boîte avec, mais seule Salma a la clé qui les ouvre (clé privée).",
+  res: "Avant d'installer une image ISO, le technicien calcule son empreinte SHA-256 et la compare avec celle publiée sur le site officiel : si elles diffèrent, le fichier a été modifié et il ne l'installe pas.",
+  piege: "Hacher n'est pas chiffrer. On ne « déhache » jamais une empreinte, alors qu'un texte chiffré se déchiffre avec la clé. Et on dit « chiffrer », pas « crypter ».",
+  simIntro: "Tape un texte : son empreinte SHA-256 se calcule en direct. Change une seule lettre et observe combien de caractères de l'empreinte changent (effet avalanche).",
+  q: [
+    { q: "AES est un algorithme…", o: ["Symétrique", "Asymétrique", "De hachage", "De routage"], e: "Une seule clé partagée, très rapide." },
+    { q: "Pour envoyer un message chiffré à Salma, on utilise…", o: ["La clé publique de Salma", "La clé privée de Salma", "Sa propre clé privée", "Aucune clé"], e: "Seule la clé privée de Salma pourra le déchiffrer." },
+    { q: "Pour signer un document, Salma utilise…", o: ["Sa clé privée", "Sa clé publique", "La clé publique du destinataire", "Un mot de passe Wi-Fi"], e: "Tout le monde peut vérifier avec sa clé publique." },
+    { q: "SHA-256 sert principalement à vérifier…", o: ["L'intégrité", "La disponibilité", "Le débit", "La confidentialité"], e: "Toute modification change l'empreinte." },
+    { q: "Quel algorithme de hachage ne faut-il plus utiliser pour la sécurité ?", o: ["MD5", "SHA-256", "SHA-3", "SHA-512"], e: "MD5 (et SHA-1) sont cassés." },
+    { q: "Qui signe un certificat de site web ?", o: ["Une autorité de certification", "Le navigateur", "Le fournisseur d'accès", "L'utilisateur"], e: "Les navigateurs font confiance à une liste d'AC." },
+    { q: "Quel protocole remplace HTTP pour un site sécurisé ?", o: ["HTTPS", "FTP", "Telnet", "SNMPv1"], e: "HTTP + TLS, port 443." }
+  ] },
+
+{ id: 43, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch5', t: "Sécuriser les équipements réseau", short: "enable secret, SSH, port security, durcissement", sim: 'harden',
+  def: "Durcir un routeur ou un switch, c'est protéger ses accès d'administration, chiffrer les sessions et fermer tout ce qui ne sert pas, pour qu'il ne devienne pas la porte d'entrée du réseau.",
+  pts: [
+    "`enable secret` protège le mode privilégié avec un hash. Ne plus utiliser `enable password` (stocké en clair).",
+    "`service password-encryption` masque les autres mots de passe dans la configuration.",
+    "Telnet envoie tout en clair : on le remplace par SSH v2 (`ip domain-name`, `username … secret`, `crypto key generate rsa`, `ip ssh version 2`, `transport input ssh`).",
+    "`login block-for` freine la force brute, `exec-timeout` ferme les sessions inactives, `banner motd` affiche l'avertissement légal.",
+    "`access-class` sur les lignes VTY limite l'administration à quelques postes.",
+    "Port security : maximum de MAC par port, `sticky`, violation protect / restrict / shutdown (port en err-disabled).",
+    "Ports inutilisés éteints dans un VLAN « parking », pas de trunk automatique, VLAN natif dédié, DHCP snooping, DAI, BPDU Guard."
+  ],
+  table: { h: ["Mode de violation", "Trafic interdit", "Alerte", "Port"], r: [
+    ["protect", "Bloqué", "Non", "Actif"],
+    ["restrict", "Bloqué", "Oui", "Actif"],
+    ["shutdown", "Bloqué", "Oui", "err-disabled"]
+  ] },
+  kw: ["enable secret", "SSH", "Telnet", "Port security", "Sticky", "err-disabled", "DHCP snooping", "BPDU Guard", "Durcissement"],
+  ana: "Un équipement non durci, c'est une maison neuve livrée avec la clé sous le paillasson et toutes les fenêtres ouvertes. Durcir, c'est changer la serrure et fermer ce qui ne sert pas.",
+  res: "Après un audit, une école passe tous ses switchs en SSH, éteint les 120 ports inutilisés et active la port security dans les salles de TP : un portable personnel branché sur une prise murale n'a plus accès au réseau.",
+  piege: "Oublier `switchport mode access` avant la port security : la commande est refusée sur un port en mode dynamique. Et SSH ne démarre pas sans hostname ni domaine.",
+  simIntro: "Active les mesures de durcissement une à une : la configuration se corrige, le score monte, et la capture réseau montre ce qu'un pirate verrait.",
+  q: [
+    { q: "Quelle commande protège le mode privilégié avec un hash ?", o: ["enable secret", "enable password", "login local", "service dhcp"], e: "enable password est stocké en clair." },
+    { q: "Pourquoi abandonner Telnet ?", o: ["Il transmet tout en clair, mot de passe compris", "Il est trop lent", "Il ne marche pas sur Cisco", "Il consomme trop d'énergie"], e: "Une capture Wireshark suffit à lire le mot de passe." },
+    { q: "Quelle commande interdit Telnet sur les lignes VTY ?", o: ["transport input ssh", "login block-for", "exec-timeout 5 0", "banner motd"], e: "Seul SSH est accepté." },
+    { q: "En mode de violation « shutdown », le port…", o: ["Passe en err-disabled", "Reste actif", "Change de VLAN", "Devient un trunk"], e: "On le réactive avec shutdown puis no shutdown." },
+    { q: "Que fait l'option « sticky » de la port security ?", o: ["Apprend et retient les MAC autorisées", "Bloque tout le trafic", "Active SSH", "Crée un VLAN"], e: "Les adresses apprises sont ajoutées à la configuration." },
+    { q: "Que faire des ports inutilisés d'un switch ?", o: ["Les éteindre et les placer dans un VLAN inutilisé", "Les laisser actifs dans le VLAN 1", "Les passer en trunk", "Leur donner une adresse IP"], e: "Un port actif et libre est une prise ouverte pour un intrus." }
+  ] },
+
+{ id: 44, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch6', t: "Pare-feu, ACL, DMZ, IDS/IPS et VPN", short: "Filtrer, isoler, détecter, chiffrer", sim: 'acl',
+  def: "Un pare-feu filtre le trafic entre zones de confiance. Sur un routeur Cisco, les ACL appliquent des règles permit / deny lues de haut en bas, avec un deny any implicite à la fin.",
+  pts: [
+    "Pare-feu : filtrage de paquets (sans état), à états (suit les connexions), applicatif / NGFW (reconnaît les applications).",
+    "Politique : tout interdire, puis autoriser seulement le nécessaire (liste blanche).",
+    "ACL lue de haut en bas : la première ligne qui correspond s'applique. À la fin : deny any implicite.",
+    "ACL standard (1-99) : filtre la source, se place près de la destination. ACL étendue (100-199) : source, destination, protocole, port, se place près de la source.",
+    "Wildcard = 255.255.255.255 − masque. /24 → 0.0.0.255, /26 → 0.0.0.63, un hôte → `host`.",
+    "DMZ : zone isolée pour les serveurs publics. IDS : détecte et alerte. IPS : détecte et bloque, en coupure.",
+    "VPN : tunnel chiffré, site à site (IPsec) ou accès distant (SSL/TLS)."
+  ],
+  table: { h: ["", "ACL standard", "ACL étendue"], r: [
+    ["Numéros", "1-99, 1300-1999", "100-199, 2000-2699"],
+    ["Filtre sur", "Source", "Source, destination, protocole, port"],
+    ["Placement", "Près de la destination", "Près de la source"]
+  ] },
+  kw: ["Pare-feu", "ACL", "Deny implicite", "Wildcard", "DMZ", "IDS", "IPS", "VPN", "IPsec"],
+  ana: "Une ACL, c'est le vigile d'une salle avec une liste : il la lit de haut en bas et applique la première ligne qui concerne la personne. Si personne n'est sur la liste : on n'entre pas.",
+  res: "Une école autorise les stagiaires à consulter le serveur de notes en HTTPS seulement, et réserve l'administration SSH du routeur au seul poste du technicien.",
+  piege: "Écrire une ACL avec seulement des deny et oublier le `permit any` final : le deny implicite bloque tout le reste et le réseau entier tombe.",
+  simIntro: "Choisis une ACL et un paquet, puis lance le test : le routeur lit les lignes une à une jusqu'à la première correspondance. Observe le deny implicite.",
+  q: [
+    { q: "À la fin de chaque ACL se trouve…", o: ["Un deny any implicite", "Un permit any implicite", "Rien", "Un log automatique"], e: "Tout ce qui n'est pas explicitement autorisé est bloqué." },
+    { q: "Le wildcard de 192.168.1.0/24 est…", o: ["0.0.0.255", "255.255.255.0", "0.0.255.255", "255.255.255.255"], e: "255.255.255.255 − 255.255.255.0." },
+    { q: "Une ACL étendue se place…", o: ["Près de la source", "Près de la destination", "Toujours sur le switch", "Sur la carte réseau du PC"], e: "On bloque le trafic indésirable le plus tôt possible." },
+    { q: "Un IPS, contrairement à un IDS…", o: ["Bloque l'attaque", "Alerte seulement", "Chiffre le trafic", "Sauvegarde les données"], e: "L'IPS est placé en coupure dans le flux." },
+    { q: "Où place-t-on un serveur web public ?", o: ["Dans la DMZ", "Dans le LAN des employés", "Sur le poste du directeur", "Dans le VLAN natif"], e: "S'il est piraté, l'attaquant n'est pas directement dans le LAN." },
+    { q: "Un VPN site à site relie généralement deux agences avec…", o: ["IPsec", "Telnet", "FTP", "WEP"], e: "Tunnel chiffré permanent entre deux routeurs ou pare-feu." },
+    { q: "Une ACL contient « permit tcp any any eq 443 ». Un ping est…", o: ["Bloqué par le deny implicite", "Autorisé", "Redirigé", "Chiffré"], e: "ICMP ne correspond à aucune ligne." }
+  ] },
+
+{ id: 45, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch7', t: "La sécurité du Wi-Fi", short: "WEP, WPA2, WPA3, PSK et 802.1X", sim: 'wifi',
+  def: "Les ondes Wi-Fi traversent les murs : n'importe qui à proximité peut capter le signal. Il faut donc chiffrer les échanges et contrôler qui se connecte.",
+  pts: [
+    "WEP (cassé) et WPA-TKIP (obsolète) sont à bannir. WPA2-AES est le minimum. WPA3 (SAE) est recommandé.",
+    "Mode Personnel (PSK) : une clé pour tout le monde. Adapté à la maison et aux invités.",
+    "Mode Entreprise (802.1X) : un compte par personne, vérifié par un serveur RADIUS. On désactive un compte sans changer la clé de tous.",
+    "802.1X : supplicant (le client), authenticator (le point d'accès), serveur d'authentification (RADIUS).",
+    "Attaques : evil twin (faux point d'accès), rogue AP (point d'accès pirate branché au réseau), dictionnaire sur le handshake WPA2-PSK, désauthentification.",
+    "Bonnes pratiques : désactiver WPS, phrase de passe de 16+ caractères, réseau invités isolé, mot de passe admin changé, firmware à jour. Masquer le SSID ne sécurise pas."
+  ],
+  table: { h: ["Protocole", "Chiffrement", "Verdict"], r: [
+    ["WEP", "RC4", "Cassé : interdit"],
+    ["WPA", "TKIP", "Obsolète"],
+    ["WPA2", "AES-CCMP", "Minimum acceptable"],
+    ["WPA3", "AES + SAE", "Recommandé"]
+  ] },
+  kw: ["WPA2", "WPA3", "PSK", "802.1X", "RADIUS", "Evil twin", "Rogue AP", "WPS", "Réseau invités"],
+  ana: "Avec le Wi-Fi, ton câble réseau arrive jusque dans le parking. Il faut donc une porte solide (chiffrement) et un vigile qui vérifie chaque badge (802.1X).",
+  res: "Un ISTA passe de WPA2-PSK (une clé connue de 300 personnes) à WPA2-Entreprise avec RADIUS : quand un stagiaire quitte l'établissement, on désactive seulement son compte.",
+  piege: "Croire qu'un SSID masqué protège le réseau. Le nom reste visible dans les trames avec n'importe quel outil d'analyse Wi-Fi.",
+  simIntro: "Configure le point d'accès : chaque choix modifie le score de sécurité et la liste des problèmes. Vise 100 %.",
+  q: [
+    { q: "Quel protocole Wi-Fi est recommandé aujourd'hui ?", o: ["WPA3", "WEP", "WPA-TKIP", "Aucun, SSID masqué"], e: "WPA3 utilise SAE, qui résiste aux attaques par dictionnaire hors ligne." },
+    { q: "Le mode Entreprise utilise…", o: ["802.1X avec un serveur RADIUS", "Une clé partagée", "WPS", "Le filtrage MAC seul"], e: "Un compte individuel par utilisateur." },
+    { q: "Pourquoi désactiver WPS ?", o: ["Son code PIN est facile à casser", "Il ralentit le Wi-Fi", "Il empêche le DHCP", "Il chiffre trop"], e: "Une attaque peut retrouver le PIN et donc la clé." },
+    { q: "Un faux point d'accès qui imite le vrai SSID s'appelle…", o: ["Evil twin", "Rogue switch", "Botnet", "Honeypot"], e: "Il capte les connexions pour un MITM." },
+    { q: "Masquer le SSID…", o: ["Ne sécurise pas vraiment le réseau", "Remplace le chiffrement", "Bloque les pirates", "Active WPA3"], e: "Le nom reste visible avec un outil d'analyse." },
+    { q: "Dans 802.1X, le point d'accès joue le rôle de…", o: ["Authenticator", "Supplicant", "Serveur RADIUS", "Autorité de certification"], e: "Il relaie l'authentification vers le serveur RADIUS." }
+  ] },
+
+{ id: 46, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch8', t: "Protéger les postes et les données", short: "Mises à jour, antivirus, sauvegardes 3-2-1", sim: 'backup',
+  def: "La protection du poste et des données repose sur l'hygiène informatique (mises à jour, antivirus, comptes standard, chiffrement) et sur des sauvegardes fiables, testées et isolées.",
+  pts: [
+    "Mises à jour rapides : les failles publiées sont exploitées en quelques jours. Priorité aux failles critiques (score CVSS 9 à 10).",
+    "Antivirus / EDR, pare-feu du poste, compte utilisateur standard (pas administrateur), chiffrement du disque (BitLocker), verrouillage de session.",
+    "Règle 3-2-1 : 3 copies des données, sur 2 supports différents, dont 1 hors site (idéalement hors ligne ou non modifiable).",
+    "Complète : tout. Incrémentale : changements depuis la dernière sauvegarde. Différentielle : changements depuis la dernière complète.",
+    "Restaurer une incrémentale : la complète + toutes les incrémentales suivantes. Une différentielle : la complète + la dernière différentielle.",
+    "Une sauvegarde jamais testée n'est qu'un espoir : on teste les restaurations régulièrement."
+  ],
+  table: { h: ["Type", "Copie", "Restauration"], r: [
+    ["Complète", "Tout", "1 seule sauvegarde"],
+    ["Incrémentale", "Depuis la dernière sauvegarde", "Complète + toutes les incrémentales"],
+    ["Différentielle", "Depuis la dernière complète", "Complète + dernière différentielle"]
+  ] },
+  kw: ["Mise à jour", "EDR", "BitLocker", "CVSS", "Règle 3-2-1", "Incrémentale", "Différentielle", "Hors ligne"],
+  ana: "La sauvegarde, c'est la roue de secours : on n'y pense jamais… jusqu'à la crevaison. Et elle doit être gonflée : une sauvegarde jamais testée, c'est une roue à plat.",
+  res: "Une PME touchée par un ransomware restaure tout en une journée grâce au disque de sauvegarde débranché chaque vendredi et rangé chez le gérant. Sa voisine, qui sauvegardait sur un NAS toujours connecté, a tout perdu.",
+  piege: "Une sauvegarde toujours branchée au réseau peut être chiffrée par le ransomware en même temps que le serveur. Il faut une copie hors ligne.",
+  simIntro: "Choisis le type de sauvegarde quotidienne et le jour de la panne : la frise montre les sauvegardes à restaurer et leur ordre.",
+  q: [
+    { q: "La règle 3-2-1 impose…", o: ["3 copies, 2 supports, 1 hors site", "3 serveurs, 2 NAS, 1 cloud", "3 sauvegardes par jour", "3 antivirus, 2 pare-feu, 1 VPN"], e: "Avec idéalement une copie hors ligne." },
+    { q: "Une sauvegarde incrémentale copie…", o: ["Ce qui a changé depuis la dernière sauvegarde", "Tout à chaque fois", "Ce qui a changé depuis la dernière complète", "Uniquement les e-mails"], e: "Rapide à faire, mais restauration plus longue." },
+    { q: "Complète le dimanche, différentielles chaque jour, panne le jeudi. Que restaurer ?", o: ["Dimanche + mercredi", "Dimanche + lundi + mardi + mercredi", "Mercredi seulement", "Dimanche seulement"], e: "La dernière différentielle contient tout depuis la complète." },
+    { q: "Pourquoi utiliser un compte standard au quotidien ?", o: ["Un malware s'installe plus difficilement", "Le PC est plus rapide", "Les mises à jour sont désactivées", "Pour partager le mot de passe"], e: "Moins de droits = moins de dégâts." },
+    { q: "Quel outil chiffre le disque d'un PC Windows ?", o: ["BitLocker", "Wireshark", "Packet Tracer", "Telnet"], e: "Un portable volé ne livre pas ses données." },
+    { q: "Pourquoi tester les restaurations ?", o: ["Pour être sûr que la sauvegarde fonctionne le jour J", "Pour gagner de la place", "Pour accélérer le réseau", "C'est inutile"], e: "On découvre sinon le problème au pire moment." }
+  ] },
+
+{ id: 47, ch: 8, pdf: SECU_PDF, web: 'securite.html#ch9', t: "Incidents, normes et cadre légal", short: "Réponse à incident, maCERT, ISO 27001, lois marocaines", sim: 'order',
+  order: ["Préparer : plan, contacts, sauvegardes", "Détecter : repérer et qualifier l'incident", "Contenir : isoler la machine du réseau", "Éradiquer : supprimer la cause, corriger la faille", "Restaurer : remettre en service depuis une sauvegarde saine", "Tirer les leçons : améliorer les défenses"],
+  def: "Un incident de sécurité se gère avec une méthode préparée à l'avance : préparer, détecter, contenir, éradiquer, restaurer, tirer les leçons. Au Maroc, la DGSSI et le maCERT accompagnent les organismes, dans le cadre des lois 07-03, 09-08 et 05-20.",
+  pts: [
+    "Ransomware sur un PC : l'isoler du réseau (câble, Wi-Fi) sans l'éteindre, prévenir immédiatement, ne pas payer la rançon.",
+    "DGSSI : autorité nationale de la cybersécurité. maCERT : centre de veille, détection et réponse aux incidents. CNDP : données personnelles.",
+    "Loi 07-03 : accès frauduleux aux systèmes informatiques. Loi 09-08 : protection des données personnelles. Loi 05-20 : cybersécurité des administrations et infrastructures vitales.",
+    "ISO 27001 : système de management de la sécurité (SMSI), certifiable. ISO 27002 : catalogue de mesures. ISO 27005 : gestion des risques.",
+    "Roue PDCA : Plan (analyser les risques), Do (mettre en œuvre), Check (contrôler), Act (améliorer)."
+  ],
+  table: { h: ["Loi", "Objet"], r: [
+    ["07-03", "Atteintes aux systèmes de traitement automatisé des données"],
+    ["09-08", "Protection des données personnelles (CNDP)"],
+    ["05-20", "Cybersécurité"],
+    ["43-20", "Services de confiance (signature électronique)"]
+  ] },
+  kw: ["Réponse à incident", "Confinement", "DGSSI", "maCERT", "CNDP", "Loi 07-03", "Loi 09-08", "Loi 05-20", "ISO 27001", "PDCA"],
+  ana: "Comme un exercice d'évacuation incendie : on le prépare et on le répète avant le jour J, pour que chacun sache quoi faire sans paniquer.",
+  res: "Un employé voit ses fichiers renommés en .locked. Il débranche son câble réseau et appelle le support, qui isole le poste, vérifie le serveur, réinstalle la machine et restaure les fichiers. Le lendemain : formation anti-phishing pour tous.",
+  piege: "Éteindre brutalement la machine infectée : on perd des traces en mémoire utiles à l'enquête. On l'isole du réseau, on ne l'éteint pas.",
+  simIntro: "Remets les étapes de la réponse à incident dans le bon ordre : clique-les une par une, de la première à la dernière.",
+  q: [
+    { q: "Face à un ransomware sur un PC, le premier réflexe est…", o: ["Isoler le PC du réseau", "Payer la rançon", "Éteindre tous les serveurs", "Attendre le lendemain"], e: "On empêche la propagation sans détruire les traces." },
+    { q: "Quelle loi marocaine punit l'accès frauduleux à un système ?", o: ["La loi 07-03", "La loi 09-08", "La loi 43-20", "La loi 2-00"], e: "Elle complète le Code pénal." },
+    { q: "La CNDP contrôle…", o: ["La protection des données personnelles", "Les fréquences radio", "Les prix des équipements", "Les certificats SSL"], e: "Dans le cadre de la loi 09-08." },
+    { q: "Quelle norme définit le système de management de la sécurité (SMSI) ?", o: ["ISO 27001", "ISO 9001", "IEEE 802.11", "RFC 791"], e: "Une organisation peut être certifiée ISO 27001." },
+    { q: "Que signifie le « C » de PDCA ?", o: ["Check (contrôler)", "Chiffrer", "Configurer", "Collecter"], e: "Plan, Do, Check, Act." },
+    { q: "Quelle étape vient juste après « contenir » ?", o: ["Éradiquer", "Préparer", "Détecter", "Tirer les leçons"], e: "Préparer, détecter, contenir, éradiquer, restaurer, leçons." }
   ] }
 );
 
@@ -3385,10 +3726,378 @@ function simVrrp(el) {
   draw();
 }
 
-const SIMS = { redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
+
+/* ==========================================================
+   Simulations : modules Veille technologique et Sécurité
+   ========================================================== */
+
+/* --- Remettre des étapes dans l'ordre (cycle de veille, réponse à incident) --- */
+function simOrder(el, t) {
+  const R = t.order; let pool, done, err, msg;
+  function reset() { pool = shuffle(R.map((x, i) => i)); done = []; err = 0; msg = ''; draw(); }
+  function draw() {
+    const fin = done.length === R.length;
+    let h = `<div class="sim"><div class="eyebrow">${fin ? 'Terminé' : `Étape ${done.length + 1} sur ${R.length}`}</div>
+      <ol class="ord-done">${done.map(i => `<li><span class="ord-n">${i + 1}</span>${esc(R[i])}</li>`).join('')}${fin ? '' : `<li class="ord-next"><span class="ord-n">${done.length + 1}</span>Quelle est l'étape suivante ?</li>`}</ol>`;
+    if (!fin) h += `<div class="opts">${pool.filter(i => done.indexOf(i) < 0).map(i => `<button class="opt" data-s="o" data-i="${i}"><span class="l">›</span><span>${esc(R[i])}</span></button>`).join('')}</div>`;
+    if (msg) h += msg;
+    if (fin) h += `<div class="fb ${err ? 'bad' : 'ok'}"><b>${err ? err + ' erreur' + (err > 1 ? 's' : '') + ' en route' : 'Sans faute !'}</b><p>${err ? 'Relis l\'ordre ci-dessus, puis recommence pour le faire sans erreur.' : 'Tu maîtrises l\'enchaînement des étapes.'}</p></div><div><button class="btn" data-s="again">Recommencer</button></div>`;
+    el.innerHTML = h + `</div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return;
+    if (b.dataset.s === 'again') return reset();
+    const i = +b.dataset.i;
+    if (i === done.length) { done.push(i); msg = ''; }
+    else { err++; msg = `<div class="fb bad"><b>Pas encore.</b><p>« ${esc(R[i])} » vient plus tard. Quelle étape doit logiquement venir avant ?</p></div>`; }
+    draw();
+  });
+  reset();
+}
+
+/* --- Matrice des risques --- */
+function simRisk(el) {
+  const SC = [
+    ['Ransomware, serveur sans sauvegarde', 3, 4], ['Panne du seul switch de cœur', 2, 4], ['Vol d\'un PC portable chiffré', 2, 2],
+    ['Clé Wi-Fi invités publiée', 4, 1], ['Phishing sur la messagerie', 4, 3], ['Inondation de la salle serveur', 1, 4]];
+  let p = 3, im = 4, sc = 0;
+  const lvl = r => r >= 9 ? ['Prioritaire', 'bad', 'Traiter tout de suite : réduire le risque (contre-mesure) ou le transférer.'] : r >= 5 ? ['À surveiller', 'mid', 'Planifier une contre-mesure dans les prochains mois.'] : ['Acceptable', 'ok', 'Accepter en le documentant, et le réévaluer régulièrement.'];
+  function draw() {
+    const r = p * im, L = lvl(r);
+    let g = `<table class="rk"><tr><th>P \\ I</th>${[1, 2, 3, 4].map(i => `<th>${i}</th>`).join('')}</tr>`;
+    for (let pp = 4; pp >= 1; pp--) { g += `<tr><th>${pp}</th>`; for (let ii = 1; ii <= 4; ii++) { const v = pp * ii; g += `<td class="rk-${lvl(v)[1]}${pp === p && ii === im ? ' on' : ''}">${v}</td>`; } g += `</tr>`; }
+    g += `</table>`;
+    el.innerHTML = `<div class="sim"><div class="field"><label>Scénario</label><div class="seg">${SC.map((s, i) => `<button data-s="sc" data-i="${i}" aria-pressed="${sc === i}">${esc(s[0])}</button>`).join('')}</div></div>
+      <div class="fl"><div class="field"><label>Probabilité</label><div class="seg">${[1, 2, 3, 4].map(v => `<button data-s="p" data-v="${v}" aria-pressed="${p === v}">${v}</button>`).join('')}</div></div>
+      <div class="field"><label>Impact</label><div class="seg">${[1, 2, 3, 4].map(v => `<button data-s="i" data-v="${v}" aria-pressed="${im === v}">${v}</button>`).join('')}</div></div></div>
+      <div class="rk-wrap">${g}<div class="stats2"><div><b>${r}</b><span>${p} × ${im} = niveau de risque</span></div><div><b class="rk-t ${L[1]}">${L[0]}</b><span>sur une échelle de 1 à 16</span></div></div></div>
+      <div class="note">${L[2]}</div></div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return;
+    const s = b.dataset.s;
+    if (s === 'sc') { sc = +b.dataset.i; p = SC[sc][1]; im = SC[sc][2]; }
+    else if (s === 'p') { p = +b.dataset.v; sc = -1; } else if (s === 'i') { im = +b.dataset.v; sc = -1; }
+    draw();
+  });
+  draw();
+}
+
+/* --- Inspecteur de phishing --- */
+function simPhish(el) {
+  const Z = [
+    { k: 'from', bad: true, txt: 'De : Service Client &lt;support@cih-securite-maroc.co&gt;', e: "Le domaine n'est pas celui de la banque : n'importe qui peut acheter « cih-securite-maroc.co »." },
+    { k: 'subj', bad: true, txt: 'Objet : URGENT !!! Votre compte sera suspendu', e: "Urgence et majuscules : on veut te faire agir sans réfléchir." },
+    { k: 'hello', bad: true, txt: 'Cher client,', e: "Formule générique : ta vraie banque connaît ton nom." },
+    { k: 'body', bad: false, txt: 'Nous avons détecté une activité inhabituelle sur votre compte.', e: "Phrase banale en soi : ce n'est pas elle qui trahit l'arnaque." },
+    { k: 'ask', bad: true, txt: 'Confirmez votre identifiant, votre mot de passe et le code reçu par SMS.', e: "Aucune banque ne demande ton mot de passe ou ton code par e-mail." },
+    { k: 'time', bad: true, txt: 'Sans réponse sous 2 heures, votre compte sera définitivement bloqué.', e: "Menace + délai très court : technique classique de pression." },
+    { k: 'link', bad: true, txt: '<u>Cliquez ici pour sécuriser votre compte</u> <small>→ http://cih-verif.secure-login.top</small>', e: "L'adresse réelle du lien n'a rien à voir avec la banque (survoler sans cliquer pour la voir)." },
+    { k: 'sign', bad: false, txt: 'Cordialement, le service client', e: "Signature ordinaire : pas un indice à elle seule." }
+  ];
+  const N = Z.filter(z => z.bad).length; let seen = {}, show = false;
+  function draw() {
+    const found = Z.filter(z => z.bad && seen[z.k]).length, wrong = Z.filter(z => !z.bad && seen[z.k]).length;
+    el.innerHTML = `<div class="sim"><div class="lx-top"><div class="eyebrow">Indices trouvés : ${found} / ${N}${wrong ? ` · fausses alertes : ${wrong}` : ''}</div><button class="btn alt" data-s="sol">${show ? 'Masquer' : 'Voir'} la correction</button></div>
+      <div class="mail">${Z.map(z => { const st = seen[z.k] || show ? (z.bad ? ' hit' : ' miss') : ''; return `<button class="mline${st}" data-s="z" data-k="${z.k}">${z.txt}${seen[z.k] || show ? `<em>${esc(z.e)}</em>` : ''}</button>`; }).join('')}</div>
+      ${found === N ? `<div class="fb ok"><b>Bravo, les ${N} indices sont trouvés.</b><p>Bon réflexe : ne pas cliquer, signaler au service informatique, appeler la banque au numéro officiel.</p></div>` : ''}
+      <div><button class="btn alt" data-s="again">Recommencer</button></div></div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return;
+    if (b.dataset.s === 'z') seen[b.dataset.k] = true; else if (b.dataset.s === 'sol') show = !show; else { seen = {}; show = false; }
+    draw();
+  });
+  draw();
+}
+
+/* --- Testeur de mot de passe --- */
+function simPwd(el) {
+  const COMMON = ['123456', 'password', 'azerty', 'qwerty', 'admin', 'motdepasse', 'cisco', 'p@ssw0rd', 'passw0rd', 'iloveyou', 'soleil', 'maroc', 'ofppt', 'welcome', 'abc123', '111111', '000000', 'football', 'bonjour'];
+  el.innerHTML = `<div class="sim"><div class="field"><label for="pw-in">Mot de passe d'exemple</label><input id="pw-in" type="text" value="P@ss2024" autocomplete="off" spellcheck="false"></div>
+    <div class="seg"><button data-s="ex" data-v="admin">admin</button><button data-s="ex" data-v="Youssef1990">Youssef1990</button><button data-s="ex" data-v="Xk9#p2">Xk9#p2</button><button data-s="ex" data-v="Le-Switch-Bleu-Clignote!">Le-Switch-Bleu-Clignote!</button></div>
+    <div id="pw-out"></div><p class="muted">Rien n'est envoyé sur Internet : le calcul se fait dans ton navigateur. N'y tape jamais un vrai mot de passe.</p></div>`;
+  const inp = el.querySelector('#pw-in'), out = el.querySelector('#pw-out');
+  function fmtT(s) {
+    if (s < 1) return 'instantané'; if (s < 60) return Math.round(s) + ' secondes'; if (s < 3600) return Math.round(s / 60) + ' minutes';
+    if (s < 86400) return Math.round(s / 3600) + ' heures'; if (s < 31557600) return Math.round(s / 86400) + ' jours';
+    const y = s / 31557600; return y < 1000 ? Math.round(y) + ' ans' : y < 1e6 ? Math.round(y / 1000) + ' mille ans' : 'des millions d\'années et plus';
+  }
+  function calc() {
+    const v = inp.value, low = v.toLowerCase();
+    const cl = [[/[a-z]/, 26, 'minuscules'], [/[A-Z]/, 26, 'majuscules'], [/[0-9]/, 10, 'chiffres'], [/[^A-Za-z0-9]/, 33, 'symboles']];
+    let pool = 0; const has = cl.map(c => { const h = c[0].test(v); if (h) pool += c[1]; return h; });
+    let bits = v.length ? v.length * Math.log2(Math.max(pool, 1)) : 0;
+    const common = COMMON.some(c => low.replace(/[0-9!@#$%.]+$/, '') === c || low === c);
+    const seq = /(123|234|345|abc|azer|qwer)/i.test(v), year = /(19|20)\d\d/.test(v);
+    if (common) bits = Math.min(bits, 10); else if (seq || year) bits *= .7;
+    const secs = Math.pow(2, bits) / 1e10 / 2;
+    const lv = bits < 36 ? ['Très faible', 'bad', 12] : bits < 55 ? ['Faible', 'bad', 35] : bits < 75 ? ['Moyen', 'mid', 60] : bits < 95 ? ['Solide', 'ok', 82] : ['Très solide', 'ok', 100];
+    const tips = [];
+    if (v.length < 12) tips.push('Allonge-le : 12 caractères minimum (16 pour un compte administrateur).');
+    if (common) tips.push('Il figure dans les listes des mots de passe les plus utilisés : il sera essayé en premier.');
+    if (year) tips.push('Évite les années (naissance, année en cours) : elles se devinent.');
+    if (seq) tips.push('Évite les suites (123, abc, azerty).');
+    if (has.filter(Boolean).length < 3 && v.length < 16) tips.push('Mélange davantage, ou passe à une phrase de passe longue.');
+    if (!tips.length) tips.push('Bon mot de passe. Garde-le unique et range-le dans un gestionnaire, avec la MFA activée.');
+    out.innerHTML = `<div class="pw-bar"><i class="${lv[1]}" style="width:${lv[2]}%"></i></div>
+      <div class="stats2"><div><b>${v.length}</b><span>caractères</span></div><div><b class="rk-t ${lv[1]}">${lv[0]}</b><span>≈ ${Math.round(bits)} bits d'entropie</span></div></div>
+      <div class="kws pw-cl">${cl.map((c, i) => `<span class="${has[i] ? 'on' : ''}">${has[i] ? '✓' : '·'} ${c[2]}</span>`).join('')}</div>
+      <div class="note"><b>Temps estimé pour le casser :</b> ${fmtT(secs)} <span class="muted">(10 milliards d'essais par seconde, ordre de grandeur)</span></div>
+      <ul class="pts">${tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  }
+  inp.addEventListener('input', calc);
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s="ex"]'); if (b) { inp.value = b.dataset.v; calc(); } });
+  calc();
+}
+
+/* --- Hachage SHA-256 et effet avalanche --- */
+function sha256hex(str) {
+  const K = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2];
+  const bytes = Array.from(new TextEncoder().encode(str)), l = bytes.length * 8;
+  bytes.push(0x80); while (bytes.length % 64 !== 56) bytes.push(0);
+  for (let i = 7; i >= 0; i--) bytes.push(i > 3 ? 0 : (l >>> (i * 8)) & 255);
+  let H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+  const r = (x, n) => (x >>> n) | (x << (32 - n));
+  for (let o = 0; o < bytes.length; o += 64) {
+    const w = [];
+    for (let i = 0; i < 64; i++) {
+      if (i < 16) w[i] = (bytes[o + i * 4] << 24) | (bytes[o + i * 4 + 1] << 16) | (bytes[o + i * 4 + 2] << 8) | bytes[o + i * 4 + 3];
+      else { const s0 = r(w[i - 15], 7) ^ r(w[i - 15], 18) ^ (w[i - 15] >>> 3), s1 = r(w[i - 2], 17) ^ r(w[i - 2], 19) ^ (w[i - 2] >>> 10); w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0; }
+    }
+    let [a, b, c, d, e, f, g, h] = H;
+    for (let i = 0; i < 64; i++) {
+      const t1 = (h + (r(e, 6) ^ r(e, 11) ^ r(e, 25)) + ((e & f) ^ (~e & g)) + K[i] + w[i]) | 0, t2 = ((r(a, 2) ^ r(a, 13) ^ r(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;
+      h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+    }
+    H = H.map((x, i) => (x + [a, b, c, d, e, f, g, h][i]) | 0);
+  }
+  return H.map(x => (x >>> 0).toString(16).padStart(8, '0')).join('');
+}
+function simHash(el) {
+  let ref = 'Bonjour', refH = sha256hex(ref);
+  el.innerHTML = `<div class="sim"><div class="field"><label for="hs-in">Texte à hacher</label><input id="hs-in" type="text" value="Bonjour" autocomplete="off" spellcheck="false"></div>
+    <div class="seg"><button data-s="ex" data-v="Bonjour">Bonjour</button><button data-s="ex" data-v="bonjour">bonjour</button><button data-s="ex" data-v="Bonjour.">Bonjour.</button><button data-s="ref">Fixer comme référence</button></div>
+    <div id="hs-out"></div></div>`;
+  const inp = el.querySelector('#hs-in'), out = el.querySelector('#hs-out');
+  function calc() {
+    const h = sha256hex(inp.value); let diff = 0;
+    const hl = h.split('').map((c, i) => { const d = c !== refH[i]; if (d) diff++; return `<span class="${d ? 'hd' : ''}">${c}</span>`; }).join('');
+    out.innerHTML = `<div class="block"><h3>Référence : « ${esc(ref)} »</h3><code class="hx">${refH}</code></div>
+      <div class="block"><h3>Empreinte actuelle (caractères différents surlignés)</h3><code class="hx">${hl}</code></div>
+      <div class="stats2"><div><b>${diff} / 64</b><span>caractères qui ont changé</span></div><div><b>${inp.value === ref ? 'Intact' : (diff ? 'Modifié' : 'Identique')}</b><span>${inp.value === ref ? 'même texte = même empreinte' : 'intégrité : le changement est détecté'}</span></div></div>
+      <p class="muted">Quelle que soit la longueur du texte, l'empreinte fait toujours 64 caractères hexadécimaux (256 bits). Et on ne peut pas retrouver le texte à partir d'elle.</p>`;
+  }
+  inp.addEventListener('input', calc);
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return;
+    if (b.dataset.s === 'ex') inp.value = b.dataset.v; else { ref = inp.value; refH = sha256hex(ref); }
+    calc();
+  });
+  calc();
+}
+
+/* --- Durcissement d'un routeur --- */
+function simHarden(el) {
+  const M = [
+    ['secret', 'enable secret', 'enable password cisco', 'enable secret 9 $9$Wq…(haché)'],
+    ['enc', 'service password-encryption', 'no service password-encryption', 'service password-encryption'],
+    ['user', 'Compte local nominatif', 'line vty 0 4 / password cisco / login', 'username admin privilege 15 secret 9 $9$… / login local'],
+    ['ssh', 'SSH v2 au lieu de Telnet', 'transport input telnet', 'ip ssh version 2 / transport input ssh'],
+    ['acl', 'Accès admin limité (access-class)', '! aucun filtrage des VTY', 'access-list 10 permit host 192.168.99.10 / access-class 10 in'],
+    ['block', 'Anti force brute', '! aucun blocage', 'login block-for 120 attempts 3 within 60'],
+    ['tmo', 'Déconnexion auto + bannière', '! session sans limite', 'exec-timeout 5 0 / banner motd #Acces reserve#'],
+    ['ports', 'Ports inutilisés éteints', 'interface range fa0/10-24 / no shutdown (VLAN 1)', 'interface range fa0/10-24 / switchport access vlan 999 / shutdown']
+  ];
+  let on = {};
+  function draw() {
+    const n = M.filter(m => on[m[0]]).length, pc = Math.round(n / M.length * 100);
+    const cap = on.ssh ? `SSHv2  Encrypted packet len=96  6f 1a c9 3e 8b 02 d4 77…\nSSHv2  Encrypted packet len=64  a1 9c 4f e0 12 7d 55 b8…\n→ Le pirate ne voit que des données chiffrées.` : `TELNET  Data: User Access Verification\nTELNET  Data: Password: ${on.user ? 'Adm1n!Fes-2026' : 'cisco'}\nTELNET  Data: R1>enable\n→ Le mot de passe circule en clair : le pirate le lit.`;
+    el.innerHTML = `<div class="sim"><div class="lx-top"><div class="eyebrow">Score de durcissement : ${pc} %</div><button class="btn alt" data-s="all">${n === M.length ? 'Tout désactiver' : 'Tout appliquer'}</button></div>
+      <div class="pw-bar"><i class="${pc < 50 ? 'bad' : pc < 100 ? 'mid' : 'ok'}" style="width:${Math.max(pc, 4)}%"></i></div>
+      <div class="seg">${M.map(m => `<button data-s="m" data-k="${m[0]}" aria-pressed="${!!on[m[0]]}">${on[m[0]] ? '✓ ' : ''}${esc(m[1])}</button>`).join('')}</div>
+      <div class="block"><h3>Configuration de R1</h3><pre class="code hcfg">${M.map(m => `<span class="${on[m[0]] ? 'okl' : 'kol'}">${esc((on[m[0]] ? m[3] : m[2]).replace(/ \/ /g, '\n '))}</span>`).join('\n')}</pre></div>
+      <div class="block"><h3>Ce que capture un pirate avec Wireshark</h3><pre class="code">${esc(cap)}</pre></div></div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return;
+    if (b.dataset.s === 'm') on[b.dataset.k] = !on[b.dataset.k];
+    else { const all = M.every(m => on[m[0]]); M.forEach(m => on[m[0]] = !all); }
+    draw();
+  });
+  draw();
+}
+
+/* --- ACL pas à pas --- */
+function simAcl(el) {
+  const ip2n = s => s.split('.').reduce((a, b) => a * 256 + (+b), 0);
+  const match = (ip, net, wc) => { const a = ip2n(ip), n = ip2n(net), w = ip2n(wc); return ((a ^ n) & ~w & 0xFFFFFFFF) >>> 0 === 0 || ((a | w) >>> 0) === ((n | w) >>> 0); };
+  const ACLS = [
+    { n: "ACL 110 · stagiaires → serveur web (étendue)", L: [
+      ['permit', 'tcp', '192.168.10.0', '0.0.0.255', '10.0.0.10', '0.0.0.0', 80],
+      ['permit', 'tcp', '192.168.10.0', '0.0.0.255', '10.0.0.10', '0.0.0.0', 443],
+      ['deny', 'ip', '192.168.10.0', '0.0.0.255', '10.0.0.10', '0.0.0.0', null],
+      ['permit', 'ip', '0.0.0.0', '255.255.255.255', '0.0.0.0', '255.255.255.255', null]] },
+    { n: "ACL 120 · seulement web et DNS (oubli du permit final)", L: [
+      ['permit', 'tcp', '192.168.10.0', '0.0.0.255', '0.0.0.0', '255.255.255.255', 443],
+      ['permit', 'udp', '192.168.10.0', '0.0.0.255', '0.0.0.0', '255.255.255.255', 53]] },
+    { n: "ACL 10 · bloquer le poste 192.168.10.66 (standard)", std: true, L: [
+      ['deny', 'ip', '192.168.10.66', '0.0.0.0', '0.0.0.0', '255.255.255.255', null],
+      ['permit', 'ip', '0.0.0.0', '255.255.255.255', '0.0.0.0', '255.255.255.255', null]] }
+  ];
+  const PK = [['Web HTTPS', 'tcp', 443], ['Web HTTP', 'tcp', 80], ['DNS', 'udp', 53], ['Ping', 'icmp', null], ['SSH', 'tcp', 22]];
+  const SRC = ['192.168.10.25', '192.168.10.66', '192.168.20.7'], DST = ['10.0.0.10', '8.8.8.8'];
+  let a = 0, src = 0, dst = 0, pk = 0, step = -1;
+  const host = (ip, wc) => wc === '255.255.255.255' ? 'any' : wc === '0.0.0.0' ? 'host ' + ip : ip + ' ' + wc;
+  const txt = (l, std) => std ? `${l[0]} ${host(l[2], l[3])}` : `${l[0]} ${l[1]} ${host(l[2], l[3])} ${host(l[4], l[5])}${l[6] ? ' eq ' + l[6] : ''}`;
+  function hit(l) {
+    const p = PK[pk];
+    if (!match(SRC[src], l[2], l[3]) || !match(DST[dst], l[4], l[5])) return false;
+    if (l[1] !== 'ip' && l[1] !== p[1]) return false;
+    if (l[6] && l[6] !== p[2]) return false; return true;
+  }
+  function draw() {
+    const A = ACLS[a], L = A.L; let res = null, first = -1;
+    for (let i = 0; i < L.length; i++) if (hit(L[i])) { first = i; break; }
+    const shown = step < 0 ? -1 : step;
+    let lines = L.map((l, i) => { let c = '', m = ''; if (i <= shown && (first < 0 || i <= first)) { if (i === first) { c = l[0] === 'permit' ? 'okl' : 'kol'; m = l[0] === 'permit' ? '  ← correspond : AUTORISÉ' : '  ← correspond : BLOQUÉ'; } else c = 'skip', m = '  ✗ ne correspond pas'; } return `<span class="${c}">${String(i + 1).padStart(2, ' ')}  ${esc(txt(l, A.std))}${m}</span>`; }).join('\n');
+    const atEnd = step >= L.length || (first >= 0 && step >= first);
+    if (first < 0 && shown >= L.length) lines += `\n<span class="kol">--  deny any (implicite)  ← BLOQUÉ</span>`; else lines += `\n<span class="muted">--  deny any (implicite, invisible)</span>`;
+    if (atEnd) res = first >= 0 ? (L[first][0] === 'permit' ? ['ok', 'Paquet autorisé', `Ligne ${first + 1} : première correspondance. Les lignes suivantes ne sont pas lues.`] : ['bad', 'Paquet bloqué', `Ligne ${first + 1} : première correspondance, c'est un deny.`]) : ['bad', 'Paquet bloqué par le deny implicite', "Aucune ligne ne correspond : le deny any invisible de fin d'ACL s'applique."];
+    el.innerHTML = `<div class="sim"><div class="field"><label>ACL appliquée en entrée sur l'interface LAN</label><div class="seg">${ACLS.map((x, i) => `<button data-s="a" data-i="${i}" aria-pressed="${a === i}">${esc(x.n)}</button>`).join('')}</div></div>
+      <div class="fl"><div class="field"><label>Source</label><div class="seg">${SRC.map((x, i) => `<button data-s="src" data-i="${i}" aria-pressed="${src === i}">${x}</button>`).join('')}</div></div>
+      <div class="field"><label>Destination</label><div class="seg">${DST.map((x, i) => `<button data-s="dst" data-i="${i}" aria-pressed="${dst === i}">${x}</button>`).join('')}</div></div></div>
+      <div class="field"><label>Trafic</label><div class="seg">${PK.map((x, i) => `<button data-s="pk" data-i="${i}" aria-pressed="${pk === i}">${x[0]}</button>`).join('')}</div></div>
+      <div class="pkt"><b>Paquet testé</b>${SRC[src]} → ${DST[dst]} · ${PK[pk][1].toUpperCase()}${PK[pk][2] ? ' port ' + PK[pk][2] : ''}</div>
+      <pre class="code hcfg">${lines}</pre>
+      <div class="actions">${atEnd ? '' : `<button class="btn" data-s="step">${step < 0 ? 'Lancer le test' : 'Ligne suivante'}</button><button class="btn alt" data-s="run">Tout de suite</button>`}${step >= 0 ? `<button class="btn alt" data-s="reset">Rejouer</button>` : ''}</div>
+      ${res ? `<div class="fb ${res[0]}"><b>${res[1]}</b><p>${res[2]}</p></div>` : ''}</div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return; const s = b.dataset.s;
+    if (s === 'step') step++; else if (s === 'run') step = 99; else if (s === 'reset') step = -1;
+    else { if (s === 'a') a = +b.dataset.i; if (s === 'src') src = +b.dataset.i; if (s === 'dst') dst = +b.dataset.i; if (s === 'pk') pk = +b.dataset.i; step = -1; }
+    draw();
+  });
+  draw();
+}
+
+/* --- Configuration d'un point d'accès Wi-Fi --- */
+function simWifi(el) {
+  const O = {
+    proto: ['Protocole', [['WEP', 0], ['WPA-TKIP', 5], ['WPA2-AES', 20], ['WPA3', 25]], 1],
+    mode: ['Authentification', [['Personnel (clé partagée)', 10], ['Entreprise 802.1X + RADIUS', 20]], 0],
+    key: ['Clé / phrase de passe', [['ofppt2024', 0], ['8 caractères mélangés', 5], ['Phrase de 20 caractères', 15]], 0],
+    wps: ['WPS', [['Activé', 0], ['Désactivé', 10]], 0],
+    guest: ['Invités', [['Même réseau que les employés', 0], ['SSID + VLAN invités isolé', 15]], 0],
+    admin: ['Compte admin de la borne', [['admin / admin', 0], ['Mot de passe fort', 15]], 0]
+  };
+  const S = { proto: 1, mode: 0, key: 0, wps: 0, guest: 0, admin: 0 };
+  const PB = {
+    proto: ["WEP se casse en quelques minutes : à bannir.", "WPA-TKIP est obsolète : passe en WPA2-AES ou WPA3.", null, null],
+    key: ["Clé devinable : elle tombe avec une attaque par dictionnaire.", "8 caractères, c'est court face à une attaque hors ligne : vise 16+.", null],
+    wps: ["WPS activé : son code PIN se casse et livre la clé.", null],
+    guest: ["Les invités voient les machines des employés : isole-les dans un VLAN.", null],
+    admin: ["Identifiants par défaut : n'importe qui peut reconfigurer la borne.", null],
+    mode: ["En entreprise, une clé unique pour tous empêche la traçabilité et oblige à tout changer au départ d'une personne.", null]
+  };
+  function draw() {
+    let sc = 0; const pb = [];
+    Object.keys(O).forEach(k => { sc += O[k][1][S[k]][1]; const p = PB[k] && PB[k][S[k]]; if (p) pb.push(p); });
+    const ent = S.mode === 1; if (ent && S.key < 2) sc += 15 - O.key[1][S.key][1];
+    const pc = Math.min(100, Math.round(sc / 100 * 100));
+    const list = pb.filter(p => !(ent && /dictionnaire|8 caractères/.test(p)));
+    el.innerHTML = `<div class="sim">${Object.keys(O).map(k => (k === 'key' && ent) ? `<div class="field"><label>${O[k][0]}</label><p class="muted">En mode Entreprise, chaque utilisateur a son propre mot de passe vérifié par le serveur RADIUS.</p></div>` : `<div class="field"><label>${O[k][0]}</label><div class="seg">${O[k][1].map((o, i) => `<button data-s="o" data-k="${k}" data-i="${i}" aria-pressed="${S[k] === i}">${esc(o[0])}</button>`).join('')}</div></div>`).join('')}
+      <div class="lx-top"><div class="eyebrow">Score de sécurité</div><b>${pc} %</b></div><div class="pw-bar"><i class="${pc < 50 ? 'bad' : pc < 90 ? 'mid' : 'ok'}" style="width:${Math.max(pc, 4)}%"></i></div>
+      ${list.length ? `<div class="fb bad"><b>${list.length} problème${list.length > 1 ? 's' : ''} à corriger</b><ul class="pts">${list.map(p => `<li>${esc(p)}</li>`).join('')}</ul></div>` : `<div class="fb ok"><b>Configuration exemplaire.</b><p>Chiffrement moderne, authentification individuelle, invités isolés, WPS désactivé, borne protégée.</p></div>`}</div>`;
+  }
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s="o"]'); if (!b) return; S[b.dataset.k] = +b.dataset.i; draw(); });
+  draw();
+}
+
+/* --- Sauvegardes : quoi restaurer ? --- */
+function simBackup(el) {
+  const D = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+  let type = 'inc', fail = 4;
+  function draw() {
+    const need = []; if (type === 'full') need.push(fail - 1); else if (type === 'diff') { need.push(0); if (fail - 1 > 0) need.push(fail - 1); } else for (let i = 0; i < fail; i++) need.push(i);
+    const lab = i => i === 0 ? 'Complète' : type === 'full' ? 'Complète' : type === 'inc' ? 'Incrémentale' : 'Différentielle';
+    const vol = i => i === 0 || type === 'full' ? 100 : type === 'inc' ? 10 : 10 * i;
+    const tl = D.map((d, i) => i < fail ? `<div class="bk${need.indexOf(i) >= 0 ? ' need' : ''}"><b>${d}</b><span>${lab(i)}</span><small>${vol(i)} Go</small>${need.indexOf(i) >= 0 ? `<em>#${need.indexOf(i) + 1}</em>` : ''}</div>` : i === fail ? `<div class="bk crash"><b>${d}</b><span>💥 panne</span></div>` : `<div class="bk off"><b>${d}</b></div>`).join('');
+    const stored = D.slice(0, fail).reduce((s, d, i) => s + vol(i), 0);
+    el.innerHTML = `<div class="sim"><div class="field"><label>Sauvegarde quotidienne (complète le dimanche)</label><div class="seg">
+      <button data-s="t" data-v="full" aria-pressed="${type === 'full'}">Complète chaque jour</button><button data-s="t" data-v="inc" aria-pressed="${type === 'inc'}">Incrémentale</button><button data-s="t" data-v="diff" aria-pressed="${type === 'diff'}">Différentielle</button></div></div>
+      <div class="field"><label>Jour de la panne</label><div class="seg">${D.slice(1).map((d, i) => `<button data-s="f" data-v="${i + 1}" aria-pressed="${fail === i + 1}">${d}</button>`).join('')}</div></div>
+      <div class="bks">${tl}</div>
+      <div class="stats2"><div><b>${need.length}</b><span>sauvegarde${need.length > 1 ? 's' : ''} à restaurer, dans l'ordre</span></div><div><b>${stored} Go</b><span>stockés depuis dimanche</span></div></div>
+      <div class="note">${type === 'inc' ? "Incrémentale : rapide et légère chaque jour, mais il faut restaurer la complète puis <b>toutes</b> les incrémentales. Si une seule manque, la restauration est incomplète." : type === 'diff' ? "Différentielle : elle grossit chaque jour, mais la restauration est simple : la complète + la <b>dernière</b> différentielle." : "Complète chaque jour : restauration la plus simple (une seule sauvegarde), mais la plus lourde en stockage et en temps."}</div></div>`;
+  }
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; if (b.dataset.s === 't') type = b.dataset.v; else fail = +b.dataset.v; draw(); });
+  draw();
+}
+
+/* --- Veille : constructeur de requête Google --- */
+function simQuery(el) {
+  const GO = [
+    ['Des guides PDF officiels de l\'ANSSI sur le Wi-Fi', q => q.kw === 'wifi' && q.site === 'ssi.gouv.fr' && q.ft === 'pdf'],
+    ['Des articles sur le Wi-Fi 7 sans parler de smartphones', q => q.kw === 'wifi7' && q.exact && q.ex === 'smartphone'],
+    ['Des tutoriels OSPF récents (depuis 2025)', q => q.kw === 'ospf' && q.after],
+    ['Les failles Cisco publiées par Cisco lui-même', q => q.kw === 'faille' && q.site === 'cisco.com']
+  ];
+  const KW = { wifi: 'sécurité Wi-Fi', wifi7: 'Wi-Fi 7', ospf: 'tutoriel OSPF', faille: 'vulnérabilité critique' };
+  const q = { kw: 'wifi', exact: false, site: '', ft: '', ex: '', after: false }; let g = 0;
+  function build() { const k = KW[q.kw]; return [q.exact ? `"${k}"` : k, q.ex ? '-' + q.ex : '', q.site ? 'site:' + q.site : '', q.ft ? 'filetype:' + q.ft : '', q.after ? 'after:2025-01-01' : ''].filter(Boolean).join(' '); }
+  function draw() {
+    const ok = GO[g][1](q);
+    const segs = (k, opts) => `<div class="seg">${opts.map(o => `<button data-s="${k}" data-v="${o[0]}" aria-pressed="${String(q[k]) === String(o[0])}">${esc(o[1])}</button>`).join('')}</div>`;
+    el.innerHTML = `<div class="sim"><div class="field"><label>Mission</label><div class="seg">${GO.map((x, i) => `<button data-s="g" data-v="${i}" aria-pressed="${g === i}">Mission ${i + 1}</button>`).join('')}</div><p class="def">${esc(GO[g][0])}</p></div>
+      <div class="field"><label>Mots-clés</label>${segs('kw', Object.keys(KW).map(k => [k, KW[k]]))}</div>
+      <div class="field"><label>Expression exacte " "</label>${segs('exact', [[false, 'Non'], [true, 'Oui']])}</div>
+      <div class="field"><label>Limiter à un site (site:)</label>${segs('site', [['', 'Aucun'], ['ssi.gouv.fr', 'ssi.gouv.fr'], ['cisco.com', 'cisco.com']])}</div>
+      <div class="field"><label>Type de fichier (filetype:)</label>${segs('ft', [['', 'Tous'], ['pdf', 'pdf'], ['pptx', 'pptx']])}</div>
+      <div class="field"><label>Exclure un mot (-)</label>${segs('ex', [['', 'Aucun'], ['smartphone', 'smartphone'], ['prix', 'prix']])}</div>
+      <div class="field"><label>Date (after:)</label>${segs('after', [[false, 'Toutes'], [true, 'Depuis 2025']])}</div>
+      <div class="gq"><span>🔍</span><code>${esc(build())}</code></div>
+      <div class="fb ${ok ? 'ok' : 'bad'}"><b>${ok ? 'Mission réussie.' : 'Pas encore.'}</b><p>${ok ? 'Ta requête cible exactement ce qu\'il faut : moins de résultats, mais les bons.' : 'Ajuste les mots-clés et les opérateurs pour répondre à la mission.'}</p></div></div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return; const s = b.dataset.s, v = b.dataset.v;
+    if (s === 'g') g = +v; else q[s] = v === 'true' ? true : v === 'false' ? false : v;
+    draw();
+  });
+  draw();
+}
+
+/* --- Veille : évaluer un article avec CRAAP --- */
+function simCraap(el) {
+  const ART = [
+    { t: "« LE ROUTEUR ZX-9000 REND LES PIRATES IMPUISSANTS !!! »", d: "Site top-routeurs-promo.biz · pas d'auteur · pas de date · bouton « -30 % avec le code ZX30 » · aucune source.", x: [0, 1, 0, 0, 0] },
+    { t: "Guide ANSSI : recommandations pour sécuriser un réseau Wi-Fi", d: "Site ssi.gouv.fr · publié il y a 1 an · organisme officiel · nombreuses références techniques · document gratuit et neutre.", x: [2, 2, 2, 2, 2] },
+    { t: "Blog perso : « Mon avis sur le Wi-Fi 7 après 3 mois »", d: "Auteur identifié (admin réseau) · publié il y a 4 mois · mesures personnelles · 2 liens vers des tests · lien affilié vers un routeur.", x: [2, 2, 1, 1, 1] }
+  ];
+  const C = ['Actualité', 'Pertinence', 'Autorité', 'Exactitude', 'Objectif'];
+  let a = 0, n = [null, null, null, null, null];
+  function draw() {
+    const A = ART[a], tot = n.reduce((s, v) => s + (v || 0), 0), full = n.every(v => v !== null), ex = A.x.reduce((s, v) => s + v, 0);
+    const vd = s => s >= 8 ? 'fiable' : s >= 5 ? 'à croiser' : 'douteuse';
+    el.innerHTML = `<div class="sim"><div class="seg">${ART.map((x, i) => `<button data-s="a" data-i="${i}" aria-pressed="${a === i}">Article ${i + 1}</button>`).join('')}</div>
+      <div class="note"><b>${esc(A.t)}</b><br>${esc(A.d)}</div>
+      ${C.map((c, i) => `<div class="fl"><div class="field"><label>${c}</label><div class="seg">${[0, 1, 2].map(v => `<button data-s="n" data-c="${i}" data-v="${v}" aria-pressed="${n[i] === v}">${v}</button>`).join('')}</div></div></div>`).join('')}
+      <div class="stats2"><div><b>${tot} / 10</b><span>ta note</span></div><div><b>${full ? vd(tot) : '…'}</b><span>verdict</span></div></div>
+      ${full ? `<div class="fb ${Math.abs(tot - ex) <= 1 ? 'ok' : 'bad'}"><b>${Math.abs(tot - ex) <= 1 ? 'Évaluation juste.' : 'À revoir.'}</b><p>Note du formateur : ${ex} / 10 (${vd(ex)}) — ${C.map((c, i) => c + ' ' + A.x[i]).join(', ')}.</p></div>` : '<p class="muted">Note les 5 critères de 0 à 2 pour voir le verdict.</p>'}</div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return;
+    if (b.dataset.s === 'a') { a = +b.dataset.i; n = [null, null, null, null, null]; } else n[+b.dataset.c] = +b.dataset.v;
+    draw();
+  });
+  draw();
+}
+
+const SIMS = { order: simOrder, risk: simRisk, phish: simPhish, pwd: simPwd, hash: simHash, harden: simHarden, acl: simAcl, wifi: simWifi, backup: simBackup, query: simQuery, craap: simCraap, redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
 
 /* ---------- Application ---------- */
-const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique"];
+const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique", "La sécurité informatique"];
 const CLEAD = [
   "Composants, catégories, topologies et tendances : le vocabulaire de base.",
   "Ethernet, adresses MAC, vitesse de commutation et Wi-Fi.",
@@ -3397,7 +4106,8 @@ const CLEAD = [
   "Le switch, la trame, les domaines et le protocole ARP.",
   "Segmenter un switch, trunks 802.1Q, configuration Cisco, routage inter-VLAN et dépannage.",
   "Pourquoi doubler les équipements, et les protocoles STP et VRRP qui évitent les boucles et les pannes de passerelle.",
-  "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion, cadre légal et projet de veille."
+  "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion, cadre légal et projet de veille.",
+  "Menaces, authentification, cryptographie, équipements, pare-feu et ACL, Wi-Fi, sauvegardes et réponse à incident."
 ];
 
 /* ---------- Labs VLAN ---------- */
@@ -3462,7 +4172,31 @@ function labHTML() {
   return h;
 }
 const app = document.getElementById('app');
-const S = { view: 'home', tid: 1, tab: 'cours', quiz: null, labPreset: null, lab: 1 };
+/* ---------- Modules (menu du haut) ---------- */
+const MODULES = [
+  { id: 'm103', menu: "Conception d'un réseau", name: "Conception d'un réseau <em>informatique</em>", chaps: [0, 1, 2, 3, 4, 5, 6], labs: true,
+    lead: "Types de réseaux, réseaux locaux, adressage IP, modèles et protocoles, commutation, VLAN et redondance." },
+  { id: 'veille', menu: 'Veille technologique', name: 'Veille <em>technologique</em>', chaps: [7], cours: 'veille.html',
+    lead: "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion et cadre légal." },
+  { id: 'secu', menu: 'Sécurité informatique', name: 'Sécurité <em>informatique</em>', chaps: [8], cours: 'securite.html', labs2: 'securite.html#tp',
+    lead: "Comprendre les menaces, protéger les équipements, les réseaux et les données, et réagir face à un incident." }
+];
+const modOf = id => MODULES.filter(m => m.id === id)[0];
+const modOfChap = c => MODULES.filter(m => m.chaps.indexOf(c) >= 0)[0] || MODULES[0];
+const S = { view: 'home', tid: 1, tab: 'cours', quiz: null, labPreset: null, lab: 1, mod: 'm103' };
+(function () { const h = (location.hash || '').slice(1), saved = store.get('cmt-mod'); S.mod = modOf(h) ? h : (modOf(saved) ? saved : 'm103'); })();
+const topnav = document.getElementById('topnav');
+function navHTML() {
+  return `<div class="tn-in"><button class="tn-brand" data-m="${S.mod}" aria-label="Accueil du module"><span class="tn-logo">ID</span><span class="tn-name">Infrastructure <em>Digitale</em></span></button>
+    <nav class="tn-mods" aria-label="Modules">${MODULES.map(m => `<button class="tn-mod" data-m="${m.id}" aria-current="${S.mod === m.id ? 'page' : 'false'}">${esc(m.menu)}</button>`).join('')}</nav></div>`;
+}
+function setMod(id) {
+  if (!modOf(id)) return; S.mod = id; store.set('cmt-mod', id);
+  try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  go('home');
+}
+topnav.addEventListener('click', e => { const b = e.target.closest('[data-m]'); if (b) setMod(b.dataset.m); });
+window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (modOf(h) && h !== S.mod) setMod(h); });
 const theme = id => THEMES.filter(t => t.id === id)[0];
 const inChap = c => THEMES.filter(t => t.ch === c);
 function best(key) { return store.get('cmt-best-' + key); }
@@ -3478,20 +4212,24 @@ function chipOf(key) {
 function go(view, tid, tab) { S.view = view; if (tid != null) S.tid = tid; if (tab) S.tab = tab; render(); try { window.scrollTo(0, 0); } catch (e) {} }
 
 function homeHTML() {
-  let nq = 0; THEMES.forEach(t => nq += t.q.length);
-  let h = `<div class="stack"><div class="hero"><div class="eyebrow">OFPPT · Infrastructure digitale · 1re année</div><h1>Réseaux <em>informatiques</em></h1><div class="bar-g"></div>
-    <p class="lead">${CHAPS.length} thèmes, ${THEMES.length} leçons. Pour chaque leçon : une fiche de cours, une simulation à manipuler et un QCM corrigé. Avancez à votre rythme.</p>
-    <button class="btn" data-a="general">Quiz général · 20 questions</button>
-    <p class="stats">${CHAPS.length} thèmes · ${THEMES.length} leçons · ${THEMES.length} simulations · ${nq} questions · ${LABS.length} labs VLAN</p></div>`;
-  CHAPS.forEach((name, c) => {
-    const L = inChap(c); let nc = 0; L.forEach(t => nc += t.q.length);
-    h += `<section class="chap"><div class="chead"><span class="cnum">${String(c + 1).padStart(2, '0')}</span><div><h2>${esc(name)}</h2><p class="muted">${esc(CLEAD[c])}</p></div></div><div class="list">`;
+  const M = modOf(S.mod), TH = THEMES.filter(t => M.chaps.indexOf(t.ch) >= 0);
+  let nq = 0; TH.forEach(t => nq += t.q.length);
+  let h = `<div class="stack"><div class="hero"><div class="eyebrow">OFPPT · Infrastructure digitale · Module</div><h1>${M.name}</h1><div class="bar-g"></div>
+    <p class="lead">${esc(M.lead)} Pour chaque leçon : une fiche de cours, une simulation à manipuler et un QCM corrigé.</p>
+    <div class="actions">${M.cours ? `<a class="btn" href="${M.cours}">Lire le cours complet</a>` : ''}<button class="btn${M.cours ? ' alt' : ''}" data-a="general" data-n="20">QCM du module · 20 questions</button></div>
+    <p class="stats">${M.chaps.length} thème${M.chaps.length > 1 ? 's' : ''} · ${TH.length} leçons · ${nq} questions${M.labs ? ` · ${LABS.length} labs VLAN` : ''}</p></div>`;
+  M.chaps.forEach((c, ci) => {
+    const name = CHAPS[c], L = inChap(c); let nc = 0; L.forEach(t => nc += t.q.length);
+    h += `<section class="chap"><div class="chead"><span class="cnum">${String(ci + 1).padStart(2, '0')}</span><div><h2>${esc(name)}</h2><p class="muted">${esc(CLEAD[c])}</p></div></div><div class="list">`;
     L.forEach((t, k) => {
       h += `<button class="row" data-a="open" data-id="${t.id}"><span class="n">${k + 1}</span><span><strong>${esc(t.t)}</strong><small>${esc(t.short)}</small></span>${chipOf('t' + t.id)}</button>`;
     });
-    h += `</div><div class="cq"><button class="btn alt" data-a="chapter" data-c="${c}">Quiz du thème · ${Math.min(15, nc)} questions</button>${L[0] && L[0].pdf ? `<a class="btn gold" href="${L[0].pdf}" target="_blank" rel="noopener" download>Cours complet en PDF</a>` : ''}${chipOf('c' + c)}</div></section>`;
+    h += `</div><div class="cq"><button class="btn alt" data-a="chapter" data-c="${c}">Quiz du thème · ${Math.min(15, nc)} questions</button>${chipOf('c' + c)}</div></section>`;
   });
-  h += labsHome();
+  h += `<section class="chap"><div class="chead"><span class="cnum">QCM</span><div><h2>QCM du module</h2><p class="muted">Questions tirées au hasard dans toutes les leçons du module, corrigées une par une.</p></div></div>
+    <div class="qcmgrid">${[[10, 'QCM rapide', '10 questions · 5 min'], [20, 'QCM complet', '20 questions · 10 min'], [40, 'Examen blanc', '40 questions · 25 min']].map(x => `<button class="row qcmc" data-a="general" data-n="${x[0]}"><span class="n">${x[0]}</span><span><strong>${x[1]}</strong><small>${x[2]}${best((S.mod === 'm103' ? 'gen' : 'gen-' + S.mod) + '-' + x[0]) ? ' · meilleur : ' + best((S.mod === 'm103' ? 'gen' : 'gen-' + S.mod) + '-' + x[0]) : ''}</small></span></button>`).join('')}</div></section>`;
+  if (M.labs2) h += `<section class="chap"><div class="chead"><span class="cnum">TP</span><div><h2>Labs et travaux pratiques</h2><p class="muted">Six TP Packet Tracer et Windows, du plus simple au plus avancé, avec leur solution complète.</p></div></div><div class="actions"><a class="btn gold" href="${M.labs2}">Ouvrir les labs</a></div></section>`;
+  if (M.labs) h += labsHome();
   return h + `</div>`;
 }
 function tableHTML(tb) {
@@ -3508,7 +4246,7 @@ function themeHTML() {
     <div><div class="eyebrow">${esc(CHAPS[t.ch])} · leçon ${k} sur ${L.length}</div><h2>${esc(t.t)}</h2></div>
     <div class="tabs" role="tablist" style="grid-template-columns:repeat(${tabs.length},1fr)">${tabs.map(x => `<button class="tab" role="tab" data-a="tab" data-t="${x[0]}" aria-selected="${S.tab === x[0]}">${x[1]}</button>`).join('')}</div>`;
   if (S.tab === 'cours') {
-    if (t.pdf) h += `<div class="pdfbox"><p><strong>Cours complet en PDF</strong>Schémas, tableaux, astuces et exercices corrigés pour tout le thème.</p><a class="btn gold" href="${t.pdf}" target="_blank" rel="noopener" download>Télécharger le PDF</a></div>`;
+    if (t.pdf) h += `<div class="pdfbox"><p><strong>Cours complet</strong>Schémas, tableaux, astuces et exercices corrigés. <a href="${t.pdf}" download>Version PDF</a></p><a class="btn gold" href="${t.web || ('veille.html#ch' + (t.id - 29))}">Lire le chapitre</a></div>`;
     h += `<div class="block"><h3>Définition</h3><p class="def">${fmt(t.def)}</p></div>
       <div class="block"><h3>Points clés</h3><ul class="pts">${t.pts.map(p => `<li>${fmt(p)}</li>`).join('')}</ul></div>`;
     if (t.extra === 'frame') h += frameHTML();
@@ -3567,11 +4305,14 @@ function startChapter(c) {
   let all = []; inChap(c).forEach(t => { all = all.concat(t.q); });
   startQuiz(shuffle(all).slice(0, 15), CHAPS[c], 'c' + c);
 }
-function startGeneral() {
-  let all = []; THEMES.forEach(t => { all = all.concat(t.q); });
-  startQuiz(shuffle(all).slice(0, 20), 'Quiz général · réseaux informatiques', 'gen');
+function startGeneral(n) {
+  n = n || S.genN || 20; S.genN = n;
+  const M = modOf(S.mod); let all = []; THEMES.filter(t => M.chaps.indexOf(t.ch) >= 0).forEach(t => { all = all.concat(t.q); });
+  startQuiz(shuffle(all).slice(0, n), 'QCM · ' + M.menu + ' · ' + Math.min(n, all.length) + ' questions', (S.mod === 'm103' ? 'gen' : 'gen-' + S.mod) + '-' + n);
 }
 function render() {
+  if (S.view === 'theme') { const m = modOfChap(theme(S.tid).ch); if (m.id !== S.mod) { S.mod = m.id; store.set('cmt-mod', m.id); } }
+  topnav.innerHTML = navHTML();
   if (S.view === 'home') app.innerHTML = homeHTML();
   else if (S.view === 'theme') {
     app.innerHTML = themeHTML();
@@ -3589,7 +4330,7 @@ app.addEventListener('click', e => {
   else if (a === 'tab') go('theme', null, b.dataset.t);
   else if (a === 'startTheme') { const t = theme(S.tid); startQuiz(t.q, t.t, 't' + t.id); }
   else if (a === 'chapter') startChapter(+b.dataset.c);
-  else if (a === 'general') startGeneral();
+  else if (a === 'general') startGeneral(+b.dataset.n || 20);
   else if (a === 'lab') { const X = LABS.filter(x => x.id === +b.dataset.id)[0]; if (X && !X.locked) { S.lab = X.id; go('lab'); } }
   else if (a === 'pick' && z && z.sel === null) {
     z.sel = +b.dataset.k; const q = z.qs[z.i];
@@ -3601,7 +4342,7 @@ app.addEventListener('click', e => {
     if (z.i >= z.qs.length) { saveBest(z.key, z.score, z.qs.length); go('result'); } else render();
   }
   else if (a === 'retry') {
-    if (z.key === 'gen') startGeneral();
+    if (z.key.slice(0, 3) === 'gen') startGeneral();
     else if (z.key.charAt(0) === 'c') startChapter(+z.key.slice(1));
     else { const t = theme(S.tid); startQuiz(t.q, z.title, z.key); }
   }

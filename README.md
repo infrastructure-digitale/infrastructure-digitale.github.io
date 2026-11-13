@@ -1,11 +1,15 @@
 # Réseaux informatiques · Infrastructure digitale
 
 Application web pour les stagiaires OFPPT de 1re année (Infrastructure digitale) :
-8 thèmes, 38 leçons, chacune avec une fiche de cours, une simulation et un QCM corrigé.
+Trois modules (menu en haut du site) : Conception d'un réseau informatique (7 thèmes, 29 leçons, labs VLAN), Veille technologique (9 leçons) et Sécurité informatique (9 leçons, 6 TP). Chaque leçon a une fiche de cours, une simulation et un QCM corrigé ; chaque module a un QCM de 10, 20 ou 40 questions.
 
 Site en ligne : https://infrastructure-digitale.netlify.app/
 
 ## Organisation
+- Menu des modules : tableau `MODULES` (lien direct : `index.html#m103`, `#veille`, `#secu`).
+- Cours complets en HTML : `veille.html`, `securite.html` (TP et solutions : `securite.html#tp`) ; PDF dans `docs/`.
+- Simulations ajoutées : `simOrder`, `simRisk`, `simPhish`, `simPwd`, `simHash`, `simHarden`, `simAcl`, `simWifi`, `simBackup`, `simQuery`, `simCraap`.
+
 Le thème « La veille technologique » (leçons 30 à 38) couvre le cycle de veille, les sources, les outils, la méthode CRAAP, l'organisation, la diffusion, le cadre légal et le projet de veille. Chaque leçon a une simulation de mises en situation (`pick`) et renvoie vers le cours complet en PDF : `docs/veille-technologique.pdf`.
 
 Le site utilise un thème bleu nuit, sarcelle et or (polices Lora et Inter), en mode clair et sombre, adapté au mobile.

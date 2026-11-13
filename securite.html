@@ -1,0 +1,1618 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sécurité informatique — Cours complet · Infrastructure Digitale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap">
+<style>
+:root{
+  --navy:#1B2A4A; --navy2:#2C3E66; --teal:#0F766E; --teal-l:#E6F4F1;
+  --gold:#B8913A; --gold-l:#FBF4E4; --rose:#A84A62; --rose-l:#FBEEF1;
+  --violet:#5B4B8A; --violet-l:#F1EEF8; --sky:#2F6FA8; --sky-l:#EAF2FA;
+  --ink:#24292F; --muted:#5E6673; --line:#E3DED3; --cream:#FBF9F4;
+}
+
+
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Inter,"DejaVu Sans",sans-serif;font-size:10.2pt;line-height:1.58;color:var(--ink);margin:0}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--navy);line-height:1.25}
+h2{font-size:17pt;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);break-after:avoid}
+h2 .n{color:var(--gold);margin-right:8px}
+h3{font-size:12.5pt;margin:18px 0 6px;color:var(--teal);break-after:avoid}
+h4{font-size:11pt;margin:12px 0 4px;break-after:avoid}
+p{margin:6px 0 8px;text-align:justify}
+ul,ol{margin:4px 0 10px;padding-left:20px} li{margin:2px 0}
+strong{color:var(--navy)}
+
+  background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);color:#fff}
+
+
+/* KEYWORDS */
+.k{padding:1px 7px;border-radius:4px;font-weight:600;font-size:.94em;white-space:nowrap}
+.kb{background:var(--sky-l);color:var(--sky)} .kt{background:var(--teal-l);color:var(--teal)}
+.kg{background:var(--gold-l);color:#8A6A22} .kr{background:var(--rose-l);color:var(--rose)}
+.kv{background:var(--violet-l);color:var(--violet)}
+
+/* BOXES */
+.box{border-radius:10px;padding:11px 15px 9px 15px;margin:12px 0;;border-left:5px solid}
+.box .t{font-weight:700;font-size:8.6pt;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.box .t i{font-style:normal;display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:10pt}
+.box p{margin:3px 0}
+.def{background:var(--sky-l);border-color:var(--sky)} .def .t{color:var(--sky)} .def .t i{background:var(--sky)}
+.tip{background:var(--teal-l);border-color:var(--teal)} .tip .t{color:var(--teal)} .tip .t i{background:var(--teal)}
+.warn{background:var(--rose-l);border-color:var(--rose)} .warn .t{color:var(--rose)} .warn .t i{background:var(--rose)}
+.keep{background:var(--gold-l);border-color:var(--gold)} .keep .t{color:#8A6A22} .keep .t i{background:var(--gold)}
+.ana{background:var(--violet-l);border-color:var(--violet)} .ana .t{color:var(--violet)} .ana .t i{background:var(--violet)}
+.kwbox{border:1px dashed #CFC6B0;border-radius:10px;padding:9px 13px;margin:12px 0;background:#fff;}
+.kwbox .t{font-size:8.5pt;letter-spacing:1.6px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.kwbox .k{display:inline-block;margin:2px 3px}
+
+/* TABLES */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0 14px;font-size:9.2pt;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:8.8pt}
+td{padding:6px 9px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--cream)}
+tr{}
+td b{color:var(--navy)}
+.cap{font-size:8.5pt;color:var(--muted);text-align:center;font-style:italic;margin:-6px 0 12px}
+
+/* FIGURES */
+figure{margin:12px 0 14px;text-align:center;}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:8.5pt;color:var(--muted);font-style:italic;margin-top:4px}
+
+/* EXERCISES */
+.exo{border:1px solid var(--line);border-radius:10px;margin:12px 0;;overflow:hidden}
+.exo .h{background:var(--navy);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600;display:flex;justify-content:space-between}
+.exo .h span{color:#D9BD7A;font-weight:400}
+.exo .c{padding:8px 15px 6px}
+.cor{border:1px solid #CFE5DF;border-radius:10px;margin:10px 0;;overflow:hidden}
+.cor .h{background:var(--teal);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600}
+.cor .c{padding:8px 15px 6px;background:#FAFDFC}
+.lines{border-bottom:1px dotted #bbb;height:18px}
+
+.section-intro{font-family:Lora;font-style:italic;color:var(--navy2);font-size:11pt}
+
+.toc .row{display:flex;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line)}
+.toc .row .nb{font-family:Lora;font-size:17pt;color:var(--gold);width:48px}
+.toc .row .tt{flex:1;font-family:Lora;font-size:12.5pt;color:var(--navy)}
+.toc .row .ds{font-size:8.8pt;color:var(--muted);display:block;font-family:Inter}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;}
+.card h4{margin:0 0 4px;font-size:10.5pt}
+.card p{font-size:9.2pt;margin:0;text-align:left}
+.pb{break-before:page}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+/* ===== Version web ===== */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(184,145,58,.10),transparent 60%),#F6F3EC;background-attachment:fixed;font-size:16px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 80px}
+p{text-align:left}
+section.toc,.page{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07);padding:clamp(18px,4vw,36px);margin:26px 0}
+/* topnav */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(22,34,61,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,189,122,.25);box-shadow:0 4px 20px rgba(11,18,34,.18)}
+.tn-in{max-width:1100px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px}
+.tn-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none}
+.tn-logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 14px Lora,serif;color:#16223D;background:linear-gradient(135deg,#E2C78A,#B8913A)}
+.tn-name{font:600 1.05rem Lora,serif;white-space:nowrap}.tn-name em{color:#D9BD7A}
+.tn-mods{display:flex;gap:6px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tn-mod{border:1px solid rgba(255,255,255,.18);color:#D6DEEC;border-radius:999px;padding:8px 16px;font-weight:600;font-size:.92rem;white-space:nowrap;text-decoration:none}
+.tn-mod:hover{border-color:#D9BD7A;color:#fff}
+.tn-mod[aria-current="page"]{background:linear-gradient(135deg,#D9BD7A,#B8913A);border-color:transparent;color:#16223D}
+/* hero */
+.hero{position:relative;overflow:hidden;margin:26px 0;border-radius:22px;padding:clamp(26px,6vw,56px);color:#fff;background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);box-shadow:0 10px 30px rgba(11,18,34,.2)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1.5px solid rgba(217,189,122,.3);pointer-events:none}
+.hero::before{width:420px;height:420px;right:-150px;top:-160px}.hero::after{width:260px;height:260px;right:-60px;top:-80px}
+.hero .tag{font-size:.78rem;letter-spacing:4px;color:#D9BD7A;text-transform:uppercase}
+.hero h1{font-family:Lora,serif;font-size:clamp(2.3rem,8vw,3.8rem);color:#fff;margin:12px 0 4px;line-height:1.05}
+.hero h1 em{color:#D9BD7A}.hero h1 br{display:none}
+.hero .bar{width:60px;height:3px;background:#D9BD7A;margin:18px 0}
+.hero .sub{font-size:1.08rem;color:#C9D4E5;max-width:620px;font-weight:300}
+.hero .chips{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.hero .chips span{border:1px solid rgba(217,189,122,.6);color:#EBDDB5;padding:4px 12px;border-radius:20px;font-size:.8rem}
+.hero .meta{margin-top:22px;font-size:.88rem;color:#AFC0D8;line-height:1.8}.hero .meta b{color:#fff}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;min-height:48px;font-weight:700;text-decoration:none;border:0}
+.btn.gold{background:linear-gradient(135deg,#C9A24E,#A57F2C);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn.ghostw{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3)}
+/* sommaire */
+.toc .row{text-decoration:none;color:inherit;border-radius:10px;padding:10px 8px;transition:background .15s}
+.toc .row:hover{background:var(--cream)}.toc .row:hover .tt{color:var(--teal)}
+/* chapter head */
+.chead2{display:grid;grid-template-columns:150px 1fr;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);margin:56px 0 22px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07)}
+.ch-side{display:flex;flex-direction:column;justify-content:center;padding:20px;color:#fff}
+.ch-side .lbl{font-size:.72rem;letter-spacing:4px;opacity:.85}
+.ch-side .num{font:700 4.4rem/1 Lora,serif}
+.ch-body{padding:24px 28px}
+.ch-body h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin:0 0 8px}
+.ch-body .lead{font-family:Lora,serif;font-style:italic;color:var(--muted);font-size:1.05rem}
+.ch-body .obj{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.ch-body .obj h4{margin:0 0 4px;font-family:Inter;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.ch-body .quote{margin-top:16px;font-family:Lora,serif;font-style:italic;color:var(--navy2);border-left:3px solid var(--gold);padding-left:14px}
+/* contenus */
+h2{scroll-margin-top:80px}
+figure svg{width:100%;height:auto;max-width:680px}
+.tscroll{overflow-x:auto;margin:10px 0 16px;border-radius:10px}
+.tscroll table{margin:0;min-width:520px}
+details.cor{border:1px solid #CFE5DF;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+details.cor>summary{background:var(--teal);color:#fff;padding:9px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.cor>summary::-webkit-details-marker{display:none}
+details.cor>summary::after{content:"Voir le corrigé ▾";font-weight:400;font-size:.85rem;opacity:.85}
+details.cor[open]>summary::after{content:"Masquer ▴"}
+details.cor .c{padding:10px 16px;background:#FAFDFC}
+.exo,.box,.kwbox,.card{background-clip:padding-box}
+.fab{position:fixed;right:18px;bottom:18px;z-index:15;background:var(--navy);color:#D9BD7A;border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;box-shadow:0 8px 22px rgba(11,18,34,.3);font-size:.9rem}
+.foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+.foot a{color:var(--teal);font-weight:600}
+@media (max-width:640px){
+  .tn-in{flex-direction:column;align-items:stretch;gap:8px}.tn-mods{margin-left:0}.tn-mods{display:grid;grid-template-columns:1fr 1fr 1fr;overflow:visible}.tn-mod{white-space:normal;padding:8px 6px;font-size:.8rem;line-height:1.2;text-align:center}
+  .chead2{grid-template-columns:1fr}.ch-side{flex-direction:row;align-items:baseline;gap:12px;padding:14px 20px}.ch-side .num{font-size:2.6rem}
+  .ch-body{padding:18px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero::after{display:none}
+  .toc .row .nb{width:38px;font-size:15pt}
+  body{font-size:15.5px}
+}
+@media print{.topnav,.fab,.hero-actions{display:none}}
+
+.chead2#tp .ch-side .num{font-size:3.4rem}
+details.cor pre{margin:6px 0}
+</style></head>
+<body><header class="topnav"><div class="tn-in"><a class="tn-brand" href="index.html#secu"><span class="tn-logo">ID</span><span class="tn-name">Infrastructure <em>Digitale</em></span></a><nav class="tn-mods" aria-label="Modules"><a class="tn-mod" href="index.html#m103">Conception d'un réseau</a><a class="tn-mod" href="index.html#veille">Veille technologique</a><a class="tn-mod" href="index.html#secu" aria-current="page">Sécurité informatique</a></nav></div></header>
+<main class="wrap">
+
+<!-- ============ COVER ============ -->
+<header class="hero" id="top"><div class="hin">
+<div class="tag">Module · Infrastructure digitale</div>
+<h1>Sécurité<br/><em>informatique</em></h1>
+<div class="bar"></div>
+<div class="sub">Comprendre les menaces, protéger les réseaux, les équipements et les données, et réagir face à un incident.</div>
+<div class="chips"><span>9 chapitres</span><span>Schémas &amp; tableaux</span><span>Commandes Cisco</span><span>Astuces</span><span>Exercices corrigés</span></div>
+</div><div class="meta">
+<b>Public :</b> Stagiaires 1<sup>re</sup> année, niveau Bac+1 — Infrastructure Digitale<br/>
+<b>Formateur :</b> M. Youssef MERZAK<br/>
+<b>Édition :</b> Novembre 2026
+  </div><div class="hero-actions"><a class="btn gold" href="#sommaire">Commencer le cours</a><a class="btn ghostw" download="" href="docs/securite-informatique.pdf">Télécharger le PDF</a></div></header>
+<!-- ============ SOMMAIRE ============ -->
+<section class="toc" id="sommaire">
+<h2 style="margin-top:0">Sommaire</h2>
+<p class="section-intro" style="font-size:10pt">On part des notions de base (qu'est-ce qu'on protège, et contre qui ?) pour arriver à la pratique : sécuriser un switch Cisco, filtrer avec une ACL, protéger un Wi-Fi et réagir à un incident. Les corrigés sont regroupés à la fin.</p>
+<a class="row" href="#ch1"><span class="nb">01</span><span class="tt">Les fondamentaux de la sécurité<span class="ds">Triade CIA, actif, menace, vulnérabilité, risque</span></span></a>
+<a class="row" href="#ch2"><span class="nb">02</span><span class="tt">Les menaces et les attaques<span class="ds">Malwares, ingénierie sociale, attaques réseau et web</span></span></a>
+<a class="row" href="#ch3"><span class="nb">03</span><span class="tt">Authentification et contrôle d'accès<span class="ds">Mots de passe, MFA, AAA, moindre privilège</span></span></a>
+<a class="row" href="#ch4"><span class="nb">04</span><span class="tt">Les bases de la cryptographie<span class="ds">Chiffrement symétrique, asymétrique, hachage, certificats, HTTPS</span></span></a>
+<a class="row" href="#ch5"><span class="nb">05</span><span class="tt">Sécuriser les équipements réseau<span class="ds">Routeurs et switchs Cisco : SSH, mots de passe, port security</span></span></a>
+<a class="row" href="#ch6"><span class="nb">06</span><span class="tt">Pare-feu, ACL, DMZ, IDS/IPS et VPN<span class="ds">Filtrer, surveiller et relier en toute sécurité</span></span></a>
+<a class="row" href="#ch7"><span class="nb">07</span><span class="tt">La sécurité du Wi-Fi<span class="ds">WEP, WPA2, WPA3, mode Personnel et Entreprise (802.1X)</span></span></a>
+<a class="row" href="#ch8"><span class="nb">08</span><span class="tt">Protéger les postes et les données<span class="ds">Mises à jour, antivirus, sauvegardes 3-2-1, bonnes pratiques</span></span></a>
+<a class="row" href="#ch9"><span class="nb">09</span><span class="tt">Incidents, normes et cadre légal<span class="ds">Réponse à incident, maCERT, ISO 27001, lois 05-20, 07-03, 09-08</span></span></a>
+<a class="row" href="#tp"><span class="nb">TP</span><span class="tt">Labs et travaux pratiques<span class="ds">6 TP Packet Tracer et Windows avec solutions complètes</span></span></a>
+<a class="row" href="#qcm"><span class="nb">+</span><span class="tt">QCM final · Glossaire · Corrigés<span class="ds">Pour réviser et vérifier ses réponses</span></span></a>
+<h3>Comment lire ce cours ?</h3>
+<div class="legend">
+<span class="k kb">Définition</span><span class="k kt">Astuce</span><span class="k kr">Attention</span><span class="k kg">À retenir</span><span class="k kv">Analogie</span>
+</div>
+<p>Les <span class="k kb">mots-clés</span> sont surlignés en couleur : <span class="k kb">bleu</span> = concept, <span class="k kt">vert</span> = protection ou bonne pratique, <span class="k kg">or</span> = notion essentielle, <span class="k kr">rose</span> = menace ou risque, <span class="k kv">violet</span> = méthode ou protocole.</p>
+<div class="box warn"><div class="t"><i>!</i>Règle d'or du cours</div>
+<p>Toutes les techniques d'attaque présentées ici servent à <b>comprendre pour mieux se défendre</b>. Les tester sur un réseau qui ne t'appartient pas, sans autorisation écrite, est un délit (loi 07-03). On s'entraîne uniquement en labo : Packet Tracer, machines virtuelles, réseau de l'école avec accord du formateur.</p></div>
+</section>
+<!-- ============ CHAPITRE 1 ============ -->
+<section class="chead2" id="ch1"><div class="ch-side" style="background:linear-gradient(180deg,#1B2A4A,#2C3E66)"><span class="lbl">CHAPITRE</span><span class="num">01</span></div><div class="ch-body">
+<h1>Les fondamentaux de la sécurité</h1>
+<div class="lead">Avant de protéger, il faut savoir ce qu'on protège, contre quoi, et pourquoi.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Expliquer la triade CIA (confidentialité, intégrité, disponibilité)</li>
+<li>Distinguer actif, menace, vulnérabilité et risque</li>
+<li>Calculer un niveau de risque simple</li>
+<li>Comprendre la défense en profondeur</li></ul></div>
+<div class="quote">« La sécurité d'une chaîne est celle de son maillon le plus faible. »</div></div></section>
+<h2><span class="n">1.1</span>Qu'est-ce que la sécurité informatique ?</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>La <span class="k kb">sécurité informatique</span> est l'ensemble des moyens <b>techniques</b>, <b>organisationnels</b> et <b>humains</b> mis en place pour protéger les <b>systèmes d'information</b> (réseaux, équipements, logiciels, données) contre les accès non autorisés, les modifications, les destructions et les interruptions.</p></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Protéger un réseau, c'est comme protéger une maison : une <b>serrure</b> (mot de passe), une <b>alarme</b> (détection d'intrusion), un <b>coffre-fort</b> (chiffrement), une <b>assurance</b> (sauvegarde)… et surtout des habitants qui ne donnent pas la clé au premier inconnu qui sonne (sensibilisation des utilisateurs).</p></div>
+<h2><span class="n">1.2</span>La triade CIA (ou DIC)</h2>
+<p>Toute la sécurité repose sur trois objectifs. En anglais on dit <span class="k kg">CIA</span> (<i>Confidentiality, Integrity, Availability</i>), en français <span class="k kg">DIC</span> (Disponibilité, Intégrité, Confidentialité).</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 320">
+<polygon fill="#FBF9F4" points="300,30 540,280 60,280" stroke="#B8913A" stroke-width="2.5"></polygon>
+<circle cx="300" cy="185" fill="#1B2A4A" r="52"></circle>
+<text fill="#fff" font-size="13" font-weight="700" text-anchor="middle" x="300" y="180">DONNÉES</text>
+<text fill="#D9BD7A" font-size="11" text-anchor="middle" x="300" y="198">&amp; services</text>
+<g text-anchor="middle">
+<circle cx="300" cy="40" fill="#2F6FA8" r="38"></circle><text fill="#fff" font-size="12" font-weight="700" x="300" y="36">C</text><text fill="#fff" font-size="9.5" x="300" y="52">Confidentialité</text>
+<circle cx="70" cy="272" fill="#0F766E" r="38"></circle><text fill="#fff" font-size="12" font-weight="700" x="70" y="268">I</text><text fill="#fff" font-size="10" x="70" y="284">Intégrité</text>
+<circle cx="530" cy="272" fill="#A84A62" r="38"></circle><text fill="#fff" font-size="12" font-weight="700" x="530" y="268">A</text><text fill="#fff" font-size="9.5" x="530" y="284">Disponibilité</text>
+<text fill="#2F6FA8" font-size="10.5" x="425" y="70">Seules les personnes</text><text fill="#2F6FA8" font-size="10.5" x="425" y="84">autorisées lisent</text>
+<text fill="#0F766E" font-size="10.5" x="130" y="180">Les données ne sont</text><text fill="#0F766E" font-size="10.5" x="130" y="194">pas modifiées</text>
+<text fill="#A84A62" font-size="10.5" x="470" y="180">Le service est</text><text fill="#A84A62" font-size="10.5" x="470" y="194">accessible quand il faut</text>
+</g>
+</svg>
+<figcaption>Figure 1 — La triade CIA : les trois piliers de la sécurité</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:17%">Pilier</th><th style="width:28%">Objectif</th><th>Exemple d'attaque</th><th style="width:24%">Protection</th></tr>
+<tr><td><b style="color:#2F6FA8">Confidentialité</b></td><td>Seules les personnes autorisées accèdent à l'information</td><td>Un pirate écoute le trafic Wi-Fi et lit les mots de passe</td><td>Chiffrement, contrôle d'accès</td></tr>
+<tr><td><b style="color:#0F766E">Intégrité</b></td><td>L'information n'est pas modifiée sans autorisation</td><td>Un attaquant change le RIB dans une facture envoyée par e-mail</td><td>Hachage, signature numérique</td></tr>
+<tr><td><b style="color:#A84A62">Disponibilité</b></td><td>Le service fonctionne quand on en a besoin</td><td>Une attaque DDoS rend le site de l'entreprise inaccessible</td><td>Redondance, sauvegardes, anti-DDoS</td></tr>
+</table></div>
+<p>On ajoute souvent deux critères complémentaires :</p>
+<ul>
+<li><span class="k kb">Authentification</span> : prouver qui on est (mot de passe, badge, empreinte).</li>
+<li><span class="k kb">Traçabilité / non-répudiation</span> : garder la preuve de qui a fait quoi (journaux, signature) ; personne ne peut nier son action.</li>
+</ul>
+<div class="box tip"><div class="t"><i>✓</i>Astuce mnémotechnique</div>
+<p><b>« Le CIA protège les secrets »</b> : <b>C</b>onfidentialité (secret), <b>I</b>ntégrité (pas de modification), <b>A</b>vailability = Disponibilité (toujours là). En français : <b>DIC</b>, comme un <b>dic</b>tionnaire — fiable, complet et toujours disponible.</p></div>
+<h2><span class="n">1.3</span>Actif, menace, vulnérabilité, risque</h2>
+<p>Ces quatre mots sont la base de toute analyse de sécurité. Il faut bien les distinguer.</p>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Notion</th><th>Définition simple</th><th style="width:38%">Exemple</th></tr>
+<tr><td><b>Actif</b></td><td>Ce qui a de la valeur et qu'on veut protéger</td><td>Serveur de fichiers, base clients, routeur, réputation</td></tr>
+<tr><td><b>Menace</b></td><td>Ce qui peut causer un dommage (personne, événement)</td><td>Pirate, ransomware, incendie, employé maladroit</td></tr>
+<tr><td><b>Vulnérabilité</b></td><td>Une faiblesse que la menace peut exploiter</td><td>Mot de passe « admin », logiciel non mis à jour, Telnet activé</td></tr>
+<tr><td><b>Risque</b></td><td>La possibilité qu'une menace exploite une vulnérabilité et cause un impact</td><td>« Un ransomware chiffre le serveur non mis à jour »</td></tr>
+<tr><td><b>Contre-mesure</b></td><td>Ce qu'on met en place pour réduire le risque</td><td>Mise à jour, sauvegarde, antivirus, formation</td></tr>
+</table></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 150">
+<defs><marker id="s1a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<g font-size="11" text-anchor="middle">
+<rect fill="#FBEEF1" height="70" rx="12" stroke="#A84A62" width="130" x="5" y="40"></rect><text fill="#A84A62" font-size="13" font-weight="700" x="70" y="70">MENACE</text><text fill="#333" x="70" y="90">le pirate</text>
+<rect fill="#FBF4E4" height="70" rx="12" stroke="#B8913A" width="140" x="170" y="40"></rect><text fill="#8A6A22" font-size="13" font-weight="700" x="240" y="70">VULNÉRABILITÉ</text><text fill="#333" x="240" y="90">la porte mal fermée</text>
+<rect fill="#EAF2FA" height="70" rx="12" stroke="#2F6FA8" width="130" x="345" y="40"></rect><text fill="#2F6FA8" font-size="13" font-weight="700" x="410" y="70">ACTIF</text><text fill="#333" x="410" y="90">la base clients</text>
+<rect fill="#1B2A4A" height="70" rx="12" width="125" x="510" y="40"></rect><text fill="#D9BD7A" font-size="13" font-weight="700" x="572" y="70">IMPACT</text><text fill="#fff" x="572" y="90">vol, arrêt, amende</text>
+</g>
+<g marker-end="url(#s1a)" stroke="#B8913A" stroke-width="2.5"><line x1="137" x2="165" y1="75" y2="75"></line><line x1="312" x2="340" y1="75" y2="75"></line><line x1="477" x2="505" y1="75" y2="75"></line></g>
+<text fill="#1B2A4A" font-size="12" font-weight="600" text-anchor="middle" x="320" y="20">Le scénario de risque</text>
+<text fill="#777" font-size="10" text-anchor="middle" x="320" y="138">Pas de vulnérabilité = la menace ne peut pas passer. Pas d'actif de valeur = pas d'impact.</text>
+</svg>
+<figcaption>Figure 2 — Une menace exploite une vulnérabilité pour atteindre un actif</figcaption>
+</figure>
+<h3>Mesurer un risque</h3>
+<p>On estime le niveau de risque avec une formule simple :</p>
+<div class="box keep"><div class="t"><i>★</i>Formule à retenir</div>
+<p style="text-align:center;font-size:12pt"><b>Risque = Probabilité × Impact</b></p>
+<p>On note chaque critère de 1 (faible) à 4 (très élevé). Un risque ≥ 9 est prioritaire.</p></div>
+<div class="tscroll"><table style="text-align:center">
+<tr><th style="text-align:left">Probabilité \ Impact</th><th>1 Faible</th><th>2 Moyen</th><th>3 Grave</th><th>4 Critique</th></tr>
+<tr><td style="text-align:left"><b>4 Très probable</b></td><td style="background:#FBF4E4">4</td><td style="background:#F6DDBD">8</td><td style="background:#F0C2CC">12</td><td style="background:#E59AAB;color:#fff"><b>16</b></td></tr>
+<tr><td style="text-align:left"><b>3 Probable</b></td><td style="background:#E6F4F1">3</td><td style="background:#FBF4E4">6</td><td style="background:#F0C2CC">9</td><td style="background:#F0C2CC">12</td></tr>
+<tr><td style="text-align:left"><b>2 Possible</b></td><td style="background:#E6F4F1">2</td><td style="background:#E6F4F1">4</td><td style="background:#FBF4E4">6</td><td style="background:#F6DDBD">8</td></tr>
+<tr><td style="text-align:left"><b>1 Rare</b></td><td style="background:#E6F4F1">1</td><td style="background:#E6F4F1">2</td><td style="background:#E6F4F1">3</td><td style="background:#FBF4E4">4</td></tr>
+</table></div>
+<p class="cap">Matrice des risques : vert = acceptable, or = à surveiller, rose = à traiter en priorité</p>
+<h3>Les 4 façons de traiter un risque</h3>
+<div class="grid2">
+<div class="card"><h4 style="color:var(--teal)">Réduire</h4><p>Mettre une contre-mesure : mise à jour, pare-feu, formation. C'est le cas le plus fréquent.</p></div>
+<div class="card"><h4 style="color:var(--sky)">Transférer</h4><p>Confier le risque à un tiers : assurance cyber, hébergeur, prestataire.</p></div>
+<div class="card"><h4 style="color:var(--rose)">Éviter</h4><p>Supprimer l'activité risquée : désactiver un service inutile exposé sur Internet.</p></div>
+<div class="card"><h4 style="color:#8A6A22">Accepter</h4><p>Le risque est faible ou la protection coûte plus cher que le dommage : on l'assume, en le documentant.</p></div>
+</div>
+<h2><span class="n">1.4</span>La défense en profondeur</h2>
+<p>Aucune protection n'est parfaite. On empile donc plusieurs <b>couches</b> de défense : si l'une cède, la suivante arrête l'attaque. C'est la <span class="k kv">défense en profondeur</span>.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 560 300">
+<g text-anchor="middle">
+<circle cx="280" cy="150" fill="#EAF2FA" r="140"></circle><circle cx="280" cy="150" fill="#E6F4F1" r="112"></circle><circle cx="280" cy="150" fill="#F1EEF8" r="84"></circle><circle cx="280" cy="150" fill="#FBF4E4" r="56"></circle><circle cx="280" cy="150" fill="#1B2A4A" r="30"></circle>
+<text fill="#fff" font-size="9.5" font-weight="700" x="280" y="147">DONNÉES</text><text fill="#D9BD7A" font-size="8" x="280" y="159">chiffrement</text>
+<text fill="#8A6A22" font-size="9.5" font-weight="700" x="280" y="114">Application</text>
+<text fill="#5B4B8A" font-size="9.5" font-weight="700" x="280" y="84">Poste / serveur</text>
+<text fill="#0F766E" font-size="9.5" font-weight="700" x="280" y="56">Réseau interne</text>
+<text fill="#2F6FA8" font-size="9.5" font-weight="700" x="280" y="27">Périmètre</text>
+</g>
+<g fill="#333" font-size="9.5">
+<text x="430" y="40">Pare-feu, VPN</text><text x="430" y="70">VLAN, ACL, IDS</text><text x="430" y="100">Antivirus, mises à jour</text><text x="430" y="130">Mots de passe, MFA</text><text x="430" y="160">Chiffrement, sauvegarde</text>
+<text fill="#A84A62" font-weight="600" x="10" y="290">+ couche humaine : sensibilisation · + couche physique : salle serveur fermée</text>
+</g>
+</svg>
+<figcaption>Figure 3 — La défense en profondeur : des couches successives autour des données</figcaption>
+</figure>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Un château fort : des douves, puis un mur, puis des gardes, puis un donjon, puis un coffre. Un ennemi qui traverse les douves doit encore franchir tout le reste.</p></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Le maillon le plus faible est souvent <span class="k kr">l'humain</span> : un clic sur un lien piégé, un mot de passe noté sur un post-it, une clé USB trouvée et branchée. La sensibilisation fait partie de la sécurité au même titre que le pare-feu.</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <b>CIA / DIC</b> : Confidentialité, Intégrité, Disponibilité (+ authentification, traçabilité).<br/>
+• Une <b>menace</b> exploite une <b>vulnérabilité</b> pour atteindre un <b>actif</b> : c'est le <b>risque</b>.<br/>
+• <b>Risque = Probabilité × Impact</b>. On le réduit, transfère, évite ou accepte.<br/>
+• <b>Défense en profondeur</b> : plusieurs couches de protection.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kg">CIA / DIC</span><span class="k kb">Confidentialité</span><span class="k kb">Intégrité</span><span class="k kb">Disponibilité</span><span class="k kb">Actif</span><span class="k kr">Menace</span><span class="k kr">Vulnérabilité</span><span class="k kg">Risque</span><span class="k kt">Contre-mesure</span><span class="k kv">Défense en profondeur</span>
+</div>
+<h3>Exercices — Chapitre 1</h3>
+<div class="exo"><div class="h">Exercice 1.1 — Quel pilier est touché ? <span>★ facile</span></div><div class="c">
+<p>Pour chaque incident, indique le pilier de la triade CIA principalement touché.</p>
+<ol type="a"><li>Le serveur web de l'école est saturé par une attaque et ne répond plus.</li>
+<li>Un stagiaire lit les notes d'un autre en se connectant avec son mot de passe.</li>
+<li>Un virus modifie les montants dans un fichier Excel de comptabilité.</li>
+<li>Une coupure électrique arrête la salle serveur pendant 3 heures.</li>
+<li>Un e-mail contenant des données clients est envoyé à la mauvaise personne.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 1.2 — Actif, menace ou vulnérabilité ? <span>★ facile</span></div><div class="c">
+<p>Classe chaque élément : (a) le routeur de l'agence ; (b) Telnet activé sur le routeur ; (c) un groupe de pirates ; (d) la base de données des clients ; (e) le mot de passe « 123456 » ; (f) une inondation ; (g) un système Windows jamais mis à jour.</p></div></div>
+<div class="exo"><div class="h">Exercice 1.3 — Calculer des risques <span>★★ moyen</span></div><div class="c">
+<p>Calcule le niveau de chaque risque (Probabilité × Impact), classe-les du plus au moins prioritaire et propose une contre-mesure pour le premier.</p>
+<div class="tscroll"><table style="margin:4px 0"><tr><th>Risque</th><th>Probabilité</th><th>Impact</th></tr>
+<tr><td>R1 — Ransomware sur le serveur de fichiers sans sauvegarde</td><td>3</td><td>4</td></tr>
+<tr><td>R2 — Vol d'un PC portable chiffré</td><td>2</td><td>2</td></tr>
+<tr><td>R3 — Panne du seul switch de cœur</td><td>2</td><td>4</td></tr>
+<tr><td>R4 — Mot de passe Wi-Fi invités partagé sur les réseaux sociaux</td><td>4</td><td>1</td></tr></table></div></div></div>
+<!-- ============ CHAPITRE 2 ============ -->
+<section class="chead2" id="ch2"><div class="ch-side" style="background:linear-gradient(180deg,#A84A62,#7E3448)"><span class="lbl">CHAPITRE</span><span class="num">02</span></div><div class="ch-body">
+<h1>Les menaces et les attaques</h1>
+<div class="lead">Connaître son adversaire, c'est déjà savoir où placer ses défenses.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Reconnaître les principaux logiciels malveillants</li>
+<li>Identifier une tentative d'ingénierie sociale (phishing)</li>
+<li>Comprendre les attaques réseau : DoS, MITM, ARP spoofing, MAC flooding</li>
+<li>Connaître les attaques sur les applications web et les mots de passe</li></ul></div>
+<div class="quote">« Il est souvent plus facile de tromper un humain que de casser un chiffrement. »</div></div></section>
+<h2><span class="n">2.1</span>Les logiciels malveillants (malwares)</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kr">malware</span> (logiciel malveillant) est un programme conçu pour nuire : voler des données, espionner, détruire, chiffrer ou prendre le contrôle d'une machine.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Type</th><th>Comment il agit</th><th style="width:28%">Exemple / symptôme</th></tr>
+<tr><td><b>Virus</b></td><td>S'attache à un fichier ou programme ; se propage quand on l'exécute</td><td>Fichier .exe infecté reçu par clé USB</td></tr>
+<tr><td><b>Ver (worm)</b></td><td>Se propage <b>tout seul</b> sur le réseau en exploitant une faille</td><td>WannaCry (2017) via la faille SMB</td></tr>
+<tr><td><b>Cheval de Troie</b></td><td>Se cache dans un logiciel qui semble utile</td><td>« Crack » de jeu qui ouvre une porte dérobée</td></tr>
+<tr><td><b>Ransomware</b></td><td>Chiffre les fichiers et demande une <span class="k kr">rançon</span></td><td>Fichiers renommés en .locked + message de rançon</td></tr>
+<tr><td><b>Spyware</b></td><td>Espionne : capture l'écran, les frappes clavier (keylogger)</td><td>Mots de passe volés sans aucun signe visible</td></tr>
+<tr><td><b>Adware</b></td><td>Affiche de la publicité envahissante</td><td>Fenêtres publicitaires, page d'accueil modifiée</td></tr>
+<tr><td><b>Botnet</b></td><td>Réseau de machines infectées pilotées à distance (« zombies »)</td><td>Utilisé pour des attaques DDoS ou du spam</td></tr>
+<tr><td><b>Rootkit</b></td><td>Se cache au cœur du système pour rester invisible</td><td>Antivirus désactivé, processus cachés</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce pour ne pas confondre</div>
+<p><b>Virus</b> = a besoin de toi pour se lancer (comme un rhume qu'on attrape en touchant). <b>Ver</b> = se déplace tout seul (comme une épidémie qui saute de maison en maison). <b>Cheval de Troie</b> = cadeau piégé (comme dans la légende grecque).</p></div>
+<h2><span class="n">2.2</span>L'ingénierie sociale</h2>
+<p>L'<span class="k kr">ingénierie sociale</span> consiste à manipuler une personne pour qu'elle donne une information ou fasse une action (cliquer, payer, ouvrir une porte). Elle exploite la confiance, la peur, l'urgence ou la curiosité.</p>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Technique</th><th>Description</th></tr>
+<tr><td><b>Phishing (hameçonnage)</b></td><td>Faux e-mail qui imite une banque, un service ou un collègue pour voler des identifiants</td></tr>
+<tr><td><b>Spear phishing</b></td><td>Phishing ciblé, personnalisé avec le nom, le poste, des détails réels</td></tr>
+<tr><td><b>Smishing / Vishing</b></td><td>Phishing par SMS / par appel téléphonique (« ici le support informatique… »)</td></tr>
+<tr><td><b>Fraude au président</b></td><td>Un faux dirigeant demande un virement urgent et confidentiel</td></tr>
+<tr><td><b>Baiting (appât)</b></td><td>Clé USB piégée laissée volontairement dans le parking</td></tr>
+<tr><td><b>Tailgating</b></td><td>Entrer dans une zone protégée en suivant une personne autorisée</td></tr>
+</table></div>
+<div class="grid2">
+<div class="card" style="background:var(--rose-l);border-color:#E7C3CD"><h4 style="color:var(--rose)">🚩 Reconnaître un phishing</h4><p>• Urgence ou menace (« compte bloqué sous 24 h »)<br/>• Expéditeur bizarre : <i>support@banque-securite.co</i><br/>• Lien dont l'adresse réelle est différente (survoler sans cliquer)<br/>• Fautes, logo flou, ton inhabituel<br/>• Demande de mot de passe ou de code (jamais demandé par un vrai service)</p></div>
+<div class="card" style="background:var(--teal-l);border-color:#BFE0D8"><h4 style="color:var(--teal)">✅ Les bons réflexes</h4><p>• Ne pas cliquer, ne pas répondre<br/>• Vérifier par un autre canal (appeler le vrai numéro)<br/>• Taper soi-même l'adresse du site<br/>• Signaler au service informatique<br/>• En cas de doute : on demande, on ne clique pas</p></div>
+</div>
+<h2><span class="n">2.3</span>Les attaques réseau</h2>
+<h3>Déni de service : DoS et DDoS</h3>
+<p>Un <span class="k kr">DoS</span> (<i>Denial of Service</i>) sature un serveur ou un lien pour le rendre indisponible. Un <span class="k kr">DDoS</span> fait la même chose depuis des milliers de machines (un botnet) en même temps.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 200">
+<defs><marker id="s2a" markerheight="8" markerwidth="8" orient="auto" refx="7" refy="4"><path d="M0,0 L8,4 L0,8 z" fill="#A84A62"></path></marker></defs>
+<g font-size="9" text-anchor="middle">
+<g fill="#FBEEF1" stroke="#A84A62">
+<rect height="28" rx="6" width="70" x="10" y="15"></rect><rect height="28" rx="6" width="70" x="10" y="60"></rect><rect height="28" rx="6" width="70" x="10" y="105"></rect><rect height="28" rx="6" width="70" x="10" y="150"></rect>
+<rect height="28" rx="6" width="70" x="110" y="38"></rect><rect height="28" rx="6" width="70" x="110" y="128"></rect></g>
+<g fill="#A84A62"><text x="45" y="33">zombie</text><text x="45" y="78">zombie</text><text x="45" y="123">zombie</text><text x="45" y="168">zombie</text><text x="145" y="56">zombie</text><text x="145" y="146">zombie</text></g>
+</g>
+<g marker-end="url(#s2a)" stroke="#A84A62" stroke-width="1.6"><line x1="82" x2="395" y1="29" y2="92"></line><line x1="82" x2="395" y1="74" y2="96"></line><line x1="82" x2="395" y1="119" y2="100"></line><line x1="82" x2="395" y1="164" y2="106"></line><line x1="182" x2="395" y1="52" y2="94"></line><line x1="182" x2="395" y1="142" y2="104"></line></g>
+<rect fill="#1B2A4A" height="70" rx="12" width="110" x="400" y="65"></rect>
+<text fill="#fff" font-size="12" font-weight="700" text-anchor="middle" x="455" y="95">SERVEUR</text>
+<text fill="#F0A3B4" font-size="10" text-anchor="middle" x="455" y="113">saturé 💥</text>
+<rect fill="#E6F4F1" height="40" rx="8" stroke="#0F766E" width="70" x="540" y="80"></rect>
+<text fill="#0F766E" font-size="9.5" text-anchor="middle" x="575" y="98">vrai client</text>
+<text fill="#A84A62" font-size="9" text-anchor="middle" x="575" y="111">bloqué ✗</text>
+<text fill="#555" font-size="10" x="200" y="195">Botnet : des milliers de machines infectées envoient du trafic en même temps</text>
+</svg>
+<figcaption>Figure 4 — Attaque DDoS : le serveur ne répond plus aux vrais clients</figcaption>
+</figure>
+<h3>L'homme du milieu (MITM)</h3>
+<p>Dans une attaque <span class="k kr">Man-in-the-Middle</span>, le pirate se place entre deux machines : il lit, et parfois modifie, tout ce qu'elles échangent sans qu'elles s'en rendent compte.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 170">
+<defs><marker id="s2b" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<rect fill="#EAF2FA" height="56" rx="10" stroke="#2F6FA8" width="120" x="10" y="60"></rect><text fill="#2F6FA8" font-size="12" font-weight="700" text-anchor="middle" x="70" y="85">PC victime</text><text font-size="9.5" text-anchor="middle" x="70" y="102">192.168.1.10</text>
+<rect fill="#E6F4F1" height="56" rx="10" stroke="#0F766E" width="120" x="490" y="60"></rect><text fill="#0F766E" font-size="12" font-weight="700" text-anchor="middle" x="550" y="85">Passerelle</text><text font-size="9.5" text-anchor="middle" x="550" y="102">192.168.1.1</text>
+<rect fill="#FBEEF1" height="56" rx="10" stroke="#A84A62" width="120" x="250" y="8"></rect><text fill="#A84A62" font-size="12" font-weight="700" text-anchor="middle" x="310" y="33">Pirate</text><text font-size="9.5" text-anchor="middle" x="310" y="50">lit tout 👁</text>
+<g fill="none" marker-end="url(#s2b)" stroke="#1B2A4A" stroke-width="2"><path d="M132 75 L248 40"></path><path d="M372 40 L488 75"></path></g>
+<line stroke="#B8913A" stroke-dasharray="6 5" stroke-width="2" x1="132" x2="488" y1="105" y2="105"></line>
+<text fill="#8A6A22" font-size="10" text-anchor="middle" x="310" y="125">chemin normal (que la victime croit utiliser)</text>
+<text fill="#555" font-size="10" text-anchor="middle" x="310" y="158">Le pirate a trompé le PC : il se fait passer pour la passerelle (ARP spoofing)</text>
+</svg>
+<figcaption>Figure 5 — Attaque de l'homme du milieu (MITM)</figcaption>
+</figure>
+<h3>Les attaques sur le réseau local (couche 2)</h3>
+<div class="tscroll"><table>
+<tr><th style="width:20%">Attaque</th><th>Principe</th><th style="width:30%">Protection (switch Cisco)</th></tr>
+<tr><td><b>ARP spoofing</b></td><td>Le pirate envoie de fausses réponses ARP pour associer son adresse MAC à l'IP de la passerelle → MITM</td><td><span class="k kt">Dynamic ARP Inspection</span> (DAI)</td></tr>
+<tr><td><b>MAC flooding</b></td><td>Inonder le switch de fausses adresses MAC : la table MAC déborde et le switch diffuse tout, comme un hub</td><td><span class="k kt">Port security</span> (limiter le nombre de MAC par port)</td></tr>
+<tr><td><b>DHCP spoofing</b></td><td>Un faux serveur DHCP donne sa propre adresse comme passerelle ou DNS</td><td><span class="k kt">DHCP snooping</span></td></tr>
+<tr><td><b>DHCP starvation</b></td><td>Épuiser toutes les adresses du serveur DHCP avec de fausses demandes</td><td>DHCP snooping + port security</td></tr>
+<tr><td><b>VLAN hopping</b></td><td>Sauter d'un VLAN à un autre en abusant du trunk ou du VLAN natif</td><td>Ports d'accès en <code>switchport mode access</code>, VLAN natif inutilisé</td></tr>
+<tr><td><b>Écoute (sniffing)</b></td><td>Capturer le trafic (Wireshark) pour lire ce qui n'est pas chiffré</td><td>Protocoles chiffrés : SSH, HTTPS, SFTP</td></tr>
+</table></div>
+<h2><span class="n">2.4</span>Attaques sur les mots de passe et les applications web</h2>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Attaque</th><th>Principe</th><th style="width:28%">Protection</th></tr>
+<tr><td><b>Force brute</b></td><td>Essayer toutes les combinaisons possibles</td><td>Mots de passe longs, blocage après X essais</td></tr>
+<tr><td><b>Attaque par dictionnaire</b></td><td>Essayer une liste de mots de passe courants (123456, azerty, admin…)</td><td>Interdire les mots de passe faibles</td></tr>
+<tr><td><b>Credential stuffing</b></td><td>Réutiliser des identifiants volés sur un autre site</td><td>Un mot de passe différent par site, MFA</td></tr>
+<tr><td><b>Injection SQL</b></td><td>Insérer du code SQL dans un formulaire pour lire ou modifier la base</td><td>Requêtes préparées, validation des entrées</td></tr>
+<tr><td><b>XSS</b></td><td>Injecter un script dans une page web vue par d'autres utilisateurs</td><td>Filtrer et encoder les données affichées</td></tr>
+<tr><td><b>Zero-day</b></td><td>Exploiter une faille inconnue de l'éditeur, sans correctif</td><td>Défense en profondeur, détection, mises à jour rapides</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Les outils d'attaque (scanners, crackers, sniffers) sont faciles à trouver. Les utiliser sur un réseau sans <b>autorisation écrite</b> du propriétaire est puni par la loi marocaine 07-03, même « juste pour tester ».</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Malwares : <b>virus, ver, cheval de Troie, ransomware, spyware, botnet, rootkit</b>.<br/>
+• <b>Ingénierie sociale</b> : on manipule l'humain (phishing, fraude au président, clé USB piégée).<br/>
+• Réseau : <b>DoS/DDoS</b> (disponibilité), <b>MITM / ARP spoofing</b> (confidentialité), <b>MAC flooding, DHCP spoofing, VLAN hopping</b> (couche 2).<br/>
+• Web et mots de passe : <b>force brute, dictionnaire, injection SQL, XSS, zero-day</b>.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kr">Malware</span><span class="k kr">Ransomware</span><span class="k kr">Ver</span><span class="k kr">Cheval de Troie</span><span class="k kr">Phishing</span><span class="k kr">DDoS</span><span class="k kr">MITM</span><span class="k kv">ARP spoofing</span><span class="k kv">MAC flooding</span><span class="k kt">DHCP snooping</span><span class="k kt">Port security</span><span class="k kr">Injection SQL</span><span class="k kr">Zero-day</span>
+</div>
+<h3>Exercices — Chapitre 2</h3>
+<div class="exo"><div class="h">Exercice 2.1 — Identifier le malware <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Tous les fichiers du serveur sont renommés en « .lock » et un message demande 2 000 $ en bitcoin.</li>
+<li>Un programme se propage seul d'un PC à l'autre sur le réseau grâce à une faille Windows.</li>
+<li>Un « crack » de logiciel installe en secret un accès à distance pour le pirate.</li>
+<li>Un programme enregistre toutes les touches tapées au clavier.</li>
+<li>Des milliers de caméras IP infectées attaquent ensemble un site web.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 2.2 — Analyser un e-mail <span>★★ moyen</span></div><div class="c">
+<p>Expéditeur : <i>service-client@cih-securite-maroc.co</i> — Objet : « URGENT : votre compte sera suspendu » — Texte : « Cher client, suite à une activité suspecte, confirmez vos identifiants dans les 2 heures en cliquant ici, sinon votre compte sera définitivement bloqué. »</p>
+<p>Relève au moins 4 indices de phishing et indique ce que l'employé doit faire.</p></div></div>
+<div class="exo"><div class="h">Exercice 2.3 — Attaque et protection <span>★★ moyen</span></div><div class="c">
+<p>Associe chaque attaque à sa protection : (1) MAC flooding — (2) faux serveur DHCP — (3) ARP spoofing — (4) écoute du mot de passe Telnet — (5) injection SQL.<br/>
+Protections : (A) DHCP snooping — (B) SSH — (C) port security — (D) requêtes préparées — (E) Dynamic ARP Inspection.</p></div></div>
+<!-- ============ CHAPITRE 3 ============ -->
+<section class="chead2" id="ch3"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#0B5A54)"><span class="lbl">CHAPITRE</span><span class="num">03</span></div><div class="ch-body">
+<h1>Authentification et contrôle d'accès</h1>
+<div class="lead">Qui es-tu ? Qu'as-tu le droit de faire ? Qu'as-tu fait ? Trois questions, trois mécanismes.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Distinguer identification, authentification et autorisation</li>
+<li>Connaître les 3 facteurs d'authentification et la MFA</li>
+<li>Créer une politique de mots de passe solide</li>
+<li>Comprendre le modèle AAA, RADIUS et TACACS+</li></ul></div>
+<div class="quote">« Un mot de passe, c'est comme une brosse à dents : on ne le prête pas et on le change régulièrement. »</div></div></section>
+<h2><span class="n">3.1</span>Identification, authentification, autorisation</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 150">
+<defs><marker id="s3a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="105" rx="14" stroke="#2F6FA8" width="185" x="5" y="20"></rect><text fill="#2F6FA8" font-size="13" font-weight="700" x="97" y="48">1. IDENTIFICATION</text><text font-size="11" x="97" y="72">« Je suis ahmed »</text><text fill="#555" font-size="10" font-style="italic" x="97" y="104">nom d'utilisateur</text>
+<rect fill="#E6F4F1" height="105" rx="14" stroke="#0F766E" width="185" x="217" y="20"></rect><text fill="#0F766E" font-size="13" font-weight="700" x="309" y="48">2. AUTHENTIFICATION</text><text font-size="11" x="309" y="72">« Je le prouve »</text><text fill="#555" font-size="10" font-style="italic" x="309" y="104">mot de passe, code, empreinte</text>
+<rect fill="#FBF4E4" height="105" rx="14" stroke="#B8913A" width="185" x="429" y="20"></rect><text fill="#8A6A22" font-size="13" font-weight="700" x="521" y="48">3. AUTORISATION</text><text font-size="11" x="521" y="72">« J'ai le droit de… »</text><text fill="#555" font-size="10" font-style="italic" x="521" y="104">lire, modifier, administrer</text>
+</g>
+<g marker-end="url(#s3a)" stroke="#B8913A" stroke-width="2.5"><line x1="192" x2="213" y1="72" y2="72"></line><line x1="404" x2="425" y1="72" y2="72"></line></g>
+</svg>
+<figcaption>Figure 6 — Les trois étapes de l'accès à un système</figcaption>
+</figure>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>À l'aéroport : tu donnes ton nom (<b>identification</b>), tu montres ton passeport (<b>authentification</b>), ta carte d'embarquement te permet d'entrer dans <b>un seul</b> avion, pas dans le cockpit (<b>autorisation</b>).</p></div>
+<h2><span class="n">3.2</span>Les 3 facteurs d'authentification</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Facteur</th><th>Principe</th><th>Exemples</th></tr>
+<tr><td><b style="color:#2F6FA8">Ce que je sais</b></td><td>Une connaissance secrète</td><td>Mot de passe, code PIN, réponse secrète</td></tr>
+<tr><td><b style="color:#0F766E">Ce que je possède</b></td><td>Un objet physique ou numérique</td><td>Téléphone (code SMS, application), badge, clé de sécurité USB</td></tr>
+<tr><td><b style="color:#A84A62">Ce que je suis</b></td><td>Une caractéristique du corps (biométrie)</td><td>Empreinte digitale, visage, iris, voix</td></tr>
+</table></div>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>La <span class="k kt">MFA</span> (<i>Multi-Factor Authentication</i>, authentification multifacteur) combine <b>au moins deux facteurs de familles différentes</b>. Exemple : mot de passe (je sais) + code de l'application sur le téléphone (je possède). Un mot de passe + un code PIN, ce n'est pas de la MFA : ce sont deux choses « que je sais ».</p></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Activer la MFA bloque l'immense majorité des piratages de comptes par vol de mot de passe. C'est la protection la plus efficace et la moins chère. Préfère une <b>application d'authentification</b> au code SMS, plus facile à intercepter.</p></div>
+<h2><span class="n">3.3</span>Une bonne politique de mots de passe</h2>
+<div class="tscroll"><table>
+<tr><th>❌ Mauvais mot de passe</th><th>✅ Bon mot de passe</th><th>Pourquoi</th></tr>
+<tr><td><code>admin</code>, <code>123456</code>, <code>azerty</code></td><td><code>Tajine!Fes-Rouge-2026</code></td><td>Les mots courants sont essayés en premier</td></tr>
+<tr><td><code>Ahmed2004</code></td><td>Phrase de passe : <code>MonChatMangeDu-Couscous!</code></td><td>Le nom et la date de naissance se devinent</td></tr>
+<tr><td>Le même partout</td><td>Un mot de passe unique par service + gestionnaire</td><td>Une fuite sur un site ouvre tous les autres</td></tr>
+<tr><td><code>P@ss</code> (8 caractères)</td><td>12 caractères minimum, 16 pour les admins</td><td>Chaque caractère en plus multiplie le temps de cassage</td></tr>
+</table></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 150">
+<text fill="#1B2A4A" font-size="12" font-weight="600" x="10" y="20">Temps approximatif pour casser un mot de passe aléatoire (ordre de grandeur, matériel puissant)</text>
+<g font-size="10.5">
+<text x="10" y="52">8 caractères, minuscules</text><rect fill="#A84A62" height="16" rx="3" width="20" x="210" y="40"></rect><text fill="#A84A62" x="238" y="53">quelques secondes</text>
+<text x="10" y="82">8 caractères, mélangés</text><rect fill="#B8913A" height="16" rx="3" width="90" x="210" y="70"></rect><text fill="#8A6A22" x="308" y="83">quelques heures à jours</text>
+<text x="10" y="112">12 caractères, mélangés</text><rect fill="#0F766E" height="16" rx="3" width="260" x="210" y="100"></rect><text fill="#0F766E" x="478" y="113">des siècles</text>
+<text x="10" y="142">16 caractères (phrase de passe)</text><rect fill="#1B2A4A" height="16" rx="3" width="400" x="210" y="130"></rect><text fill="#D9BD7A" text-anchor="middle" x="410" y="142">hors de portée</text>
+</g>
+</svg>
+<figcaption>Figure 7 — La longueur est le critère le plus important d'un mot de passe</figcaption>
+</figure>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : la phrase de passe</div>
+<p>Prends une phrase facile à retenir pour toi mais impossible à deviner, et ajoute un symbole : « <b>Le-Wifi-De-Fes-Est-Lent!</b> ». Longue, mémorisable, solide. Et utilise un <span class="k kt">gestionnaire de mots de passe</span> (Bitwarden, KeePass) pour tout le reste.</p></div>
+<h2><span class="n">3.4</span>Le contrôle d'accès</h2>
+<ul>
+<li><span class="k kg">Moindre privilège</span> : chaque utilisateur n'a que les droits <b>strictement nécessaires</b> à son travail. Un stagiaire n'a pas besoin d'être administrateur.</li>
+<li><span class="k kg">Séparation des tâches</span> : une seule personne ne doit pas pouvoir tout faire seule (ex. : créer un fournisseur ET le payer).</li>
+<li><span class="k kv">RBAC</span> (<i>Role-Based Access Control</i>) : on donne les droits à un <b>rôle</b> (Comptable, Technicien, Formateur), puis on place les personnes dans les rôles.</li>
+<li>Compte <b>administrateur</b> séparé du compte de tous les jours ; comptes désactivés dès qu'une personne quitte l'entreprise.</li>
+</ul>
+<h2><span class="n">3.5</span>Le modèle AAA</h2>
+<p>Sur les équipements réseau, on centralise l'accès avec le modèle <span class="k kv">AAA</span> :</p>
+<div class="grid3">
+<div class="card"><h4 style="color:var(--sky)">Authentication</h4><p>Qui es-tu ? Vérification de l'identité de l'administrateur.</p></div>
+<div class="card"><h4 style="color:var(--teal)">Authorization</h4><p>Que peux-tu faire ? Commandes autorisées, niveau de privilège.</p></div>
+<div class="card"><h4 style="color:#8A6A22">Accounting</h4><p>Qu'as-tu fait ? Journal des connexions et des commandes tapées.</p></div>
+</div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 150">
+<defs><marker id="s3b" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="60" rx="10" stroke="#2F6FA8" width="120" x="10" y="45"></rect><text fill="#2F6FA8" font-size="11.5" font-weight="700" x="70" y="72">Admin</text><text font-size="9.5" x="70" y="90">ssh admin@R1</text>
+<rect fill="#FBF4E4" height="60" rx="10" stroke="#B8913A" width="120" x="250" y="45"></rect><text fill="#8A6A22" font-size="11.5" font-weight="700" x="310" y="72">Routeur / switch</text><text font-size="9.5" x="310" y="90">client AAA</text>
+<rect fill="#1B2A4A" height="60" rx="10" width="120" x="490" y="45"></rect><text fill="#D9BD7A" font-size="11.5" font-weight="700" x="550" y="72">Serveur AAA</text><text fill="#fff" font-size="9.5" x="550" y="90">RADIUS / TACACS+</text>
+</g>
+<g marker-end="url(#s3b)" stroke="#1B2A4A" stroke-width="2"><line x1="132" x2="246" y1="68" y2="68"></line><line x1="372" x2="486" y1="68" y2="68"></line><line x1="486" x2="374" y1="90" y2="90"></line></g>
+<text fill="#555" font-size="9" text-anchor="middle" x="430" y="62">« ahmed / ****, OK ? »</text>
+<text fill="#0F766E" font-size="9" text-anchor="middle" x="430" y="105">« OK, niveau 15 »</text>
+<text fill="#555" font-size="10" text-anchor="middle" x="310" y="140">Un seul serveur gère les comptes de tous les équipements du réseau</text>
+</svg>
+<figcaption>Figure 8 — Authentification centralisée avec un serveur AAA</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th></th><th>RADIUS</th><th>TACACS+</th></tr>
+<tr><td><b>Origine</b></td><td>Standard ouvert (RFC 2865)</td><td>Protocole Cisco</td></tr>
+<tr><td><b>Transport</b></td><td>UDP (ports 1812 / 1813)</td><td>TCP (port 49)</td></tr>
+<tr><td><b>Chiffrement</b></td><td>Seulement le mot de passe</td><td>Tout le contenu du paquet</td></tr>
+<tr><td><b>Usage typique</b></td><td>Accès des utilisateurs : Wi-Fi 802.1X, VPN</td><td>Administration des équipements réseau (commande par commande)</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <b>Identification → Authentification → Autorisation</b>.<br/>
+• 3 facteurs : je <b>sais</b>, je <b>possède</b>, je <b>suis</b>. MFA = au moins 2 familles différentes.<br/>
+• Mot de passe : <b>long</b> (12+), <b>unique</b>, stocké dans un gestionnaire.<br/>
+• <b>Moindre privilège</b>, RBAC, et <b>AAA</b> (RADIUS, TACACS+) pour centraliser.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Identification</span><span class="k kb">Authentification</span><span class="k kb">Autorisation</span><span class="k kt">MFA</span><span class="k kt">Phrase de passe</span><span class="k kt">Gestionnaire de mots de passe</span><span class="k kg">Moindre privilège</span><span class="k kv">RBAC</span><span class="k kv">AAA</span><span class="k kv">RADIUS</span><span class="k kv">TACACS+</span>
+</div>
+<h3>Exercices — Chapitre 3</h3>
+<div class="exo"><div class="h">Exercice 3.1 — Quel facteur ? <span>★ facile</span></div><div class="c">
+<p>Classe : (a) code PIN ; (b) badge d'entrée ; (c) empreinte digitale ; (d) code reçu par l'application Authenticator ; (e) mot de passe ; (f) reconnaissance du visage. Puis dis si « mot de passe + PIN » est une vraie MFA.</p></div></div>
+<div class="exo"><div class="h">Exercice 3.2 — Noter des mots de passe <span>★ facile</span></div><div class="c">
+<p>Classe du plus faible au plus solide et justifie : <code>Youssef1990</code> · <code>admin</code> · <code>Le-Switch-Bleu-Clignote!</code> · <code>Xk9#p2</code> · <code>P@ssw0rd</code>.</p></div></div>
+<div class="exo"><div class="h">Exercice 3.3 — Moindre privilège <span>★★ moyen</span></div><div class="c">
+<p>Dans une PME, tous les employés (12 personnes) utilisent le même compte « admin » sur le serveur et sur les switchs. Cite 3 problèmes et propose une organisation des accès.</p></div></div>
+<!-- ============ CHAPITRE 4 ============ -->
+<section class="chead2" id="ch4"><div class="ch-side" style="background:linear-gradient(180deg,#5B4B8A,#433668)"><span class="lbl">CHAPITRE</span><span class="num">04</span></div><div class="ch-body">
+<h1>Les bases de la cryptographie</h1>
+<div class="lead">L'art de rendre un message illisible pour tous… sauf pour son destinataire.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Distinguer chiffrement symétrique et asymétrique</li>
+<li>Comprendre le rôle du hachage et de la signature numérique</li>
+<li>Expliquer ce qu'est un certificat et une autorité de certification</li>
+<li>Comprendre comment HTTPS protège une connexion</li></ul></div>
+<div class="quote">« Le chiffrement ne rend pas un message secret : il rend sa lecture inutile pour qui n'a pas la clé. »</div></div></section>
+<h2><span class="n">4.1</span>Vocabulaire de base</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Terme</th><th>Définition simple</th></tr>
+<tr><td><b>Texte en clair</b></td><td>Le message lisible : « Bonjour »</td></tr>
+<tr><td><b>Chiffrement</b></td><td>Transformer le texte en clair en texte illisible avec une <b>clé</b></td></tr>
+<tr><td><b>Texte chiffré</b></td><td>Le message illisible : « 8f#Kq2!z… »</td></tr>
+<tr><td><b>Déchiffrement</b></td><td>Retrouver le texte en clair avec la bonne clé</td></tr>
+<tr><td><b>Clé</b></td><td>Le secret (une suite de bits) qui permet de chiffrer ou déchiffrer</td></tr>
+<tr><td><b>Algorithme</b></td><td>La méthode de calcul, publique (AES, RSA…). Seule la clé est secrète</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention au vocabulaire</div>
+<p>En français, on dit <b>chiffrer</b> et <b>déchiffrer</b>. « <span class="k kr">Crypter</span> » est un anglicisme à éviter, et « <b>décrypter</b> » veut dire casser le chiffrement <b>sans</b> avoir la clé (ce que fait un attaquant).</p></div>
+<h2><span class="n">4.2</span>Le chiffrement symétrique</h2>
+<p>Une <b>seule clé</b>, la même, sert à chiffrer et à déchiffrer.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 170">
+<defs><marker id="s4a" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<g font-size="11" text-anchor="middle">
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="95" x="5" y="60"></rect><text x="52" y="87">« Bonjour »</text>
+<rect fill="#5B4B8A" height="64" rx="10" width="110" x="140" y="50"></rect><text fill="#fff" font-weight="700" x="195" y="78">CHIFFRER</text><text fill="#E2DCF2" font-size="10" x="195" y="96">AES</text>
+<rect fill="#FBEEF1" height="44" rx="8" stroke="#A84A62" width="95" x="290" y="60"></rect><text fill="#A84A62" x="337" y="87">8f#Kq2!z</text>
+<rect fill="#5B4B8A" height="64" rx="10" width="110" x="425" y="50"></rect><text fill="#fff" font-weight="700" x="480" y="78">DÉCHIFFRER</text><text fill="#E2DCF2" font-size="10" x="480" y="96">AES</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="55" x="560" y="60"></rect><text font-size="9.5" x="587" y="87">Bonjour</text>
+<text fill="#B8913A" font-size="20" x="195" y="30">🔑</text><text fill="#8A6A22" font-size="10" x="195" y="145">même clé</text>
+<text fill="#B8913A" font-size="20" x="480" y="30">🔑</text><text fill="#8A6A22" font-size="10" x="480" y="145">même clé</text>
+</g>
+<g marker-end="url(#s4a)" stroke="#1B2A4A" stroke-width="2"><line x1="102" x2="136" y1="82" y2="82"></line><line x1="252" x2="286" y1="82" y2="82"></line><line x1="387" x2="421" y1="82" y2="82"></line><line x1="537" x2="556" y1="82" y2="82"></line></g>
+</svg>
+<figcaption>Figure 9 — Chiffrement symétrique : une seule clé partagée</figcaption>
+</figure>
+<ul>
+<li><b>Avantage :</b> très <span class="k kt">rapide</span>, idéal pour chiffrer de gros volumes (disques, VPN, Wi-Fi).</li>
+<li><b>Problème :</b> comment transmettre la clé à l'autre <b>sans qu'on la vole</b> ? C'est le problème de l'<span class="k kr">échange de clé</span>.</li>
+<li><b>Exemples :</b> <span class="k kv">AES</span> (le standard actuel, clés de 128 ou 256 bits) ; <span class="k kr">DES</span> et 3DES (anciens, à abandonner).</li>
+</ul>
+<h2><span class="n">4.3</span>Le chiffrement asymétrique</h2>
+<p>Chaque personne possède une <b>paire de clés</b> liées mathématiquement :</p>
+<ul>
+<li>une <span class="k kt">clé publique</span>, qu'on peut donner à tout le monde ;</li>
+<li>une <span class="k kr">clé privée</span>, qu'on garde secrète et qu'on ne transmet <b>jamais</b>.</li>
+</ul>
+<p>Ce qui est chiffré avec la clé publique de Salma ne peut être déchiffré qu'avec la clé privée de Salma.</p>
+<div class="box ana"><div class="t"><i>≈</i>Analogie : le cadenas et la boîte aux lettres</div>
+<p>Salma distribue des <b>cadenas ouverts</b> (clé publique) à tout le monde. N'importe qui peut mettre un message dans une boîte et la fermer avec le cadenas. Mais seule Salma possède la <b>clé du cadenas</b> (clé privée) pour l'ouvrir.</p></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 190">
+<defs><marker id="s4b" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<g font-size="11" text-anchor="middle">
+<circle cx="60" cy="95" fill="#EAF2FA" r="40" stroke="#2F6FA8"></circle><text fill="#2F6FA8" font-weight="700" x="60" y="92">Karim</text><text font-size="9.5" x="60" y="108">expéditeur</text>
+<rect fill="#0F766E" height="60" rx="10" width="130" x="150" y="65"></rect><text fill="#fff" font-weight="700" x="215" y="90">Chiffre avec la</text><text fill="#D8F0EA" font-size="10" x="215" y="108">clé PUBLIQUE de Salma</text>
+<rect fill="#FBEEF1" height="40" rx="8" stroke="#A84A62" width="90" x="310" y="75"></rect><text fill="#A84A62" x="355" y="100">x7$Lm…</text>
+<rect fill="#A84A62" height="60" rx="10" width="110" x="430" y="65"></rect><text fill="#fff" font-weight="700" x="485" y="90">Déchiffre avec</text><text fill="#F8DDE4" font-size="10" x="485" y="108">sa clé PRIVÉE</text>
+<circle cx="580" cy="95" fill="#FBF4E4" r="32" stroke="#B8913A"></circle><text fill="#8A6A22" font-weight="700" x="580" y="99">Salma</text>
+<text fill="#0F766E" font-size="10" x="215" y="45">🔓 connue de tous</text><text fill="#A84A62" font-size="10" x="485" y="45">🔐 connue d'elle seule</text>
+<text fill="#555" font-size="10" x="310" y="170">Un pirate qui intercepte le message et connaît la clé publique ne peut PAS le lire</text>
+</g>
+<g marker-end="url(#s4b)" stroke="#1B2A4A" stroke-width="2"><line x1="102" x2="146" y1="95" y2="95"></line><line x1="282" x2="306" y1="95" y2="95"></line><line x1="402" x2="426" y1="95" y2="95"></line><line x1="542" x2="546" y1="95" y2="95"></line></g>
+</svg>
+<figcaption>Figure 10 — Chiffrement asymétrique : clé publique pour chiffrer, clé privée pour déchiffrer</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:22%"></th><th>Symétrique</th><th>Asymétrique</th></tr>
+<tr><td><b>Nombre de clés</b></td><td>1 clé secrète partagée</td><td>2 clés : publique + privée</td></tr>
+<tr><td><b>Vitesse</b></td><td>Très rapide</td><td>Lent (calculs lourds)</td></tr>
+<tr><td><b>Échange de clé</b></td><td>Difficile : il faut un canal sûr</td><td>Facile : la clé publique peut circuler</td></tr>
+<tr><td><b>Exemples</b></td><td>AES, ChaCha20</td><td>RSA, ECC (courbes elliptiques)</td></tr>
+<tr><td><b>Usage</b></td><td>Chiffrer les données (disque, VPN, Wi-Fi)</td><td>Échanger une clé, signer, certificats</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : le meilleur des deux mondes</div>
+<p>En pratique (HTTPS, VPN, SSH), on combine les deux : l'<b>asymétrique</b> sert à échanger en sécurité une clé de session, puis le <b>symétrique</b> (AES) chiffre tout le reste, rapidement. C'est le <span class="k kv">chiffrement hybride</span>.</p></div>
+<h2><span class="n">4.4</span>Le hachage</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Une <span class="k kb">fonction de hachage</span> transforme n'importe quelle donnée en une <b>empreinte</b> (hash) de taille fixe. C'est un calcul <b>à sens unique</b> : impossible de retrouver la donnée à partir de l'empreinte. Le moindre changement de la donnée change complètement l'empreinte.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:30%">Donnée</th><th>Empreinte SHA-256 (début)</th></tr>
+<tr><td><code>Bonjour</code></td><td><code>9172e8eec99f144f…</code></td></tr>
+<tr><td><code>bonjour</code> (une seule lettre change)</td><td><code>2cb4b1431b84ec15…</code> → totalement différente</td></tr>
+</table></div>
+<ul>
+<li><b>Usages :</b> vérifier l'<span class="k kg">intégrité</span> d'un fichier téléchargé (comparer son hash avec celui publié), stocker les mots de passe (on stocke le hash, pas le mot de passe), signature numérique.</li>
+<li><b>Algorithmes :</b> <span class="k kt">SHA-256</span>, SHA-3 (sûrs) ; <span class="k kr">MD5</span>, <span class="k kr">SHA-1</span> (cassés, à ne plus utiliser pour la sécurité).</li>
+</ul>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Hacher n'est <b>pas</b> chiffrer : on ne « déhache » pas. Le chiffrement est réversible avec la clé ; le hachage ne l'est jamais.</p></div>
+<h2><span class="n">4.5</span>Signature numérique et certificats</h2>
+<p>La <span class="k kb">signature numérique</span> prouve <b>qui</b> a envoyé un message (authenticité) et qu'il n'a <b>pas été modifié</b> (intégrité) :</p>
+<ol><li>L'expéditeur calcule le hash du message.</li>
+<li>Il chiffre ce hash avec <b>sa clé privée</b> → c'est la signature.</li>
+<li>Le destinataire déchiffre la signature avec la <b>clé publique</b> de l'expéditeur et compare avec le hash qu'il calcule lui-même. S'ils sont identiques : message authentique et intact.</li></ol>
+<p>Mais comment être sûr qu'une clé publique appartient vraiment à la banque, et pas à un pirate ? Grâce au <span class="k kg">certificat</span>.</p>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <b>certificat numérique</b> (norme X.509) est une « carte d'identité » électronique : il associe une clé publique à un nom (ex. : <i>www.ofppt.ma</i>). Il est signé par une <span class="k kb">autorité de certification</span> (AC / CA) de confiance, connue des navigateurs. L'ensemble du système s'appelle une <span class="k kb">PKI</span> (infrastructure à clés publiques).</p></div>
+<h2><span class="n">4.6</span>HTTPS : tout mis ensemble</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 240">
+<defs><marker id="s4c" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<rect fill="#EAF2FA" height="220" rx="12" stroke="#2F6FA8" width="120" x="10" y="10"></rect><text fill="#2F6FA8" font-size="12" font-weight="700" text-anchor="middle" x="70" y="35">Navigateur</text>
+<rect fill="#E6F4F1" height="220" rx="12" stroke="#0F766E" width="120" x="490" y="10"></rect><text fill="#0F766E" font-size="12" font-weight="700" text-anchor="middle" x="550" y="35">Serveur web</text>
+<g font-size="10.5" text-anchor="middle">
+<line marker-end="url(#s4c)" stroke="#1B2A4A" stroke-width="1.8" x1="132" x2="486" y1="60" y2="60"></line><text x="310" y="54">① Bonjour, je veux une connexion sécurisée (TLS)</text>
+<line marker-end="url(#s4c)" stroke="#1B2A4A" stroke-width="1.8" x1="488" x2="134" y1="95" y2="95"></line><text x="310" y="89">② Voici mon certificat (clé publique signée par une AC)</text>
+<text fill="#5B4B8A" font-weight="600" x="310" y="122">③ Le navigateur vérifie le certificat : nom, date, signature de l'AC 🔒</text>
+<line marker-end="url(#s4c)" stroke="#1B2A4A" stroke-width="1.8" x1="132" x2="486" y1="155" y2="155"></line><text x="310" y="149">④ Échange sécurisé d'une clé de session (asymétrique)</text>
+<line stroke="#B8913A" stroke-width="5" x1="132" x2="486" y1="195" y2="195"></line><text fill="#8A6A22" font-weight="600" x="310" y="188">⑤ Toutes les données sont chiffrées en AES (symétrique)</text>
+</g>
+</svg>
+<figcaption>Figure 11 — Établissement simplifié d'une connexion HTTPS (TLS)</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th>Protocole non sécurisé</th><th>Port</th><th>Remplacé par</th><th>Port</th></tr>
+<tr><td>HTTP</td><td>80</td><td><b>HTTPS</b> (HTTP + TLS)</td><td>443</td></tr>
+<tr><td>Telnet</td><td>23</td><td><b>SSH</b></td><td>22</td></tr>
+<tr><td>FTP</td><td>21</td><td><b>SFTP</b> (via SSH) ou FTPS</td><td>22 / 990</td></tr>
+<tr><td>SNMP v1/v2c</td><td>161</td><td><b>SNMPv3</b> (authentification + chiffrement)</td><td>161</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <b>Symétrique</b> : 1 clé, rapide (AES). <b>Asymétrique</b> : clé publique + clé privée, lent (RSA, ECC).<br/>
+• <b>Hachage</b> : empreinte à sens unique (SHA-256) → intégrité. MD5 et SHA-1 sont dépassés.<br/>
+• <b>Signature</b> = hash chiffré avec la clé privée. <b>Certificat</b> = clé publique + identité, signé par une AC.<br/>
+• <b>HTTPS / SSH</b> = chiffrement hybride. On abandonne HTTP, Telnet, FTP.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Chiffrement</span><span class="k kv">AES</span><span class="k kv">RSA</span><span class="k kt">Clé publique</span><span class="k kr">Clé privée</span><span class="k kv">Chiffrement hybride</span><span class="k kb">Hachage</span><span class="k kt">SHA-256</span><span class="k kr">MD5</span><span class="k kb">Signature numérique</span><span class="k kg">Certificat</span><span class="k kg">PKI</span><span class="k kv">TLS / HTTPS</span>
+</div>
+<h3>Exercices — Chapitre 4</h3>
+<div class="exo"><div class="h">Exercice 4.1 — Symétrique ou asymétrique ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>AES-256</li><li>RSA</li><li>Une seule clé partagée</li><li>Une clé publique et une clé privée</li><li>Très rapide pour chiffrer un disque dur entier</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 4.2 — Quelle clé utiliser ? <span>★★ moyen</span></div><div class="c">
+<p>Karim veut envoyer un fichier confidentiel à Salma avec le chiffrement asymétrique.</p>
+<ol type="a"><li>Avec quelle clé Karim chiffre-t-il le fichier ?</li><li>Avec quelle clé Salma le déchiffre-t-elle ?</li><li>Salma veut maintenant <b>signer</b> sa réponse. Avec quelle clé signe-t-elle ? Avec quelle clé Karim vérifie-t-il ?</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 4.3 — Vérifier un téléchargement <span>★★ moyen</span></div><div class="c">
+<p>Tu télécharges l'image ISO d'un système. Le site publie son empreinte SHA-256. Explique comment vérifier que le fichier n'a pas été modifié, et ce que tu conclus si les deux empreintes sont différentes.</p></div></div>
+<!-- ============ CHAPITRE 5 ============ -->
+<section class="chead2" id="ch5"><div class="ch-side" style="background:linear-gradient(180deg,#2F6FA8,#1F4F7E)"><span class="lbl">CHAPITRE</span><span class="num">05</span></div><div class="ch-body">
+<h1>Sécuriser les équipements réseau</h1>
+<div class="lead">Un routeur avec le mot de passe par défaut, c'est une porte d'entrée offerte à n'importe qui.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Protéger l'accès aux routeurs et switchs Cisco</li>
+<li>Remplacer Telnet par SSH</li>
+<li>Configurer la sécurité des ports (port security)</li>
+<li>Appliquer une check-list de durcissement (hardening)</li></ul></div>
+<div class="quote">« Durcir un équipement, c'est fermer toutes les portes dont on n'a pas besoin. »</div></div></section>
+<h2><span class="n">5.1</span>Les 3 plans d'un équipement réseau</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Plan</th><th>Rôle</th><th style="width:34%">Exemples à protéger</th></tr>
+<tr><td><b>Plan de gestion</b></td><td>Administrer l'équipement</td><td>Console, SSH, SNMP, interface web</td></tr>
+<tr><td><b>Plan de contrôle</b></td><td>Les protocoles qui « réfléchissent »</td><td>OSPF, STP, ARP, DHCP</td></tr>
+<tr><td><b>Plan de données</b></td><td>Transférer le trafic des utilisateurs</td><td>Ports d'accès, VLAN, ACL</td></tr>
+</table></div>
+<h2><span class="n">5.2</span>Protéger l'accès administrateur</h2>
+<p>Configuration de base d'un routeur ou d'un switch Cisco (mode configuration globale) :</p>
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:10px;padding:12px 16px;font-size:8.8pt;line-height:1.55;white-space:pre-wrap">R1(config)# <b style="color:#D9BD7A">enable secret</b> Tajine!Fes-2026          <span style="color:#7F978A">! mot de passe du mode privilégié, haché</span>
+R1(config)# <b style="color:#D9BD7A">service password-encryption</b>          <span style="color:#7F978A">! masque les autres mots de passe</span>
+R1(config)# <b style="color:#D9BD7A">security passwords min-length</b> 10     <span style="color:#7F978A">! longueur minimale</span>
+R1(config)# <b style="color:#D9BD7A">login block-for</b> 120 attempts 3 within 60  <span style="color:#7F978A">! anti force brute</span>
+R1(config)# <b style="color:#D9BD7A">banner motd</b> #Acces reserve au personnel autorise#
+R1(config)# line console 0
+R1(config-line)# password Console!2026
+R1(config-line)# login
+R1(config-line)# <b style="color:#D9BD7A">exec-timeout</b> 5 0                    <span style="color:#7F978A">! déconnexion après 5 min</span></pre>
+<div class="tscroll"><table>
+<tr><th style="width:34%">Commande</th><th>Rôle</th></tr>
+<tr><td><code>enable secret</code></td><td>Protège le mode privilégié avec un hash solide. Ne plus utiliser <code>enable password</code> (stocké en clair)</td></tr>
+<tr><td><code>service password-encryption</code></td><td>Masque les mots de passe dans la configuration (protection faible, contre les regards seulement)</td></tr>
+<tr><td><code>login block-for</code></td><td>Bloque les connexions pendant un temps après plusieurs échecs</td></tr>
+<tr><td><code>banner motd</code></td><td>Message d'avertissement légal affiché à la connexion</td></tr>
+<tr><td><code>exec-timeout</code></td><td>Ferme automatiquement une session inactive</td></tr>
+</table></div>
+<h2><span class="n">5.3</span>Remplacer Telnet par SSH</h2>
+<div class="box warn"><div class="t"><i>!</i>Pourquoi abandonner Telnet ?</div>
+<p><span class="k kr">Telnet</span> envoie tout <b>en clair</b>, y compris le mot de passe. Avec Wireshark, n'importe qui sur le réseau peut le lire. <span class="k kt">SSH</span> chiffre toute la session.</p></div>
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:10px;padding:12px 16px;font-size:8.8pt;line-height:1.55;white-space:pre-wrap">R1(config)# hostname R1
+R1(config)# <b style="color:#D9BD7A">ip domain-name</b> ofppt.local                 <span style="color:#7F978A">! nécessaire pour générer les clés</span>
+R1(config)# <b style="color:#D9BD7A">username</b> admin <b style="color:#D9BD7A">privilege</b> 15 <b style="color:#D9BD7A">secret</b> Adm1n!Fes-2026
+R1(config)# <b style="color:#D9BD7A">crypto key generate rsa modulus</b> 2048      <span style="color:#7F978A">! paire de clés RSA</span>
+R1(config)# <b style="color:#D9BD7A">ip ssh version 2</b>
+R1(config)# line vty 0 4
+R1(config-line)# <b style="color:#D9BD7A">transport input ssh</b>                   <span style="color:#7F978A">! interdit Telnet</span>
+R1(config-line)# <b style="color:#D9BD7A">login local</b>                           <span style="color:#7F978A">! utilise les comptes locaux</span>
+R1(config-line)# exec-timeout 5 0
+R1# show ip ssh                                     <span style="color:#7F978A">! vérification</span></pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : l'ordre SSH en 5 mots</div>
+<p><b>« Nom – Domaine – Compte – Clés – Lignes »</b> : hostname, ip domain-name, username, crypto key generate rsa, line vty + transport input ssh. Sans hostname ni domaine, la génération des clés échoue.</p></div>
+<h2><span class="n">5.4</span>Sécuriser les ports du switch</h2>
+<h3>Port security</h3>
+<p>La <span class="k kt">port security</span> limite les adresses MAC autorisées sur un port d'accès. Elle bloque le MAC flooding et le branchement d'un appareil inconnu.</p>
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:10px;padding:12px 16px;font-size:8.8pt;line-height:1.55;white-space:pre-wrap">SW1(config)# interface fa0/5
+SW1(config-if)# switchport mode access                  <span style="color:#7F978A">! obligatoire</span>
+SW1(config-if)# <b style="color:#D9BD7A">switchport port-security</b>
+SW1(config-if)# <b style="color:#D9BD7A">switchport port-security maximum</b> 2
+SW1(config-if)# <b style="color:#D9BD7A">switchport port-security mac-address sticky</b>   <span style="color:#7F978A">! apprend et retient les MAC</span>
+SW1(config-if)# <b style="color:#D9BD7A">switchport port-security violation</b> shutdown
+SW1# show port-security interface fa0/5</pre>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Mode de violation</th><th>Trames interdites</th><th>Alerte (log, compteur)</th><th>Port</th></tr>
+<tr><td><b>protect</b></td><td>Bloquées</td><td>Non</td><td>Reste actif</td></tr>
+<tr><td><b>restrict</b></td><td>Bloquées</td><td>Oui</td><td>Reste actif</td></tr>
+<tr><td><b>shutdown</b> (défaut)</td><td>Bloquées</td><td>Oui</td><td>Désactivé (<i>err-disabled</i>)</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Un port en <b>err-disabled</b> se réactive avec <code>shutdown</code> puis <code>no shutdown</code> sur l'interface, après avoir retiré l'appareil interdit.</p></div>
+<h3>Autres protections de couche 2</h3>
+<div class="tscroll"><table>
+<tr><th style="width:30%">Protection</th><th>Commande principale</th><th>Contre quelle attaque</th></tr>
+<tr><td>Fermer les ports inutilisés</td><td><code>shutdown</code> + VLAN « parking » inutilisé</td><td>Branchement sauvage</td></tr>
+<tr><td>Désactiver la négociation de trunk</td><td><code>switchport mode access</code>, <code>switchport nonegotiate</code></td><td>VLAN hopping</td></tr>
+<tr><td>VLAN natif dédié</td><td><code>switchport trunk native vlan 999</code></td><td>VLAN hopping (double étiquette)</td></tr>
+<tr><td>DHCP snooping</td><td><code>ip dhcp snooping</code> + port vers le vrai serveur en <code>trust</code></td><td>Faux serveur DHCP</td></tr>
+<tr><td>Dynamic ARP Inspection</td><td><code>ip arp inspection vlan 10</code></td><td>ARP spoofing / MITM</td></tr>
+<tr><td>BPDU Guard</td><td><code>spanning-tree bpduguard enable</code> (ports PortFast)</td><td>Faux switch qui perturbe STP</td></tr>
+</table></div>
+<h2><span class="n">5.5</span>Check-list de durcissement</h2>
+<div class="grid2">
+<div class="card"><p>☐ Changer tous les mots de passe par défaut<br/>☐ <code>enable secret</code> + comptes locaux nominatifs<br/>☐ SSH v2 uniquement, Telnet interdit<br/>☐ Bannière légale + <code>exec-timeout</code><br/>☐ Accès d'administration limité par ACL (seulement le VLAN admin)</p></div>
+<div class="card"><p>☐ Ports inutilisés éteints<br/>☐ Port security sur les ports d'accès<br/>☐ DHCP snooping, DAI, BPDU Guard<br/>☐ Services inutiles désactivés (<code>no ip http server</code>, CDP vers l'extérieur)<br/>☐ IOS à jour, configuration sauvegardée</p></div>
+</div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <b>enable secret</b>, comptes locaux, <b>SSH v2</b> (jamais Telnet), timeout et bannière.<br/>
+• <b>Port security</b> : maximum de MAC, sticky, mode protect / restrict / shutdown.<br/>
+• Couche 2 : ports inutilisés éteints, pas de trunk automatique, VLAN natif dédié, <b>DHCP snooping, DAI, BPDU Guard</b>.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kt">enable secret</span><span class="k kt">SSH</span><span class="k kr">Telnet</span><span class="k kv">crypto key generate rsa</span><span class="k kt">Port security</span><span class="k kg">Sticky</span><span class="k kr">err-disabled</span><span class="k kt">DHCP snooping</span><span class="k kt">DAI</span><span class="k kt">BPDU Guard</span><span class="k kg">Durcissement</span>
+</div>
+<h3>Exercices — Chapitre 5</h3>
+<div class="exo"><div class="h">Exercice 5.1 — Configurer SSH <span>★★ moyen</span></div><div class="c">
+<p>Écris dans l'ordre les commandes pour que le switch <b>SW-ADMIN</b> (domaine <i>ecole.ma</i>) n'accepte que des connexions SSH v2, avec un compte <b>tech</b> de niveau 15, et une déconnexion après 10 minutes d'inactivité.</p></div></div>
+<div class="exo"><div class="h">Exercice 5.2 — Port security <span>★★ moyen</span></div><div class="c">
+<p>Le port fa0/10 doit accepter un seul PC, apprendre automatiquement son adresse MAC, et, en cas d'intrus, bloquer le trafic et envoyer une alerte <b>sans</b> éteindre le port. Écris la configuration.</p></div></div>
+<div class="exo"><div class="h">Exercice 5.3 — Trouver les erreurs <span>★★★ difficile</span></div><div class="c">
+<p>Extrait de configuration : <code>enable password cisco</code> · <code>line vty 0 4</code> / <code>password cisco</code> / <code>login</code> / <code>transport input all</code> · ports fa0/15 à fa0/24 inutilisés en <code>no shutdown</code> dans le VLAN 1. Relève 4 problèmes de sécurité et donne la correction de chacun.</p></div></div>
+<!-- ============ CHAPITRE 6 ============ -->
+<section class="chead2" id="ch6"><div class="ch-side" style="background:linear-gradient(180deg,#B8913A,#8A6A22)"><span class="lbl">CHAPITRE</span><span class="num">06</span></div><div class="ch-body">
+<h1>Pare-feu, ACL, DMZ, IDS/IPS et VPN</h1>
+<div class="lead">Filtrer ce qui entre, surveiller ce qui passe, chiffrer ce qui voyage.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre le rôle et les types de pare-feu</li>
+<li>Écrire des ACL standard et étendues sur un routeur Cisco</li>
+<li>Placer une DMZ dans une architecture</li>
+<li>Distinguer IDS et IPS, et connaître les types de VPN</li></ul></div>
+<div class="quote">« Tout ce qui n'est pas explicitement autorisé est interdit. »</div></div></section>
+<h2><span class="n">6.1</span>Le pare-feu</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kt">pare-feu</span> (<i>firewall</i>) filtre le trafic entre deux zones de confiance différentes (par exemple le réseau interne et Internet) selon des <b>règles</b> : il autorise ou bloque chaque flux.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Type</th><th>Ce qu'il regarde</th><th style="width:30%">Exemple</th></tr>
+<tr><td><b>Filtrage de paquets</b> (sans état)</td><td>IP source et destination, protocole, ports — paquet par paquet</td><td>ACL sur un routeur Cisco</td></tr>
+<tr><td><b>Pare-feu à états</b> (stateful)</td><td>Suit les connexions : laisse revenir uniquement les réponses aux connexions sorties</td><td>La plupart des pare-feu d'entreprise</td></tr>
+<tr><td><b>Pare-feu applicatif / NGFW</b></td><td>Reconnaît les applications, inspecte le contenu, filtre les URL, antivirus intégré</td><td>Fortinet FortiGate, Palo Alto, Cisco Firepower</td></tr>
+<tr><td><b>Pare-feu personnel</b></td><td>Protège une seule machine</td><td>Pare-feu Windows Defender</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : la politique par défaut</div>
+<p>Une bonne politique commence par <b>tout interdire</b>, puis autorise seulement ce qui est nécessaire (liste blanche). C'est l'inverse d'une liste noire, qui oublie toujours quelque chose.</p></div>
+<h2><span class="n">6.2</span>Les ACL Cisco</h2>
+<p>Une <span class="k kv">ACL</span> (<i>Access Control List</i>) est une liste de règles <b>permit</b> / <b>deny</b> appliquée à une interface, en entrée (<b>in</b>) ou en sortie (<b>out</b>).</p>
+<div class="box keep"><div class="t"><i>★</i>Les 3 règles d'or des ACL</div>
+<p><b>1.</b> Les règles sont lues <b>de haut en bas</b> ; la première qui correspond s'applique, les suivantes sont ignorées.<br/>
+<b>2.</b> À la fin de chaque ACL, il existe un <span class="k kr">deny any implicite</span> invisible : tout ce qui n'est pas autorisé est bloqué.<br/>
+<b>3.</b> Une seule ACL par interface, par sens et par protocole.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:18%"></th><th>ACL standard</th><th>ACL étendue</th></tr>
+<tr><td><b>Numéros</b></td><td>1 à 99 (et 1300 à 1999)</td><td>100 à 199 (et 2000 à 2699)</td></tr>
+<tr><td><b>Filtre sur</b></td><td>Adresse IP <b>source</b> uniquement</td><td>Source, destination, protocole, ports</td></tr>
+<tr><td><b>Placement</b></td><td>Près de la <b>destination</b></td><td>Près de la <b>source</b></td></tr>
+<tr><td><b>Exemple</b></td><td>Interdire le réseau des stagiaires vers le serveur RH</td><td>Autoriser seulement le web (80, 443) vers le serveur</td></tr>
+</table></div>
+<h3>Le masque générique (wildcard)</h3>
+<p>Les ACL utilisent un <span class="k kg">masque générique</span> : c'est l'<b>inverse</b> du masque de sous-réseau. Un bit 0 = « doit correspondre », un bit 1 = « peu importe ».</p>
+<div class="tscroll"><table>
+<tr><th>Ce qu'on veut</th><th>Masque de sous-réseau</th><th>Wildcard</th><th>Raccourci</th></tr>
+<tr><td>Un seul hôte 192.168.10.5</td><td>255.255.255.255</td><td>0.0.0.0</td><td><code>host 192.168.10.5</code></td></tr>
+<tr><td>Le réseau 192.168.10.0/24</td><td>255.255.255.0</td><td>0.0.0.255</td><td>—</td></tr>
+<tr><td>Le réseau 172.16.0.0/16</td><td>255.255.0.0</td><td>0.0.255.255</td><td>—</td></tr>
+<tr><td>Le réseau 10.1.1.0/26</td><td>255.255.255.192</td><td>0.0.0.63</td><td>—</td></tr>
+<tr><td>Toutes les adresses</td><td>0.0.0.0</td><td>255.255.255.255</td><td><code>any</code></td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce de calcul</div>
+<p><b>Wildcard = 255.255.255.255 − masque</b>. Pour /26 : 255.255.255.255 − 255.255.255.192 = <b>0.0.0.63</b>.</p></div>
+<h3>Exemples de configuration</h3>
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:10px;padding:12px 16px;font-size:8.8pt;line-height:1.55;white-space:pre-wrap"><span style="color:#7F978A">! ACL standard nommée : le VLAN stagiaires (192.168.20.0/24) n'accède pas au serveur RH</span>
+R1(config)# ip access-list standard <b style="color:#D9BD7A">BLOQUE-STAGIAIRES</b>
+R1(config-std-nacl)# deny 192.168.20.0 0.0.0.255
+R1(config-std-nacl)# permit any                         <span style="color:#7F978A">! sinon deny implicite bloque tout</span>
+R1(config)# interface g0/1                              <span style="color:#7F978A">! interface vers le serveur RH</span>
+R1(config-if)# ip access-group BLOQUE-STAGIAIRES <b style="color:#D9BD7A">out</b>
+
+<span style="color:#7F978A">! ACL étendue : le LAN 192.168.10.0/24 n'accède au serveur web 10.0.0.10 qu'en HTTP/HTTPS</span>
+R1(config)# access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 10.0.0.10 eq 80
+R1(config)# access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 10.0.0.10 eq 443
+R1(config)# access-list 110 deny ip 192.168.10.0 0.0.0.255 host 10.0.0.10
+R1(config)# access-list 110 permit ip any any
+R1(config)# interface g0/0                              <span style="color:#7F978A">! interface côté LAN (près de la source)</span>
+R1(config-if)# ip access-group 110 <b style="color:#D9BD7A">in</b>
+
+<span style="color:#7F978A">! Limiter l'administration SSH au seul poste admin 192.168.99.10</span>
+R1(config)# access-list 10 permit host 192.168.99.10
+R1(config)# line vty 0 4
+R1(config-line)# <b style="color:#D9BD7A">access-class</b> 10 in
+
+R1# show access-lists                                   <span style="color:#7F978A">! compteurs de correspondances</span></pre>
+<div class="box warn"><div class="t"><i>!</i>Piège classique</div>
+<p>Oublier le <code>permit any</code> (ou <code>permit ip any any</code>) à la fin d'une ACL qui contient seulement des <code>deny</code> : à cause du deny implicite, <b>tout</b> le trafic est bloqué et le réseau entier tombe.</p></div>
+<h2><span class="n">6.3</span>La DMZ</h2>
+<p>La <span class="k kb">DMZ</span> (zone démilitarisée) est un réseau intermédiaire où l'on place les serveurs <b>accessibles depuis Internet</b> (site web, messagerie). Si l'un d'eux est piraté, l'attaquant n'est pas directement dans le réseau interne.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 250">
+<g text-anchor="middle">
+<ellipse cx="80" cy="125" fill="#FBEEF1" rx="68" ry="45" stroke="#A84A62"></ellipse><text fill="#A84A62" font-size="12" font-weight="700" x="80" y="122">INTERNET</text><text fill="#A84A62" font-size="9.5" x="80" y="138">non fiable</text>
+<rect fill="#B8913A" height="70" rx="12" width="110" x="215" y="90"></rect><text fill="#fff" font-size="12" font-weight="700" x="270" y="120">PARE-FEU</text><text fill="#FBF0D6" font-size="9.5" x="270" y="138">3 interfaces</text>
+<rect fill="#FBF4E4" height="62" rx="12" stroke="#B8913A" stroke-dasharray="5 4" width="140" x="200" y="5"></rect><text fill="#8A6A22" font-size="12" font-weight="700" x="270" y="28">DMZ</text><text font-size="9.5" x="270" y="44">serveur web, mail</text><text fill="#555" font-size="9" x="270" y="57">accès limité</text>
+<rect fill="#E6F4F1" height="110" rx="14" stroke="#0F766E" width="190" x="420" y="70"></rect><text fill="#0F766E" font-size="12" font-weight="700" x="515" y="98">RÉSEAU INTERNE (LAN)</text><text font-size="9.5" x="515" y="118">postes, serveur de fichiers,</text><text font-size="9.5" x="515" y="132">base de données, AD</text><text fill="#0F766E" font-size="9" x="515" y="160">zone de confiance</text>
+</g>
+<g stroke="#1B2A4A" stroke-width="2.5"><line x1="148" x2="213" y1="125" y2="125"></line><line x1="270" x2="270" y1="88" y2="69"></line><line x1="327" x2="418" y1="125" y2="125"></line></g>
+<g fill="#333" font-size="9.5">
+<text x="20" y="205">✔ Internet → DMZ : seulement HTTP/HTTPS vers le serveur web</text>
+<text x="20" y="222">✘ Internet → LAN : interdit (sauf réponses aux connexions sorties)</text>
+<text x="20" y="239">✘ DMZ → LAN : interdit (sauf flux précis et justifiés)          ✔ LAN → Internet : autorisé selon la politique</text>
+</g>
+</svg>
+<figcaption>Figure 12 — Architecture avec DMZ</figcaption>
+</figure>
+<h2><span class="n">6.4</span>IDS et IPS</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%"></th><th>IDS (détection)</th><th>IPS (prévention)</th></tr>
+<tr><td><b>Rôle</b></td><td>Détecte une attaque et <b>alerte</b></td><td>Détecte et <b>bloque</b> l'attaque</td></tr>
+<tr><td><b>Position</b></td><td>À côté du flux (reçoit une copie, port miroir SPAN)</td><td>En coupure, dans le flux (<i>inline</i>)</td></tr>
+<tr><td><b>Impact si erreur</b></td><td>Fausse alerte, pas de coupure</td><td>Peut bloquer un trafic légitime (faux positif)</td></tr>
+<tr><td><b>Exemples</b></td><td colspan="2">Snort, Suricata, modules IPS des pare-feu NGFW</td></tr>
+</table></div>
+<p>Deux méthodes de détection : par <span class="k kv">signatures</span> (reconnaît des attaques connues, comme un antivirus) et par <span class="k kv">anomalies</span> (repère un comportement inhabituel, utile contre les attaques nouvelles mais plus de fausses alertes).</p>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>L'<b>IDS</b> est une caméra de surveillance avec alarme : elle voit le voleur et prévient. L'<b>IPS</b> est un vigile à la porte : il voit le voleur et l'empêche d'entrer.</p></div>
+<h2><span class="n">6.5</span>Le VPN</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kt">VPN</span> (<i>Virtual Private Network</i>) crée un <b>tunnel chiffré</b> à travers un réseau non fiable (Internet) : les données sont protégées comme si elles passaient dans un réseau privé.</p></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 170">
+<g text-anchor="middle">
+<rect fill="#E6F4F1" height="70" rx="12" stroke="#0F766E" width="130" x="10" y="50"></rect><text fill="#0F766E" font-size="12" font-weight="700" x="75" y="80">Siège (Fès)</text><text font-size="9.5" x="75" y="98">192.168.1.0/24</text>
+<rect fill="#E6F4F1" height="70" rx="12" stroke="#0F766E" width="130" x="480" y="50"></rect><text fill="#0F766E" font-size="12" font-weight="700" x="545" y="80">Agence (Meknès)</text><text font-size="9.5" x="545" y="98">192.168.2.0/24</text>
+<ellipse cx="310" cy="85" fill="#FBEEF1" rx="140" ry="60" stroke="#A84A62" stroke-dasharray="5 4"></ellipse><text fill="#A84A62" font-size="11" font-weight="700" x="310" y="38">INTERNET (non fiable)</text>
+<rect fill="#1B2A4A" height="26" rx="13" width="340" x="140" y="72"></rect><text fill="#D9BD7A" font-size="11" font-weight="700" x="310" y="90">🔒 tunnel VPN IPsec chiffré</text>
+<text fill="#555" font-size="10" x="310" y="160">Un pirate qui capture le trafic sur Internet ne voit que des données chiffrées</text>
+</g>
+</svg>
+<figcaption>Figure 13 — VPN site à site entre deux agences</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Type de VPN</th><th>Usage</th><th style="width:30%">Technologies</th></tr>
+<tr><td><b>Site à site</b></td><td>Relier deux réseaux d'entreprise en permanence (siège ↔ agence)</td><td>IPsec entre deux routeurs ou pare-feu</td></tr>
+<tr><td><b>Accès distant</b></td><td>Un télétravailleur se connecte au réseau de l'entreprise</td><td>VPN SSL/TLS (client ou navigateur), IPsec</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Le VPN protège le <b>transport</b>, pas le poste. Un PC infecté connecté en VPN amène le malware <b>à l'intérieur</b> du réseau. D'où l'intérêt de vérifier l'état du poste et de la MFA pour les accès VPN.</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Pare-feu : filtrage de paquets, à états, applicatif (NGFW). Politique : <b>tout interdire sauf…</b><br/>
+• ACL : lecture de haut en bas, <b>deny any implicite</b>. Standard (source, près de la destination), étendue (près de la source). Wildcard = inverse du masque.<br/>
+• <b>DMZ</b> : serveurs publics isolés du LAN. <b>IDS</b> alerte, <b>IPS</b> bloque.<br/>
+• <b>VPN</b> : tunnel chiffré, site à site (IPsec) ou accès distant (SSL/TLS).</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kt">Pare-feu</span><span class="k kt">NGFW</span><span class="k kv">ACL standard</span><span class="k kv">ACL étendue</span><span class="k kg">Wildcard</span><span class="k kr">Deny implicite</span><span class="k kb">DMZ</span><span class="k kb">IDS</span><span class="k kt">IPS</span><span class="k kt">VPN</span><span class="k kv">IPsec</span><span class="k kv">SSL/TLS</span>
+</div>
+<h3>Exercices — Chapitre 6</h3>
+<div class="exo"><div class="h">Exercice 6.1 — Wildcards <span>★ facile</span></div><div class="c">
+<p>Donne le masque générique pour : (a) 192.168.5.0/24 ; (b) 10.0.0.0/8 ; (c) 172.16.4.0/22 ; (d) l'hôte 192.168.1.50 ; (e) 192.168.1.64/27.</p></div></div>
+<div class="exo"><div class="h">Exercice 6.2 — Lire une ACL <span>★★ moyen</span></div><div class="c">
+<p>ACL 120 appliquée en entrée sur l'interface LAN :<br/><code>permit tcp 192.168.10.0 0.0.0.255 any eq 443</code> · <code>permit udp 192.168.10.0 0.0.0.255 any eq 53</code> · <code>deny tcp 192.168.10.0 0.0.0.255 any eq 80</code></p>
+<p>Que se passe-t-il pour : (a) un PC du LAN qui ouvre un site en HTTPS ; (b) un site en HTTP ; (c) un ping vers 8.8.8.8 ; (d) une requête DNS ?</p></div></div>
+<div class="exo"><div class="h">Exercice 6.3 — Écrire une ACL <span>★★★ difficile</span></div><div class="c">
+<p>Le réseau Stagiaires 192.168.30.0/24 ne doit pas joindre le serveur de notes 10.10.10.5, mais doit pouvoir aller sur tout le reste. Le réseau Formateurs 192.168.40.0/24 doit joindre le serveur de notes uniquement en HTTPS. Écris une ACL étendue nommée et indique où l'appliquer.</p></div></div>
+<!-- ============ CHAPITRE 7 ============ -->
+<section class="chead2" id="ch7"><div class="ch-side" style="background:linear-gradient(180deg,#1B2A4A,#0F766E)"><span class="lbl">CHAPITRE</span><span class="num">07</span></div><div class="ch-body">
+<h1>La sécurité du Wi-Fi</h1>
+<div class="lead">Les ondes traversent les murs : un réseau sans fil se protège encore plus qu'un câble.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre pourquoi le Wi-Fi est plus exposé</li>
+<li>Comparer WEP, WPA, WPA2 et WPA3</li>
+<li>Distinguer le mode Personnel (PSK) et le mode Entreprise (802.1X)</li>
+<li>Appliquer les bonnes pratiques et reconnaître les attaques Wi-Fi</li></ul></div>
+<div class="quote">« Avec le Wi-Fi, ton câble réseau arrive jusque dans le parking. »</div></div></section>
+<h2><span class="n">7.1</span>Les protocoles de sécurité Wi-Fi</h2>
+<div class="tscroll"><table>
+<tr><th style="width:14%">Protocole</th><th style="width:10%">Année</th><th style="width:22%">Chiffrement</th><th>Niveau de sécurité</th></tr>
+<tr><td><b>WEP</b></td><td>1997</td><td>RC4</td><td><span class="k kr">Cassé</span> en quelques minutes — interdit</td></tr>
+<tr><td><b>WPA</b></td><td>2003</td><td>TKIP (RC4)</td><td><span class="k kr">Obsolète</span> — solution de transition</td></tr>
+<tr><td><b>WPA2</b></td><td>2004</td><td>AES-CCMP</td><td><span class="k kg">Correct</span> avec une phrase de passe longue</td></tr>
+<tr><td><b>WPA3</b></td><td>2018</td><td>AES + SAE</td><td><span class="k kt">Recommandé</span> — résiste aux attaques par dictionnaire hors ligne</td></tr>
+</table></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 110">
+<defs><lineargradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#A84A62"></stop><stop offset=".5" stop-color="#B8913A"></stop><stop offset="1" stop-color="#0F766E"></stop></lineargradient></defs>
+<rect fill="url(#wg)" height="18" rx="9" width="580" x="20" y="40"></rect>
+<g font-size="11" font-weight="700" text-anchor="middle">
+<circle cx="60" cy="49" fill="#fff" r="13" stroke="#A84A62" stroke-width="3"></circle><text fill="#A84A62" x="60" y="28">WEP</text>
+<circle cx="220" cy="49" fill="#fff" r="13" stroke="#C0704C" stroke-width="3"></circle><text fill="#A85A3A" x="220" y="28">WPA</text>
+<circle cx="400" cy="49" fill="#fff" r="13" stroke="#8C8A40" stroke-width="3"></circle><text fill="#6C6A20" x="400" y="28">WPA2</text>
+<circle cx="560" cy="49" fill="#fff" r="13" stroke="#0F766E" stroke-width="3"></circle><text fill="#0F766E" x="560" y="28">WPA3</text>
+</g>
+<g fill="#555" font-size="10" text-anchor="middle"><text x="60" y="85">à bannir</text><text x="220" y="85">à remplacer</text><text x="400" y="85">minimum acceptable</text><text x="560" y="85">à privilégier</text></g>
+</svg>
+<figcaption>Figure 14 — Évolution de la sécurité Wi-Fi</figcaption>
+</figure>
+<h2><span class="n">7.2</span>Mode Personnel ou mode Entreprise ?</h2>
+<div class="tscroll"><table>
+<tr><th style="width:20%"></th><th>Personnel (PSK / SAE)</th><th>Entreprise (802.1X)</th></tr>
+<tr><td><b>Authentification</b></td><td>Une <b>clé partagée</b> unique pour tout le monde</td><td>Un <b>compte individuel</b> par utilisateur, vérifié par un serveur RADIUS</td></tr>
+<tr><td><b>Départ d'un employé</b></td><td>Il faut changer la clé sur tous les appareils</td><td>On désactive seulement son compte</td></tr>
+<tr><td><b>Traçabilité</b></td><td>Impossible de savoir qui est qui</td><td>Chaque connexion est associée à une personne</td></tr>
+<tr><td><b>Usage</b></td><td>Maison, petit bureau, réseau invités</td><td>Entreprise, école, administration</td></tr>
+</table></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 150">
+<defs><marker id="s7a" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="60" rx="10" stroke="#2F6FA8" width="130" x="10" y="45"></rect><text fill="#2F6FA8" font-size="11.5" font-weight="700" x="75" y="70">Supplicant</text><text font-size="9.5" x="75" y="88">PC / smartphone</text>
+<rect fill="#FBF4E4" height="60" rx="10" stroke="#B8913A" width="130" x="245" y="45"></rect><text fill="#8A6A22" font-size="11.5" font-weight="700" x="310" y="70">Authenticator</text><text font-size="9.5" x="310" y="88">point d'accès / switch</text>
+<rect fill="#1B2A4A" height="60" rx="10" width="130" x="480" y="45"></rect><text fill="#D9BD7A" font-size="11.5" font-weight="700" x="545" y="70">Serveur</text><text fill="#fff" font-size="9.5" x="545" y="88">RADIUS</text>
+<text fill="#555" font-size="9.5" x="192" y="38">EAP (identifiants)</text><text fill="#555" font-size="9.5" x="428" y="38">RADIUS</text>
+<text fill="#555" font-size="10" x="310" y="140">802.1X : le point d'accès ne laisse passer le trafic qu'après accord du serveur RADIUS</text>
+</g>
+<g marker-end="url(#s7a)" stroke="#1B2A4A" stroke-width="2"><line x1="142" x2="241" y1="75" y2="75"></line><line x1="377" x2="476" y1="75" y2="75"></line></g>
+</svg>
+<figcaption>Figure 15 — Les trois acteurs de l'authentification 802.1X</figcaption>
+</figure>
+<h2><span class="n">7.3</span>Les attaques Wi-Fi</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Attaque</th><th>Principe</th></tr>
+<tr><td><b>Evil twin</b> (jumeau maléfique)</td><td>Faux point d'accès portant le même nom (SSID) que le vrai, pour capter les connexions → MITM</td></tr>
+<tr><td><b>Rogue AP</b></td><td>Point d'accès non autorisé branché sur le réseau interne par un employé ou un pirate</td></tr>
+<tr><td><b>Attaque par dictionnaire WPA2-PSK</b></td><td>Capturer la poignée de main (handshake) puis tester des mots de passe hors ligne</td></tr>
+<tr><td><b>Désauthentification</b></td><td>Envoyer de fausses trames pour déconnecter les clients (DoS ou capture du handshake)</td></tr>
+<tr><td><b>Wardriving</b></td><td>Repérer les réseaux Wi-Fi mal protégés en circulant dans une zone</td></tr>
+</table></div>
+<h2><span class="n">7.4</span>Bonnes pratiques</h2>
+<div class="grid2">
+<div class="card"><h4 style="color:var(--teal)">Configuration</h4><p>• WPA3 (ou WPA2-AES au minimum)<br/>• Mode Entreprise 802.1X en entreprise<br/>• Phrase de passe de 16+ caractères en mode PSK<br/>• Désactiver <span class="k kr">WPS</span> (code PIN facile à casser)<br/>• Changer le mot de passe admin du point d'accès</p></div>
+<div class="card"><h4 style="color:var(--sky)">Architecture</h4><p>• Réseau <b>invités</b> séparé (VLAN dédié, accès Internet seulement)<br/>• Puissance d'émission adaptée aux locaux<br/>• Détection des points d'accès pirates<br/>• Firmware des bornes à jour<br/>• Masquer le SSID ne sécurise <b>pas</b> (il reste visible avec un outil)</p></div>
+</div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Sur un Wi-Fi public (café, gare), considère que tout le monde peut voir ton trafic : utilise uniquement des sites en <b>HTTPS</b>, ou un VPN, et n'accède jamais à l'administration d'un équipement de l'entreprise.</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <b>WEP et WPA</b> : à bannir. <b>WPA2-AES</b> : minimum. <b>WPA3</b> : recommandé.<br/>
+• <b>PSK</b> = une clé pour tous (maison, invités). <b>802.1X / RADIUS</b> = un compte par personne (entreprise).<br/>
+• Désactiver WPS, isoler les invités, détecter les evil twins et rogue AP.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kr">WEP</span><span class="k kg">WPA2</span><span class="k kt">WPA3</span><span class="k kv">AES-CCMP</span><span class="k kv">SAE</span><span class="k kb">PSK</span><span class="k kv">802.1X</span><span class="k kv">RADIUS</span><span class="k kr">Evil twin</span><span class="k kr">Rogue AP</span><span class="k kr">WPS</span><span class="k kt">Réseau invités</span>
+</div>
+<h3>Exercices — Chapitre 7</h3>
+<div class="exo"><div class="h">Exercice 7.1 — Choisir la sécurité <span>★ facile</span></div><div class="c">
+<p>Quelle configuration Wi-Fi recommander pour : (a) le réseau des 300 stagiaires et formateurs d'un ISTA ; (b) un petit café avec un Wi-Fi pour les clients ; (c) la maison d'un formateur ?</p></div></div>
+<div class="exo"><div class="h">Exercice 7.2 — Audit d'un point d'accès <span>★★ moyen</span></div><div class="c">
+<p>Un point d'accès est configuré ainsi : WPA-TKIP, clé « ofppt2024 », WPS activé, compte admin / admin, invités et employés sur le même réseau. Relève les 5 problèmes et propose une correction pour chacun.</p></div></div>
+<!-- ============ CHAPITRE 8 ============ -->
+<section class="chead2" id="ch8"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#2F6FA8)"><span class="lbl">CHAPITRE</span><span class="num">08</span></div><div class="ch-body">
+<h1>Protéger les postes et les données</h1>
+<div class="lead">Une sauvegarde testée vaut mieux que tous les antivirus du monde le jour d'un ransomware.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Appliquer les mesures de base d'hygiène informatique</li>
+<li>Comprendre la gestion des correctifs (patchs)</li>
+<li>Mettre en place une sauvegarde selon la règle 3-2-1</li>
+<li>Connaître les bons réflexes des utilisateurs</li></ul></div>
+<div class="quote">« Il y a deux types d'entreprises : celles qui ont été attaquées, et celles qui ne le savent pas encore. »</div></div></section>
+<h2><span class="n">8.1</span>L'hygiène informatique du poste</h2>
+<div class="tscroll"><table>
+<tr><th style="width:26%">Mesure</th><th>Pourquoi</th></tr>
+<tr><td><b>Mises à jour</b> du système et des logiciels</td><td>Corrigent les failles connues, souvent exploitées dans les jours qui suivent leur publication</td></tr>
+<tr><td><b>Antivirus / EDR</b></td><td>L'antivirus détecte les malwares connus ; l'<span class="k kt">EDR</span> surveille aussi les comportements suspects et aide à réagir</td></tr>
+<tr><td><b>Pare-feu du poste</b> activé</td><td>Bloque les connexions entrantes non sollicitées</td></tr>
+<tr><td><b>Compte utilisateur standard</b></td><td>Sans droits d'administrateur, un malware s'installe beaucoup plus difficilement</td></tr>
+<tr><td><b>Chiffrement du disque</b> (BitLocker)</td><td>Un PC portable volé ne livre pas ses données</td></tr>
+<tr><td><b>Verrouillage automatique</b> de session</td><td>Personne n'utilise le poste pendant une absence (raccourci Windows + L)</td></tr>
+<tr><td><b>Ports USB contrôlés</b></td><td>Limite les clés infectées et les fuites de données</td></tr>
+</table></div>
+<h2><span class="n">8.2</span>La gestion des correctifs</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 130">
+<g font-size="10.5" text-anchor="middle">
+<path d="M5 20 L118 20 L138 60 L118 100 L5 100 Z" fill="#2F6FA8"></path><text fill="#fff" font-weight="700" x="65" y="55">1. INVENTAIRE</text><text fill="#D6E6F5" font-size="9.5" x="65" y="72">quels logiciels ?</text>
+<path d="M130 20 L243 20 L263 60 L243 100 L130 100 L150 60 Z" fill="#0F766E"></path><text fill="#fff" font-weight="700" x="198" y="55">2. VEILLE</text><text fill="#D8F0EA" font-size="9.5" x="198" y="72">CVE, alertes</text>
+<path d="M255 20 L368 20 L388 60 L368 100 L255 100 L275 60 Z" fill="#5B4B8A"></path><text fill="#fff" font-weight="700" x="323" y="55">3. TEST</text><text fill="#E2DCF2" font-size="9.5" x="323" y="72">sur un labo</text>
+<path d="M380 20 L493 20 L513 60 L493 100 L380 100 L400 60 Z" fill="#B8913A"></path><text fill="#fff" font-weight="700" x="448" y="55">4. DÉPLOIEMENT</text><text fill="#FBF0D6" font-size="9.5" x="448" y="72">critiques d'abord</text>
+<path d="M505 20 L615 20 L615 100 L505 100 L525 60 Z" fill="#A84A62"></path><text fill="#fff" font-weight="700" x="570" y="55">5. CONTRÔLE</text><text fill="#F8DDE4" font-size="9.5" x="570" y="72">tout est à jour ?</text>
+</g>
+</svg>
+<figcaption>Figure 16 — Le cycle de gestion des correctifs</figcaption>
+</figure>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : prioriser avec le score CVSS</div>
+<p>Chaque faille a un score <span class="k kr">CVSS</span> de 0 à 10. Une faille <b>critique</b> (9 à 10), exposée sur Internet et déjà exploitée, se corrige en <b>priorité absolue</b>, sans attendre la maintenance du mois suivant.</p></div>
+<h2><span class="n">8.3</span>La sauvegarde : la règle 3-2-1</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 190">
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="150" rx="16" stroke="#2F6FA8" width="185" x="10" y="20"></rect><text fill="#2F6FA8" font-family="Lora" font-size="52" font-weight="700" x="102" y="78">3</text><text fill="#2F6FA8" font-size="12" font-weight="700" x="102" y="110">COPIES</text><text font-size="10" x="102" y="132">les données d'origine</text><text font-size="10" x="102" y="146">+ 2 sauvegardes</text>
+<rect fill="#E6F4F1" height="150" rx="16" stroke="#0F766E" width="185" x="217" y="20"></rect><text fill="#0F766E" font-family="Lora" font-size="52" font-weight="700" x="309" y="78">2</text><text fill="#0F766E" font-size="12" font-weight="700" x="309" y="110">SUPPORTS</text><text font-size="10" x="309" y="132">différents</text><text font-size="10" x="309" y="146">(NAS + disque, cloud…)</text>
+<rect fill="#FBF4E4" height="150" rx="16" stroke="#B8913A" width="185" x="424" y="20"></rect><text fill="#8A6A22" font-family="Lora" font-size="52" font-weight="700" x="516" y="78">1</text><text fill="#8A6A22" font-size="12" font-weight="700" x="516" y="110">HORS SITE</text><text font-size="10" x="516" y="132">et idéalement déconnectée</text><text font-size="10" x="516" y="146">(hors ligne / immuable)</text>
+</g>
+</svg>
+<figcaption>Figure 17 — La règle de sauvegarde 3-2-1</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Type de sauvegarde</th><th>Ce qui est copié</th><th style="width:30%">Restauration</th></tr>
+<tr><td><b>Complète</b></td><td>Toutes les données, à chaque fois</td><td>Simple : une seule sauvegarde</td></tr>
+<tr><td><b>Incrémentale</b></td><td>Ce qui a changé depuis la <b>dernière sauvegarde</b> (quelle qu'elle soit)</td><td>Complète + toutes les incrémentales</td></tr>
+<tr><td><b>Différentielle</b></td><td>Ce qui a changé depuis la <b>dernière complète</b></td><td>Complète + la dernière différentielle</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Une sauvegarde <b>toujours branchée</b> au réseau peut être chiffrée par le ransomware en même temps que le serveur. Il faut au moins une copie <span class="k kg">hors ligne</span> ou non modifiable, et <b>tester les restaurations</b> régulièrement : une sauvegarde jamais testée n'est qu'un espoir.</p></div>
+<h2><span class="n">8.4</span>Les bons réflexes de l'utilisateur</h2>
+<div class="grid3">
+<div class="card"><h4 style="color:var(--teal)">Messagerie</h4><p>Vérifier l'expéditeur, ne pas ouvrir les pièces jointes inattendues, signaler les e-mails suspects.</p></div>
+<div class="card"><h4 style="color:var(--sky)">Mots de passe</h4><p>Uniques, longs, dans un gestionnaire, MFA activée, jamais partagés ni notés sur un post-it.</p></div>
+<div class="card"><h4 style="color:var(--rose)">Supports</h4><p>Ne pas brancher une clé USB trouvée, verrouiller sa session, ranger les documents sensibles.</p></div>
+</div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Hygiène : <b>mises à jour, antivirus/EDR, compte standard, chiffrement du disque, verrouillage</b>.<br/>
+• Correctifs : inventaire → veille → test → déploiement → contrôle ; prioriser par <b>CVSS</b>.<br/>
+• Sauvegarde <b>3-2-1</b>, une copie hors ligne, restaurations testées.<br/>
+• L'utilisateur formé est la meilleure protection contre le phishing.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kt">Mise à jour</span><span class="k kt">EDR</span><span class="k kt">BitLocker</span><span class="k kg">Correctif</span><span class="k kr">CVSS</span><span class="k kg">Règle 3-2-1</span><span class="k kb">Complète</span><span class="k kb">Incrémentale</span><span class="k kb">Différentielle</span><span class="k kt">Hors ligne</span>
+</div>
+<h3>Exercices — Chapitre 8</h3>
+<div class="exo"><div class="h">Exercice 8.1 — Sauvegardes <span>★★ moyen</span></div><div class="c">
+<p>Une complète est faite le dimanche, puis une sauvegarde chaque jour. Le serveur tombe le jeudi matin. Quelles sauvegardes faut-il restaurer (a) si les sauvegardes quotidiennes sont incrémentales ; (b) si elles sont différentielles ?</p></div></div>
+<div class="exo"><div class="h">Exercice 8.2 — Respecte-t-il la règle 3-2-1 ? <span>★★ moyen</span></div><div class="c">
+<p>Une PME garde ses fichiers sur un serveur et les copie chaque nuit sur un NAS placé dans la même salle, branché en permanence. Respecte-t-elle la règle 3-2-1 ? Que risque-t-elle face à un ransomware ou un incendie ? Propose une amélioration.</p></div></div>
+<!-- ============ CHAPITRE 9 ============ -->
+<section class="chead2" id="ch9"><div class="ch-side" style="background:linear-gradient(180deg,#7E3448,#1B2A4A)"><span class="lbl">CHAPITRE</span><span class="num">09</span></div><div class="ch-body">
+<h1>Incidents, normes et cadre légal</h1>
+<div class="lead">Quand l'attaque arrive, la différence se joue entre ceux qui ont un plan et ceux qui improvisent.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Connaître les étapes de la réponse à incident</li>
+<li>Savoir qui contacter au Maroc (maCERT, DGSSI)</li>
+<li>Connaître les normes ISO 27001 / 27002</li>
+<li>Connaître les lois marocaines 05-20, 07-03 et 09-08</li></ul></div>
+<div class="quote">« Le pire moment pour écrire un plan de réponse, c'est pendant l'incident. »</div></div></section>
+<h2><span class="n">9.1</span>Les étapes de la réponse à incident</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 300">
+<defs><marker id="s9a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<circle cx="300" cy="150" fill="none" r="115" stroke="#E3DED3" stroke-width="20"></circle>
+<circle cx="300" cy="150" fill="#1B2A4A" r="52"></circle><text fill="#fff" font-size="12" font-weight="700" text-anchor="middle" x="300" y="146">INCIDENT</text><text fill="#D9BD7A" font-size="10" text-anchor="middle" x="300" y="163">réponse</text>
+<g font-size="9.5" text-anchor="middle">
+<circle cx="300" cy="35" fill="#2F6FA8" r="34"></circle><text fill="#fff" font-weight="700" x="300" y="32">1</text><text fill="#fff" x="300" y="46">Préparer</text>
+<circle cx="405" cy="90" fill="#0F766E" r="34"></circle><text fill="#fff" font-weight="700" x="405" y="87">2</text><text fill="#fff" x="405" y="101">Détecter</text>
+<circle cx="405" cy="210" fill="#A84A62" r="34"></circle><text fill="#fff" font-weight="700" x="405" y="207">3</text><text fill="#fff" x="405" y="221">Contenir</text>
+<circle cx="300" cy="265" fill="#5B4B8A" r="34"></circle><text fill="#fff" font-weight="700" x="300" y="262">4</text><text fill="#fff" x="300" y="276">Éradiquer</text>
+<circle cx="195" cy="210" fill="#B8913A" r="34"></circle><text fill="#fff" font-weight="700" x="195" y="207">5</text><text fill="#fff" x="195" y="221">Restaurer</text>
+<circle cx="195" cy="90" fill="#2C3E66" r="34"></circle><text fill="#fff" font-weight="700" x="195" y="87">6</text><text fill="#fff" x="195" y="101">Leçons</text>
+</g>
+</svg>
+<figcaption>Figure 18 — Le cycle de réponse à incident (inspiré du NIST et de l'ISO 27035)</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Étape</th><th>Actions</th><th style="width:34%">Exemple : ransomware sur un PC</th></tr>
+<tr><td><b>1. Préparer</b></td><td>Plan, contacts, sauvegardes, outils, formation</td><td>Procédure écrite et numéros d'urgence affichés</td></tr>
+<tr><td><b>2. Détecter</b></td><td>Repérer et qualifier l'incident (gravité, périmètre)</td><td>L'utilisateur voit des fichiers .locked et un message de rançon</td></tr>
+<tr><td><b>3. Contenir</b></td><td>Isoler pour éviter la propagation</td><td><b>Débrancher le câble réseau / couper le Wi-Fi</b>, sans éteindre le PC</td></tr>
+<tr><td><b>4. Éradiquer</b></td><td>Supprimer la cause, corriger la faille</td><td>Réinstaller le poste, changer les mots de passe, patcher</td></tr>
+<tr><td><b>5. Restaurer</b></td><td>Remettre en service, surveiller</td><td>Restaurer les fichiers depuis la sauvegarde saine</td></tr>
+<tr><td><b>6. Leçons</b></td><td>Retour d'expérience, améliorer les défenses</td><td>Former au phishing, activer la MFA, revoir les sauvegardes</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Les erreurs à ne pas faire</div>
+<p>• <b>Éteindre</b> brutalement la machine : on perd des traces en mémoire utiles à l'enquête (on l'isole du réseau).<br/>
+• <b>Payer la rançon</b> : rien ne garantit la récupération des données, et cela finance les attaquants.<br/>
+• <b>Cacher</b> l'incident : plus on attend, plus il se propage. On prévient immédiatement le responsable.</p></div>
+<h2><span class="n">9.2</span>Les acteurs au Maroc</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Organisme</th><th>Rôle</th></tr>
+<tr><td><b>DGSSI</b></td><td>Direction Générale de la Sécurité des Systèmes d'Information : autorité nationale de la cybersécurité</td></tr>
+<tr><td><b>maCERT</b></td><td>Centre de veille, de détection et de réponse aux attaques informatiques, rattaché à la DGSSI : publie les alertes et accompagne les organismes</td></tr>
+<tr><td><b>CNDP</b></td><td>Commission nationale de contrôle de la protection des données à caractère personnel (loi 09-08)</td></tr>
+<tr><td><b>DGSN / police judiciaire</b></td><td>Réception des plaintes et enquêtes sur la cybercriminalité</td></tr>
+</table></div>
+<h2><span class="n">9.3</span>Le cadre légal marocain</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Loi</th><th>Objet</th><th style="width:36%">Ce que le technicien doit retenir</th></tr>
+<tr><td><b>Loi 07-03</b> (2003)</td><td>Complète le Code pénal : atteintes aux systèmes de traitement automatisé des données</td><td>Accéder, se maintenir, modifier ou bloquer un système <b>sans autorisation</b> est un délit</td></tr>
+<tr><td><b>Loi 09-08</b> (2009)</td><td>Protection des personnes physiques à l'égard du traitement des données personnelles</td><td>Protéger les données personnelles, déclarer les traitements à la CNDP</td></tr>
+<tr><td><b>Loi 05-20</b> (2020)</td><td>Cybersécurité : règles pour les administrations, les infrastructures d'importance vitale et les opérateurs</td><td>Obligations de sécurité et de déclaration des incidents pour les organismes concernés</td></tr>
+<tr><td><b>Loi 43-20</b> (2020)</td><td>Services de confiance pour les transactions électroniques</td><td>Signature et certificats électroniques</td></tr>
+</table></div>
+<h2><span class="n">9.4</span>Les normes et référentiels</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Référentiel</th><th>Contenu</th></tr>
+<tr><td><b>ISO/IEC 27001</b></td><td>Norme internationale du <b>système de management de la sécurité de l'information</b> (SMSI). Une entreprise peut être <b>certifiée</b>.</td></tr>
+<tr><td><b>ISO/IEC 27002</b></td><td>Catalogue de <b>mesures de sécurité</b> (bonnes pratiques) pour mettre en œuvre la 27001</td></tr>
+<tr><td><b>ISO/IEC 27005</b></td><td>Méthode de <b>gestion des risques</b> de sécurité</td></tr>
+<tr><td><b>DNSSI</b></td><td>Directive nationale de la sécurité des systèmes d'information (DGSSI) pour les administrations et organismes marocains</td></tr>
+<tr><td><b>Guides ANSSI / CIS</b></td><td>Guides pratiques de durcissement et d'hygiène informatique</td></tr>
+</table></div>
+<p>L'ISO 27001 repose sur la roue <span class="k kv">PDCA</span> : <b>Plan</b> (planifier : analyser les risques), <b>Do</b> (mettre en œuvre les mesures), <b>Check</b> (contrôler, auditer), <b>Act</b> (améliorer).</p>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Réponse à incident : <b>préparer, détecter, contenir, éradiquer, restaurer, tirer les leçons</b>.<br/>
+• Ransomware : <b>isoler</b> du réseau, ne pas éteindre, ne pas payer, prévenir tout de suite.<br/>
+• Maroc : <b>DGSSI / maCERT</b>, <b>CNDP</b> ; lois <b>07-03</b> (intrusion), <b>09-08</b> (données personnelles), <b>05-20</b> (cybersécurité).<br/>
+• <b>ISO 27001</b> (SMSI, certification), 27002 (mesures), 27005 (risques), roue PDCA.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">Réponse à incident</span><span class="k kt">Confinement</span><span class="k kg">DGSSI</span><span class="k kg">maCERT</span><span class="k kg">CNDP</span><span class="k kr">Loi 07-03</span><span class="k kb">Loi 09-08</span><span class="k kb">Loi 05-20</span><span class="k kv">ISO 27001</span><span class="k kv">SMSI</span><span class="k kv">PDCA</span>
+</div>
+<h3>Exercices — Chapitre 9</h3>
+<div class="exo"><div class="h">Exercice 9.1 — Remettre dans l'ordre <span>★ facile</span></div><div class="c">
+<p>(a) Restaurer les fichiers depuis la sauvegarde ; (b) débrancher le PC du réseau ; (c) organiser une formation anti-phishing ; (d) remarquer des fichiers renommés en .locked ; (e) réinstaller le poste et changer les mots de passe.</p></div></div>
+<div class="exo"><div class="h">Exercice 9.2 — Quelle loi ? <span>★★ moyen</span></div><div class="c">
+<p>(a) Un stagiaire se connecte au serveur de notes avec le mot de passe d'un formateur. (b) Une entreprise publie par erreur la liste de ses clients avec leurs numéros de téléphone. (c) Un ministère doit déclarer un incident de sécurité majeur à l'autorité nationale.</p></div></div>
+<!-- ============ TRAVAUX PRATIQUES ============ -->
+<section class="chead2" id="tp"><div class="ch-side" style="background:linear-gradient(180deg,#0F4F5C,#1B2A4A)"><span class="lbl">LABS</span><span class="num">TP</span></div><div class="ch-body">
+<h1>Labs et travaux pratiques</h1>
+<div class="lead">Six TP progressifs, réalisables dans Cisco Packet Tracer ou sur un poste Windows, avec leur solution complète.</div>
+<div class="obj"><h4>Liste des TP</h4>
+<ul><li>TP 1 — Sécuriser l'accès à un routeur et un switch (SSH)</li>
+<li>TP 2 — Port security et ports inutilisés</li>
+<li>TP 3 — Filtrer avec des ACL standard et étendues</li>
+<li>TP 4 — Bloquer un faux serveur DHCP (DHCP snooping)</li>
+<li>TP 5 — Wi-Fi WPA2-Entreprise avec un serveur RADIUS</li>
+<li>TP 6 — Vérifier l'intégrité d'un fichier (hachage)</li></ul></div>
+<div class="quote">« J'entends et j'oublie, je vois et je me souviens, je fais et je comprends. »</div></div></section>
+<h2><span class="n">TP</span>Avant de commencer</h2>
+<div class="tscroll"><table>
+<tr><th style="width:6%">TP</th><th>Titre</th><th style="width:14%">Niveau</th><th style="width:11%">Durée</th><th style="width:22%">Outil</th></tr>
+<tr><td>1</td><td><b>Sécuriser l'accès aux équipements</b></td><td>★ Débutant</td><td>1 h</td><td>Packet Tracer</td></tr>
+<tr><td>2</td><td><b>Port security</b></td><td>★ Débutant</td><td>45 min</td><td>Packet Tracer</td></tr>
+<tr><td>3</td><td><b>ACL standard et étendues</b></td><td>★★ Intermédiaire</td><td>1 h 30</td><td>Packet Tracer</td></tr>
+<tr><td>4</td><td><b>DHCP snooping</b></td><td>★★ Intermédiaire</td><td>1 h</td><td>Packet Tracer</td></tr>
+<tr><td>5</td><td><b>WPA2-Entreprise + RADIUS</b></td><td>★★★ Avancé</td><td>1 h 30</td><td>Packet Tracer</td></tr>
+<tr><td>6</td><td><b>Hachage et intégrité</b></td><td>★ Débutant</td><td>30 min</td><td>Windows (PowerShell)</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Méthode de travail</div>
+<p>1. Construire la topologie et l'adressage. 2. Vérifier que tout communique <b>avant</b> de sécuriser. 3. Appliquer la sécurité étape par étape. 4. Tester après <b>chaque</b> étape (<code>ping</code>, <code>show</code>). 5. Sauvegarder : <code>copy running-config startup-config</code>.</p></div>
+<!-- TP1 -->
+<h2><span class="n">TP 1</span>Sécuriser l'accès à un routeur et un switch</h2>
+<p><b>Objectifs :</b> protéger les accès console et privilégié, créer un compte local, activer SSH v2, interdire Telnet, limiter l'accès SSH au poste d'administration.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 130">
+<g stroke="#1B2A4A" stroke-width="2.5"><line x1="110" x2="250" y1="65" y2="65"></line><line x1="350" x2="480" y1="65" y2="65"></line></g>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="50" rx="8" stroke="#2F6FA8" width="90" x="20" y="40"></rect><text fill="#2F6FA8" font-size="11" font-weight="700" x="65" y="62">PC-ADMIN</text><text font-size="9" x="65" y="78">192.168.1.10</text>
+<rect fill="#E6F4F1" height="50" rx="8" stroke="#0F766E" width="100" x="250" y="40"></rect><text fill="#0F766E" font-size="11" font-weight="700" x="300" y="62">SW1</text><text font-size="9" x="300" y="78">VLAN1 192.168.1.2</text>
+<rect fill="#FBF4E4" height="50" rx="8" stroke="#B8913A" width="100" x="480" y="40"></rect><text fill="#8A6A22" font-size="11" font-weight="700" x="530" y="62">R1</text><text font-size="9" x="530" y="78">G0/0 192.168.1.1</text>
+<text fill="#555" font-size="9" x="180" y="58">Fa0/1</text><text fill="#555" font-size="9" x="415" y="58">Fa0/24 — G0/0</text>
+<text fill="#555" font-size="10" x="300" y="118">Réseau 192.168.1.0/24 · passerelle 192.168.1.1</text>
+</g>
+</svg>
+<figcaption>Topologie du TP 1</figcaption>
+</figure>
+<h4>Étapes</h4>
+<ol>
+<li>Configurer le nom, l'adresse IP de G0/0 sur R1 et de l'interface VLAN 1 sur SW1 (+ <code>ip default-gateway</code>). Vérifier le ping depuis PC-ADMIN.</li>
+<li>Sur R1 et SW1 : <code>enable secret</code>, mot de passe console, <code>service password-encryption</code>, bannière, <code>exec-timeout</code>.</li>
+<li>Créer le compte <b>admin</b> (privilège 15), le domaine <i>tp.local</i>, les clés RSA 2048, SSH v2.</li>
+<li>Sur les lignes VTY : <code>login local</code>, <code>transport input ssh</code>.</li>
+<li>Créer l'ACL standard 10 qui autorise seulement 192.168.1.10 et l'appliquer aux VTY avec <code>access-class</code>.</li>
+<li>Activer le blocage après 3 échecs en 60 s pendant 120 s.</li>
+</ol>
+<h4>Tests attendus</h4>
+<div class="tscroll"><table>
+<tr><th>Test</th><th>Résultat attendu</th></tr>
+<tr><td>Depuis PC-ADMIN : <code>telnet 192.168.1.1</code></td><td>Connexion refusée</td></tr>
+<tr><td>Depuis PC-ADMIN : <code>ssh -l admin 192.168.1.1</code></td><td>Demande du mot de passe puis accès au routeur</td></tr>
+<tr><td>Depuis un autre PC (192.168.1.20) : <code>ssh -l admin 192.168.1.1</code></td><td>Refusé par l'access-class</td></tr>
+<tr><td><code>show running-config</code></td><td>Aucun mot de passe lisible en clair</td></tr>
+<tr><td><code>show ip ssh</code></td><td>SSH Enabled — version 2.0</td></tr>
+</table></div>
+<details class="cor"><summary>Solution — TP 1 (R1 ; même logique sur SW1 avec interface vlan 1)</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">enable
+configure terminal
+hostname R1
+enable secret Cl@sse!Secu-2026
+service password-encryption
+security passwords min-length 10
+banner motd #Acces reserve - toute connexion est journalisee#
+interface g0/0
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+line console 0
+ password Console!TP-2026
+ login
+ exec-timeout 5 0
+ip domain-name tp.local
+username admin privilege 15 secret Adm1n!TP-2026
+crypto key generate rsa modulus 2048
+ip ssh version 2
+access-list 10 permit host 192.168.1.10
+line vty 0 4
+ login local
+ transport input ssh
+ access-class 10 in
+ exec-timeout 5 0
+login block-for 120 attempts 3 within 60
+end
+copy running-config startup-config</pre>
+<p><b>Sur SW1</b> : <code>interface vlan 1</code> / <code>ip address 192.168.1.2 255.255.255.0</code> / <code>no shutdown</code>, puis <code>ip default-gateway 192.168.1.1</code>, et les mêmes commandes de sécurité (lignes <code>vty 0 15</code> sur un switch).</p></div></details>
+<!-- TP2 -->
+<h2><span class="n">TP 2</span>Port security et ports inutilisés</h2>
+<p><b>Objectifs :</b> autoriser un seul PC par port d'accès, observer une violation, réactiver un port en err-disabled, neutraliser les ports inutilisés.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 150">
+<g stroke="#1B2A4A" stroke-width="2.5"><line x1="110" x2="250" y1="40" y2="70"></line><line x1="110" x2="250" y1="110" y2="80"></line></g>
+<line stroke="#A84A62" stroke-dasharray="6 4" stroke-width="2.5" x1="350" x2="470" y1="75" y2="75"></line>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="90" x="20" y="18"></rect><text fill="#2F6FA8" font-size="11" font-weight="700" x="65" y="38">PC1</text><text font-size="9" x="65" y="53">10.0.0.11 · Fa0/1</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="90" x="20" y="88"></rect><text fill="#2F6FA8" font-size="11" font-weight="700" x="65" y="108">PC2</text><text font-size="9" x="65" y="123">10.0.0.12 · Fa0/2</text>
+<rect fill="#E6F4F1" height="50" rx="8" stroke="#0F766E" width="100" x="250" y="50"></rect><text fill="#0F766E" font-size="11" font-weight="700" x="300" y="72">SW1</text><text font-size="9" x="300" y="88">2960</text>
+<rect fill="#FBEEF1" height="44" rx="8" stroke="#A84A62" width="110" x="470" y="53"></rect><text fill="#A84A62" font-size="11" font-weight="700" x="525" y="73">PC-INTRUS</text><text font-size="9" x="525" y="88">10.0.0.99</text>
+<text fill="#A84A62" font-size="9.5" x="410" y="118">étape 4 : on débranche PC1</text><text fill="#A84A62" font-size="9.5" x="410" y="131">et on branche l'intrus sur Fa0/1</text>
+</g>
+</svg>
+<figcaption>Topologie du TP 2 — réseau 10.0.0.0/24</figcaption>
+</figure>
+<h4>Étapes</h4>
+<ol>
+<li>Adresser PC1 et PC2, vérifier le ping entre eux.</li>
+<li>Sur Fa0/1 et Fa0/2 : mode access, port security, maximum 1, sticky, violation <b>shutdown</b>.</li>
+<li>Faire un ping PC1 → PC2 pour que le switch apprenne les adresses. Vérifier avec <code>show port-security address</code>.</li>
+<li>Débrancher PC1 et brancher PC-INTRUS sur Fa0/1. Lancer un ping. Observer l'état du port.</li>
+<li>Rebrancher PC1 et réactiver le port.</li>
+<li>Éteindre Fa0/3 à Fa0/24, les placer dans un VLAN 999 « PARKING ».</li>
+</ol>
+<details class="cor"><summary>Solution — TP 2</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">SW1(config)# interface range fa0/1 - 2
+SW1(config-if-range)# switchport mode access
+SW1(config-if-range)# switchport port-security
+SW1(config-if-range)# switchport port-security maximum 1
+SW1(config-if-range)# switchport port-security mac-address sticky
+SW1(config-if-range)# switchport port-security violation shutdown
+SW1# show port-security interface fa0/1      ! après branchement de l'intrus :
+                                             ! Port Status : Secure-shutdown, Violation Count : 1
+SW1(config)# interface fa0/1                 ! réactivation après retour de PC1
+SW1(config-if)# shutdown
+SW1(config-if)# no shutdown
+SW1(config)# vlan 999
+SW1(config-vlan)# name PARKING
+SW1(config)# interface range fa0/3 - 24
+SW1(config-if-range)# switchport mode access
+SW1(config-if-range)# switchport access vlan 999
+SW1(config-if-range)# shutdown</pre>
+<p><b>Observation :</b> le port passe en <i>err-disabled</i> (voyant éteint), un message <code>%PORT_SECURITY-2-PSECURE_VIOLATION</code> s'affiche. Avec <code>violation restrict</code>, le port resterait actif mais bloquerait l'intrus en comptant les violations.</p></div></details>
+<!-- TP3 -->
+<h2><span class="n">TP 3</span>Filtrer avec des ACL standard et étendues</h2>
+<p><b>Objectifs :</b> appliquer une politique de filtrage entre trois réseaux, placer correctement les ACL, vérifier avec les compteurs.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 190">
+<g stroke="#1B2A4A" stroke-width="2.5"><line x1="140" x2="250" y1="45" y2="90"></line><line x1="140" x2="250" y1="145" y2="100"></line><line x1="350" x2="450" y1="95" y2="95"></line></g>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="50" rx="8" stroke="#2F6FA8" width="130" x="10" y="20"></rect><text fill="#2F6FA8" font-size="10.5" font-weight="700" x="75" y="40">LAN STAGIAIRES</text><text font-size="9" x="75" y="56">192.168.10.0/24 (G0/0 .1)</text>
+<rect fill="#F1EEF8" height="50" rx="8" stroke="#5B4B8A" width="130" x="10" y="120"></rect><text fill="#5B4B8A" font-size="10.5" font-weight="700" x="75" y="140">LAN FORMATEURS</text><text font-size="9" x="75" y="156">192.168.20.0/24 (G0/1 .1)</text>
+<circle cx="300" cy="95" fill="#FBF4E4" r="45" stroke="#B8913A" stroke-width="2"></circle><text fill="#8A6A22" font-size="12" font-weight="700" x="300" y="92">R1</text><text font-size="9" x="300" y="107">routeur</text>
+<rect fill="#E6F4F1" height="60" rx="8" stroke="#0F766E" width="140" x="450" y="65"></rect><text fill="#0F766E" font-size="10.5" font-weight="700" x="520" y="86">SERVEURS</text><text font-size="9" x="520" y="101">10.10.10.0/24 (G0/2 .1)</text><text font-size="9" x="520" y="115">Web+Notes 10.10.10.5</text>
+</g>
+</svg>
+<figcaption>Topologie du TP 3</figcaption>
+</figure>
+<h4>Politique à appliquer</h4>
+<div class="tscroll"><table>
+<tr><th>#</th><th>Règle</th></tr>
+<tr><td>1</td><td>Les stagiaires accèdent au serveur 10.10.10.5 <b>uniquement en HTTP et HTTPS</b> (pas de ping, pas d'autre service).</td></tr>
+<tr><td>2</td><td>Les formateurs accèdent au serveur sans restriction.</td></tr>
+<tr><td>3</td><td>Les stagiaires <b>ne peuvent pas joindre</b> le LAN des formateurs (ACL standard).</td></tr>
+<tr><td>4</td><td>Seul le poste 192.168.20.50 peut administrer R1 en SSH.</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Indice de placement</div>
+<p>ACL <b>étendue</b> → près de la <b>source</b> (G0/0 en entrée). ACL <b>standard</b> → près de la <b>destination</b> (G0/1 en sortie).</p></div>
+<details class="cor"><summary>Solution — TP 3</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">! Règle 1 : ACL étendue, près de la source (LAN stagiaires)
+ip access-list extended STAGIAIRES-SERVEUR
+ permit tcp 192.168.10.0 0.0.0.255 host 10.10.10.5 eq 80
+ permit tcp 192.168.10.0 0.0.0.255 host 10.10.10.5 eq 443
+ deny   ip  192.168.10.0 0.0.0.255 host 10.10.10.5
+ permit ip any any
+interface g0/0
+ ip access-group STAGIAIRES-SERVEUR in
+
+! Règle 3 : ACL standard, près de la destination (LAN formateurs)
+ip access-list standard PROTEGE-FORMATEURS
+ deny   192.168.10.0 0.0.0.255
+ permit any
+interface g0/1
+ ip access-group PROTEGE-FORMATEURS out
+
+! Règle 4 : administration SSH (SSH déjà configuré comme au TP 1)
+access-list 15 permit host 192.168.20.50
+line vty 0 4
+ access-class 15 in
+
+! Règle 2 : rien à faire, aucune ACL ne bloque les formateurs</pre>
+<div class="tscroll"><table style="margin:6px 0">
+<tr><th>Test</th><th>Attendu</th></tr>
+<tr><td>Stagiaire → http://10.10.10.5</td><td>✔ Page web affichée</td></tr>
+<tr><td>Stagiaire → ping 10.10.10.5</td><td>✘ Bloqué (ICMP refusé)</td></tr>
+<tr><td>Stagiaire → ping 192.168.20.10</td><td>✘ Bloqué</td></tr>
+<tr><td>Formateur → ping 10.10.10.5</td><td>✔ OK</td></tr>
+<tr><td><code>show access-lists</code></td><td>Les compteurs « matches » augmentent sur les bonnes lignes</td></tr>
+</table></div></div></details>
+<!-- TP4 -->
+<h2><span class="n">TP 4</span>Bloquer un faux serveur DHCP</h2>
+<p><b>Objectifs :</b> constater l'effet d'un serveur DHCP pirate, puis le neutraliser avec le DHCP snooping.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 160">
+<g stroke="#1B2A4A" stroke-width="2.5"><line x1="130" x2="250" y1="40" y2="75"></line><line x1="130" x2="250" y1="120" y2="85"></line><line x1="350" x2="460" y1="80" y2="40"></line></g>
+<line stroke="#A84A62" stroke-width="2.5" x1="350" x2="460" y1="85" y2="125"></line>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="120" x="10" y="18"></rect><text fill="#2F6FA8" font-size="10.5" font-weight="700" x="70" y="38">PC1 (DHCP)</text><text font-size="9" x="70" y="53">Fa0/2</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="120" x="10" y="98"></rect><text fill="#2F6FA8" font-size="10.5" font-weight="700" x="70" y="118">PC2 (DHCP)</text><text font-size="9" x="70" y="133">Fa0/3</text>
+<rect fill="#E6F4F1" height="50" rx="8" stroke="#0F766E" width="100" x="250" y="55"></rect><text fill="#0F766E" font-size="11" font-weight="700" x="300" y="77">SW1</text><text font-size="9" x="300" y="93">VLAN 1</text>
+<rect fill="#FBF4E4" height="44" rx="8" stroke="#B8913A" width="130" x="460" y="18"></rect><text fill="#8A6A22" font-size="10" font-weight="700" x="525" y="36">R1 = vrai DHCP</text><text font-size="9" x="525" y="52">Fa0/1 · pool 192.168.1.0/24</text>
+<rect fill="#FBEEF1" height="44" rx="8" stroke="#A84A62" width="130" x="460" y="103"></rect><text fill="#A84A62" font-size="10" font-weight="700" x="525" y="121">SRV-PIRATE</text><text font-size="9" x="525" y="137">Fa0/10 · pool 10.66.66.0/24</text>
+</g>
+</svg>
+<figcaption>Topologie du TP 4</figcaption>
+</figure>
+<h4>Étapes</h4>
+<ol>
+<li>Configurer le pool DHCP sur R1 (réseau 192.168.1.0/24, passerelle .1, DNS 8.8.8.8). Configurer un serveur Packet Tracer « SRV-PIRATE » avec un pool 10.66.66.0/24 dont la passerelle est sa propre adresse.</li>
+<li>Sur PC1 et PC2, demander une adresse plusieurs fois (<code>ipconfig /renew</code>). Noter quelles adresses ils reçoivent.</li>
+<li>Activer le DHCP snooping sur SW1 pour le VLAN 1, déclarer Fa0/1 de confiance (<i>trust</i>), limiter le débit des requêtes DHCP sur les ports d'accès.</li>
+<li>Renouveler les adresses des PC. Vérifier qu'ils reçoivent uniquement des adresses du vrai serveur.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 4</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">! R1 : vrai serveur DHCP
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+ip dhcp pool LAN
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 8.8.8.8
+
+! SW1 : DHCP snooping
+ip dhcp snooping
+ip dhcp snooping vlan 1
+no ip dhcp snooping information option     ! évite le rejet des requêtes par le routeur
+interface fa0/1
+ ip dhcp snooping trust                    ! seul port autorisé à envoyer des offres DHCP
+interface range fa0/2 - 24
+ ip dhcp snooping limit rate 10            ! anti DHCP starvation
+show ip dhcp snooping
+show ip dhcp snooping binding</pre>
+<p><b>Explication :</b> avant le snooping, les PC prennent l'offre qui arrive en premier, parfois celle du pirate (10.66.66.x, passerelle pirate → MITM). Après, le switch <b>rejette les offres DHCP</b> reçues sur tous les ports non fiables, dont Fa0/10. La table <i>binding</i> liste les associations MAC – IP – port légitimes (elle sert aussi à la Dynamic ARP Inspection).</p></div></details>
+<!-- TP5 -->
+<h2><span class="n">TP 5</span>Wi-Fi WPA2-Entreprise avec un serveur RADIUS</h2>
+<p><b>Objectifs :</b> remplacer une clé Wi-Fi partagée par une authentification individuelle 802.1X.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 150">
+<g stroke="#1B2A4A" stroke-width="2.5"><line x1="350" x2="450" y1="75" y2="75"></line><line x1="230" x2="300" y1="75" y2="75"></line></g>
+<g fill="none" stroke="#2F6FA8" stroke-dasharray="4 4" stroke-width="1.6"><path d="M120 45 Q170 50 190 70"></path><path d="M120 110 Q170 100 190 82"></path></g>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="40" rx="8" stroke="#2F6FA8" width="110" x="10" y="25"></rect><text fill="#2F6FA8" font-size="10" font-weight="700" x="65" y="43">Laptop1</text><text font-size="8.5" x="65" y="57">user : salma</text>
+<rect fill="#EAF2FA" height="40" rx="8" stroke="#2F6FA8" width="110" x="10" y="90"></rect><text fill="#2F6FA8" font-size="10" font-weight="700" x="65" y="108">Laptop2</text><text font-size="8.5" x="65" y="122">user : karim</text>
+<rect fill="#FBF4E4" height="50" rx="8" stroke="#B8913A" width="70" x="190" y="50"></rect><text fill="#8A6A22" font-size="10" font-weight="700" x="225" y="72">AP / WRT</text><text font-size="8.5" x="225" y="87">192.168.1.2</text>
+<rect fill="#E6F4F1" height="40" rx="8" stroke="#0F766E" width="50" x="300" y="55"></rect><text fill="#0F766E" font-size="10" font-weight="700" x="325" y="80">SW</text>
+<rect fill="#1B2A4A" height="60" rx="8" width="140" x="450" y="45"></rect><text fill="#D9BD7A" font-size="10.5" font-weight="700" x="520" y="68">SRV-RADIUS</text><text fill="#fff" font-size="8.5" x="520" y="84">192.168.1.5 · service AAA</text>
+</g>
+</svg>
+<figcaption>Topologie du TP 5 — réseau 192.168.1.0/24</figcaption>
+</figure>
+<h4>Étapes</h4>
+<ol>
+<li>Sur le serveur : onglet <b>Services → AAA</b>. Ajouter le client réseau (nom AP, IP 192.168.1.2, secret <i>Radius!Key</i>, type RADIUS). Créer les comptes <b>salma</b> et <b>karim</b>.</li>
+<li>Sur le point d'accès (onglet Wireless) : SSID <b>ISTA-PRO</b>, sécurité <b>WPA2-Enterprise</b>, chiffrement AES, serveur RADIUS 192.168.1.5, secret partagé <i>Radius!Key</i>.</li>
+<li>Sur chaque laptop (carte Wi-Fi) : SSID ISTA-PRO, WPA2-Enterprise, identifiant et mot de passe personnels.</li>
+<li>Tester avec un mauvais mot de passe, puis avec le bon. Supprimer le compte karim et vérifier qu'il ne se connecte plus, sans toucher à salma.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 5</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0">
+<tr><th>Équipement</th><th>Paramètres</th></tr>
+<tr><td><b>SRV-RADIUS</b> (AAA)</td><td>Service ON · Client : AP / 192.168.1.2 / secret <i>Radius!Key</i> / RADIUS · Utilisateurs : salma / Salma!Wifi-26, karim / Karim!Wifi-26</td></tr>
+<tr><td><b>Point d'accès</b></td><td>SSID ISTA-PRO · WPA2-Enterprise · AES · RADIUS 192.168.1.5 · Shared secret <i>Radius!Key</i> · IP 192.168.1.2/24</td></tr>
+<tr><td><b>Laptops</b></td><td>SSID ISTA-PRO · WPA2-Enterprise · User ID et mot de passe de l'utilisateur · IP en DHCP ou statique</td></tr>
+</table></div>
+<p><b>Résultats :</b> mauvais mot de passe → pas d'association. Bon mot de passe → connecté, ping vers le serveur OK. Compte karim supprimé → Laptop2 ne se reconnecte plus, Laptop1 n'est pas touché. <b>C'est l'avantage du mode Entreprise :</b> on gère chaque personne séparément, sans changer la clé de tout le monde.</p>
+<p><b>Erreur fréquente :</b> un secret partagé différent entre l'AP et le serveur, ou l'adresse IP du client mal saisie dans AAA → aucune authentification ne passe.</p></div></details>
+<!-- TP6 -->
+<h2><span class="n">TP 6</span>Vérifier l'intégrité d'un fichier (hachage)</h2>
+<p><b>Objectifs :</b> calculer une empreinte, constater l'effet d'une modification, vérifier un fichier téléchargé.</p>
+<h4>Étapes (PowerShell sous Windows)</h4>
+<ol>
+<li>Créer un fichier <code>rapport.txt</code> contenant « Réseau OK ».</li>
+<li>Calculer son empreinte : <code>Get-FileHash .\rapport.txt -Algorithm SHA256</code>. Noter le résultat.</li>
+<li>Ajouter un seul point à la fin du texte. Recalculer l'empreinte. Comparer.</li>
+<li>Remettre le texte d'origine exact. Recalculer. Que constates-tu ?</li>
+<li>Télécharger un logiciel libre dont le site publie l'empreinte SHA-256 (ex. : Packet Tracer, VirtualBox, une distribution Linux) et vérifier qu'elle correspond.</li>
+</ol>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Équivalent en invite de commandes : <code>certutil -hashfile rapport.txt SHA256</code>. Sous Linux : <code>sha256sum rapport.txt</code>.</p></div>
+<details class="cor"><summary>Solution — TP 6</summary><div class="c">
+<p>• Étape 3 : l'empreinte est <b>complètement différente</b> alors qu'un seul caractère a changé (effet avalanche) → toute modification est détectée.<br/>
+• Étape 4 : on retrouve <b>exactement</b> l'empreinte de l'étape 2 → une même donnée donne toujours la même empreinte.<br/>
+• Étape 5 : si l'empreinte calculée est identique à celle publiée, le fichier est intact. Si elle diffère : téléchargement corrompu ou fichier modifié (possible malware) → <b>ne pas l'installer</b>, le supprimer et le retélécharger depuis le site officiel.<br/>
+• À retenir : le hachage protège l'<b>intégrité</b>, pas la confidentialité (le fichier reste lisible).</p></div></details>
+<!-- ============ QCM ============ -->
+<h2 class="" id="qcm"><span class="n">★</span>QCM final de révision</h2>
+<p class="section-intro">20 questions. Une seule bonne réponse par question. Corrigé à la fin du document.</p>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:5%">#</th><th>Question</th><th style="width:46%">Réponses</th></tr>
+<tr><td>1</td><td>Le « C » de la triade CIA signifie…</td><td>a) Contrôle · b) Confidentialité · c) Chiffrement</td></tr>
+<tr><td>2</td><td>Une attaque DDoS touche surtout…</td><td>a) la disponibilité · b) l'intégrité · c) la confidentialité</td></tr>
+<tr><td>3</td><td>Risque = …</td><td>a) Menace + Actif · b) Coût × Temps · c) Probabilité × Impact</td></tr>
+<tr><td>4</td><td>Un malware qui se propage seul sur le réseau est…</td><td>a) un ver · b) un cheval de Troie · c) un adware</td></tr>
+<tr><td>5</td><td>Le phishing est une technique…</td><td>a) de chiffrement · b) d'ingénierie sociale · c) de routage</td></tr>
+<tr><td>6</td><td>Quelle protection contre l'ARP spoofing sur un switch Cisco ?</td><td>a) BPDU Guard · b) Dynamic ARP Inspection · c) NAT</td></tr>
+<tr><td>7</td><td>Mot de passe + code de l'application sur le téléphone, c'est…</td><td>a) une MFA · b) un hachage · c) un VPN</td></tr>
+<tr><td>8</td><td>Le principe du moindre privilège signifie…</td><td>a) donner tous les droits aux techniciens · b) donner seulement les droits nécessaires · c) supprimer les mots de passe</td></tr>
+<tr><td>9</td><td>AES est un algorithme…</td><td>a) asymétrique · b) de hachage · c) symétrique</td></tr>
+<tr><td>10</td><td>Pour envoyer un message chiffré à Salma, on utilise…</td><td>a) la clé publique de Salma · b) la clé privée de Salma · c) sa propre clé privée</td></tr>
+<tr><td>11</td><td>SHA-256 sert principalement à vérifier…</td><td>a) la disponibilité · b) l'intégrité · c) le débit</td></tr>
+<tr><td>12</td><td>Quel protocole remplace Telnet ?</td><td>a) SSH · b) FTP · c) HTTP</td></tr>
+<tr><td>13</td><td>Quelle commande protège le mode privilégié avec un hash ?</td><td>a) enable password · b) enable secret · c) login local</td></tr>
+<tr><td>14</td><td>En mode de violation « shutdown », le port…</td><td>a) reste actif · b) passe en err-disabled · c) change de VLAN</td></tr>
+<tr><td>15</td><td>À la fin de chaque ACL, il y a…</td><td>a) un permit any implicite · b) rien · c) un deny any implicite</td></tr>
+<tr><td>16</td><td>Le wildcard de 192.168.1.0/24 est…</td><td>a) 0.0.0.255 · b) 255.255.255.0 · c) 0.0.255.255</td></tr>
+<tr><td>17</td><td>Un IPS, contrairement à un IDS…</td><td>a) alerte seulement · b) bloque l'attaque · c) chiffre le trafic</td></tr>
+<tr><td>18</td><td>Le protocole Wi-Fi recommandé aujourd'hui est…</td><td>a) WEP · b) WPA-TKIP · c) WPA3</td></tr>
+<tr><td>19</td><td>La règle de sauvegarde 3-2-1 impose…</td><td>a) 3 copies, 2 supports, 1 hors site · b) 3 serveurs, 2 NAS, 1 cloud · c) 3 sauvegardes par jour</td></tr>
+<tr><td>20</td><td>Face à un ransomware sur un PC, le premier réflexe est…</td><td>a) payer la rançon · b) isoler le PC du réseau · c) éteindre tous les serveurs</td></tr>
+</table></div>
+<!-- ============ GLOSSAIRE ============ -->
+<h2 class="" id="glossaire"><span class="n">A–Z</span>Glossaire</h2>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:24%">Terme</th><th>Définition simple</th></tr>
+<tr><td><b>AAA</b></td><td>Authentication, Authorization, Accounting : contrôle centralisé des accès.</td></tr>
+<tr><td><b>ACL</b></td><td>Liste de règles permit/deny qui filtre le trafic sur un routeur.</td></tr>
+<tr><td><b>AES</b></td><td>Algorithme de chiffrement symétrique standard.</td></tr>
+<tr><td><b>Botnet</b></td><td>Réseau de machines infectées pilotées à distance.</td></tr>
+<tr><td><b>Certificat</b></td><td>Document numérique qui lie une clé publique à une identité, signé par une AC.</td></tr>
+<tr><td><b>CIA / DIC</b></td><td>Confidentialité, Intégrité, Disponibilité : les trois objectifs de la sécurité.</td></tr>
+<tr><td><b>CVE / CVSS</b></td><td>Identifiant d'une faille publique / score de gravité de 0 à 10.</td></tr>
+<tr><td><b>DDoS</b></td><td>Attaque par déni de service distribué, depuis de nombreuses machines.</td></tr>
+<tr><td><b>DHCP snooping</b></td><td>Fonction d'un switch qui bloque les faux serveurs DHCP.</td></tr>
+<tr><td><b>DMZ</b></td><td>Zone isolée qui héberge les serveurs accessibles depuis Internet.</td></tr>
+<tr><td><b>EDR</b></td><td>Protection du poste qui surveille les comportements et aide à réagir.</td></tr>
+<tr><td><b>Hachage</b></td><td>Calcul d'une empreinte à sens unique pour vérifier l'intégrité.</td></tr>
+<tr><td><b>IDS / IPS</b></td><td>Système de détection / de prévention d'intrusion.</td></tr>
+<tr><td><b>Ingénierie sociale</b></td><td>Manipulation d'une personne pour obtenir une information ou une action.</td></tr>
+<tr><td><b>MFA</b></td><td>Authentification avec au moins deux facteurs de familles différentes.</td></tr>
+<tr><td><b>MITM</b></td><td>Attaque où le pirate s'intercale entre deux machines.</td></tr>
+<tr><td><b>Pare-feu</b></td><td>Équipement ou logiciel qui filtre le trafic entre deux zones.</td></tr>
+<tr><td><b>PKI</b></td><td>Infrastructure à clés publiques : AC, certificats, révocation.</td></tr>
+<tr><td><b>Port security</b></td><td>Limite les adresses MAC autorisées sur un port de switch.</td></tr>
+<tr><td><b>RADIUS</b></td><td>Protocole d'authentification centralisée (Wi-Fi 802.1X, VPN).</td></tr>
+<tr><td><b>Ransomware</b></td><td>Malware qui chiffre les fichiers et exige une rançon.</td></tr>
+<tr><td><b>SSH</b></td><td>Protocole d'administration à distance chiffré (port 22).</td></tr>
+<tr><td><b>VPN</b></td><td>Tunnel chiffré à travers un réseau non fiable.</td></tr>
+<tr><td><b>Wildcard</b></td><td>Masque inversé utilisé dans les ACL (0 = doit correspondre).</td></tr>
+<tr><td><b>WPA3</b></td><td>Protocole de sécurité Wi-Fi le plus récent et recommandé.</td></tr>
+<tr><td><b>Zero-day</b></td><td>Faille exploitée avant qu'un correctif n'existe.</td></tr>
+</table></div>
+<!-- ============ CORRIGÉS ============ -->
+<section class="chead2" id="corriges"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#1B2A4A)"><span class="lbl">ANNEXE</span><span class="num">✓</span></div><div class="ch-body">
+<h1>Corrigés des exercices</h1>
+<div class="lead">Cherche d'abord seul : une erreur comprise vaut mieux qu'une bonne réponse recopiée.</div>
+<div class="obj"><h4>Contenu</h4>
+<ul><li>Corrigés des exercices des chapitres 1 à 9</li><li>Corrigé du QCM final</li><li>Les solutions des TP sont placées directement après chaque TP</li></ul></div>
+<div class="quote">« En sécurité, on apprend autant de ses erreurs en labo qu'on en évite en production. »</div></div></section>
+<h2><span class="n">C1</span>Corrigés — Chapitre 1</h2>
+<details class="cor"><summary>Corrigé 1.1</summary><div class="c"><p>a) Disponibilité · b) Confidentialité · c) Intégrité · d) Disponibilité · e) Confidentialité.</p></div></details>
+<details class="cor"><summary>Corrigé 1.2</summary><div class="c"><p><b>Actifs :</b> (a) le routeur, (d) la base clients. <b>Menaces :</b> (c) les pirates, (f) l'inondation. <b>Vulnérabilités :</b> (b) Telnet activé, (e) le mot de passe « 123456 », (g) Windows jamais mis à jour.</p></div></details>
+<details class="cor"><summary>Corrigé 1.3</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0"><tr><th>Risque</th><th>Calcul</th><th>Niveau</th><th>Priorité</th></tr>
+<tr><td>R1 Ransomware sans sauvegarde</td><td>3 × 4</td><td><b>12</b></td><td>1</td></tr>
+<tr><td>R3 Panne du switch de cœur</td><td>2 × 4</td><td><b>8</b></td><td>2</td></tr>
+<tr><td>R2 Vol d'un PC chiffré</td><td>2 × 2</td><td>4</td><td>3 (ex æquo)</td></tr>
+<tr><td>R4 Mot de passe invités divulgué</td><td>4 × 1</td><td>4</td><td>3 (ex æquo)</td></tr></table></div>
+<p>Contre-mesures pour R1 : sauvegardes 3-2-1 avec une copie hors ligne, mises à jour du serveur, antivirus/EDR, sensibilisation au phishing.</p></div></details>
+<h2><span class="n">C2</span>Corrigés — Chapitre 2</h2>
+<details class="cor"><summary>Corrigé 2.1</summary><div class="c"><p>a) Ransomware · b) Ver · c) Cheval de Troie · d) Spyware (keylogger) · e) Botnet utilisé pour un DDoS.</p></div></details>
+<details class="cor"><summary>Corrigé 2.2</summary><div class="c"><p><b>Indices :</b> (1) domaine d'expéditeur qui n'est pas celui de la banque (<i>cih-securite-maroc.co</i>) ; (2) urgence (2 heures) ; (3) menace (compte bloqué) ; (4) demande d'identifiants, ce qu'une banque ne fait jamais par e-mail ; (5) formule générique « Cher client » ; (6) lien à cliquer.<br/><b>Action :</b> ne pas cliquer ni répondre, signaler au service informatique, supprimer, et en cas de doute appeler la banque au numéro officiel.</p></div></details>
+<details class="cor"><summary>Corrigé 2.3</summary><div class="c"><p>1 → C (port security) · 2 → A (DHCP snooping) · 3 → E (Dynamic ARP Inspection) · 4 → B (SSH) · 5 → D (requêtes préparées).</p></div></details>
+<h2><span class="n">C3</span>Corrigés — Chapitre 3</h2>
+<details class="cor"><summary>Corrigé 3.1</summary><div class="c"><p><b>Je sais :</b> code PIN, mot de passe. <b>Je possède :</b> badge, code de l'application Authenticator (le téléphone). <b>Je suis :</b> empreinte digitale, visage.<br/>« Mot de passe + PIN » n'est <b>pas</b> une MFA : ce sont deux éléments de la même famille (je sais).</p></div></details>
+<details class="cor"><summary>Corrigé 3.2</summary><div class="c"><p>Du plus faible au plus solide : <code>admin</code> (le premier essayé) → <code>P@ssw0rd</code> (présent dans tous les dictionnaires, les substitutions sont connues) → <code>Youssef1990</code> (prénom + année, devinable) → <code>Xk9#p2</code> (aléatoire mais 6 caractères seulement : cassé rapidement par force brute) → <code>Le-Switch-Bleu-Clignote!</code> (long, varié, mémorisable).</p></div></details>
+<details class="cor"><summary>Corrigé 3.3</summary><div class="c"><p><b>Problèmes :</b> aucune traçabilité (impossible de savoir qui a fait quoi) ; tout le monde est administrateur (une erreur ou un malware a un impact maximal) ; au départ d'un employé, il faut changer le mot de passe partout ; une seule fuite compromet tout.<br/><b>Organisation :</b> un compte nominatif par personne ; comptes standard pour les employés ; 1 ou 2 techniciens avec un compte admin séparé de leur compte quotidien ; accès aux switchs via AAA (RADIUS/TACACS+) avec journalisation ; MFA pour les comptes admin ; désactivation immédiate des comptes au départ.</p></div></details>
+<h2><span class="n">C4</span>Corrigés — Chapitre 4</h2>
+<details class="cor"><summary>Corrigé 4.1</summary><div class="c"><p>a) Symétrique · b) Asymétrique · c) Symétrique · d) Asymétrique · e) Symétrique.</p></div></details>
+<details class="cor"><summary>Corrigé 4.2</summary><div class="c"><p>a) Karim chiffre avec la <b>clé publique de Salma</b>. b) Salma déchiffre avec <b>sa clé privée</b>. c) Salma signe avec <b>sa clé privée</b> ; Karim vérifie avec la <b>clé publique de Salma</b>. (Chiffrer : clé publique du destinataire. Signer : clé privée de l'expéditeur.)</p></div></details>
+<details class="cor"><summary>Corrigé 4.3</summary><div class="c"><p>Calculer l'empreinte du fichier téléchargé (<code>Get-FileHash fichier.iso -Algorithm SHA256</code> ou <code>sha256sum fichier.iso</code>), puis la comparer caractère par caractère avec celle publiée sur le site officiel (en HTTPS). Si elles diffèrent : fichier corrompu ou modifié, peut-être piégé. On ne l'utilise pas, on le supprime et on le retélécharge depuis la source officielle.</p></div></details>
+<h2><span class="n">C5</span>Corrigés — Chapitre 5</h2>
+<details class="cor"><summary>Corrigé 5.1</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">hostname SW-ADMIN
+ip domain-name ecole.ma
+username tech privilege 15 secret Tech!Ecole-2026
+crypto key generate rsa modulus 2048
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+ exec-timeout 10 0</pre></div></details>
+<details class="cor"><summary>Corrigé 5.2</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">interface fa0/10
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict</pre>
+<p><b>restrict</b> : bloque l'intrus, journalise et compte les violations, sans éteindre le port.</p></div></details>
+<details class="cor"><summary>Corrigé 5.3</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0"><tr><th>Problème</th><th>Correction</th></tr>
+<tr><td><code>enable password cisco</code> : stocké en clair et trivial</td><td><code>no enable password</code> + <code>enable secret</code> long</td></tr>
+<tr><td>VTY avec un mot de passe partagé « cisco »</td><td><code>username … secret …</code> + <code>login local</code></td></tr>
+<tr><td><code>transport input all</code> : Telnet autorisé</td><td>SSH v2 + <code>transport input ssh</code></td></tr>
+<tr><td>Ports fa0/15–24 actifs dans le VLAN 1</td><td><code>shutdown</code> + VLAN « parking » inutilisé</td></tr></table></div></div></details>
+<h2><span class="n">C6</span>Corrigés — Chapitre 6</h2>
+<details class="cor"><summary>Corrigé 6.1</summary><div class="c"><p>a) 0.0.0.255 · b) 0.255.255.255 · c) 0.0.3.255 (/22 = 255.255.252.0) · d) 0.0.0.0 ou <code>host 192.168.1.50</code> · e) 0.0.0.31 (/27 = 255.255.255.224).</p></div></details>
+<details class="cor"><summary>Corrigé 6.2</summary><div class="c"><p>a) HTTPS : <b>autorisé</b> (ligne 1). b) HTTP : <b>bloqué</b> (ligne 3). c) Ping : aucune ligne ne correspond → <b>bloqué par le deny implicite</b>. d) DNS (UDP 53) : <b>autorisé</b> (ligne 2).<br/>Remarque : la ligne 3 est inutile, le deny implicite bloquerait déjà le HTTP. Tout le reste (ping, mail…) est bloqué.</p></div></details>
+<details class="cor"><summary>Corrigé 6.3 (une solution possible)</summary><div class="c">
+<pre style="background:#0F1B22;color:#D6E9EE;border-radius:8px;padding:10px 14px;font-size:8.5pt;line-height:1.5;white-space:pre-wrap;margin:4px 0">ip access-list extended PROTEGE-NOTES
+ deny   ip  192.168.30.0 0.0.0.255 host 10.10.10.5
+ permit tcp 192.168.40.0 0.0.0.255 host 10.10.10.5 eq 443
+ deny   ip  192.168.40.0 0.0.0.255 host 10.10.10.5
+ permit ip any any
+interface g0/2                         ! interface vers le réseau du serveur
+ ip access-group PROTEGE-NOTES out</pre>
+<p>Une seule ACL concerne ici deux sources : on l'applique en sortie vers le serveur. Autre solution conforme à la règle « près de la source » : deux ACL en entrée, une sur l'interface Stagiaires et une sur l'interface Formateurs.</p></div></details>
+<h2><span class="n">C7</span>Corrigés — Chapitre 7</h2>
+<details class="cor"><summary>Corrigé 7.1</summary><div class="c"><p>a) ISTA : <b>WPA3-Entreprise</b> (ou WPA2-Entreprise) avec 802.1X et RADIUS, un compte par personne, VLAN séparés stagiaires / formateurs / invités. b) Café : <b>WPA2/WPA3-Personnel</b> sur un réseau invités isolé du réseau de la caisse, isolation entre clients, clé changée régulièrement. c) Maison : <b>WPA3-Personnel</b> (ou WPA2-AES), phrase de passe longue, WPS désactivé, mot de passe admin du routeur changé.</p></div></details>
+<details class="cor"><summary>Corrigé 7.2</summary><div class="c"><p>(1) WPA-TKIP → WPA2-AES ou WPA3. (2) Clé « ofppt2024 » devinable → phrase de passe de 16+ caractères, ou mieux 802.1X. (3) WPS activé → désactiver. (4) admin/admin → mot de passe administrateur fort. (5) Invités et employés mélangés → SSID et VLAN invités séparés, accès Internet uniquement.</p></div></details>
+<h2><span class="n">C8</span>Corrigés — Chapitre 8</h2>
+<details class="cor"><summary>Corrigé 8.1</summary><div class="c"><p>a) Incrémentales : la complète du dimanche + les incrémentales du <b>lundi, mardi et mercredi</b>, dans l'ordre. b) Différentielles : la complète du dimanche + la différentielle du <b>mercredi</b> seulement.</p></div></details>
+<details class="cor"><summary>Corrigé 8.2</summary><div class="c"><p><b>Non.</b> Il y a 2 copies seulement (serveur + NAS), au même endroit, et le NAS est toujours connecté. Un ransomware peut chiffrer les deux ; un incendie ou un vol les détruit ensemble.<br/><b>Amélioration :</b> ajouter une 3<sup>e</sup> copie hors site et hors ligne (disques externes en rotation conservés ailleurs, ou stockage cloud non modifiable), et tester une restauration chaque mois.</p></div></details>
+<h2><span class="n">C9</span>Corrigés — Chapitre 9</h2>
+<details class="cor"><summary>Corrigé 9.1</summary><div class="c"><p>Ordre : <b>d</b> (détecter) → <b>b</b> (contenir) → <b>e</b> (éradiquer) → <b>a</b> (restaurer) → <b>c</b> (tirer les leçons).</p></div></details>
+<details class="cor"><summary>Corrigé 9.2</summary><div class="c"><p>a) <b>Loi 07-03</b> : accès frauduleux à un système. b) <b>Loi 09-08</b> : protection des données personnelles (CNDP). c) <b>Loi 05-20</b> : cybersécurité, déclaration des incidents à l'autorité nationale (DGSSI).</p></div></details>
+<h2><span class="n">Q</span>Corrigé du QCM final</h2>
+<div class="tscroll"><table style="text-align:center">
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+<tr><td>b</td><td>a</td><td>c</td><td>a</td><td>b</td><td>b</td><td>a</td><td>b</td><td>c</td><td>a</td></tr>
+<tr><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+<tr><td>b</td><td>a</td><td>b</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td></tr>
+</table></div>
+<div class="grid3">
+<div class="card" style="border-color:#0F766E"><h4 style="color:var(--teal)">17 à 20</h4><p>Excellent : tu es prêt pour les TP avancés.</p></div>
+<div class="card" style="border-color:#B8913A"><h4 style="color:#8A6A22">12 à 16</h4><p>Bien. Revois les chapitres de tes erreurs.</p></div>
+<div class="card" style="border-color:#A84A62"><h4 style="color:var(--rose)">Moins de 12</h4><p>Reprends les encadrés « À retenir » et refais les TP 1 et 2.</p></div>
+</div>
+<div style="margin-top:30px;background:linear-gradient(135deg,#1B2A4A,#0F4F5C);border-radius:14px;padding:22px 26px;color:#fff;break-inside:avoid">
+<div style="font-family:Lora;font-size:16pt;color:#D9BD7A;margin-bottom:6px">Le mot de la fin</div>
+<p style="color:#E4EAF3;margin:0">La sécurité n'est pas un produit qu'on installe une fois : c'est un <b style="color:#fff">processus continu</b>. Mettre à jour, sauvegarder, former, surveiller, recommencer. Le technicien qui sécurise dès la première configuration — SSH plutôt que Telnet, ports inutilisés éteints, mots de passe solides — protège son entreprise mieux que n'importe quel outil coûteux.</p>
+</div>
+
+<p class="foot">Module Sécurité informatique · OFPPT Infrastructure Digitale · <a href="index.html#secu">Leçons, simulations et QCM</a> · <a href="docs/securite-informatique.pdf" download>Version PDF</a></p>
+</main>
+<a class="fab" href="#sommaire">☰ Sommaire</a>
+</body></html>

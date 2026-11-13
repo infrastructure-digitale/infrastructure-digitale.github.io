@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veille technologique — Cours complet · Infrastructure Digitale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap">
+<style>
+:root{
+  --navy:#1B2A4A; --navy2:#2C3E66; --teal:#0F766E; --teal-l:#E6F4F1;
+  --gold:#B8913A; --gold-l:#FBF4E4; --rose:#A84A62; --rose-l:#FBEEF1;
+  --violet:#5B4B8A; --violet-l:#F1EEF8; --sky:#2F6FA8; --sky-l:#EAF2FA;
+  --ink:#24292F; --muted:#5E6673; --line:#E3DED3; --cream:#FBF9F4;
+}
+
+
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Inter,"DejaVu Sans",sans-serif;font-size:10.2pt;line-height:1.58;color:var(--ink);margin:0}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--navy);line-height:1.25}
+h2{font-size:17pt;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);break-after:avoid}
+h2 .n{color:var(--gold);margin-right:8px}
+h3{font-size:12.5pt;margin:18px 0 6px;color:var(--teal);break-after:avoid}
+h4{font-size:11pt;margin:12px 0 4px;break-after:avoid}
+p{margin:6px 0 8px;text-align:justify}
+ul,ol{margin:4px 0 10px;padding-left:20px} li{margin:2px 0}
+strong{color:var(--navy)}
+
+  background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);color:#fff}
+
+
+/* KEYWORDS */
+.k{padding:1px 7px;border-radius:4px;font-weight:600;font-size:.94em;white-space:nowrap}
+.kb{background:var(--sky-l);color:var(--sky)} .kt{background:var(--teal-l);color:var(--teal)}
+.kg{background:var(--gold-l);color:#8A6A22} .kr{background:var(--rose-l);color:var(--rose)}
+.kv{background:var(--violet-l);color:var(--violet)}
+
+/* BOXES */
+.box{border-radius:10px;padding:11px 15px 9px 15px;margin:12px 0;;border-left:5px solid}
+.box .t{font-weight:700;font-size:8.6pt;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.box .t i{font-style:normal;display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:10pt}
+.box p{margin:3px 0}
+.def{background:var(--sky-l);border-color:var(--sky)} .def .t{color:var(--sky)} .def .t i{background:var(--sky)}
+.tip{background:var(--teal-l);border-color:var(--teal)} .tip .t{color:var(--teal)} .tip .t i{background:var(--teal)}
+.warn{background:var(--rose-l);border-color:var(--rose)} .warn .t{color:var(--rose)} .warn .t i{background:var(--rose)}
+.keep{background:var(--gold-l);border-color:var(--gold)} .keep .t{color:#8A6A22} .keep .t i{background:var(--gold)}
+.ana{background:var(--violet-l);border-color:var(--violet)} .ana .t{color:var(--violet)} .ana .t i{background:var(--violet)}
+.kwbox{border:1px dashed #CFC6B0;border-radius:10px;padding:9px 13px;margin:12px 0;background:#fff;}
+.kwbox .t{font-size:8.5pt;letter-spacing:1.6px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.kwbox .k{display:inline-block;margin:2px 3px}
+
+/* TABLES */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0 14px;font-size:9.2pt;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:8.8pt}
+td{padding:6px 9px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--cream)}
+tr{}
+td b{color:var(--navy)}
+.cap{font-size:8.5pt;color:var(--muted);text-align:center;font-style:italic;margin:-6px 0 12px}
+
+/* FIGURES */
+figure{margin:12px 0 14px;text-align:center;}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:8.5pt;color:var(--muted);font-style:italic;margin-top:4px}
+
+/* EXERCISES */
+.exo{border:1px solid var(--line);border-radius:10px;margin:12px 0;;overflow:hidden}
+.exo .h{background:var(--navy);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600;display:flex;justify-content:space-between}
+.exo .h span{color:#D9BD7A;font-weight:400}
+.exo .c{padding:8px 15px 6px}
+.cor{border:1px solid #CFE5DF;border-radius:10px;margin:10px 0;;overflow:hidden}
+.cor .h{background:var(--teal);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600}
+.cor .c{padding:8px 15px 6px;background:#FAFDFC}
+.lines{border-bottom:1px dotted #bbb;height:18px}
+
+.section-intro{font-family:Lora;font-style:italic;color:var(--navy2);font-size:11pt}
+
+.toc .row{display:flex;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line)}
+.toc .row .nb{font-family:Lora;font-size:17pt;color:var(--gold);width:48px}
+.toc .row .tt{flex:1;font-family:Lora;font-size:12.5pt;color:var(--navy)}
+.toc .row .ds{font-size:8.8pt;color:var(--muted);display:block;font-family:Inter}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;}
+.card h4{margin:0 0 4px;font-size:10.5pt}
+.card p{font-size:9.2pt;margin:0;text-align:left}
+.pb{break-before:page}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+/* ===== Version web ===== */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(184,145,58,.10),transparent 60%),#F6F3EC;background-attachment:fixed;font-size:16px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 80px}
+p{text-align:left}
+section.toc,.page{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07);padding:clamp(18px,4vw,36px);margin:26px 0}
+/* topnav */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(22,34,61,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,189,122,.25);box-shadow:0 4px 20px rgba(11,18,34,.18)}
+.tn-in{max-width:1100px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px}
+.tn-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none}
+.tn-logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 14px Lora,serif;color:#16223D;background:linear-gradient(135deg,#E2C78A,#B8913A)}
+.tn-name{font:600 1.05rem Lora,serif;white-space:nowrap}.tn-name em{color:#D9BD7A}
+.tn-mods{display:flex;gap:6px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tn-mod{border:1px solid rgba(255,255,255,.18);color:#D6DEEC;border-radius:999px;padding:8px 16px;font-weight:600;font-size:.92rem;white-space:nowrap;text-decoration:none}
+.tn-mod:hover{border-color:#D9BD7A;color:#fff}
+.tn-mod[aria-current="page"]{background:linear-gradient(135deg,#D9BD7A,#B8913A);border-color:transparent;color:#16223D}
+/* hero */
+.hero{position:relative;overflow:hidden;margin:26px 0;border-radius:22px;padding:clamp(26px,6vw,56px);color:#fff;background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);box-shadow:0 10px 30px rgba(11,18,34,.2)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1.5px solid rgba(217,189,122,.3);pointer-events:none}
+.hero::before{width:420px;height:420px;right:-150px;top:-160px}.hero::after{width:260px;height:260px;right:-60px;top:-80px}
+.hero .tag{font-size:.78rem;letter-spacing:4px;color:#D9BD7A;text-transform:uppercase}
+.hero h1{font-family:Lora,serif;font-size:clamp(2.3rem,8vw,3.8rem);color:#fff;margin:12px 0 4px;line-height:1.05}
+.hero h1 em{color:#D9BD7A}.hero h1 br{display:none}
+.hero .bar{width:60px;height:3px;background:#D9BD7A;margin:18px 0}
+.hero .sub{font-size:1.08rem;color:#C9D4E5;max-width:620px;font-weight:300}
+.hero .chips{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.hero .chips span{border:1px solid rgba(217,189,122,.6);color:#EBDDB5;padding:4px 12px;border-radius:20px;font-size:.8rem}
+.hero .meta{margin-top:22px;font-size:.88rem;color:#AFC0D8;line-height:1.8}.hero .meta b{color:#fff}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;min-height:48px;font-weight:700;text-decoration:none;border:0}
+.btn.gold{background:linear-gradient(135deg,#C9A24E,#A57F2C);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn.ghostw{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3)}
+/* sommaire */
+.toc .row{text-decoration:none;color:inherit;border-radius:10px;padding:10px 8px;transition:background .15s}
+.toc .row:hover{background:var(--cream)}.toc .row:hover .tt{color:var(--teal)}
+/* chapter head */
+.chead2{display:grid;grid-template-columns:150px 1fr;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);margin:56px 0 22px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07)}
+.ch-side{display:flex;flex-direction:column;justify-content:center;padding:20px;color:#fff}
+.ch-side .lbl{font-size:.72rem;letter-spacing:4px;opacity:.85}
+.ch-side .num{font:700 4.4rem/1 Lora,serif}
+.ch-body{padding:24px 28px}
+.ch-body h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin:0 0 8px}
+.ch-body .lead{font-family:Lora,serif;font-style:italic;color:var(--muted);font-size:1.05rem}
+.ch-body .obj{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.ch-body .obj h4{margin:0 0 4px;font-family:Inter;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.ch-body .quote{margin-top:16px;font-family:Lora,serif;font-style:italic;color:var(--navy2);border-left:3px solid var(--gold);padding-left:14px}
+/* contenus */
+h2{scroll-margin-top:80px}
+figure svg{width:100%;height:auto;max-width:680px}
+.tscroll{overflow-x:auto;margin:10px 0 16px;border-radius:10px}
+.tscroll table{margin:0;min-width:520px}
+details.cor{border:1px solid #CFE5DF;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+details.cor>summary{background:var(--teal);color:#fff;padding:9px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.cor>summary::-webkit-details-marker{display:none}
+details.cor>summary::after{content:"Voir le corrigé ▾";font-weight:400;font-size:.85rem;opacity:.85}
+details.cor[open]>summary::after{content:"Masquer ▴"}
+details.cor .c{padding:10px 16px;background:#FAFDFC}
+.exo,.box,.kwbox,.card{background-clip:padding-box}
+.fab{position:fixed;right:18px;bottom:18px;z-index:15;background:var(--navy);color:#D9BD7A;border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;box-shadow:0 8px 22px rgba(11,18,34,.3);font-size:.9rem}
+.foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+.foot a{color:var(--teal);font-weight:600}
+@media (max-width:640px){
+  .tn-in{flex-direction:column;align-items:stretch;gap:8px}.tn-mods{margin-left:0}.tn-mods{display:grid;grid-template-columns:1fr 1fr 1fr;overflow:visible}.tn-mod{white-space:normal;padding:8px 6px;font-size:.8rem;line-height:1.2;text-align:center}
+  .chead2{grid-template-columns:1fr}.ch-side{flex-direction:row;align-items:baseline;gap:12px;padding:14px 20px}.ch-side .num{font-size:2.6rem}
+  .ch-body{padding:18px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero::after{display:none}
+  .toc .row .nb{width:38px;font-size:15pt}
+  body{font-size:15.5px}
+}
+@media print{.topnav,.fab,.hero-actions{display:none}}
+
+.chead2#tp .ch-side .num{font-size:3.4rem}
+details.cor pre{margin:6px 0}
+</style></head>
+<body><header class="topnav"><div class="tn-in"><a class="tn-brand" href="index.html#veille"><span class="tn-logo">ID</span><span class="tn-name">Infrastructure <em>Digitale</em></span></a><nav class="tn-mods" aria-label="Modules"><a class="tn-mod" href="index.html#m103">Conception d'un réseau</a><a class="tn-mod" href="index.html#veille" aria-current="page">Veille technologique</a><a class="tn-mod" href="index.html#secu">Sécurité informatique</a></nav></div></header>
+<main class="wrap">
+
+<!-- ============ COVER ============ -->
+<header class="hero" id="top"><div class="hin">
+<div class="tag">Module · Culture professionnelle</div>
+<h1>Veille<br/><em>technologique</em></h1>
+<div class="bar"></div>
+<div class="sub">Comprendre, organiser et partager l'information technique pour rester à jour dans le métier des réseaux et de l'infrastructure digitale.</div>
+<div class="chips"><span>9 chapitres</span><span>Schémas &amp; tableaux</span><span>Astuces</span><span>Exercices corrigés</span><span>Mini-projet</span></div>
+</div><div class="meta">
+<b>Public :</b> Stagiaires 1<sup>re</sup> année, niveau Bac+1 — Infrastructure Digitale<br/>
+<b>Formateur :</b> M. Youssef MERZAK<br/>
+<b>Édition :</b> Novembre 2026
+  </div><div class="hero-actions"><a class="btn gold" href="#sommaire">Commencer le cours</a><a class="btn ghostw" download="" href="docs/veille-technologique.pdf">Télécharger le PDF</a></div></header>
+<!-- ============ SOMMAIRE ============ -->
+<section class="toc" id="sommaire">
+<h2 style="margin-top:0">Sommaire</h2>
+<p class="section-intro">Ce cours va du plus simple (« c'est quoi la veille ? ») au plus concret (« je construis et je présente ma propre veille »). Chaque chapitre se termine par des exercices ; les corrigés sont regroupés à la fin.</p>
+<a class="row" href="#ch1"><span class="nb">01</span><span class="tt">Introduction à la veille<span class="ds">Définition, types de veille, pourquoi c'est vital pour un technicien réseau</span></span></a>
+<a class="row" href="#ch2"><span class="nb">02</span><span class="tt">Le cycle de la veille<span class="ds">Les 5 étapes, les axes de surveillance, veille active / passive</span></span></a>
+<a class="row" href="#ch3"><span class="nb">03</span><span class="tt">Les sources d'information<span class="ds">Sources officielles, constructeurs, communautés, médias</span></span></a>
+<a class="row" href="#ch4"><span class="nb">04</span><span class="tt">Les outils de veille<span class="ds">RSS, alertes, réseaux sociaux, opérateurs de recherche, IA</span></span></a>
+<a class="row" href="#ch5"><span class="nb">05</span><span class="tt">Évaluer la fiabilité d'une source<span class="ds">Méthode CRAAP, QQOQCP, fake news, contenus sponsorisés</span></span></a>
+<a class="row" href="#ch6"><span class="nb">06</span><span class="tt">Traiter et organiser l'information<span class="ds">Trier, classer, taguer, rédiger une fiche de veille</span></span></a>
+<a class="row" href="#ch7"><span class="nb">07</span><span class="tt">Diffuser sa veille<span class="ds">Newsletter, revue de presse, exposé oral</span></span></a>
+<a class="row" href="#ch8"><span class="nb">08</span><span class="tt">Éthique et cadre légal<span class="ds">Droit d'auteur, données personnelles, loi 09-08, limites</span></span></a>
+<a class="row" href="#ch9"><span class="nb">09</span><span class="tt">Mise en pratique : le projet de veille<span class="ds">Organisation, livrables, grille d'évaluation</span></span></a>
+<a class="row" href="#qcm"><span class="nb">+</span><span class="tt">QCM final · Glossaire · Corrigés<span class="ds">Pour réviser et vérifier ses réponses</span></span></a>
+<h3>Comment lire ce cours ?</h3>
+<div class="legend">
+<span class="k kb">Définition</span><span class="k kt">Astuce</span><span class="k kr">Attention</span><span class="k kg">À retenir</span><span class="k kv">Analogie</span>
+</div>
+<p>Les <span class="k kb">mots-clés</span> importants sont surlignés en couleur dans le texte. Chaque couleur a un sens : <span class="k kb">bleu</span> = concept, <span class="k kt">vert</span> = outil ou bonne pratique, <span class="k kg">or</span> = notion essentielle, <span class="k kr">rose</span> = risque ou piège, <span class="k kv">violet</span> = méthode.</p>
+</section>
+<!-- ============ CHAPITRE 1 ============ -->
+<section class="chead2" id="ch1"><div class="ch-side" style="background:linear-gradient(180deg,#1B2A4A,#2C3E66)"><span class="lbl">CHAPITRE</span><span class="num">01</span></div><div class="ch-body">
+<h1>Introduction à la veille</h1>
+<div class="lead">Dans un métier qui change tous les six mois, celui qui ne se tient pas informé devient vite dépassé.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Définir la veille technologique avec ses propres mots</li>
+<li>Distinguer les 4 grands types de veille</li>
+<li>Comprendre pourquoi la veille est indispensable en réseaux</li>
+<li>Différencier information, donnée et connaissance</li></ul></div>
+<div class="quote">« Les connaissances techniques ont une date de péremption, comme le lait. La veille, c'est vérifier la date avant de s'en servir. »</div></div></section>
+<h2><span class="n">1.1</span>Qu'est-ce que la veille ?</h2>
+<p>Imagine un <span class="k kv">radar</span> sur un aéroport. Il tourne en permanence, il détecte les avions qui arrivent, il prévient la tour de contrôle <b>avant</b> qu'il soit trop tard. La veille technologique, c'est exactement ça : un radar personnel qui détecte les nouveautés de ton métier.</p>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>La <span class="k kb">veille technologique</span> est une activité <b>continue</b> et <b>organisée</b> qui consiste à <b>rechercher</b>, <b>collecter</b>, <b>analyser</b> et <b>partager</b> les informations sur les évolutions techniques d'un domaine, afin de prendre de meilleures décisions et d'anticiper les changements.</p></div>
+<p>Trois mots de cette définition sont très importants :</p>
+<ul>
+<li><span class="k kg">Continue</span> : ce n'est pas une recherche Google faite une fois. C'est une habitude, comme se brosser les dents.</li>
+<li><span class="k kg">Organisée</span> : on suit une méthode, avec des outils et des sources choisies.</li>
+<li><span class="k kg">Partager</span> : une veille qui reste dans ta tête ne sert à personne. On la diffuse à l'équipe.</li>
+</ul>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Un médecin qui a fini ses études en 2010 et qui n'a rien lu depuis soignerait avec des méthodes dépassées. Un technicien réseau qui configure encore du WEP pour le Wi-Fi en 2026, c'est pareil : il met ses clients en danger sans le savoir.</p></div>
+<h2><span class="n">1.2</span>Donnée, information, connaissance</h2>
+<p>La veille transforme des éléments bruts en quelque chose d'utile. Il faut bien distinguer trois niveaux :</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 190">
+<defs><marker id="ar" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<rect fill="#EAF2FA" height="110" rx="14" stroke="#2F6FA8" width="170" x="10" y="40"></rect>
+<text fill="#2F6FA8" font-size="15" font-weight="700" text-anchor="middle" x="95" y="72">DONNÉE</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="95" y="96">Fait brut, sans contexte</text>
+<text fill="#555" font-size="11" font-style="italic" text-anchor="middle" x="95" y="124">« 46 Gbit/s »</text>
+<rect fill="#E6F4F1" height="110" rx="14" stroke="#0F766E" width="170" x="235" y="40"></rect>
+<text fill="#0F766E" font-size="15" font-weight="700" text-anchor="middle" x="320" y="72">INFORMATION</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="320" y="96">Donnée + contexte</text>
+<text fill="#555" font-size="10.5" font-style="italic" text-anchor="middle" x="320" y="118">« Le Wi-Fi 7 atteint</text>
+<text fill="#555" font-size="10.5" font-style="italic" text-anchor="middle" x="320" y="132">46 Gbit/s en théorie »</text>
+<rect fill="#FBF4E4" height="110" rx="14" stroke="#B8913A" width="170" x="460" y="40"></rect>
+<text fill="#8A6A22" font-size="15" font-weight="700" text-anchor="middle" x="545" y="72">CONNAISSANCE</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="545" y="96">Information comprise</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="545" y="110">et utilisable</text>
+<text fill="#555" font-size="10" font-style="italic" text-anchor="middle" x="545" y="130">« Je conseille du Wi-Fi 7</text>
+<text fill="#555" font-size="10" font-style="italic" text-anchor="middle" x="545" y="143">pour la salle de conférence »</text>
+<line marker-end="url(#ar)" stroke="#B8913A" stroke-width="2.5" x1="182" x2="230" y1="95" y2="95"></line>
+<line marker-end="url(#ar)" stroke="#B8913A" stroke-width="2.5" x1="407" x2="455" y1="95" y2="95"></line>
+<text fill="#8A6A22" font-size="9" text-anchor="middle" x="206" y="84">contexte</text>
+<text fill="#8A6A22" font-size="9" text-anchor="middle" x="431" y="84">analyse</text>
+<text fill="#1B2A4A" font-size="12" font-weight="600" text-anchor="middle" x="320" y="20">La veille fait monter l'information d'un niveau à l'autre</text>
+<text fill="#777" font-size="10" text-anchor="middle" x="320" y="178">Plus on avance vers la droite, plus la valeur pour l'entreprise augmente</text>
+</svg>
+<figcaption>Figure 1 — De la donnée brute à la connaissance utile</figcaption>
+</figure>
+<h2><span class="n">1.3</span>Les 4 grands types de veille</h2>
+<p>La veille technologique fait partie d'une famille plus large qu'on appelle l'<span class="k kb">intelligence économique</span>. On distingue généralement quatre types de veille :</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 300">
+<circle cx="300" cy="150" fill="#1B2A4A" r="58"></circle>
+<text fill="#fff" font-size="13" font-weight="700" text-anchor="middle" x="300" y="146">VEILLE</text>
+<text fill="#D9BD7A" font-size="10" text-anchor="middle" x="300" y="163">stratégique</text>
+<g font-size="12">
+<rect fill="#E6F4F1" height="95" rx="14" stroke="#0F766E" width="200" x="20" y="20"></rect>
+<text fill="#0F766E" font-size="13" font-weight="700" text-anchor="middle" x="120" y="48">Technologique</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="120" y="70">Nouvelles technos, normes,</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="120" y="85">protocoles, équipements</text>
+<text fill="#666" font-size="9.5" font-style="italic" text-anchor="middle" x="120" y="103">ex. : Wi-Fi 7, IPv6, SD-WAN</text>
+<rect fill="#EAF2FA" height="95" rx="14" stroke="#2F6FA8" width="200" x="380" y="20"></rect>
+<text fill="#2F6FA8" font-size="13" font-weight="700" text-anchor="middle" x="480" y="48">Concurrentielle</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="480" y="70">Ce que font les concurrents :</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="480" y="85">prix, offres, clients</text>
+<text fill="#666" font-size="9.5" font-style="italic" text-anchor="middle" x="480" y="103">ex. : offres fibre des opérateurs</text>
+<rect fill="#FBEEF1" height="95" rx="14" stroke="#A84A62" width="200" x="20" y="185"></rect>
+<text fill="#A84A62" font-size="13" font-weight="700" text-anchor="middle" x="120" y="213">Réglementaire</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="120" y="235">Lois, normes obligatoires,</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="120" y="250">certifications</text>
+<text fill="#666" font-size="9.5" font-style="italic" text-anchor="middle" x="120" y="268">ex. : loi 09-08, RGPD</text>
+<rect fill="#FBF4E4" height="95" rx="14" stroke="#B8913A" width="200" x="380" y="185"></rect>
+<text fill="#8A6A22" font-size="13" font-weight="700" text-anchor="middle" x="480" y="213">Commerciale</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="480" y="235">Clients, fournisseurs,</text>
+<text fill="#333" font-size="10.5" text-anchor="middle" x="480" y="250">tendances du marché</text>
+<text fill="#666" font-size="9.5" font-style="italic" text-anchor="middle" x="480" y="268">ex. : besoins des PME en cloud</text>
+</g>
+<g stroke="#B8913A" stroke-dasharray="4 3" stroke-width="1.5">
+<line x1="220" x2="252" y1="85" y2="118"></line><line x1="380" x2="348" y1="85" y2="118"></line>
+<line x1="220" x2="252" y1="215" y2="182"></line><line x1="380" x2="348" y1="215" y2="182"></line></g>
+</svg>
+<figcaption>Figure 2 — Les 4 types de veille réunis dans une veille stratégique</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:20%">Type de veille</th><th style="width:30%">Question posée</th><th>Exemple dans les réseaux</th><th style="width:18%">Qui l'utilise ?</th></tr>
+<tr><td><b>Technologique</b></td><td>Quelles technologies arrivent ?</td><td>Le Wi-Fi 7 (802.11be) est-il prêt pour nos clients ?</td><td>Techniciens, ingénieurs</td></tr>
+<tr><td><b>Concurrentielle</b></td><td>Que font les autres entreprises ?</td><td>Un intégrateur concurrent propose du SD-WAN moins cher</td><td>Direction, commerciaux</td></tr>
+<tr><td><b>Réglementaire</b></td><td>Quelles règles doit-on respecter ?</td><td>Nouvelle obligation de déclarer les incidents de sécurité</td><td>Juristes, RSSI</td></tr>
+<tr><td><b>Commerciale</b></td><td>Que veulent les clients ?</td><td>Les PME demandent du télétravail sécurisé (VPN)</td><td>Commerciaux, marketing</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Pour retenir les 4 types, pense à la phrase : <b>« T</b>on <b>C</b>oncurrent <b>R</b>especte les <b>C</b>lients » → <b>T</b>echnologique, <b>C</b>oncurrentielle, <b>R</b>églementaire, <b>C</b>ommerciale.</p></div>
+<h2><span class="n">1.4</span>Pourquoi la veille est vitale en réseaux</h2>
+<p>Le domaine des réseaux et de la cybersécurité change <b>très vite</b>. Voici quelques exemples d'évolutions qui ont transformé le métier en quelques années :</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 150">
+<line stroke="#1B2A4A" stroke-width="3" x1="30" x2="615" y1="75" y2="75"></line>
+<polygon fill="#1B2A4A" points="615,68 630,75 615,82"></polygon>
+<g font-size="10.5" text-anchor="middle">
+<circle cx="70" cy="75" fill="#2F6FA8" r="8"></circle><text fill="#2F6FA8" font-weight="700" x="70" y="52">1999</text><text fill="#333" x="70" y="102">Wi-Fi (802.11b)</text><text fill="#777" font-size="9" x="70" y="116">11 Mbit/s</text>
+<circle cx="175" cy="75" fill="#0F766E" r="8"></circle><text fill="#0F766E" font-weight="700" x="175" y="52">2012</text><text fill="#333" x="175" y="102">IPv6 lancé</text><text fill="#777" font-size="9" x="175" y="116">à grande échelle</text>
+<circle cx="280" cy="75" fill="#5B4B8A" r="8"></circle><text fill="#5B4B8A" font-weight="700" x="280" y="52">2013-15</text><text fill="#333" x="280" y="102">SDN / OpenDaylight</text><text fill="#777" font-size="9" x="280" y="116">réseau programmable</text>
+<circle cx="385" cy="75" fill="#B8913A" r="8"></circle><text fill="#8A6A22" font-weight="700" x="385" y="52">2019</text><text fill="#333" x="385" y="102">Wi-Fi 6 · 5G</text><text fill="#777" font-size="9" x="385" y="116">très haut débit</text>
+<circle cx="490" cy="75" fill="#A84A62" r="8"></circle><text fill="#A84A62" font-weight="700" x="490" y="52">2020</text><text fill="#333" x="490" y="102">Zero Trust · SASE</text><text fill="#777" font-size="9" x="490" y="116">télétravail massif</text>
+<circle cx="585" cy="75" fill="#1B2A4A" r="8"></circle><text fill="#1B2A4A" font-weight="700" x="585" y="52">2024+</text><text fill="#333" x="585" y="102">Wi-Fi 7 · IA</text><text fill="#777" font-size="9" x="585" y="116">AIOps</text>
+</g>
+</svg>
+<figcaption>Figure 3 — Quelques grandes évolutions du monde des réseaux</figcaption>
+</figure>
+<div class="grid2">
+<div class="card"><h4 style="color:var(--teal)">Pour le technicien</h4><p>Rester employable, réussir les certifications (CCNA…), proposer des solutions modernes, corriger les failles avant les pirates.</p></div>
+<div class="card"><h4 style="color:var(--sky)">Pour l'entreprise</h4><p>Éviter les mauvais investissements, gagner des clients, se protéger des cyberattaques, respecter la loi.</p></div>
+</div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>En cybersécurité, ne pas faire de veille peut coûter très cher. Quand une <span class="k kr">faille critique</span> (une <span class="k kr">CVE</span>) est publiée sur un routeur ou un pare-feu, les pirates l'exploitent souvent en quelques jours. Le technicien qui l'apprend en premier peut appliquer le <span class="k kt">correctif (patch)</span> à temps.</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• La veille = <b>chercher → collecter → analyser → partager</b>, de façon <b>continue</b>.<br/>
+• 4 types : <b>technologique, concurrentielle, réglementaire, commerciale</b>.<br/>
+• En réseaux, la veille protège l'entreprise et fait progresser le technicien.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Veille technologique</span><span class="k kb">Intelligence économique</span><span class="k kg">Donnée</span><span class="k kg">Information</span><span class="k kg">Connaissance</span><span class="k kt">Patch</span><span class="k kr">CVE</span><span class="k kr">Faille</span><span class="k kv">Anticipation</span>
+</div>
+<h3>Exercices — Chapitre 1</h3>
+<div class="exo"><div class="h">Exercice 1.1 — Définition <span>★ facile</span></div><div class="c">
+<p>Complète la définition avec les mots suivants : <i>partager, continue, analyser, anticiper, collecter</i>.</p>
+<p>« La veille technologique est une activité ______ et organisée qui consiste à rechercher, ______, ______ et ______ les informations sur les évolutions techniques, afin d'______ les changements. »</p></div></div>
+<div class="exo"><div class="h">Exercice 1.2 — Quel type de veille ? <span>★ facile</span></div><div class="c">
+<p>Pour chaque situation, indique le type de veille (technologique, concurrentielle, réglementaire, commerciale).</p>
+<ol type="a"><li>Tu lis un article sur la nouvelle norme Wi-Fi 802.11be.</li>
+<li>Ton chef veut savoir à quel prix un intégrateur concurrent vend ses installations de caméras IP.</li>
+<li>La CNDP publie une nouvelle délibération sur la vidéosurveillance.</li>
+<li>Plusieurs clients demandent si l'entreprise peut installer des bornes Wi-Fi dans les cafés.</li>
+<li>Cisco annonce la fin de support (End-of-Life) d'un modèle de switch.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 1.3 — Donnée, information ou connaissance ? <span>★★ moyen</span></div><div class="c">
+<ol type="a"><li>« 192.168.1.0/24 »</li>
+<li>« Le réseau de la salle B utilise le préfixe 192.168.1.0/24 »</li>
+<li>« Le réseau de la salle B est presque plein (240 postes) : il faut passer en /23 avant la rentrée »</li>
+<li>« CVE-2024-3400 »</li>
+<li>« La CVE-2024-3400 touche certains pare-feu Palo Alto ; nous en avons deux, il faut les mettre à jour cette semaine »</li></ol></div></div>
+<!-- ============ CHAPITRE 2 ============ -->
+<section class="chead2" id="ch2"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#0B5A54)"><span class="lbl">CHAPITRE</span><span class="num">02</span></div><div class="ch-body">
+<h1>Le cycle de la veille</h1>
+<div class="lead">Une bonne veille ne se fait pas au hasard : elle suit un cycle, comme une machine bien réglée.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Connaître les 5 étapes du cycle de veille</li>
+<li>Définir des axes de surveillance précis</li>
+<li>Distinguer veille active et veille passive (pull / push)</li>
+<li>Planifier sa veille dans la semaine</li></ul></div>
+<div class="quote">« Trop d'information tue l'information. Le cycle de veille sert à filtrer avant d'avaler. »</div></div></section>
+<h2><span class="n">2.1</span>Les 5 étapes du cycle</h2>
+<p>La veille est un <span class="k kv">cycle</span> : quand on arrive à la fin, on recommence en tenant compte de ce qu'on a appris. C'est comme une <span class="k kv">boucle d'amélioration</span>.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 560 380">
+<defs><marker id="a2" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<circle cx="280" cy="190" fill="none" r="135" stroke="#E3DED3" stroke-width="22"></circle>
+<g fill="none" marker-end="url(#a2)" stroke="#B8913A" stroke-width="2.5"><path d="M326.2 63.1 A135 135 0 0 1 383.4 103.2"></path><path d="M414.9 194.7 A135 135 0 0 1 394.5 261.5"></path><path d="M317.2 319.8 A135 135 0 0 1 247.3 321.0"></path><path d="M168.1 265.5 A135 135 0 0 1 145.3 199.4"></path><path d="M173.6 106.9 A135 135 0 0 1 229.4 64.8"></path></g>
+<circle cx="280" cy="190" fill="#1B2A4A" r="62"></circle>
+<text fill="#fff" font-size="13" font-weight="700" text-anchor="middle" x="280" y="185">CYCLE</text>
+<text fill="#D9BD7A" font-size="11" text-anchor="middle" x="280" y="203">de veille</text>
+<!-- step nodes -->
+<g font-size="11" text-anchor="middle">
+<circle cx="280" cy="55" fill="#2F6FA8" r="40"></circle><text fill="#fff" font-size="16" font-weight="700" x="280" y="50">1</text><text fill="#fff" font-size="10" x="280" y="67">CIBLER</text>
+<circle cx="408" cy="148" fill="#0F766E" r="40"></circle><text fill="#fff" font-size="16" font-weight="700" x="408" y="143">2</text><text fill="#fff" font-size="10" x="408" y="160">COLLECTER</text>
+<circle cx="359" cy="299" fill="#5B4B8A" r="40"></circle><text fill="#fff" font-size="16" font-weight="700" x="359" y="294">3</text><text fill="#fff" font-size="10" x="359" y="311">ANALYSER</text>
+<circle cx="201" cy="299" fill="#B8913A" r="40"></circle><text fill="#fff" font-size="16" font-weight="700" x="201" y="294">4</text><text fill="#fff" font-size="10" x="201" y="311">DIFFUSER</text>
+<circle cx="152" cy="148" fill="#A84A62" r="40"></circle><text fill="#fff" font-size="16" font-weight="700" x="152" y="143">5</text><text fill="#fff" font-size="10" x="152" y="160">EXPLOITER</text>
+</g>
+<g fill="#555" font-size="9.5">
+<text x="330" y="28">Quoi surveiller ?</text>
+<text x="452" y="150">Où chercher ?</text>
+<text x="400" y="345">Trier, vérifier</text>
+<text x="105" y="345">Partager</text>
+<text x="40" y="150">Décider, agir</text>
+</g>
+</svg>
+<figcaption>Figure 4 — Le cycle de veille en 5 étapes</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:16%">Étape</th><th style="width:30%">Ce qu'on fait</th><th>Exemple : veille « Wi-Fi 7 »</th><th style="width:16%">Résultat</th></tr>
+<tr><td><b style="color:#2F6FA8">1. Cibler</b></td><td>Définir le sujet, les mots-clés, les objectifs</td><td>Sujet : Wi-Fi 7 pour les PME. Mots-clés : « Wi-Fi 7 », « 802.11be », « MLO »</td><td>Plan de veille</td></tr>
+<tr><td><b style="color:#0F766E">2. Collecter</b></td><td>Chercher l'information dans des sources choisies</td><td>Site Wi-Fi Alliance, blogs Cisco et Aruba, alerte Google « Wi-Fi 7 »</td><td>Articles bruts</td></tr>
+<tr><td><b style="color:#5B4B8A">3. Analyser</b></td><td>Trier, vérifier, résumer, comparer</td><td>Garder 5 articles fiables, comparer Wi-Fi 6 / 6E / 7</td><td>Fiche de synthèse</td></tr>
+<tr><td><b style="color:#8A6A22">4. Diffuser</b></td><td>Transmettre aux bonnes personnes</td><td>Newsletter de 1 page envoyée à l'équipe technique</td><td>Équipe informée</td></tr>
+<tr><td><b style="color:#A84A62">5. Exploiter</b></td><td>Utiliser l'info pour décider ou agir</td><td>Proposer des bornes Wi-Fi 7 dans le prochain devis client</td><td>Décision</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce mnémotechnique</div>
+<p>Retiens <b>« C-C-A-D-E »</b> : <b>C</b>ibler, <b>C</b>ollecter, <b>A</b>nalyser, <b>D</b>iffuser, <b>E</b>xploiter. On peut le prononcer « cascade » : l'information tombe d'une étape à l'autre comme une cascade.</p></div>
+<h2><span class="n">2.2</span>Bien cibler : les axes de surveillance</h2>
+<p>L'erreur numéro 1 du débutant : vouloir « tout surveiller ». Résultat : 300 articles par jour, aucun lu. Il faut définir des <span class="k kg">axes de surveillance</span> : 2 à 4 sujets précis.</p>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kb">axe de surveillance</span> est un sujet précis que l'on décide de suivre, avec ses <span class="k kb">mots-clés</span>, ses <span class="k kb">sources</span> et sa <span class="k kb">fréquence</span> de consultation.</p></div>
+<div class="tscroll"><table>
+<tr><th>Mauvais axe (trop large)</th><th>Bon axe (précis)</th><th>Pourquoi c'est mieux</th></tr>
+<tr><td>« L'informatique »</td><td>« Les nouveautés du Wi-Fi pour les entreprises »</td><td>On sait exactement quoi chercher</td></tr>
+<tr><td>« La sécurité »</td><td>« Les failles critiques sur les équipements Cisco et Fortinet »</td><td>On peut créer des alertes ciblées</td></tr>
+<tr><td>« Le cloud »</td><td>« Les offres de cloud souverain au Maroc »</td><td>Lié au contexte local</td></tr>
+<tr><td>« Les réseaux »</td><td>« L'adoption d'IPv6 chez les opérateurs marocains »</td><td>Mesurable et suivable dans le temps</td></tr>
+</table></div>
+<h3>Le plan de veille</h3>
+<p>Avant de commencer, on remplit un petit tableau appelé <span class="k kg">plan de veille</span>. C'est la « feuille de route ».</p>
+<div class="tscroll"><table>
+<tr><th>Axe</th><th>Mots-clés (FR / EN)</th><th>Sources</th><th>Outil</th><th>Fréquence</th></tr>
+<tr><td><b>Wi-Fi 7</b></td><td>Wi-Fi 7, 802.11be, MLO, 320 MHz</td><td>Wi-Fi Alliance, blogs constructeurs</td><td>Feedly</td><td>1×/semaine</td></tr>
+<tr><td><b>Failles réseau</b></td><td>CVE Cisco, vulnérabilité Fortinet, zero-day</td><td>maCERT, CERT-FR, NVD</td><td>Flux RSS + alertes</td><td>Chaque jour</td></tr>
+<tr><td><b>SDN</b></td><td>SDN, OpenDaylight, SD-WAN</td><td>Linux Foundation, revues tech</td><td>Google Alerts</td><td>2×/mois</td></tr>
+</table></div>
+<h2><span class="n">2.3</span>Veille passive et veille active</h2>
+<p>Il y a deux manières de recevoir l'information. On les appelle souvent <span class="k kb">pull</span> (tirer) et <span class="k kb">push</span> (pousser).</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 210">
+<defs><marker id="a3" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#1B2A4A"></path></marker></defs>
+<rect fill="#EAF2FA" height="190" rx="16" width="300" x="10" y="10"></rect>
+<text fill="#2F6FA8" font-size="14" font-weight="700" text-anchor="middle" x="160" y="36">PULL — Veille active</text>
+<text fill="#555" font-size="10" text-anchor="middle" x="160" y="54">Je vais chercher l'information</text>
+<circle cx="70" cy="125" fill="#2F6FA8" r="28"></circle><text fill="#fff" font-size="11" font-weight="700" text-anchor="middle" x="70" y="130">MOI</text>
+<rect fill="#fff" height="54" rx="8" stroke="#2F6FA8" width="100" x="190" y="98"></rect><text font-size="10.5" text-anchor="middle" x="240" y="122">Google,</text><text font-size="10.5" text-anchor="middle" x="240" y="137">sites web</text>
+<line marker-end="url(#a3)" stroke="#1B2A4A" stroke-width="2" x1="100" x2="185" y1="115" y2="115"></line>
+<text fill="#2F6FA8" font-size="9" text-anchor="middle" x="142" y="108">1. je cherche</text>
+<line marker-end="url(#a3)" stroke="#1B2A4A" stroke-width="2" x1="188" x2="104" y1="138" y2="138"></line>
+<text fill="#2F6FA8" font-size="9" text-anchor="middle" x="142" y="155">2. je trouve</text>
+<text fill="#333" font-size="9.5" font-style="italic" text-anchor="middle" x="160" y="186">Ex. : recherche Google, visite d'un forum</text>
+<rect fill="#E6F4F1" height="190" rx="16" width="300" x="330" y="10"></rect>
+<text fill="#0F766E" font-size="14" font-weight="700" text-anchor="middle" x="480" y="36">PUSH — Veille passive</text>
+<text fill="#555" font-size="10" text-anchor="middle" x="480" y="54">L'information vient à moi</text>
+<rect fill="#fff" height="54" rx="8" stroke="#0F766E" width="100" x="350" y="98"></rect><text font-size="10.5" text-anchor="middle" x="400" y="122">RSS, alertes,</text><text font-size="10.5" text-anchor="middle" x="400" y="137">newsletters</text>
+<circle cx="570" cy="125" fill="#0F766E" r="28"></circle><text fill="#fff" font-size="11" font-weight="700" text-anchor="middle" x="570" y="130">MOI</text>
+<line marker-end="url(#a3)" stroke="#1B2A4A" stroke-width="2" x1="453" x2="536" y1="125" y2="125"></line>
+<text fill="#0F766E" font-size="9" text-anchor="middle" x="495" y="116">automatique</text>
+<text fill="#333" font-size="9.5" font-style="italic" text-anchor="middle" x="480" y="186">Ex. : flux RSS, Google Alerts, abonnement</text>
+</svg>
+<figcaption>Figure 5 — Pull (je cherche) et Push (je reçois)</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th></th><th>Pull (active)</th><th>Push (passive)</th></tr>
+<tr><td><b>Principe</b></td><td>Je fais la démarche de chercher</td><td>Je m'abonne une fois, je reçois ensuite</td></tr>
+<tr><td><b>Avantage</b></td><td>Très précis, répond à un besoin immédiat</td><td>Gain de temps, rien n'est oublié</td></tr>
+<tr><td><b>Inconvénient</b></td><td>Prend du temps, on peut oublier de chercher</td><td>Risque de <span class="k kr">surcharge</span> si trop d'abonnements</td></tr>
+<tr><td><b>Outils</b></td><td>Moteurs de recherche, forums, bases CVE</td><td>RSS, alertes, newsletters, notifications</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>Une bonne veille <b>combine les deux</b> : le <b>push</b> pour recevoir automatiquement les nouveautés, le <b>pull</b> pour approfondir un sujet précis quand on en a besoin.</p></div>
+<h2><span class="n">2.4</span>Organiser son temps de veille</h2>
+<p>La veille doit devenir une <span class="k kt">routine</span>. Pas besoin d'y passer des heures : <b>15 à 20 minutes par jour</b> suffisent si on est bien organisé.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 140">
+<g font-size="10.5" text-anchor="middle">
+<rect fill="#1B2A4A" height="100" rx="12" width="115" x="10" y="20"></rect><text fill="#D9BD7A" font-weight="700" x="67" y="45">LUNDI</text><text fill="#fff" x="67" y="70">Lire les flux</text><text fill="#fff" x="67" y="85">RSS (20 min)</text>
+<rect fill="#2C3E66" height="100" rx="12" width="115" x="135" y="20"></rect><text fill="#D9BD7A" font-weight="700" x="192" y="45">MARDI</text><text fill="#fff" x="192" y="70">Vérifier les</text><text fill="#fff" x="192" y="85">alertes sécurité</text>
+<rect fill="#0F766E" height="100" rx="12" width="115" x="260" y="20"></rect><text fill="#fff" font-weight="700" x="317" y="45">MERCREDI</text><text fill="#fff" x="317" y="70">1 vidéo ou</text><text fill="#fff" x="317" y="85">1 podcast</text>
+<rect fill="#5B4B8A" height="100" rx="12" width="115" x="385" y="20"></rect><text fill="#fff" font-weight="700" x="442" y="45">JEUDI</text><text fill="#fff" x="442" y="70">Trier et</text><text fill="#fff" x="442" y="85">classer</text>
+<rect fill="#B8913A" height="100" rx="12" width="120" x="510" y="20"></rect><text fill="#fff" font-weight="700" x="570" y="45">VENDREDI</text><text fill="#fff" x="570" y="70">Rédiger la</text><text fill="#fff" x="570" y="85">fiche de la semaine</text>
+</g>
+</svg>
+<figcaption>Figure 6 — Exemple de routine de veille hebdomadaire</figcaption>
+</figure>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Bloque un créneau fixe dans ton agenda (par exemple 8h30–8h50, avec ton café). Une habitude fixée à la même heure se tient beaucoup mieux qu'une bonne résolution vague.</p></div>
+<div class="box warn"><div class="t"><i>!</i>Attention à l'infobésité</div>
+<p>L'<span class="k kr">infobésité</span> (ou surcharge informationnelle), c'est recevoir tellement d'informations qu'on n'arrive plus à rien lire. Symptômes : 500 articles non lus, stress, impression de « toujours être en retard ». Remède : réduire ses sources aux <b>meilleures</b> et se désabonner sans regret.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">Cycle de veille</span><span class="k kv">CCADE</span><span class="k kg">Axe de surveillance</span><span class="k kg">Plan de veille</span><span class="k kb">Pull</span><span class="k kb">Push</span><span class="k kt">Routine</span><span class="k kr">Infobésité</span>
+</div>
+<h3>Exercices — Chapitre 2</h3>
+<div class="exo"><div class="h">Exercice 2.1 — Remettre dans l'ordre <span>★ facile</span></div><div class="c">
+<p>Remets ces actions dans l'ordre du cycle de veille :</p>
+<ol type="a"><li>Envoyer un résumé par e-mail à l'équipe</li><li>Choisir de surveiller « la 5G privée en entreprise »</li><li>Décider d'acheter un équipement de test 5G</li><li>S'abonner à 4 blogs et créer une alerte Google</li><li>Supprimer les articles publicitaires et résumer les 3 meilleurs</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 2.2 — Push ou Pull ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Tu tapes « configurer OSPF multi-area » dans Google.</li><li>Tu reçois chaque lundi la newsletter d'un site tech.</li><li>Feedly t'affiche les nouveaux articles de tes blogs préférés.</li><li>Tu poses une question sur un forum réseau.</li><li>Une alerte Google t'envoie un e-mail quand le mot « Wi-Fi 7 » apparaît.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 2.3 — Construire un plan de veille <span>★★ moyen</span></div><div class="c">
+<p>Ton entreprise veut sécuriser le télétravail de ses 40 employés. Construis un plan de veille avec <b>2 axes</b>. Pour chaque axe, donne : 3 mots-clés, 2 sources, 1 outil et une fréquence.</p></div></div>
+<div class="exo"><div class="h">Exercice 2.4 — Corriger des axes trop larges <span>★★ moyen</span></div><div class="c">
+<p>Rends ces axes plus précis : (a) « Internet », (b) « Les pirates », (c) « Les serveurs ».</p></div></div>
+<!-- ============ CHAPITRE 3 ============ -->
+<section class="chead2" id="ch3"><div class="ch-side" style="background:linear-gradient(180deg,#5B4B8A,#433668)"><span class="lbl">CHAPITRE</span><span class="num">03</span></div><div class="ch-body">
+<h1>Les sources d'information</h1>
+<div class="lead">La qualité de ta veille dépend directement de la qualité de tes sources.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Connaître les 4 grandes familles de sources</li>
+<li>Identifier les sources de référence en réseaux et cybersécurité</li>
+<li>Distinguer source primaire et source secondaire</li>
+<li>Constituer sa propre liste de sources</li></ul></div>
+<div class="quote">« Dis-moi ce que tu lis, je te dirai quel technicien tu es. »</div></div></section>
+<h2><span class="n">3.1</span>Source primaire et source secondaire</h2>
+<div class="box def"><div class="t"><i>i</i>Définitions</div>
+<p>Une <span class="k kb">source primaire</span> est l'<b>origine</b> de l'information : celui qui l'a créée (la norme officielle, l'annonce du constructeur, le bulletin de sécurité).<br/>
+Une <span class="k kb">source secondaire</span> <b>reprend</b> et explique une information venant d'ailleurs (article de presse, vidéo YouTube, résumé de blog).</p></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>C'est comme une rumeur qui passe d'un stagiaire à l'autre : le <b>formateur</b> qui annonce la date de l'examen est la source primaire. Le stagiaire qui le répète au café est une source secondaire… et parfois la date a changé en route ! Plus on s'éloigne de la source primaire, plus le risque d'erreur augmente.</p></div>
+<h2><span class="n">3.2</span>La carte des sources</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 330">
+<g stroke="#CFC6B0" stroke-width="2">
+<line x1="320" x2="150" y1="165" y2="70"></line><line x1="320" x2="490" y1="165" y2="70"></line>
+<line x1="320" x2="150" y1="165" y2="260"></line><line x1="320" x2="490" y1="165" y2="260"></line></g>
+<circle cx="320" cy="165" fill="#1B2A4A" r="55"></circle><text fill="#fff" font-size="13" font-weight="700" text-anchor="middle" x="320" y="161">MES</text><text fill="#D9BD7A" font-size="12" text-anchor="middle" x="320" y="178">SOURCES</text>
+<g font-size="10">
+<rect fill="#EAF2FA" height="110" rx="14" stroke="#2F6FA8" width="250" x="20" y="15"></rect>
+<text fill="#2F6FA8" font-size="12.5" font-weight="700" text-anchor="middle" x="145" y="38">① Officielles &amp; institutionnelles</text>
+<text fill="#333" x="35" y="60">• IETF (RFC), IEEE (normes 802.x)</text>
+<text fill="#333" x="35" y="76">• maCERT / DGSSI (Maroc), CERT-FR, ANSSI</text>
+<text fill="#333" x="35" y="92">• NVD / CVE (bases de failles)</text>
+<text fill="#333" x="35" y="108">• ANRT (télécoms Maroc), CNDP</text>
+<rect fill="#E6F4F1" height="110" rx="14" stroke="#0F766E" width="250" x="370" y="15"></rect>
+<text fill="#0F766E" font-size="12.5" font-weight="700" text-anchor="middle" x="495" y="38">② Constructeurs &amp; éditeurs</text>
+<text fill="#333" x="385" y="60">• Cisco, Juniper, Huawei, Aruba (HPE)</text>
+<text fill="#333" x="385" y="76">• Fortinet, Palo Alto, Microsoft</text>
+<text fill="#333" x="385" y="92">• Docs, blogs, bulletins de sécurité</text>
+<text fill="#333" x="385" y="108">• Webinaires et livres blancs</text>
+<rect fill="#F1EEF8" height="110" rx="14" stroke="#5B4B8A" width="250" x="20" y="205"></rect>
+<text fill="#5B4B8A" font-size="12.5" font-weight="700" text-anchor="middle" x="145" y="228">③ Communautés</text>
+<text fill="#333" x="35" y="250">• Forums : Cisco Community, Reddit</text>
+<text fill="#333" x="35" y="266">  (r/networking, r/ccna)</text>
+<text fill="#333" x="35" y="282">• Stack Exchange, GitHub</text>
+<text fill="#333" x="35" y="298">• Groupes LinkedIn, Discord tech</text>
+<rect fill="#FBF4E4" height="110" rx="14" stroke="#B8913A" width="250" x="370" y="205"></rect>
+<text fill="#8A6A22" font-size="12.5" font-weight="700" text-anchor="middle" x="495" y="228">④ Médias &amp; contenus</text>
+<text fill="#333" x="385" y="250">• Sites tech : LeMagIT, ZDNet, 01net</text>
+<text fill="#333" x="385" y="266">• Newsletters, podcasts</text>
+<text fill="#333" x="385" y="282">• YouTube (chaînes de formation)</text>
+<text fill="#333" x="385" y="298">• Salons : GITEX Africa, conférences</text>
+</g>
+</svg>
+<figcaption>Figure 7 — Les 4 grandes familles de sources</figcaption>
+</figure>
+<h2><span class="n">3.3</span>Comparatif des familles de sources</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Famille</th><th>Points forts</th><th>Points faibles</th><th style="width:14%">Fiabilité</th></tr>
+<tr><td><b>Officielles</b></td><td>Source primaire, exacte, gratuite</td><td>Texte technique, parfois en anglais, difficile</td><td>★★★★★</td></tr>
+<tr><td><b>Constructeurs</b></td><td>Très précis sur leurs produits, docs complètes</td><td>Pas neutre : ils veulent <span class="k kr">vendre</span></td><td>★★★★☆</td></tr>
+<tr><td><b>Communautés</b></td><td>Retours d'expérience réels, solutions concrètes</td><td>Qualité variable, erreurs possibles</td><td>★★★☆☆</td></tr>
+<tr><td><b>Médias</b></td><td>Faciles à lire, résument l'actualité</td><td>Source secondaire, parfois approximative ou sponsorisée</td><td>★★★☆☆</td></tr>
+</table></div>
+<h2><span class="n">3.4</span>Les sources incontournables en réseaux &amp; cybersécurité</h2>
+<div class="tscroll"><table>
+<tr><th style="width:25%">Source</th><th style="width:15%">Type</th><th>Ce qu'on y trouve</th><th style="width:10%">Langue</th></tr>
+<tr><td><b>IETF</b> (ietf.org)</td><td>Officielle</td><td>Les <span class="k kb">RFC</span> : les « règles » d'Internet (IP, TCP, OSPF, BGP…)</td><td>EN</td></tr>
+<tr><td><b>IEEE</b> (ieee.org)</td><td>Officielle</td><td>Les normes Ethernet (802.3) et Wi-Fi (802.11)</td><td>EN</td></tr>
+<tr><td><b>maCERT / DGSSI</b></td><td>Officielle (Maroc)</td><td>Bulletins d'alerte sur les failles, recommandations nationales</td><td>FR</td></tr>
+<tr><td><b>CERT-FR / ANSSI</b></td><td>Officielle (France)</td><td>Alertes, avis de sécurité, guides de bonnes pratiques</td><td>FR</td></tr>
+<tr><td><b>NVD / CVE</b></td><td>Base de données</td><td>La liste mondiale des failles avec leur score de gravité (<span class="k kr">CVSS</span>)</td><td>EN</td></tr>
+<tr><td><b>Cisco</b> (blogs, Security Advisories)</td><td>Constructeur</td><td>Nouveautés produits, failles et correctifs Cisco</td><td>EN</td></tr>
+<tr><td><b>Reddit r/networking</b></td><td>Communauté</td><td>Retours d'expérience de professionnels du monde entier</td><td>EN</td></tr>
+<tr><td><b>LeMagIT</b>, <b>ZDNet</b></td><td>Médias</td><td>Actualité IT pour les entreprises</td><td>FR</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : l'anglais, ton meilleur outil</div>
+<p>Environ 80 % de l'information technique de qualité est publiée <b>d'abord en anglais</b>. Pas de panique : utilise un traducteur (DeepL, Google Traduction) ou l'outil de traduction intégré au navigateur. Avec le temps, tu apprendras le vocabulaire technique : <i>release, patch, vulnerability, deprecated, end-of-life…</i></p></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Un constructeur dira toujours que <b>son</b> produit est le meilleur. Pour un avis neutre, compare toujours <b>au moins 2 sources de familles différentes</b> (par exemple : un constructeur + un média indépendant + un retour communautaire).</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Toujours chercher à remonter à la <b>source primaire</b>.<br/>
+• 4 familles : <b>officielles, constructeurs, communautés, médias</b>.<br/>
+• Croiser les sources de familles différentes = veille plus fiable.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Source primaire</span><span class="k kb">Source secondaire</span><span class="k kb">RFC</span><span class="k kb">IETF</span><span class="k kb">IEEE</span><span class="k kg">maCERT</span><span class="k kg">CERT-FR</span><span class="k kr">CVE</span><span class="k kr">CVSS</span><span class="k kt">Croisement des sources</span>
+</div>
+<h3>Exercices — Chapitre 3</h3>
+<div class="exo"><div class="h">Exercice 3.1 — Primaire ou secondaire ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>La RFC 8200 qui décrit IPv6.</li><li>Une vidéo YouTube qui explique IPv6 en 10 minutes.</li><li>Le bulletin de sécurité publié par Fortinet sur son propre produit.</li><li>Un article de LeMagIT qui résume ce bulletin Fortinet.</li><li>Un post Reddit où un admin raconte sa migration vers IPv6.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 3.2 — Classer les sources <span>★ facile</span></div><div class="c">
+<p>Range chaque source dans sa famille (officielle, constructeur, communauté, média) : IEEE · Cisco Community · blog Aruba · 01net · NVD · GitHub · Juniper Networks · podcast tech · ANRT.</p></div></div>
+<div class="exo"><div class="h">Exercice 3.3 — Analyse de cas <span>★★ moyen</span></div><div class="c">
+<p>Ahmed lit sur un blog qu'« un nouveau switch de la marque X est 3 fois plus rapide que tous les autres ». Le blog contient un lien « Acheter maintenant ». Que doit faire Ahmed avant de croire et de partager cette information ? Cite au moins 3 actions.</p></div></div>
+<!-- ============ CHAPITRE 4 ============ -->
+<section class="chead2" id="ch4"><div class="ch-side" style="background:linear-gradient(180deg,#2F6FA8,#1F4F7E)"><span class="lbl">CHAPITRE</span><span class="num">04</span></div><div class="ch-body">
+<h1>Les outils de veille</h1>
+<div class="lead">Les bons outils travaillent pour toi pendant que tu dors.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre et utiliser un flux RSS</li>
+<li>Créer une alerte automatique (Google Alerts)</li>
+<li>Maîtriser les opérateurs de recherche avancée</li>
+<li>Utiliser les réseaux sociaux et l'IA avec esprit critique</li></ul></div>
+<div class="quote">« Un bon outil ne remplace pas le cerveau : il lui fait gagner du temps. »</div></div></section>
+<h2><span class="n">4.1</span>Le flux RSS : l'outil roi de la veille</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kb">flux RSS</span> (<i>Really Simple Syndication</i>) est un fichier, mis à jour automatiquement par un site web, qui contient la liste de ses derniers articles. Un <span class="k kt">agrégateur</span> (ou lecteur RSS) récupère les flux de plusieurs sites et les affiche au même endroit.</p></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Sans RSS, tu dois passer chaque jour dans 20 boulangeries pour voir s'il y a du pain frais. Avec RSS, les 20 boulangeries <b>livrent</b> leur pain dans <b>ta</b> boîte aux lettres. Tu n'as plus qu'à ouvrir une seule boîte.</p></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 220">
+<defs><marker id="a4" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<g font-size="10.5" text-anchor="middle">
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="130" x="10" y="15"></rect><text x="75" y="42">Blog Cisco</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="130" x="10" y="88"></rect><text x="75" y="115">maCERT</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="130" x="10" y="161"></rect><text x="75" y="188">LeMagIT</text>
+<g fill="#F28C28"><circle cx="160" cy="37" r="9"></circle><circle cx="160" cy="110" r="9"></circle><circle cx="160" cy="183" r="9"></circle></g>
+<g fill="#fff" font-size="8" font-weight="700"><text x="160" y="40">RSS</text><text x="160" y="113">RSS</text><text x="160" y="186">RSS</text></g>
+<rect fill="#0F766E" height="100" rx="14" width="150" x="250" y="60"></rect>
+<text fill="#fff" font-size="13" font-weight="700" x="325" y="96">AGRÉGATEUR</text>
+<text fill="#D8F0EA" x="325" y="116">Feedly, Inoreader,</text><text fill="#D8F0EA" x="325" y="131">Netvibes…</text>
+<rect fill="#1B2A4A" height="100" rx="14" width="140" x="490" y="60"></rect>
+<text fill="#D9BD7A" font-size="13" font-weight="700" x="560" y="96">TOI</text>
+<text fill="#fff" x="560" y="116">Tous les articles</text><text fill="#fff" x="560" y="131">au même endroit</text>
+</g>
+<g fill="none" marker-end="url(#a4)" stroke="#B8913A" stroke-width="2">
+<path d="M172 37 Q210 40 245 85"></path><line x1="172" x2="245" y1="110" y2="110"></line><path d="M172 183 Q210 180 245 135"></path>
+<line x1="403" x2="484" y1="110" y2="110"></line></g>
+<text fill="#8A6A22" font-size="9" text-anchor="middle" x="444" y="100">1 seul écran</text>
+</svg>
+<figcaption>Figure 8 — Fonctionnement d'un agrégateur de flux RSS</figcaption>
+</figure>
+<h3>Comment s'abonner à un flux RSS ? (avec Feedly)</h3>
+<ol>
+<li>Crée un compte gratuit sur <span class="k kt">Feedly</span> (ou <span class="k kt">Inoreader</span>).</li>
+<li>Clique sur <b>« Follow websites »</b> (Suivre des sites).</li>
+<li>Colle l'adresse du site (ex. : <i>blogs.cisco.com</i>) : Feedly trouve le flux tout seul.</li>
+<li>Range le flux dans un <b>dossier</b> (ex. : « Constructeurs », « Sécurité »).</li>
+<li>Chaque jour, ouvre Feedly et lis les nouveaux titres.</li>
+</ol>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Pour trouver le flux RSS d'un site, cherche le logo orange <span style="background:#F28C28;color:#fff;padding:0 5px;border-radius:3px;font-weight:700;font-size:8pt">RSS</span>, ou essaie d'ajouter <b>/feed</b> ou <b>/rss</b> à la fin de l'adresse (ex. : <i>monsite.com/feed</i>). Beaucoup de sites WordPress fonctionnent ainsi.</p></div>
+<h2><span class="n">4.2</span>Les alertes automatiques</h2>
+<p>Une <span class="k kb">alerte</span> t'envoie un e-mail dès qu'un mot-clé apparaît sur Internet. C'est idéal pour surveiller un sujet précis.</p>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Outil</th><th>Fonction</th><th style="width:16%">Prix</th><th style="width:26%">Utile pour…</th></tr>
+<tr><td><b>Google Alerts</b></td><td>E-mail quand un mot-clé apparaît dans Google</td><td>Gratuit</td><td>Suivre une technologie, une marque</td></tr>
+<tr><td><b>Talkwalker Alerts</b></td><td>Alternative à Google Alerts, inclut des réseaux sociaux</td><td>Gratuit</td><td>Compléter Google Alerts</td></tr>
+<tr><td><b>Alertes maCERT / CERT-FR</b></td><td>Abonnement e-mail ou RSS aux alertes de sécurité</td><td>Gratuit</td><td>Être prévenu des failles critiques</td></tr>
+<tr><td><b>Notifications GitHub</b></td><td>« Watch » un projet pour suivre ses nouvelles versions</td><td>Gratuit</td><td>Suivre un logiciel open source (ex. : OpenDaylight)</td></tr>
+</table></div>
+<h3>Créer une alerte Google en 4 étapes</h3>
+<ol><li>Va sur <b>google.com/alerts</b>.</li>
+<li>Tape ton mot-clé, par exemple : <code>"Wi-Fi 7" entreprise</code>.</li>
+<li>Clique sur <b>« Afficher les options »</b> : choisis la fréquence (1 fois par jour max), la langue, et « Seulement les meilleurs résultats ».</li>
+<li>Clique sur <b>« Créer une alerte »</b>.</li></ol>
+<h2><span class="n">4.3</span>La recherche avancée : les opérateurs</h2>
+<p>Les <span class="k kv">opérateurs de recherche</span> sont des « commandes » que l'on ajoute dans Google pour obtenir des résultats beaucoup plus précis. C'est un peu comme les <b>filtres</b> d'une ACL sur un routeur : on ne laisse passer que ce qui nous intéresse !</p>
+<div class="tscroll"><table>
+<tr><th style="width:17%">Opérateur</th><th style="width:30%">Rôle</th><th>Exemple</th></tr>
+<tr><td><code>" "</code></td><td>Expression exacte</td><td><code>"configuration VLAN"</code></td></tr>
+<tr><td><code>-</code></td><td>Exclure un mot</td><td><code>firewall -prix</code></td></tr>
+<tr><td><code>OR</code></td><td>L'un ou l'autre</td><td><code>SD-WAN OR SASE</code></td></tr>
+<tr><td><code>site:</code></td><td>Chercher dans un seul site</td><td><code>VLAN site:cisco.com</code></td></tr>
+<tr><td><code>filetype:</code></td><td>Type de fichier</td><td><code>guide sécurité Wi-Fi filetype:pdf</code></td></tr>
+<tr><td><code>intitle:</code></td><td>Mot dans le titre de la page</td><td><code>intitle:"Wi-Fi 7"</code></td></tr>
+<tr><td><code>after:</code></td><td>Publié après une date</td><td><code>OSPF tutoriel after:2025-01-01</code></td></tr>
+<tr><td><code>*</code></td><td>Mot manquant (joker)</td><td><code>"le protocole * de routage"</code></td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce de pro</div>
+<p>Combine les opérateurs ! Exemple : <code>"zero trust" filetype:pdf site:ssi.gouv.fr</code> → uniquement des guides PDF officiels de l'ANSSI sur le Zero Trust. Tu gagnes 20 minutes de tri.</p></div>
+<h2><span class="n">4.4</span>Réseaux sociaux, vidéos et podcasts</h2>
+<div class="grid3">
+<div class="card"><h4 style="color:var(--sky)">LinkedIn</h4><p>Suivre des experts réseau, des constructeurs et des hashtags (#networking, #cybersecurity). Très utile pour l'emploi.</p></div>
+<div class="card"><h4 style="color:var(--rose)">YouTube</h4><p>Chaînes de formation réseau (labs Packet Tracer, CCNA). Idéal pour apprendre en voyant faire.</p></div>
+<div class="card"><h4 style="color:var(--violet)">Podcasts</h4><p>À écouter dans le transport. Ex. : émissions sur la cybersécurité et les réseaux en français ou en anglais.</p></div>
+</div>
+<h2><span class="n">4.5</span>L'intelligence artificielle au service de la veille</h2>
+<p>Les assistants d'<span class="k kb">IA</span> (Claude, ChatGPT, Perplexity, Gemini…) peuvent aider à résumer un long article, traduire, ou expliquer un terme technique. Mais ils ont des limites.</p>
+<div class="tscroll"><table>
+<tr><th>✔ L'IA est utile pour…</th><th>✘ L'IA est risquée pour…</th></tr>
+<tr><td>Résumer un article long</td><td>Donner des informations très récentes (si elle ne cherche pas sur le web)</td></tr>
+<tr><td>Traduire un texte technique</td><td>Citer des sources : elle peut <span class="k kr">inventer</span> des références (« hallucinations »)</td></tr>
+<tr><td>Expliquer simplement un concept</td><td>Remplacer la lecture de la source primaire</td></tr>
+<tr><td>Proposer des mots-clés de recherche</td><td>Recevoir des données confidentielles de l'entreprise</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Ne colle <b>jamais</b> dans une IA publique des informations confidentielles : mots de passe, plans d'adressage IP du client, configurations de routeurs, données personnelles. Et <b>vérifie toujours</b> ce que l'IA affirme avec une source fiable.</p></div>
+<h2><span class="n">4.6</span>Tableau récapitulatif des outils</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Besoin</th><th>Outil conseillé</th><th style="width:18%">Mode</th></tr>
+<tr><td>Suivre plusieurs sites</td><td>Feedly, Inoreader</td><td><span class="k kt">Push</span></td></tr>
+<tr><td>Surveiller un mot-clé</td><td>Google Alerts, Talkwalker Alerts</td><td><span class="k kt">Push</span></td></tr>
+<tr><td>Trouver une info précise</td><td>Google + opérateurs, Google Scholar</td><td><span class="k kb">Pull</span></td></tr>
+<tr><td>Suivre des experts</td><td>LinkedIn, YouTube</td><td><span class="k kt">Push</span></td></tr>
+<tr><td>Résumer / traduire</td><td>Assistant IA, DeepL</td><td><span class="k kb">Pull</span></td></tr>
+<tr><td>Suivre un logiciel</td><td>GitHub (Watch / Releases)</td><td><span class="k kt">Push</span></td></tr>
+</table></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Flux RSS</span><span class="k kt">Agrégateur</span><span class="k kt">Feedly</span><span class="k kt">Google Alerts</span><span class="k kv">Opérateurs de recherche</span><span class="k kv">site:</span><span class="k kv">filetype:</span><span class="k kb">IA</span><span class="k kr">Hallucination</span>
+</div>
+<h3>Exercices — Chapitre 4</h3>
+<div class="exo"><div class="h">Exercice 4.1 — Écrire des requêtes <span>★★ moyen</span></div><div class="c">
+<p>Écris la requête Google pour trouver :</p>
+<ol type="a"><li>des documents PDF sur la configuration de l'OSPF ;</li><li>les pages du site de l'ANSSI (ssi.gouv.fr) qui parlent de « mot de passe » ;</li><li>des articles sur le Wi-Fi 7, sans les pages qui parlent de « smartphone » ;</li><li>des articles contenant exactement « réseau défini par logiciel » publiés après le 1<sup>er</sup> janvier 2025.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 4.2 — Choisir l'outil <span>★ facile</span></div><div class="c">
+<p>Quel outil utiliser dans chaque cas ?</p>
+<ol type="a"><li>Tu veux lire chaque matin les nouveaux articles de 15 blogs.</li><li>Tu veux être prévenu dès qu'on parle de « IPv6 Maroc ».</li><li>Tu veux savoir quand une nouvelle version d'OpenDaylight sort.</li><li>Tu as un article de 12 pages en anglais et 5 minutes pour le comprendre.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 4.3 — Vrai ou faux ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Un flux RSS oblige à visiter chaque site tous les jours.</li><li>L'IA peut inventer une source qui n'existe pas.</li><li>On peut coller la configuration du routeur d'un client dans une IA publique pour gagner du temps.</li><li>L'opérateur <code>site:</code> limite la recherche à un seul site web.</li></ol></div></div>
+<!-- ============ CHAPITRE 5 ============ -->
+<section class="chead2" id="ch5"><div class="ch-side" style="background:linear-gradient(180deg,#A84A62,#7E3448)"><span class="lbl">CHAPITRE</span><span class="num">05</span></div><div class="ch-body">
+<h1>Évaluer la fiabilité d'une source</h1>
+<div class="lead">Sur Internet, tout le monde peut publier. Ton travail : séparer le vrai du faux.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Appliquer la méthode CRAAP à un article</li>
+<li>Utiliser le QQOQCP pour analyser une information</li>
+<li>Reconnaître une fake news et un contenu sponsorisé</li>
+<li>Comprendre le cycle de la hype (Gartner)</li></ul></div>
+<div class="quote">« Une information non vérifiée n'est qu'une rumeur bien présentée. »</div></div></section>
+<h2><span class="n">5.1</span>La méthode CRAAP</h2>
+<p>La méthode <span class="k kv">CRAAP</span> est une grille de 5 critères pour juger un document. Chaque lettre est un critère (en anglais) :</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 200">
+<g text-anchor="middle">
+<rect fill="#2F6FA8" height="170" rx="14" width="120" x="5" y="15"></rect>
+<text fill="#fff" font-family="Lora" font-size="34" font-weight="700" x="65" y="60">C</text><text fill="#fff" font-size="11" font-weight="700" x="65" y="85">Currency</text><text fill="#D6E6F5" font-size="10" x="65" y="102">Actualité</text>
+<text fill="#fff" font-size="9.5" x="65" y="135">Date de</text><text fill="#fff" font-size="9.5" x="65" y="148">publication ?</text><text fill="#fff" font-size="9.5" x="65" y="161">Mise à jour ?</text>
+<rect fill="#0F766E" height="170" rx="14" width="120" x="133" y="15"></rect>
+<text fill="#fff" font-family="Lora" font-size="34" font-weight="700" x="193" y="60">R</text><text fill="#fff" font-size="11" font-weight="700" x="193" y="85">Relevance</text><text fill="#D8F0EA" font-size="10" x="193" y="102">Pertinence</text>
+<text fill="#fff" font-size="9.5" x="193" y="135">Répond-elle</text><text fill="#fff" font-size="9.5" x="193" y="148">à MON besoin ?</text>
+<rect fill="#5B4B8A" height="170" rx="14" width="120" x="261" y="15"></rect>
+<text fill="#fff" font-family="Lora" font-size="34" font-weight="700" x="321" y="60">A</text><text fill="#fff" font-size="11" font-weight="700" x="321" y="85">Authority</text><text fill="#E2DCF2" font-size="10" x="321" y="102">Autorité</text>
+<text fill="#fff" font-size="9.5" x="321" y="135">Qui est l'auteur ?</text><text fill="#fff" font-size="9.5" x="321" y="148">Est-il expert ?</text>
+<rect fill="#B8913A" height="170" rx="14" width="120" x="389" y="15"></rect>
+<text fill="#fff" font-family="Lora" font-size="34" font-weight="700" x="449" y="60">A</text><text fill="#fff" font-size="11" font-weight="700" x="449" y="85">Accuracy</text><text fill="#FBF0D6" font-size="10" x="449" y="102">Exactitude</text>
+<text fill="#fff" font-size="9.5" x="449" y="135">Preuves, sources,</text><text fill="#fff" font-size="9.5" x="449" y="148">chiffres vérifiables ?</text>
+<rect fill="#A84A62" height="170" rx="14" width="120" x="517" y="15"></rect>
+<text fill="#fff" font-family="Lora" font-size="34" font-weight="700" x="577" y="60">P</text><text fill="#fff" font-size="11" font-weight="700" x="577" y="85">Purpose</text><text fill="#F8DDE4" font-size="10" x="577" y="102">Objectif</text>
+<text fill="#fff" font-size="9.5" x="577" y="135">Informer ?</text><text fill="#fff" font-size="9.5" x="577" y="148">Vendre ?</text><text fill="#fff" font-size="9.5" x="577" y="161">Manipuler ?</text>
+</g>
+</svg>
+<figcaption>Figure 9 — Les 5 critères de la méthode CRAAP</figcaption>
+</figure>
+<h3>La grille CRAAP notée sur 10</h3>
+<p>On donne une note de 0 à 2 pour chaque critère. Total sur 10.</p>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Critère</th><th>Questions à se poser</th><th style="width:28%">Note (0 · 1 · 2)</th></tr>
+<tr><td><b style="color:#2F6FA8">Actualité</b></td><td>L'article a-t-il moins de 2 ans ? Les versions citées sont-elles récentes ?</td><td>0 = pas de date · 2 = récent</td></tr>
+<tr><td><b style="color:#0F766E">Pertinence</b></td><td>Le niveau convient-il ? Répond-il à mon axe de veille ?</td><td>0 = hors sujet · 2 = parfait</td></tr>
+<tr><td><b style="color:#5B4B8A">Autorité</b></td><td>Auteur identifié ? Site reconnu ? Contact disponible ?</td><td>0 = anonyme · 2 = expert / officiel</td></tr>
+<tr><td><b style="color:#8A6A22">Exactitude</b></td><td>Sources citées ? Chiffres vérifiables ? Pas de fautes ?</td><td>0 = aucune preuve · 2 = sourcé</td></tr>
+<tr><td><b style="color:#A84A62">Objectif</b></td><td>Neutre ou publicitaire ? Ton objectif ou émotionnel ?</td><td>0 = pub déguisée · 2 = neutre</td></tr>
+</table></div>
+<div class="grid3">
+<div class="card" style="border-color:#0F766E"><h4 style="color:var(--teal)">8 à 10 / 10</h4><p>Source <b>fiable</b> : on peut l'utiliser et la partager.</p></div>
+<div class="card" style="border-color:#B8913A"><h4 style="color:#8A6A22">5 à 7 / 10</h4><p>Source <b>moyenne</b> : à croiser avec une autre source.</p></div>
+<div class="card" style="border-color:#A84A62"><h4 style="color:var(--rose)">0 à 4 / 10</h4><p>Source <b>douteuse</b> : on l'écarte.</p></div>
+</div>
+<h2><span class="n">5.2</span>Le QQOQCP : analyser une information</h2>
+<p>Le <span class="k kv">QQOQCP</span> est une méthode simple de questionnement. Elle permet de vérifier qu'on a bien compris une information et qu'elle est complète.</p>
+<div class="tscroll"><table>
+<tr><th style="width:14%">Question</th><th>Ce qu'on cherche</th><th>Exemple : « Nouvelle faille sur des routeurs »</th></tr>
+<tr><td><b>Qui ?</b></td><td>Qui publie ? Qui est concerné ?</td><td>Publié par le constructeur ; concerne les clients du modèle X</td></tr>
+<tr><td><b>Quoi ?</b></td><td>De quoi s'agit-il exactement ?</td><td>Faille permettant de prendre le contrôle à distance</td></tr>
+<tr><td><b>Où ?</b></td><td>Quels systèmes, quels pays ?</td><td>Interface web d'administration, monde entier</td></tr>
+<tr><td><b>Quand ?</b></td><td>Date de l'info, date d'effet</td><td>Publiée le 10 du mois ; correctif disponible le 12</td></tr>
+<tr><td><b>Comment ?</b></td><td>Comment ça marche, comment réagir ?</td><td>Mettre à jour le firmware, désactiver l'accès web depuis Internet</td></tr>
+<tr><td><b>Pourquoi ?</b></td><td>Pourquoi est-ce important ?</td><td>Score CVSS 9,8 (critique), déjà exploitée par des pirates</td></tr>
+</table></div>
+<h2><span class="n">5.3</span>Reconnaître les pièges</h2>
+<div class="grid2">
+<div class="card" style="background:var(--rose-l);border-color:#E7C3CD"><h4 style="color:var(--rose)">🚩 Signes d'une fake news</h4><p>• Titre choc, beaucoup de majuscules et de « !!! »<br/>• Pas d'auteur, pas de date<br/>• Aucune source citée<br/>• Site inconnu à l'adresse bizarre<br/>• L'info n'apparaît nulle part ailleurs<br/>• Joue sur la peur ou la colère</p></div>
+<div class="card" style="background:var(--gold-l);border-color:#EAD9B0"><h4 style="color:#8A6A22">💰 Signes d'un contenu sponsorisé</h4><p>• Mentions « Sponsorisé », « Partenaire », « Publi-rédactionnel »<br/>• Liens d'achat ou codes promo<br/>• Un seul produit présenté, sans défaut<br/>• Comparatif où la même marque gagne toujours<br/>• Vocabulaire marketing (« révolutionnaire », « le meilleur »)</p></div>
+</div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : la règle des 3 sources</div>
+<p>Avant de partager une information importante, vérifie qu'elle est confirmée par <b>3 sources indépendantes</b>, dont si possible <b>une source primaire</b>. Si tu ne la trouves qu'à un seul endroit… méfiance !</p></div>
+<h2><span class="n">5.4</span>Le cycle de la hype (Gartner)</h2>
+<p>Quand une nouvelle technologie apparaît, les médias s'emballent souvent… puis déchantent. Le cabinet Gartner a décrit ce phénomène avec une courbe célèbre : le <span class="k kb">cycle de la hype</span>.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 260">
+<line stroke="#1B2A4A" stroke-width="1.5" x1="40" x2="625" y1="225" y2="225"></line>
+<line stroke="#1B2A4A" stroke-width="1.5" x1="40" x2="40" y1="225" y2="15"></line>
+<text fill="#555" font-size="10" text-anchor="middle" transform="rotate(-90 24 120)" x="24" y="120">Attentes / visibilité</text>
+<text fill="#555" font-size="10" text-anchor="end" x="600" y="245">Temps →</text>
+<path d="M45 215 C110 210 130 30 165 30 C205 30 215 195 270 195 C330 195 360 140 430 120 C500 102 560 98 620 96" fill="none" stroke="#B8913A" stroke-width="4"></path>
+<g font-size="10" font-weight="600" text-anchor="middle">
+<circle cx="111" cy="134" fill="#2F6FA8" r="5"></circle><text fill="#2F6FA8" x="72" y="122">① Déclencheur</text>
+<circle cx="165" cy="30" fill="#A84A62" r="5"></circle><text fill="#A84A62" x="225" y="26">② Pic des attentes</text>
+<circle cx="270" cy="195" fill="#5B4B8A" r="5"></circle><text fill="#5B4B8A" x="270" y="215">③ Gouffre des désillusions</text>
+<circle cx="384" cy="140" fill="#0F766E" r="5"></circle><text fill="#0F766E" x="430" y="165">④ Pente de l'éclaircissement</text>
+<circle cx="575" cy="97" fill="#1B2A4A" r="5"></circle><text fill="#1B2A4A" x="560" y="82">⑤ Plateau de productivité</text>
+</g>
+</svg>
+<figcaption>Figure 10 — Le cycle de la hype de Gartner (simplifié)</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:30%">Phase</th><th>Ce qui se passe</th></tr>
+<tr><td><b>① Déclencheur technologique</b></td><td>Une innovation est annoncée, les premiers prototypes apparaissent.</td></tr>
+<tr><td><b>② Pic des attentes exagérées</b></td><td>Tout le monde en parle, on promet qu'elle va « tout changer ».</td></tr>
+<tr><td><b>③ Gouffre des désillusions</b></td><td>Les premiers projets déçoivent : trop cher, trop complexe.</td></tr>
+<tr><td><b>④ Pente de l'éclaircissement</b></td><td>On comprend les vrais usages, les produits s'améliorent.</td></tr>
+<tr><td><b>⑤ Plateau de productivité</b></td><td>La technologie est mature et largement utilisée (ex. : le Wi-Fi aujourd'hui).</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <b>CRAAP</b> = Actualité, Pertinence, Autorité, Exactitude, Objectif.<br/>
+• <b>QQOQCP</b> = Qui, Quoi, Où, Quand, Comment, Pourquoi.<br/>
+• Règle des <b>3 sources</b> avant de partager.<br/>
+• Ne pas confondre « tout le monde en parle » et « c'est prêt » (cycle de la hype).</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">CRAAP</span><span class="k kv">QQOQCP</span><span class="k kb">Fiabilité</span><span class="k kr">Fake news</span><span class="k kr">Contenu sponsorisé</span><span class="k kt">Règle des 3 sources</span><span class="k kb">Cycle de la hype</span><span class="k kg">Gartner</span>
+</div>
+<h3>Exercices — Chapitre 5</h3>
+<div class="exo"><div class="h">Exercice 5.1 — Appliquer CRAAP <span>★★ moyen</span></div><div class="c">
+<p>Tu trouves l'article suivant : <i>« LE NOUVEAU ROUTEUR ZX-9000 REND LES PIRATES IMPUISSANTS !!! »</i> — Site : <i>top-routeurs-promo.biz</i> — Pas d'auteur — Pas de date — Bouton « -30 % avec le code ZX30 » — Aucune source citée.</p>
+<p>Attribue une note à chaque critère CRAAP, calcule le total et donne ta conclusion.</p></div></div>
+<div class="exo"><div class="h">Exercice 5.2 — QQOQCP <span>★★ moyen</span></div><div class="c">
+<p>Lis ce message : <i>« Le 3 mars, le maCERT a publié une alerte concernant une vulnérabilité critique dans le VPN SSL de certains pare-feu. Elle permet à un attaquant d'exécuter du code à distance. Les administrateurs doivent appliquer la mise à jour du constructeur au plus vite, car la faille est déjà exploitée. »</i></p>
+<p>Complète un tableau QQOQCP à partir de ce message.</p></div></div>
+<div class="exo"><div class="h">Exercice 5.3 — Le cycle de la hype <span>★★★ difficile</span></div><div class="c">
+<p>Place chaque situation sur la bonne phase du cycle de la hype :</p>
+<ol type="a"><li>« Toutes les entreprises vont passer au métavers d'ici 2 ans ! » (articles très nombreux)</li><li>« Après plusieurs échecs, les entreprises utilisent enfin le SD-WAN pour relier leurs agences, avec des résultats concrets. »</li><li>« Le Wi-Fi est aujourd'hui présent dans presque tous les bâtiments. »</li><li>« Les projets pilotes coûtent trop cher, beaucoup d'entreprises abandonnent. »</li></ol></div></div>
+<!-- ============ CHAPITRE 6 ============ -->
+<section class="chead2" id="ch6"><div class="ch-side" style="background:linear-gradient(180deg,#B8913A,#8A6A22)"><span class="lbl">CHAPITRE</span><span class="num">06</span></div><div class="ch-body">
+<h1>Traiter et organiser l'information</h1>
+<div class="lead">Collecter, c'est facile. Retrouver la bonne info au bon moment, c'est tout l'art de la veille.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Passer de 100 articles à 5 informations utiles</li>
+<li>Classer avec des dossiers et des tags</li>
+<li>Choisir un outil de stockage (Notion, OneNote, Zotero…)</li>
+<li>Rédiger une fiche de veille claire</li></ul></div>
+<div class="quote">« Une information que l'on ne retrouve pas est une information perdue. »</div></div></section>
+<h2><span class="n">6.1</span>L'entonnoir de la veille</h2>
+<p>Traiter l'information, c'est <b>filtrer</b> étape par étape, comme un <span class="k kv">entonnoir</span>. On part de beaucoup d'éléments bruts pour arriver à peu d'informations, mais de grande valeur.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 290">
+<g text-anchor="middle">
+<path d="M60 20 L540 20 L490 75 L110 75 Z" fill="#2F6FA8"></path><text fill="#fff" font-size="13" font-weight="700" x="300" y="45">COLLECTER</text><text fill="#D6E6F5" font-size="10.5" x="300" y="63">≈ 100 articles par semaine</text>
+<path d="M112 80 L488 80 L440 135 L160 135 Z" fill="#0F766E"></path><text fill="#fff" font-size="13" font-weight="700" x="300" y="105">TRIER</text><text fill="#D8F0EA" font-size="10.5" x="300" y="123">lire les titres → ≈ 25 articles</text>
+<path d="M162 140 L438 140 L392 195 L208 195 Z" fill="#5B4B8A"></path><text fill="#fff" font-size="13" font-weight="700" x="300" y="165">VÉRIFIER</text><text fill="#E2DCF2" font-size="10.5" x="300" y="183">CRAAP → ≈ 10 articles</text>
+<path d="M210 200 L390 200 L345 255 L255 255 Z" fill="#B8913A"></path><text fill="#fff" font-size="13" font-weight="700" x="300" y="225">SYNTHÉTISER</text><text fill="#FBF0D6" font-size="10" x="300" y="243">→ 3 à 5 infos clés</text>
+<rect fill="#1B2A4A" height="24" rx="12" width="76" x="262" y="262"></rect><text fill="#D9BD7A" font-size="10.5" font-weight="700" x="300" y="278">1 FICHE</text>
+</g>
+</svg>
+<figcaption>Figure 11 — L'entonnoir : de 100 articles à 1 fiche de veille</figcaption>
+</figure>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : la lecture en 3 temps</div>
+<p><b>1.</b> Lis seulement le <b>titre</b> (2 secondes) → garde ou jette.<br/>
+<b>2.</b> Lis le <b>chapeau</b> (premier paragraphe) et les intertitres (30 secondes) → garde ou jette.<br/>
+<b>3.</b> Lis l'article <b>en entier</b> seulement s'il a passé les 2 premiers filtres.</p></div>
+<h2><span class="n">6.2</span>Classer : dossiers et tags</h2>
+<p>Pour retrouver une information, on utilise deux techniques complémentaires :</p>
+<div class="grid2">
+<div class="card"><h4 style="color:var(--sky)">📁 Les dossiers (arborescence)</h4><p>Chaque article va dans <b>un seul</b> dossier, comme un fichier sur ton PC.<br/><br/><code>Veille/<br/>├─ Wi-Fi/<br/>├─ Sécurité/<br/>│  ├─ Failles/<br/>│  └─ Bonnes pratiques/<br/>└─ SDN/</code></p></div>
+<div class="card"><h4 style="color:var(--teal)">🏷️ Les tags (étiquettes)</h4><p>Un même article peut avoir <b>plusieurs</b> tags. C'est plus souple.<br/><br/>Article « Faille critique sur un point d'accès Wi-Fi » :<br/><span class="k kt">#wifi</span> <span class="k kr">#faille</span> <span class="k kg">#urgent</span> <span class="k kb">#cisco</span></p></div>
+</div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : une convention de nommage</div>
+<p>Nomme tes fichiers toujours de la même façon : <b>AAAA-MM-JJ_Sujet_Source</b>.<br/>Exemple : <code>2026-11-10_Wifi7-MLO_BlogCisco.pdf</code>. Avec la date au début, les fichiers se rangent automatiquement dans l'ordre chronologique.</p></div>
+<h2><span class="n">6.3</span>Les outils de stockage et de capitalisation</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Outil</th><th>Type</th><th>Points forts</th><th style="width:14%">Prix</th></tr>
+<tr><td><b>Notion</b></td><td>Espace de travail / base de données</td><td>Bases de données avec tags, très flexible, partage en équipe</td><td>Gratuit (perso)</td></tr>
+<tr><td><b>OneNote</b></td><td>Bloc-notes numérique</td><td>Intégré à Microsoft 365, simple, capture de pages web</td><td>Gratuit</td></tr>
+<tr><td><b>Zotero</b></td><td>Gestionnaire de références</td><td>Enregistre la source, l'auteur, la date ; génère des citations</td><td>Gratuit, open source</td></tr>
+<tr><td><b>Pearltrees</b></td><td>Organisation visuelle</td><td>Collections visuelles de liens, facile à partager</td><td>Gratuit / payant</td></tr>
+<tr><td><b>Raindrop.io</b></td><td>Gestionnaire de favoris</td><td>Favoris avec tags et dossiers, recherche rapide</td><td>Gratuit / payant</td></tr>
+</table></div>
+<h2><span class="n">6.4</span>La fiche de veille</h2>
+<p>La <span class="k kg">fiche de veille</span> est le résultat concret du traitement. Elle résume une information importante en <b>une page maximum</b>. Voici un modèle :</p>
+<div style="border:2px solid var(--navy);border-radius:12px;overflow:hidden;margin:12px 0;break-inside:avoid">
+<div style="background:var(--navy);color:#fff;padding:9px 16px;display:flex;justify-content:space-between"><b style="font-family:Lora;font-size:12pt">FICHE DE VEILLE N° 07</b><span style="color:#D9BD7A">Axe : Wi-Fi · 10/11/2026</span></div>
+<div class="tscroll"><table style="margin:0;border:none;border-radius:0">
+<tr><td style="width:24%"><b>Titre</b></td><td>Le Wi-Fi 7 et la fonction MLO (Multi-Link Operation)</td></tr>
+<tr><td><b>Sources</b></td><td>Wi-Fi Alliance (primaire) · blog constructeur · article LeMagIT</td></tr>
+<tr><td><b>Fiabilité (CRAAP)</b></td><td>9/10</td></tr>
+<tr><td><b>Résumé (3-5 lignes)</b></td><td>Le Wi-Fi 7 (norme IEEE 802.11be) permet à un appareil d'utiliser plusieurs bandes de fréquences en même temps (2,4 / 5 / 6 GHz) grâce au MLO. Résultat : plus de débit, moins de latence et une connexion plus stable. Il utilise aussi des canaux jusqu'à 320 MHz en 6 GHz.</td></tr>
+<tr><td><b>Mots-clés</b></td><td><span class="k kb">#wifi7</span> <span class="k kb">#802.11be</span> <span class="k kt">#MLO</span></td></tr>
+<tr><td><b>Impact pour nous</b></td><td>Intéressant pour les salles de réunion et la visioconférence. Les clients doivent aussi avoir des PC compatibles.</td></tr>
+<tr><td><b>Action proposée</b></td><td>Tester une borne Wi-Fi 7 au labo avant de la proposer aux clients.</td></tr>
+</table></div></div>
+<div class="box warn"><div class="t"><i>!</i>Attention au copier-coller</div>
+<p>Une fiche de veille n'est <b>pas</b> un copier-coller de l'article. Tu dois <b>reformuler avec tes mots</b>. C'est la preuve que tu as compris, et c'est aussi une obligation légale (voir chapitre 8).</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• L'entonnoir : <b>collecter → trier → vérifier → synthétiser</b>.<br/>
+• Classer avec des <b>dossiers</b> (1 seul) et des <b>tags</b> (plusieurs).<br/>
+• La <b>fiche de veille</b> : 1 page, sources, résumé reformulé, impact, action.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">Entonnoir</span><span class="k kb">Tri</span><span class="k kb">Synthèse</span><span class="k kt">Tags</span><span class="k kt">Arborescence</span><span class="k kt">Notion</span><span class="k kt">Zotero</span><span class="k kg">Fiche de veille</span><span class="k kg">Capitalisation</span><span class="k kr">Copier-coller</span>
+</div>
+<h3>Exercices — Chapitre 6</h3>
+<div class="exo"><div class="h">Exercice 6.1 — Tags <span>★ facile</span></div><div class="c">
+<p>Propose 3 tags pertinents pour chacun de ces articles :</p>
+<ol type="a"><li>« Guide ANSSI : sécuriser un réseau Wi-Fi d'entreprise »</li><li>« OpenDaylight publie une nouvelle version »</li><li>« Faille critique dans un switch Cisco, correctif disponible »</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 6.2 — Nommage de fichiers <span>★ facile</span></div><div class="c">
+<p>Renomme ces fichiers selon la convention <b>AAAA-MM-JJ_Sujet_Source</b> : (a) <i>document final v2 (1).pdf</i> — un guide IPv6 de l'ANSSI téléchargé le 4 novembre 2026 ; (b) <i>scan.pdf</i> — un article de LeMagIT sur le SD-WAN du 12 octobre 2026.</p></div></div>
+<div class="exo"><div class="h">Exercice 6.3 — Rédiger une fiche de veille <span>★★★ difficile</span></div><div class="c">
+<p>À partir des informations suivantes, rédige une fiche de veille complète (modèle du §6.4) :</p>
+<p><i>« IPv4 n'a plus d'adresses disponibles dans plusieurs régions du monde. IPv6 utilise des adresses de 128 bits au lieu de 32 bits, ce qui donne un nombre d'adresses quasi illimité. Les grands opérateurs et les fournisseurs de contenu (Google, Facebook…) le supportent déjà. Au Maroc, l'ANRT encourage la transition vers IPv6. »</i></p></div></div>
+<!-- ============ CHAPITRE 7 ============ -->
+<section class="chead2" id="ch7"><div class="ch-side" style="background:linear-gradient(180deg,#1B2A4A,#0F766E)"><span class="lbl">CHAPITRE</span><span class="num">07</span></div><div class="ch-body">
+<h1>Diffuser sa veille</h1>
+<div class="lead">Une veille qui n'est pas partagée ne sert qu'à une seule personne.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Choisir le bon format selon le public</li>
+<li>Rédiger une newsletter de veille courte et efficace</li>
+<li>Construire une revue de presse</li>
+<li>Présenter une nouveauté à l'oral avec la méthode « Pitch en 5 temps »</li></ul></div>
+<div class="quote">« Le bon message, à la bonne personne, au bon moment. »</div></div></section>
+<h2><span class="n">7.1</span>Adapter le message à son public</h2>
+<p>On ne parle pas de la même façon à un collègue technicien et à un directeur. Avant de diffuser, pose-toi toujours la question : <span class="k kg">« Qui va lire ? »</span></p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 190">
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="155" rx="14" stroke="#2F6FA8" width="195" x="10" y="20"></rect>
+<circle cx="107" cy="55" fill="#2F6FA8" r="22"></circle><text fill="#fff" font-size="13" x="107" y="60">🔧</text>
+<text fill="#2F6FA8" font-size="12.5" font-weight="700" x="107" y="98">Technicien</text>
+<text fill="#333" font-size="10" x="107" y="118">Veut : détails techniques,</text><text fill="#333" font-size="10" x="107" y="132">commandes, configs</text>
+<text fill="#555" font-size="9.5" font-style="italic" x="107" y="155">Format : fiche technique</text>
+<rect fill="#E6F4F1" height="155" rx="14" stroke="#0F766E" width="195" x="222" y="20"></rect>
+<circle cx="320" cy="55" fill="#0F766E" r="22"></circle><text fill="#fff" font-size="13" x="320" y="60">👥</text>
+<text fill="#0F766E" font-size="12.5" font-weight="700" x="320" y="98">Chef d'équipe</text>
+<text fill="#333" font-size="10" x="320" y="118">Veut : impact sur le travail,</text><text fill="#333" font-size="10" x="320" y="132">délais, actions à mener</text>
+<text fill="#555" font-size="9.5" font-style="italic" x="320" y="155">Format : newsletter</text>
+<rect fill="#FBF4E4" height="155" rx="14" stroke="#B8913A" width="195" x="434" y="20"></rect>
+<circle cx="532" cy="55" fill="#B8913A" r="22"></circle><text fill="#fff" font-size="13" x="532" y="60">💼</text>
+<text fill="#8A6A22" font-size="12.5" font-weight="700" x="532" y="98">Direction</text>
+<text fill="#333" font-size="10" x="532" y="118">Veut : coûts, risques,</text><text fill="#333" font-size="10" x="532" y="132">opportunités, décision</text>
+<text fill="#555" font-size="9.5" font-style="italic" x="532" y="155">Format : note de synthèse</text>
+</g>
+</svg>
+<figcaption>Figure 12 — Un même sujet, trois publics, trois messages</figcaption>
+</figure>
+<h2><span class="n">7.2</span>Les formats de diffusion</h2>
+<div class="tscroll"><table>
+<tr><th style="width:20%">Format</th><th>Description</th><th style="width:16%">Fréquence</th><th style="width:22%">Idéal pour…</th></tr>
+<tr><td><b>Newsletter</b></td><td>E-mail court avec 3 à 5 infos et des liens</td><td>Hebdomadaire</td><td>Informer toute l'équipe</td></tr>
+<tr><td><b>Revue de presse</b></td><td>Sélection d'articles sur un thème, avec un résumé de chacun</td><td>Mensuelle</td><td>Faire le point sur un sujet</td></tr>
+<tr><td><b>Note de synthèse</b></td><td>1 page : contexte, analyse, recommandation</td><td>Ponctuelle</td><td>Aider la direction à décider</td></tr>
+<tr><td><b>Alerte flash</b></td><td>Message très court et urgent</td><td>Immédiate</td><td>Faille critique, panne majeure</td></tr>
+<tr><td><b>Exposé oral</b></td><td>Présentation de 5-10 min avec diaporama</td><td>Ponctuelle</td><td>Réunion, formation</td></tr>
+<tr><td><b>Espace partagé</b></td><td>Page Notion, Teams, SharePoint, wiki</td><td>Continue</td><td>Base de connaissances de l'équipe</td></tr>
+</table></div>
+<h2><span class="n">7.3</span>Exemple de newsletter de veille</h2>
+<div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;break-inside:avoid;margin:12px 0">
+<div style="background:linear-gradient(90deg,#1B2A4A,#0F766E);color:#fff;padding:12px 18px"><div style="font-family:Lora;font-size:14pt;font-weight:700">📡 La Veille Réseau — n° 12</div><div style="font-size:9pt;color:#D9BD7A">Semaine du 9 au 13 novembre 2026 · Équipe Infrastructure</div></div>
+<div style="padding:10px 18px;font-size:9.6pt">
+<p style="margin:4px 0"><span class="k kr">🔴 URGENT</span> <b>Faille critique sur des pare-feu (VPN SSL)</b> — Mise à jour disponible. <i>Action : patcher nos 3 pare-feu avant vendredi.</i> → Source : maCERT</p>
+<p style="margin:6px 0"><span class="k kb">📶 WI-FI</span> <b>Wi-Fi 7 : les premiers retours terrain</b> — Débits réels mesurés autour de 2 à 3 Gbit/s en conditions idéales. → Source : test d'un média spécialisé</p>
+<p style="margin:6px 0"><span class="k kt">🧠 SDN</span> <b>Nouvelle version d'OpenDaylight</b> — Améliorations de stabilité. À tester au labo. → Source : GitHub du projet</p>
+<p style="margin:6px 0"><span class="k kg">💡 ASTUCE</span> <b>La commande de la semaine :</b> <code>show ip interface brief</code> pour voir l'état de toutes les interfaces d'un coup.</p>
+<p style="margin:8px 0 2px;font-size:8.5pt;color:var(--muted)">Lecture : 2 minutes · Une question ? Réponds à cet e-mail.</p>
+</div></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : la règle des 3 C</div>
+<p>Une bonne newsletter est <b>Courte</b> (lisible en 2 minutes), <b>Claire</b> (un titre = une idée) et <b>Concrète</b> (chaque info dit ce qu'il faut faire). Ajoute toujours la <b>source</b> et une <b>action</b>.</p></div>
+<h2><span class="n">7.4</span>Présenter à l'oral : le pitch en 5 temps</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 120">
+<g font-size="10.5" text-anchor="middle">
+<path d="M5 20 L118 20 L138 60 L118 100 L5 100 Z" fill="#2F6FA8"></path><text fill="#fff" font-weight="700" x="65" y="55">1. ACCROCHE</text><text fill="#D6E6F5" font-size="9.5" x="65" y="72">question, chiffre</text>
+<path d="M130 20 L243 20 L263 60 L243 100 L130 100 L150 60 Z" fill="#0F766E"></path><text fill="#fff" font-weight="700" x="198" y="55">2. CONTEXTE</text><text fill="#D8F0EA" font-size="9.5" x="198" y="72">c'est quoi ?</text>
+<path d="M255 20 L368 20 L388 60 L368 100 L255 100 L275 60 Z" fill="#5B4B8A"></path><text fill="#fff" font-weight="700" x="323" y="55">3. EXPLICATION</text><text fill="#E2DCF2" font-size="9.5" x="323" y="72">comment ça marche</text>
+<path d="M380 20 L493 20 L513 60 L493 100 L380 100 L400 60 Z" fill="#B8913A"></path><text fill="#fff" font-weight="700" x="448" y="55">4. IMPACT</text><text fill="#FBF0D6" font-size="9.5" x="448" y="72">pour nous</text>
+<path d="M505 20 L635 20 L635 100 L505 100 L525 60 Z" fill="#A84A62"></path><text fill="#fff" font-weight="700" x="575" y="55">5. CONCLUSION</text><text fill="#F8DDE4" font-size="9.5" x="575" y="72">action proposée</text>
+</g>
+</svg>
+<figcaption>Figure 13 — Le pitch en 5 temps pour présenter une nouveauté</figcaption>
+</figure>
+<div class="box tip"><div class="t"><i>✓</i>Astuces pour l'oral</div>
+<p>• <b>1 idée par diapositive</b>, peu de texte, un schéma vaut mieux qu'un paragraphe.<br/>
+• Prévois <b>1 minute par diapo</b> environ.<br/>
+• Explique chaque sigle la première fois (« MLO, c'est-à-dire Multi-Link Operation »).<br/>
+• Termine toujours par une <b>action concrète</b> et ouvre aux questions.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kg">Public cible</span><span class="k kt">Newsletter</span><span class="k kt">Revue de presse</span><span class="k kb">Note de synthèse</span><span class="k kr">Alerte flash</span><span class="k kv">Pitch en 5 temps</span><span class="k kv">Règle des 3 C</span>
+</div>
+<h3>Exercices — Chapitre 7</h3>
+<div class="exo"><div class="h">Exercice 7.1 — Quel format ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Une faille critique touche les routeurs de l'entreprise.</li><li>Le directeur doit choisir entre deux offres de pare-feu.</li><li>Tu veux partager chaque semaine les nouveautés avec ton équipe.</li><li>Tu dois présenter le Wi-Fi 7 en réunion pendant 5 minutes.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 7.2 — Rédiger une newsletter <span>★★ moyen</span></div><div class="c">
+<p>Rédige une newsletter de veille (3 informations) sur le thème de ton choix parmi : <i>sécurité Wi-Fi, IPv6, SDN</i>. Respecte la règle des 3 C, et indique pour chaque info : un titre, une source, une action.</p></div></div>
+<!-- ============ CHAPITRE 8 ============ -->
+<section class="chead2" id="ch8"><div class="ch-side" style="background:linear-gradient(180deg,#7E3448,#A84A62)"><span class="lbl">CHAPITRE</span><span class="num">08</span></div><div class="ch-body">
+<h1>Éthique et cadre légal</h1>
+<div class="lead">Faire de la veille, oui. Mais en respectant la loi et les autres.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Respecter le droit d'auteur et citer ses sources</li>
+<li>Connaître les règles sur les données personnelles (loi 09-08, RGPD)</li>
+<li>Distinguer veille légale et espionnage</li>
+<li>Adopter une charte de bonne conduite</li></ul></div>
+<div class="quote">« Tout ce qui est accessible n'est pas forcément permis. »</div></div></section>
+<h2><span class="n">8.1</span>Le droit d'auteur</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Le <span class="k kb">droit d'auteur</span> protège les œuvres (articles, images, vidéos, logiciels…). L'auteur décide qui peut les copier ou les diffuser. Au Maroc, il est encadré par la <span class="k kg">loi n° 2-00</span> relative aux droits d'auteur et droits voisins.</p></div>
+<div class="tscroll"><table>
+<tr><th>✔ Autorisé</th><th>✘ Interdit</th></tr>
+<tr><td>Citer une <b>courte</b> phrase entre guillemets avec le nom de la source</td><td>Copier-coller un article entier dans sa newsletter</td></tr>
+<tr><td>Résumer un article <b>avec ses propres mots</b> + lien vers l'original</td><td>Présenter le travail d'un autre comme le sien (<span class="k kr">plagiat</span>)</td></tr>
+<tr><td>Partager le <b>lien</b> d'un article</td><td>Diffuser un PDF payant ou une formation piratée</td></tr>
+<tr><td>Utiliser des images sous licence libre (Creative Commons) en respectant la licence</td><td>Prendre n'importe quelle image Google pour son diaporama</td></tr>
+</table></div>
+<h3>Comment citer une source ?</h3>
+<p>Une citation complète contient : <b>Auteur (ou organisme)</b> · <b>Titre</b> · <b>Site / éditeur</b> · <b>Date</b> · <b>Lien</b>.</p>
+<p style="background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:9.5pt">Exemple : ANSSI, « Recommandations relatives au déploiement de réseaux Wi-Fi », ssi.gouv.fr, consulté le 10/11/2026.</p>
+<h2><span class="n">8.2</span>Les données personnelles</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Une <span class="k kb">donnée personnelle</span> est toute information qui permet d'identifier une personne : nom, e-mail, numéro de téléphone, adresse IP, photo, plaque d'immatriculation…</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:22%"></th><th>Maroc</th><th>Union européenne</th></tr>
+<tr><td><b>Texte</b></td><td><span class="k kg">Loi 09-08</span> (2009)</td><td><span class="k kb">RGPD</span> (2018)</td></tr>
+<tr><td><b>Autorité de contrôle</b></td><td><b>CNDP</b> (Commission Nationale de contrôle de la protection des Données à caractère Personnel)</td><td>CNIL (France) et autorités de chaque pays</td></tr>
+<tr><td><b>Principe clé</b></td><td colspan="2">Collecter seulement les données nécessaires, pour un but précis, avec l'information (et souvent le consentement) des personnes, et les protéger.</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Dans ta veille, ne collecte <b>pas</b> de données personnelles sans raison (listes d'e-mails, profils de personnes, etc.). Et si tu travailles sur des sujets de cybersécurité, ne diffuse jamais d'informations personnelles issues d'une fuite de données.</p></div>
+<h2><span class="n">8.3</span>Veille légale ou espionnage ?</h2>
+<p>La veille utilise uniquement des <span class="k kt">informations ouvertes</span> (publiques). Dès qu'on cherche à obtenir des informations cachées par la ruse ou par effraction, on bascule dans l'<span class="k kr">espionnage</span>, ce qui est illégal.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 150">
+<defs><lineargradient id="gr" x1="0" x2="1"><stop offset="0" stop-color="#0F766E"></stop><stop offset=".5" stop-color="#B8913A"></stop><stop offset="1" stop-color="#A84A62"></stop></lineargradient></defs>
+<rect fill="url(#gr)" height="22" rx="11" width="600" x="20" y="55"></rect>
+<g font-size="10" text-anchor="middle">
+<text fill="#0F766E" font-size="12" font-weight="700" x="110" y="40">✔ LÉGAL — Information blanche</text>
+<text fill="#8A6A22" font-size="12" font-weight="700" x="320" y="40">⚠ Information grise</text>
+<text fill="#A84A62" font-size="12" font-weight="700" x="530" y="40">✘ ILLÉGAL — Information noire</text>
+<text fill="#333" x="110" y="98">Sites web, presse, normes,</text><text fill="#333" x="110" y="112">salons, rapports publics</text>
+<text fill="#333" x="320" y="98">Accessible mais discrète :</text><text fill="#333" x="320" y="112">discussions de salon, réseau pro</text>
+<text fill="#333" x="530" y="98">Piratage, vol de documents,</text><text fill="#333" x="530" y="112">fausse identité, corruption</text>
+</g>
+</svg>
+<figcaption>Figure 14 — Information blanche, grise et noire</figcaption>
+</figure>
+<div class="box keep"><div class="t"><i>★</i>À retenir — loi marocaine</div>
+<p>Au Maroc, la <b>loi n° 07-03</b> (intégrée au Code pénal) punit l'accès frauduleux aux systèmes informatiques. Tester ou « explorer » le réseau d'une entreprise <b>sans autorisation écrite</b>, même « pour voir », est un délit.</p></div>
+<h2><span class="n">8.4</span>La charte du bon veilleur</h2>
+<div class="grid2">
+<div class="card"><p>✅ Je cite toujours mes sources.<br/>✅ Je reformule avec mes mots.<br/>✅ Je vérifie avant de partager.<br/>✅ Je respecte la confidentialité de l'entreprise.</p></div>
+<div class="card"><p>✅ Je n'utilise que des informations ouvertes.<br/>✅ Je ne collecte pas de données personnelles inutiles.<br/>✅ Je ne pirate pas, je ne triche pas.<br/>✅ Je signale une faille au lieu de l'exploiter.</p></div>
+</div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Droit d'auteur</span><span class="k kg">Loi 2-00</span><span class="k kr">Plagiat</span><span class="k kb">Donnée personnelle</span><span class="k kg">Loi 09-08</span><span class="k kg">CNDP</span><span class="k kb">RGPD</span><span class="k kt">Information ouverte</span><span class="k kr">Espionnage</span><span class="k kg">Loi 07-03</span>
+</div>
+<h3>Exercices — Chapitre 8</h3>
+<div class="exo"><div class="h">Exercice 8.1 — Autorisé ou interdit ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Partager le lien d'un article de LeMagIT dans la newsletter.</li><li>Copier un article entier d'un blog et le publier sous son nom sur LinkedIn.</li><li>Télécharger un livre CCNA payant sur un site pirate et l'envoyer aux collègues.</li><li>Citer une phrase d'un guide de l'ANSSI entre guillemets avec la source.</li><li>Scanner le réseau Wi-Fi d'une entreprise voisine pour « tester sa sécurité ».</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 8.2 — Blanche, grise ou noire ? <span>★★ moyen</span></div><div class="c">
+<ol type="a"><li>La plaquette commerciale d'un concurrent distribuée au GITEX.</li><li>Une conversation entendue entre deux ingénieurs d'un concurrent lors d'un salon.</li><li>Le rapport annuel publié par un opérateur télécom.</li><li>Se faire passer pour un client afin d'obtenir le plan réseau d'un concurrent.</li></ol></div></div>
+<!-- ============ CHAPITRE 9 ============ -->
+<section class="chead2" id="ch9"><div class="ch-side" style="background:linear-gradient(180deg,#B8913A,#1B2A4A)"><span class="lbl">CHAPITRE</span><span class="num">09</span></div><div class="ch-body">
+<h1>Mise en pratique : le projet de veille</h1>
+<div class="lead">Maintenant, c'est à toi : tu deviens le veilleur officiel d'un sujet pendant 6 semaines.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Mettre en œuvre tout le cycle de veille sur un vrai sujet</li>
+<li>Produire un dossier de veille professionnel</li>
+<li>Présenter ses résultats à l'oral</li>
+<li>Connaître les critères d'évaluation</li></ul></div>
+<div class="quote">« On n'apprend pas la veille en la lisant, on l'apprend en la faisant. »</div></div></section>
+<h2><span class="n">9.1</span>Choisir son sujet</h2>
+<p>Chaque stagiaire (ou binôme) choisit <b>un sujet</b> dans la liste ci-dessous, en lien avec la filière Infrastructure Digitale :</p>
+<div class="grid3">
+<div class="card"><h4 style="color:var(--sky)">📶 Sans fil</h4><p>Wi-Fi 7 · Wi-Fi 6E · 5G privée · LoRaWAN et IoT</p></div>
+<div class="card"><h4 style="color:var(--teal)">🌐 Réseau</h4><p>IPv6 au Maroc · SD-WAN · SDN / OpenDaylight · Fibre optique (FTTH)</p></div>
+<div class="card"><h4 style="color:var(--rose)">🔐 Sécurité</h4><p>Zero Trust · SASE · Ransomwares · Failles des équipements réseau</p></div>
+<div class="card"><h4 style="color:var(--violet)">☁️ Cloud &amp; DC</h4><p>Cloud souverain · Virtualisation · Data centers au Maroc</p></div>
+<div class="card"><h4 style="color:#8A6A22">🤖 IA &amp; automatisation</h4><p>IA pour les réseaux (AIOps) · Automatisation (Ansible, Python)</p></div>
+<div class="card"><h4 style="color:var(--navy)">🌱 Green IT</h4><p>Consommation énergétique des réseaux · Recyclage des équipements</p></div>
+</div>
+<h2><span class="n">9.2</span>Planning du projet (6 semaines)</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 230">
+<g fill="#555" font-size="10" text-anchor="middle">
+<text x="250" y="18">S1</text><text x="315" y="18">S2</text><text x="380" y="18">S3</text><text x="445" y="18">S4</text><text x="510" y="18">S5</text><text x="575" y="18">S6</text></g>
+<g stroke="#E3DED3"><line x1="218" x2="218" y1="25" y2="220"></line><line x1="283" x2="283" y1="25" y2="220"></line><line x1="348" x2="348" y1="25" y2="220"></line><line x1="413" x2="413" y1="25" y2="220"></line><line x1="478" x2="478" y1="25" y2="220"></line><line x1="543" x2="543" y1="25" y2="220"></line><line x1="608" x2="608" y1="25" y2="220"></line></g>
+<g fill="#24292F" font-size="10.5">
+<text x="10" y="47">Choix du sujet + plan de veille</text>
+<text x="10" y="79">Mise en place des outils (RSS, alertes)</text>
+<text x="10" y="111">Collecte et tri hebdomadaire</text>
+<text x="10" y="143">Rédaction des fiches de veille</text>
+<text x="10" y="175">Newsletter / dossier final</text>
+<text x="10" y="207">Soutenance orale</text>
+</g>
+<rect fill="#2F6FA8" height="20" rx="6" width="61" x="220" y="33"></rect>
+<rect fill="#0F766E" height="20" rx="6" width="61" x="285" y="65"></rect>
+<rect fill="#5B4B8A" height="20" rx="6" width="256" x="285" y="97"></rect>
+<rect fill="#B8913A" height="20" rx="6" width="191" x="350" y="129"></rect>
+<rect fill="#A84A62" height="20" rx="6" width="126" x="480" y="161"></rect>
+<rect fill="#1B2A4A" height="20" rx="6" width="61" x="545" y="193"></rect>
+</svg>
+<figcaption>Figure 15 — Planning type du projet de veille</figcaption>
+</figure>
+<h2><span class="n">9.3</span>Les livrables attendus</h2>
+<div class="tscroll"><table>
+<tr><th style="width:5%">#</th><th style="width:28%">Livrable</th><th>Contenu</th><th style="width:14%">Semaine</th></tr>
+<tr><td>1</td><td><b>Plan de veille</b></td><td>Sujet, 2-3 axes, mots-clés FR/EN, sources, outils, fréquence</td><td>S1</td></tr>
+<tr><td>2</td><td><b>Capture des outils</b></td><td>Copie d'écran de l'agrégateur RSS organisé + alertes créées</td><td>S2</td></tr>
+<tr><td>3</td><td><b>4 fiches de veille</b></td><td>Modèle du chapitre 6, avec note CRAAP</td><td>S3 à S5</td></tr>
+<tr><td>4</td><td><b>Newsletter finale</b></td><td>1 page, règle des 3 C, sources citées</td><td>S5</td></tr>
+<tr><td>5</td><td><b>Soutenance</b></td><td>5 minutes de présentation + 3 minutes de questions (pitch en 5 temps)</td><td>S6</td></tr>
+</table></div>
+<h2><span class="n">9.4</span>Grille d'évaluation (sur 20)</h2>
+<div class="tscroll"><table>
+<tr><th>Critère</th><th style="width:44%">Ce qui est attendu</th><th style="width:10%">Points</th></tr>
+<tr><td><b>Plan de veille</b></td><td>Axes précis, mots-clés pertinents, sources variées</td><td>3</td></tr>
+<tr><td><b>Qualité des sources</b></td><td>Au moins 1 source primaire, croisement, CRAAP appliqué</td><td>4</td></tr>
+<tr><td><b>Fiches de veille</b></td><td>Reformulation, synthèse claire, impact et action</td><td>5</td></tr>
+<tr><td><b>Newsletter</b></td><td>Courte, claire, concrète, sources citées</td><td>3</td></tr>
+<tr><td><b>Soutenance orale</b></td><td>Structure en 5 temps, clarté, respect du temps, réponses</td><td>4</td></tr>
+<tr><td><b>Éthique</b></td><td>Pas de plagiat, sources citées correctement</td><td>1</td></tr>
+<tr style="font-weight:700"><td colspan="2" style="text-align:right">TOTAL</td><td>20</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce pour réussir le projet</div>
+<p>Ne fais pas tout la dernière semaine ! Le jury voit tout de suite une veille faite en une nuit : pas de suivi dans le temps, sources toutes de la même date. <b>20 minutes par jour</b> pendant 6 semaines valent mieux que 10 heures la veille de la soutenance.</p></div>
+<!-- ============ QCM ============ -->
+<h2 class="" id="qcm"><span class="n">★</span>QCM final de révision</h2>
+<p class="section-intro">20 questions pour vérifier tes connaissances. Une seule bonne réponse par question. Corrigé à la fin du document.</p>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:5%">#</th><th>Question</th><th style="width:46%">Réponses</th></tr>
+<tr><td>1</td><td>La veille technologique est une activité…</td><td>a) ponctuelle · b) continue et organisée · c) réservée aux chercheurs</td></tr>
+<tr><td>2</td><td>Surveiller les lois et normes obligatoires, c'est la veille…</td><td>a) concurrentielle · b) commerciale · c) réglementaire</td></tr>
+<tr><td>3</td><td>La première étape du cycle de veille est…</td><td>a) collecter · b) cibler · c) diffuser</td></tr>
+<tr><td>4</td><td>Recevoir une alerte Google par e-mail, c'est du…</td><td>a) push · b) pull · c) plagiat</td></tr>
+<tr><td>5</td><td>L'infobésité, c'est…</td><td>a) un virus · b) une surcharge d'informations · c) un outil RSS</td></tr>
+<tr><td>6</td><td>Une RFC est publiée par…</td><td>a) l'IETF · b) Cisco · c) Reddit</td></tr>
+<tr><td>7</td><td>Une source primaire est…</td><td>a) la plus lue · b) l'origine de l'information · c) un forum</td></tr>
+<tr><td>8</td><td>Le maCERT est…</td><td>a) un constructeur · b) le centre de veille et d'alerte cybersécurité marocain · c) un antivirus</td></tr>
+<tr><td>9</td><td>Feedly est…</td><td>a) un agrégateur RSS · b) un pare-feu · c) un moteur de recherche</td></tr>
+<tr><td>10</td><td>L'opérateur pour chercher dans un seul site est…</td><td>a) filetype: · b) intitle: · c) site:</td></tr>
+<tr><td>11</td><td>« -prix » dans une recherche Google permet de…</td><td>a) trier par prix · b) exclure le mot « prix » · c) chercher les promos</td></tr>
+<tr><td>12</td><td>Dans CRAAP, le « P » (Purpose) vérifie…</td><td>a) l'objectif de l'auteur · b) le prix · c) la page</td></tr>
+<tr><td>13</td><td>Un article sans auteur, sans date et avec un code promo est…</td><td>a) fiable · b) officiel · c) douteux</td></tr>
+<tr><td>14</td><td>La règle des 3 sources signifie…</td><td>a) confirmer une info par 3 sources indépendantes · b) lire 3 articles par jour · c) avoir 3 outils</td></tr>
+<tr><td>15</td><td>Dans le cycle de la hype, après le pic des attentes vient…</td><td>a) le plateau · b) le gouffre des désillusions · c) le déclencheur</td></tr>
+<tr><td>16</td><td>Un article peut avoir plusieurs…</td><td>a) tags · b) dossiers · c) auteurs anonymes</td></tr>
+<tr><td>17</td><td>Une fiche de veille doit…</td><td>a) copier l'article · b) reformuler avec ses mots · c) faire 10 pages</td></tr>
+<tr><td>18</td><td>Pour une faille critique, on diffuse…</td><td>a) une alerte flash · b) une revue de presse mensuelle · c) rien</td></tr>
+<tr><td>19</td><td>Au Maroc, les données personnelles sont protégées par…</td><td>a) la loi 09-08 · b) la loi 2-00 · c) le RGPD uniquement</td></tr>
+<tr><td>20</td><td>Se faire passer pour un client pour obtenir le plan réseau d'un concurrent, c'est…</td><td>a) de la veille · b) de l'information grise · c) de l'espionnage illégal</td></tr>
+</table></div>
+<!-- ============ GLOSSAIRE ============ -->
+<h2 class="" id="glossaire"><span class="n">A–Z</span>Glossaire</h2>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:24%">Terme</th><th>Définition simple</th></tr>
+<tr><td><b>Agrégateur</b></td><td>Outil qui rassemble les flux RSS de plusieurs sites au même endroit.</td></tr>
+<tr><td><b>Alerte</b></td><td>Notification automatique reçue quand un mot-clé apparaît en ligne.</td></tr>
+<tr><td><b>Axe de surveillance</b></td><td>Sujet précis que l'on décide de suivre dans sa veille.</td></tr>
+<tr><td><b>CERT</b></td><td>Computer Emergency Response Team : équipe qui publie des alertes de sécurité (maCERT, CERT-FR).</td></tr>
+<tr><td><b>CNDP</b></td><td>Autorité marocaine de protection des données personnelles.</td></tr>
+<tr><td><b>CRAAP</b></td><td>Méthode d'évaluation d'une source : Actualité, Pertinence, Autorité, Exactitude, Objectif.</td></tr>
+<tr><td><b>CVE</b></td><td>Common Vulnerabilities and Exposures : identifiant unique d'une faille (ex. : CVE-2024-3400).</td></tr>
+<tr><td><b>CVSS</b></td><td>Score de gravité d'une faille, de 0 (faible) à 10 (critique).</td></tr>
+<tr><td><b>Fiche de veille</b></td><td>Document d'une page qui résume une information et son impact.</td></tr>
+<tr><td><b>Flux RSS</b></td><td>Fichier qui liste automatiquement les nouveaux articles d'un site.</td></tr>
+<tr><td><b>Hallucination (IA)</b></td><td>Réponse inventée par une IA qui semble vraie mais est fausse.</td></tr>
+<tr><td><b>Hype</b></td><td>Engouement exagéré pour une nouveauté.</td></tr>
+<tr><td><b>IETF</b></td><td>Organisme qui publie les RFC, les standards techniques d'Internet.</td></tr>
+<tr><td><b>IEEE</b></td><td>Organisme qui publie notamment les normes Ethernet (802.3) et Wi-Fi (802.11).</td></tr>
+<tr><td><b>Infobésité</b></td><td>Surcharge d'informations qui empêche de les traiter.</td></tr>
+<tr><td><b>Intelligence économique</b></td><td>Ensemble des activités de veille et de protection de l'information d'une entreprise.</td></tr>
+<tr><td><b>Patch (correctif)</b></td><td>Mise à jour qui corrige une faille ou un bug.</td></tr>
+<tr><td><b>Pull / Push</b></td><td>Pull : je cherche l'information. Push : l'information vient à moi.</td></tr>
+<tr><td><b>QQOQCP</b></td><td>Qui, Quoi, Où, Quand, Comment, Pourquoi : méthode de questionnement.</td></tr>
+<tr><td><b>RFC</b></td><td>Request For Comments : document qui décrit un standard d'Internet.</td></tr>
+<tr><td><b>Source primaire</b></td><td>L'origine d'une information.</td></tr>
+<tr><td><b>Source secondaire</b></td><td>Document qui reprend et explique une information d'une autre source.</td></tr>
+<tr><td><b>Tag</b></td><td>Étiquette (mot-clé) attachée à un document pour le retrouver.</td></tr>
+<tr><td><b>Zero-day</b></td><td>Faille exploitée par des pirates avant qu'un correctif n'existe.</td></tr>
+</table></div>
+<!-- ============ CORRIGÉS ============ -->
+<section class="chead2" id="corriges"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#1B2A4A)"><span class="lbl">ANNEXE</span><span class="num">✓</span></div><div class="ch-body">
+<h1>Corrigés des exercices</h1>
+<div class="lead">Essaie toujours de faire l'exercice seul avant de lire le corrigé. C'est en cherchant qu'on apprend.</div>
+<div class="obj"><h4>Contenu</h4>
+<ul><li>Corrigés des exercices des chapitres 1 à 8</li><li>Corrigé du QCM final</li></ul></div>
+<div class="quote">« L'erreur n'est pas un échec : c'est une information. Analyse-la comme une source de veille ! »</div></div></section>
+<h2><span class="n">C1</span>Corrigés — Chapitre 1</h2>
+<details class="cor"><summary>Corrigé 1.1</summary><div class="c"><p>« La veille technologique est une activité <b>continue</b> et organisée qui consiste à rechercher, <b>collecter</b>, <b>analyser</b> et <b>partager</b> les informations sur les évolutions techniques, afin d'<b>anticiper</b> les changements. »</p></div></details>
+<details class="cor"><summary>Corrigé 1.2</summary><div class="c"><p>a) Technologique · b) Concurrentielle · c) Réglementaire · d) Commerciale · e) Technologique (fin de vie d'un produit = info technique qui impose de remplacer le matériel).</p></div></details>
+<details class="cor"><summary>Corrigé 1.3</summary><div class="c"><p>a) <b>Donnée</b> (brute, sans contexte) · b) <b>Information</b> (donnée + contexte) · c) <b>Connaissance</b> (analyse + décision) · d) <b>Donnée</b> · e) <b>Connaissance</b> (on sait quoi faire).</p></div></details>
+<h2><span class="n">C2</span>Corrigés — Chapitre 2</h2>
+<details class="cor"><summary>Corrigé 2.1</summary><div class="c"><p>Ordre : <b>b</b> (cibler) → <b>d</b> (collecter) → <b>e</b> (analyser) → <b>a</b> (diffuser) → <b>c</b> (exploiter).</p></div></details>
+<details class="cor"><summary>Corrigé 2.2</summary><div class="c"><p>a) Pull · b) Push · c) Push · d) Pull · e) Push.</p></div></details>
+<details class="cor"><summary>Corrigé 2.3 (exemple de réponse)</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0">
+<tr><th>Axe</th><th>Mots-clés</th><th>Sources</th><th>Outil</th><th>Fréquence</th></tr>
+<tr><td><b>VPN et accès distant</b></td><td>VPN entreprise, accès distant sécurisé, ZTNA</td><td>ANSSI, blogs Fortinet / Cisco</td><td>Feedly</td><td>1×/semaine</td></tr>
+<tr><td><b>Failles des solutions VPN</b></td><td>vulnérabilité VPN SSL, CVE VPN, patch</td><td>maCERT, NVD</td><td>Alertes e-mail + RSS</td><td>Chaque jour</td></tr>
+</table></div>
+<p>Toute réponse cohérente (axes précis, mots-clés liés, sources fiables, fréquence adaptée à l'urgence) est acceptée. Remarque : l'axe « failles » demande une fréquence <b>quotidienne</b>, car la sécurité est urgente.</p></div></details>
+<details class="cor"><summary>Corrigé 2.4 (exemples)</summary><div class="c"><p>a) « Internet » → « L'évolution de la fibre optique (FTTH) chez les particuliers au Maroc ».<br/>b) « Les pirates » → « Les attaques par ransomware visant les PME et les moyens de s'en protéger ».<br/>c) « Les serveurs » → « Les nouveautés de Windows Server pour l'administration réseau ».</p></div></details>
+<h2><span class="n">C3</span>Corrigés — Chapitre 3</h2>
+<details class="cor"><summary>Corrigé 3.1</summary><div class="c"><p>a) Primaire (la norme elle-même) · b) Secondaire · c) Primaire (le constructeur parle de son produit) · d) Secondaire · e) Primaire pour <b>son expérience personnelle</b> (c'est un témoignage direct), mais à prendre avec prudence.</p></div></details>
+<details class="cor"><summary>Corrigé 3.2</summary><div class="c"><p><b>Officielles :</b> IEEE, NVD, ANRT · <b>Constructeurs :</b> blog Aruba, Juniper Networks · <b>Communautés :</b> Cisco Community, GitHub · <b>Médias :</b> 01net, podcast tech.</p></div></details>
+<details class="cor"><summary>Corrigé 3.3</summary><div class="c"><p>Ahmed doit : (1) remarquer le lien d'achat → l'objectif est de <b>vendre</b>, l'article n'est pas neutre ; (2) chercher la <b>fiche technique officielle</b> du constructeur (source primaire) ; (3) chercher des <b>tests indépendants</b> (médias, communautés) ; (4) vérifier la date et l'auteur ; (5) ne partager qu'après confirmation par plusieurs sources (règle des 3 sources).</p></div></details>
+<h2><span class="n">C4</span>Corrigés — Chapitre 4</h2>
+<details class="cor"><summary>Corrigé 4.1</summary><div class="c"><p>a) <code>configuration OSPF filetype:pdf</code><br/>b) <code>"mot de passe" site:ssi.gouv.fr</code><br/>c) <code>"Wi-Fi 7" -smartphone</code><br/>d) <code>"réseau défini par logiciel" after:2025-01-01</code></p></div></details>
+<details class="cor"><summary>Corrigé 4.2</summary><div class="c"><p>a) Agrégateur RSS (Feedly, Inoreader) · b) Google Alerts (ou Talkwalker Alerts) · c) GitHub « Watch / Releases » du projet · d) Assistant IA ou DeepL pour résumer et traduire, puis vérifier les points clés dans l'article.</p></div></details>
+<details class="cor"><summary>Corrigé 4.3</summary><div class="c"><p>a) <b>Faux</b> : c'est justement l'inverse, l'agrégateur centralise tout · b) <b>Vrai</b> (hallucinations) · c) <b>Faux</b> : données confidentielles, interdit · d) <b>Vrai</b>.</p></div></details>
+<h2><span class="n">C5</span>Corrigés — Chapitre 5</h2>
+<details class="cor"><summary>Corrigé 5.1</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0"><tr><th>Critère</th><th>Note</th><th>Justification</th></tr>
+<tr><td>Actualité</td><td>0</td><td>Pas de date</td></tr>
+<tr><td>Pertinence</td><td>1</td><td>Parle de routeurs, mais sans contenu technique</td></tr>
+<tr><td>Autorité</td><td>0</td><td>Pas d'auteur, site inconnu</td></tr>
+<tr><td>Exactitude</td><td>0</td><td>Aucune source, affirmation exagérée</td></tr>
+<tr><td>Objectif</td><td>0</td><td>Code promo → but commercial</td></tr>
+<tr style="font-weight:700"><td>TOTAL</td><td>1/10</td><td>Source <span class="k kr">douteuse</span> : à écarter</td></tr></table></div></div></details>
+<details class="cor"><summary>Corrigé 5.2</summary><div class="c"><p><b>Qui ?</b> Publié par le maCERT ; concerne les administrateurs de certains pare-feu.<br/><b>Quoi ?</b> Une vulnérabilité critique permettant d'exécuter du code à distance.<br/><b>Où ?</b> Dans le VPN SSL de certains pare-feu.<br/><b>Quand ?</b> Alerte publiée le 3 mars ; à corriger au plus vite.<br/><b>Comment ?</b> Appliquer la mise à jour du constructeur.<br/><b>Pourquoi ?</b> Faille critique déjà exploitée par des attaquants.</p></div></details>
+<details class="cor"><summary>Corrigé 5.3</summary><div class="c"><p>a) ② Pic des attentes exagérées · b) ④ Pente de l'éclaircissement · c) ⑤ Plateau de productivité · d) ③ Gouffre des désillusions.</p></div></details>
+<h2><span class="n">C6</span>Corrigés — Chapitre 6</h2>
+<details class="cor"><summary>Corrigé 6.1 (exemples)</summary><div class="c"><p>a) <span class="k kt">#wifi</span> <span class="k kr">#sécurité</span> <span class="k kb">#anssi</span> · b) <span class="k kt">#sdn</span> <span class="k kb">#opendaylight</span> <span class="k kg">#nouvelle-version</span> · c) <span class="k kr">#faille</span> <span class="k kb">#cisco</span> <span class="k kg">#urgent</span></p></div></details>
+<details class="cor"><summary>Corrigé 6.2</summary><div class="c"><p>a) <code>2026-11-04_Guide-IPv6_ANSSI.pdf</code> · b) <code>2026-10-12_SD-WAN_LeMagIT.pdf</code></p></div></details>
+<details class="cor"><summary>Corrigé 6.3 (exemple)</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0">
+<tr><td style="width:24%"><b>Titre</b></td><td>La transition vers IPv6</td></tr>
+<tr><td><b>Sources</b></td><td>ANRT, RFC 8200 (IETF), site d'un opérateur</td></tr>
+<tr><td><b>Résumé</b></td><td>Les adresses IPv4 (32 bits) sont épuisées dans plusieurs régions. IPv6 utilise des adresses de 128 bits, ce qui offre un nombre presque illimité d'adresses. Les grands acteurs d'Internet le supportent déjà et l'ANRT encourage la transition au Maroc.</td></tr>
+<tr><td><b>Mots-clés</b></td><td><span class="k kb">#ipv6</span> <span class="k kt">#adressage</span> <span class="k kg">#maroc</span></td></tr>
+<tr><td><b>Impact</b></td><td>Les techniciens devront savoir configurer IPv6 (double pile IPv4/IPv6) sur les routeurs et les postes.</td></tr>
+<tr><td><b>Action</b></td><td>Réaliser un lab de double pile IPv4/IPv6 sur Packet Tracer.</td></tr>
+</table></div><p>Points vérifiés : résumé reformulé, sources citées, impact et action présents.</p></div></details>
+<h2><span class="n">C7</span>Corrigés — Chapitre 7</h2>
+<details class="cor"><summary>Corrigé 7.1</summary><div class="c"><p>a) Alerte flash · b) Note de synthèse · c) Newsletter hebdomadaire · d) Exposé oral (pitch en 5 temps).</p></div></details>
+<details class="cor"><summary>Corrigé 7.2 — Critères de correction</summary><div class="c"><p>✔ 3 informations, chacune avec un <b>titre</b> clair · ✔ une <b>source</b> fiable pour chaque info · ✔ une <b>action</b> concrète · ✔ lisible en 2 minutes · ✔ pas de copier-coller. Modèle : voir l'exemple du §7.3.</p></div></details>
+<h2><span class="n">C8</span>Corrigés — Chapitre 8</h2>
+<details class="cor"><summary>Corrigé 8.1</summary><div class="c"><p>a) Autorisé · b) <b>Interdit</b> (plagiat) · c) <b>Interdit</b> (piratage, droit d'auteur) · d) Autorisé (courte citation + source) · e) <b>Interdit</b> : accès à un système sans autorisation (loi 07-03).</p></div></details>
+<details class="cor"><summary>Corrigé 8.2</summary><div class="c"><p>a) Blanche · b) Grise · c) Blanche · d) <b>Noire</b> (fausse identité = illégal).</p></div></details>
+<h2><span class="n">Q</span>Corrigé du QCM final</h2>
+<div class="tscroll"><table style="text-align:center">
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+<tr><td>b</td><td>c</td><td>b</td><td>a</td><td>b</td><td>a</td><td>b</td><td>b</td><td>a</td><td>c</td></tr>
+<tr><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+<tr><td>b</td><td>a</td><td>c</td><td>a</td><td>b</td><td>a</td><td>b</td><td>a</td><td>a</td><td>c</td></tr>
+</table></div>
+<div class="grid3">
+<div class="card" style="border-color:#0F766E"><h4 style="color:var(--teal)">17 à 20</h4><p>Excellent ! Tu es prêt pour le projet.</p></div>
+<div class="card" style="border-color:#B8913A"><h4 style="color:#8A6A22">12 à 16</h4><p>Bien. Relis les chapitres où tu t'es trompé.</p></div>
+<div class="card" style="border-color:#A84A62"><h4 style="color:var(--rose)">Moins de 12</h4><p>Reprends les encadrés « À retenir » de chaque chapitre.</p></div>
+</div>
+<div style="margin-top:30px;background:linear-gradient(135deg,#1B2A4A,#0F4F5C);border-radius:14px;padding:22px 26px;color:#fff;break-inside:avoid">
+<div style="font-family:Lora;font-size:16pt;color:#D9BD7A;margin-bottom:6px">Le mot de la fin</div>
+<p style="color:#E4EAF3;margin:0">La veille n'est pas une matière qu'on termine : c'est une <b style="color:#fff">habitude professionnelle</b> qui t'accompagnera toute ta carrière. Commence petit — 3 sources, 1 agrégateur, 15 minutes par jour — et tu seras surpris de voir à quelle vitesse tu deviens la personne « qui sait » dans ton équipe.</p>
+</div>
+
+<p class="foot">Module Veille technologique · OFPPT Infrastructure Digitale · <a href="index.html#veille">Leçons, simulations et QCM</a> · <a href="docs/veille-technologique.pdf" download>Version PDF</a></p>
+</main>
+<a class="fab" href="#sommaire">☰ Sommaire</a>
+</body></html>
