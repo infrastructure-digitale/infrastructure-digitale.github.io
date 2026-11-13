@@ -484,7 +484,7 @@ body { padding-top: 0; margin: 0; }
 @media (max-width: 640px) {
   .tn-in { flex-direction: column; align-items: stretch; gap: 8px; padding-top: 8px; padding-bottom: 10px; }
   .tn-mods { margin-left: 0; }
-  .tn-mods { display: grid; grid-template-columns: 1fr 1fr 1fr; overflow: visible; }
+  .tn-mods { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; }
   .tn-mod { white-space: normal; padding: 8px 6px; font-size: .8rem; line-height: 1.2; }
 }
 
@@ -542,6 +542,28 @@ pre.hcfg span { display: inline; } pre.hcfg .okl { color: #7FE0B0; } pre.hcfg .k
 .trc { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 4px; font: 500 .85rem/1.5 var(--f-mono); }
 .trc li.ok { color: var(--ok); font-weight: 700; } .trc li.bad { color: var(--bad); font-weight: 700; }
 @media (max-width: 760px) { .st-grid { grid-template-columns: 1fr; } }
+
+.tm { background: #0E1620; border-radius: 12px; overflow: hidden; border: 1px solid #22303F; }
+.tm.powershell { background: #012456; border-color: #0B3A75; }
+.tm-log { max-height: 320px; overflow-y: auto; padding: 12px 14px 4px; font: 500 13px/1.55 var(--f-mono); color: #E6EEF1; }
+.tm-pr { color: #7FE0B0; white-space: nowrap; } .tm.powershell .tm-pr { color: #F2F2F2; } .tm.python .tm-pr { color: #F2C36B; }
+.tm-o { margin: 2px 0 8px; white-space: pre-wrap; color: #C8D3DA; font: inherit; }
+.tm-o.ok { color: #9FE0C0; } .tm-o.bad { color: #FFB3C0; }
+.tm-in { display: flex; align-items: center; gap: 8px; padding: 8px 10px 10px 14px; border-top: 1px solid rgba(255,255,255,.08); font: 500 13px var(--f-mono); }
+.tm-in input { flex: 1; min-width: 0; background: transparent; border: 0; color: #fff; font: inherit; min-height: 38px; padding: 0; outline: none; }
+.tm-in .btn { min-height: 38px; padding: 6px 14px; font-size: .85rem; }
+.tm-p { width: 140px; }
+.tm-goal { font-size: 1rem; }
+.tr-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px; }
+.tr-code { counter-reset: none; white-space: pre; overflow-x: auto; }
+.tr-code span { display: inline-block; min-width: 100%; padding: 1px 6px; border-radius: 4px; }
+.tr-code span i { font-style: normal; color: #6C7E88; display: inline-block; width: 1.8em; }
+.tr-code span.tr-on { background: rgba(217,189,122,.25); box-shadow: inset 3px 0 0 #D9BD7A; }
+.tr-out { min-height: 60px; white-space: pre-wrap; color: #9FE0C0; }
+.btn:disabled { opacity: .45; cursor: default; box-shadow: none; transform: none; }
+.tr-side { display: flex; flex-direction: column; gap: 10px; }
+table.tr-v { min-width: 0; } table.tr-v td { padding: 6px 10px; }
+@media (max-width: 760px) { .tr-grid { grid-template-columns: 1fr; } .tm-p { width: 90px; } }
 /* Petits écrans */
 @media (max-width: 560px) {
   body { font-size: 16px; }
@@ -3375,6 +3397,360 @@ THEMES.push(
   ] }
 );
 
+/* ---------- Module « Automatiser les tâches d'administration » (leçons 52 à 60) ---------- */
+const AUTO_PDF = 'docs/automatisation-administration.pdf';
+THEMES.push(
+{ id: 52, ch: 10, pdf: AUTO_PDF, web: 'automatisation.html#ch2', t: "Le terminal Bash : commandes et redirections", short: "Chemins, commandes, pipes, grep, permissions", sim: 'term',
+  term: { prompt: 'stagiaire@srv-web:~$', lang: 'bash', missions: [
+    { g: "Affiche le dossier dans lequel tu te trouves.", re: /^pwd$/, o: "/home/stagiaire", ex: "pwd" },
+    { g: "Liste le contenu du dossier avec les détails (droits, taille, date).", re: /^ls\s+-(l|la|al|lh|lah|alh)$/, o: "drwxr-xr-x 2 stagiaire stagiaire 4096 nov 13 09:12 backup\n-rw-r--r-- 1 stagiaire stagiaire  220 nov 13 09:40 journal.log\n-rw-r--r-- 1 stagiaire stagiaire  812 nov 13 10:02 sauvegarde.sh\ndrwxr-xr-x 3 stagiaire stagiaire 4096 nov 12 18:20 site", ex: "ls -l" },
+    { g: "Crée le dossier backup/2026/novembre en une seule commande.", re: /^mkdir\s+-p\s+(\.\/)?backup\/2026\/novembre\/?$/, o: "", ex: "mkdir -p backup/2026/novembre" },
+    { g: "Affiche les 5 dernières lignes de /var/log/syslog.", re: /^tail\s+(-n\s*5|-5)\s+\/var\/log\/syslog$/, o: "Nov 13 10:01 srv-web systemd[1]: Started Daily apt download activities.\nNov 13 10:02 srv-web CRON[2210]: (stagiaire) CMD (/home/stagiaire/sauvegarde.sh)\nNov 13 10:05 srv-web sshd[2231]: Accepted publickey for stagiaire\nNov 13 10:07 srv-web kernel: [UFW BLOCK] IN=eth0 SRC=41.250.12.7\nNov 13 10:09 srv-web systemd[1]: nginx.service: Reloaded.", ex: "tail -n 5 /var/log/syslog" },
+    { g: "Compte les lignes qui contiennent « Failed password » dans /var/log/auth.log.", re: /^(grep\s+-c\s+(["'])Failed password\2\s+\/var\/log\/auth\.log|grep\s+(["'])Failed password\3\s+\/var\/log\/auth\.log\s*\|\s*wc\s+-l)$/, o: "17", ex: "grep -c \"Failed password\" /var/log/auth.log" },
+    { g: "Ajoute la ligne « Sauvegarde OK » à la fin de journal.log (sans effacer le contenu).", re: /^echo\s+(["'])Sauvegarde OK\1\s*>>\s*journal\.log$/, o: "", ex: "echo \"Sauvegarde OK\" >> journal.log" },
+    { g: "Rends le script sauvegarde.sh exécutable.", re: /^chmod\s+(\+x|u\+x|a\+x|7[0-7][0-7])\s+sauvegarde\.sh$/, o: "", ex: "chmod +x sauvegarde.sh" }
+  ], free: [
+    [/^ls$/, "backup  journal.log  sauvegarde.sh  site"], [/^whoami$/, "stagiaire"], [/^hostname$/, "srv-web"], [/^date$/, "ven. 13 nov. 2026 10:12:41 CET"],
+    [/^cat\s+journal\.log$/, "2026-11-12 23:30 OK\n2026-11-13 09:40 OK"], [/^echo\s+(.*)$/, m => m[1].replace(/^["']|["']$/g, '')], [/^ls\s+-a$/, ".  ..  .bashrc  backup  journal.log  sauvegarde.sh  site"]
+  ] },
+  def: "Bash est le shell par défaut de Linux : il interprète les commandes tapées au clavier ou écrites dans un script. Une commande s'écrit `commande -options arguments`, et on combine les commandes avec des redirections et des pipes.",
+  pts: [
+    "Chemin absolu (commence par `/`) ou relatif (part du dossier courant). `.` = dossier courant, `..` = parent, `~` = dossier personnel.",
+    "Commandes de base : `pwd`, `ls -la`, `cd`, `mkdir -p`, `touch`, `cp -r`, `mv`, `rm`, `cat`, `head`, `tail -f`, `echo`, `man`.",
+    "Redirections : `>` écrit (écrase), `>>` ajoute, `2>` redirige les erreurs, `<` lit depuis un fichier.",
+    "Le pipe `|` envoie la sortie d'une commande à la suivante : `cat access.log | grep 404 | wc -l`.",
+    "Filtrer : `grep` (motif), `wc -l` (compter), `sort`, `uniq -c`, `cut -d: -f1`, `find`.",
+    "Permissions rwx pour propriétaire / groupe / autres : r=4, w=2, x=1. `chmod 750 script.sh`, `chmod +x script.sh`.",
+    "`rm -rf` supprime sans corbeille ni confirmation : toujours relire avant Entrée."
+  ],
+  table: { h: ["Symbole", "Effet", "Exemple"], r: [
+    [">", "Écrit dans un fichier (écrase)", "ls /etc > liste.txt"],
+    [">>", "Ajoute à la fin", "echo OK >> journal.log"],
+    ["2>", "Redirige les erreurs", "find / -name x 2> /dev/null"],
+    ["|", "Enchaîne deux commandes", "cat /etc/passwd | wc -l"]
+  ] },
+  kw: ["Bash", "Chemin absolu", "Redirection", "Pipe", "grep", "chmod", "rm -rf", "sudo"],
+  ana: "Le pipe, c'est une chaîne de montage : chaque ouvrier (commande) fait une seule chose et passe la pièce au suivant.",
+  res: "Pour repérer une attaque par force brute sur un serveur, l'administrateur compte en une ligne les échecs SSH : `grep -c \"Failed password\" /var/log/auth.log`.",
+  piege: "Confondre `>` et `>>`. `echo OK > journal.log` efface tout l'historique du journal ; `>>` ajoute à la fin.",
+  simIntro: "Un terminal Linux simulé : tape la commande qui réalise chaque mission, puis Entrée. Le bouton Indice montre une réponse possible.",
+  q: [
+    { q: "Quelle commande affiche le dossier courant ?", o: ["pwd", "cd", "ls", "whoami"], e: "Print Working Directory." },
+    { q: "Que fait `>>` ?", o: ["Ajoute la sortie à la fin d'un fichier", "Écrase le fichier", "Redirige les erreurs", "Compare deux nombres"], e: "`>` écrase, `>>` ajoute." },
+    { q: "Que vaut `rwxr-x---` en chiffres ?", o: ["750", "755", "640", "777"], e: "rwx = 7, r-x = 5, --- = 0." },
+    { q: "À quoi sert le symbole `|` ?", o: ["Envoyer la sortie d'une commande à la suivante", "Écrire dans un fichier", "Commenter une ligne", "Lancer en arrière-plan"], e: "C'est le pipe." },
+    { q: "Quelle commande crée un dossier et tous ses parents ?", o: ["mkdir -p", "mkdir -r", "touch -p", "cd -p"], e: "-p crée les dossiers intermédiaires s'ils manquent." },
+    { q: "Quel chemin est absolu ?", o: ["/var/log/syslog", "logs/syslog", "../syslog", "./syslog"], e: "Il commence par la racine /." }
+  ] },
+
+{ id: 53, ch: 10, pdf: AUTO_PDF, web: 'automatisation.html#ch3', t: "Scripts Bash : variables, conditions, boucles", short: "Shebang, $1, if, for, while, fonctions", sim: 'trace',
+  trace: { lang: 'Bash', code: ['total=0', 'for n in 2 4 6; do', '  total=$(( total + n ))', '  echo "Après $n : $total"', 'done', 'if [ $total -ge 10 ]; then', '  echo "Grand total : $total"', 'fi'],
+    steps: [
+      { l: 0, v: { total: '0' }, n: "On crée la variable total, valeur 0. Pas d'espace autour du = !" },
+      { l: 1, v: { total: '0', n: '2' }, n: "Premier tour de boucle : n prend la première valeur de la liste, 2." },
+      { l: 2, v: { total: '2', n: '2' }, n: "$(( )) fait un calcul : 0 + 2 = 2." },
+      { l: 3, v: { total: '2', n: '2' }, o: 'Après 2 : 2', n: "echo affiche le texte, les variables sont remplacées par leur valeur." },
+      { l: 1, v: { total: '2', n: '4' }, n: "Deuxième tour : n vaut 4." },
+      { l: 2, v: { total: '6', n: '4' }, n: "2 + 4 = 6." },
+      { l: 3, v: { total: '6', n: '4' }, o: 'Après 4 : 6' },
+      { l: 1, v: { total: '6', n: '6' }, n: "Troisième et dernier tour : n vaut 6." },
+      { l: 2, v: { total: '12', n: '6' }, n: "6 + 6 = 12." },
+      { l: 3, v: { total: '12', n: '6' }, o: 'Après 6 : 12' },
+      { l: 4, v: { total: '12', n: '6' }, n: "La liste est épuisée : on sort de la boucle." },
+      { l: 5, v: { total: '12', n: '6' }, n: "Test : 12 -ge 10 (supérieur ou égal) est VRAI, on entre dans le if." },
+      { l: 6, v: { total: '12', n: '6' }, o: 'Grand total : 12' },
+      { l: 7, v: { total: '12', n: '6' }, n: "fi ferme le if. Fin du script." }
+    ],
+    q: { q: "Avant de lancer : que va afficher la dernière ligne ?", o: ["Grand total : 12", "Grand total : 6", "Rien, la condition est fausse", "Grand total : 10"], a: 0 } },
+  def: "Un script Bash est un fichier texte qui commence par le shebang `#!/bin/bash` et enchaîne des commandes avec des variables, des conditions et des boucles. On le rend exécutable avec `chmod +x` et on le lance avec `./script.sh`.",
+  pts: [
+    "Variable : `nom=\"SW1\"` (aucun espace autour du =), utilisée avec `\"$nom\"`. Résultat d'une commande : `$(hostname)`. Calcul : `$(( a + b ))`.",
+    "Arguments : `$1`, `$2`… ; `$#` = nombre d'arguments ; `$0` = nom du script ; `$?` = code de retour de la dernière commande (0 = succès).",
+    "Condition : `if [ \"$x\" -ge 10 ]; then … elif … else … fi`. Espaces obligatoires dans les crochets.",
+    "Tests : nombres `-eq -ne -gt -ge -lt -le`, texte `= != -z -n`, fichiers `-f -d -x`.",
+    "Boucles : `for i in liste; do … done`, `for i in {1..20}`, `while read -r ligne; do … done < fichier`.",
+    "Fonction : `journal() { echo \"$(date) $1\" >> log; }`. `return 0` / `exit 1` pour les codes de retour.",
+    "`cmd1 && cmd2` : cmd2 si cmd1 réussit ; `cmd1 || cmd2` : cmd2 si cmd1 échoue."
+  ],
+  table: { h: ["Variable", "Contenu"], r: [["$0", "Nom du script"], ["$1, $2…", "Arguments"], ["$#", "Nombre d'arguments"], ["$?", "Code de retour (0 = succès)"], ["$(cmd)", "Résultat d'une commande"]] },
+  kw: ["Shebang", "Variable", "$1 / $#", "if / test", "for / while", "Fonction", "Code de retour"],
+  ana: "Un script Bash, c'est l'historique de tes commandes qui a appris à réfléchir : il sait répéter (boucle) et choisir (condition).",
+  res: "Un script de 10 lignes pingue chaque matin les 20 adresses des serveurs de l'école et écrit dans un journal ceux qui ne répondent pas.",
+  piege: "`nom = \"admin\"` avec des espaces : Bash croit que `nom` est une commande et affiche « commande introuvable ». Même piège avec `[\"$a\" -eq 1]` sans espaces dans les crochets.",
+  simIntro: "Réponds d'abord à la question de prédiction, puis exécute le script pas à pas : la ligne active, les variables et l'affichage évoluent à chaque étape.",
+  q: [
+    { q: "Quelle est la première ligne d'un script Bash ?", o: ["#!/bin/bash", "//bash", "<bash>", "import bash"], e: "Le shebang indique l'interpréteur." },
+    { q: "Quelle affectation est correcte ?", o: ["nom=\"srv\"", "nom = \"srv\"", "$nom=\"srv\"", "set nom \"srv\""], e: "Pas d'espace autour du =, pas de $ à l'affectation." },
+    { q: "Que contient `$#` ?", o: ["Le nombre d'arguments", "Le nom du script", "Le code de retour", "Le premier argument"], e: "$1 est le premier argument, $0 le nom du script." },
+    { q: "Un code de retour de 0 signifie…", o: ["Succès", "Erreur", "Aucun résultat", "Script interrompu"], e: "Tout autre nombre signale une erreur." },
+    { q: "Comment tester « supérieur ou égal » entre deux nombres ?", o: ["-ge", ">=", "-gt", "=>"], e: "-gt = strictement supérieur." },
+    { q: "Comment parcourir les nombres 1 à 20 ?", o: ["for i in {1..20}; do … done", "for (i=1 to 20)", "loop 1-20", "foreach i in 1..20"], e: "Accolades et deux points." }
+  ] },
+
+{ id: 54, ch: 10, pdf: AUTO_PDF, web: 'automatisation.html#ch3', t: "Bash : scripts d'administration et cron", short: "Sauvegarde, comptes, surveillance, planification", sim: 'cron',
+  def: "Les scripts d'administration Bash automatisent les tâches répétitives d'un serveur Linux : sauvegardes, comptes, surveillance. Le service cron les exécute ensuite automatiquement à heure fixe.",
+  pts: [
+    "Sauvegarde : `tar -czf archive-$(date +%F).tar.gz /var/www`, journal avec la date, rotation avec `find … -mtime +7 -delete`.",
+    "Comptes en masse : lire un fichier avec `while IFS=: read -r login groupe`, tester l'existence avec `id`, créer avec `useradd -m -g`.",
+    "Surveillance : espace disque (`df`), services (`systemctl is-active`), ping des serveurs, alerte dans un journal.",
+    "Robustesse : vérifier les arguments, `set -euo pipefail`, guillemets autour des variables, codes de retour.",
+    "cron : 5 champs `minute heure jour-du-mois mois jour-de-semaine` puis la commande. `crontab -e` pour modifier, `crontab -l` pour lister.",
+    "Dans cron, toujours des chemins absolus, et rediriger la sortie : `>> /chemin/cron.log 2>&1`."
+  ],
+  table: { h: ["Ligne crontab", "Signification"], r: [
+    ["0 * * * *", "Toutes les heures"], ["*/5 * * * *", "Toutes les 5 minutes"], ["30 2 * * 1-5", "Du lundi au vendredi à 2 h 30"], ["0 23 * * 0", "Le dimanche à 23 h"], ["0 8 1 * *", "Le 1er du mois à 8 h"]
+  ] },
+  kw: ["tar", "Rotation", "useradd", "Idempotence", "cron", "crontab -e", "Chemin absolu"],
+  ana: "cron, c'est le réveil du serveur : on règle l'heure une fois, et chaque jour il déclenche la même tâche sans qu'on y pense.",
+  res: "Chaque soir à 23 h 30, cron lance la sauvegarde du site de l'école ; le script garde 7 jours d'archives et écrit OK ou ERREUR dans un journal relu chaque matin.",
+  piege: "Un script qui marche dans le terminal mais pas dans cron : cron n'a pas le même environnement. Il faut des chemins absolus et rediriger la sortie pour voir les erreurs.",
+  simIntro: "Construis la ligne crontab qui correspond à chaque mission en choisissant la valeur de chaque champ.",
+  q: [
+    { q: "Que signifie la ligne cron « 0 2 * * * » ?", o: ["Chaque jour à 2 h", "Toutes les 2 minutes", "Le 2 de chaque mois", "Toutes les 2 heures"], e: "Minute 0, heure 2, tous les jours." },
+    { q: "Quelle commande modifie la table cron de l'utilisateur ?", o: ["crontab -e", "cron --edit", "nano /etc/cron", "systemctl cron"], e: "crontab -l pour lister." },
+    { q: "Que fait `find /backup -name \"*.tar.gz\" -mtime +7 -delete` ?", o: ["Supprime les archives de plus de 7 jours", "Crée 7 archives", "Compresse les fichiers", "Liste les archives récentes"], e: "C'est la rotation des sauvegardes." },
+    { q: "Pourquoi tester `id \"$login\"` avant `useradd` ?", o: ["Pour ne pas recréer un compte existant (idempotence)", "Pour chiffrer le mot de passe", "Pour créer le groupe", "C'est obligatoire pour useradd"], e: "On peut relancer le script sans erreur." },
+    { q: "Pourquoi utiliser des chemins absolus dans cron ?", o: ["cron n'a pas le même environnement que le terminal", "Les chemins relatifs sont interdits sous Linux", "Pour aller plus vite", "Pour chiffrer la commande"], e: "Son dossier courant et son PATH sont réduits." },
+    { q: "« */5 * * * * » signifie…", o: ["Toutes les 5 minutes", "À 5 h", "Le 5 du mois", "5 fois par jour"], e: "*/5 = tous les multiples de 5 dans le champ minute." }
+  ] },
+
+{ id: 55, ch: 11, pdf: AUTO_PDF, web: 'automatisation.html#ch4', t: "PowerShell : cmdlets et pipeline objet", short: "Verbe-Nom, Get-Help, Get-Member, Where-Object", sim: 'term',
+  term: { prompt: 'PS C:\\Users\\admin>', lang: 'powershell', missions: [
+    { g: "Affiche tous les services de la machine.", re: /^get-service$/i, o: "Status   Name               DisplayName\n------   ----               -----------\nRunning  Dhcp               Client DHCP\nStopped  Spooler            Spouleur d'impression\nRunning  W32Time            Temps Windows\nStopped  wuauserv           Windows Update\n…", ex: "Get-Service" },
+    { g: "Affiche seulement les services arrêtés.", re: /^get-service\s*\|\s*(where-object|where|\?)\s*(\{\s*\$_\.status\s+-eq\s+(["'])stopped\3\s*\}|(-property\s+)?status\s+-eq\s+(["']?)stopped\5)$/i, o: "Status   Name               DisplayName\n------   ----               -----------\nStopped  Spooler            Spouleur d'impression\nStopped  wuauserv           Windows Update", ex: "Get-Service | Where-Object Status -eq 'Stopped'" },
+    { g: "Trouve toutes les commandes dont le nom contient « Service ».", re: /^get-command\s+(-name\s+)?\*service\*$/i, o: "CommandType  Name\n-----------  ----\nCmdlet       Get-Service\nCmdlet       New-Service\nCmdlet       Restart-Service\nCmdlet       Start-Service\nCmdlet       Stop-Service\n…", ex: "Get-Command *Service*" },
+    { g: "Teste si l'hôte 192.168.1.10 répond, en envoyant 2 paquets.", re: /^test-connection\s+(-computername\s+|-targetname\s+)?192\.168\.1\.10\s+-count\s+2$/i, o: "Source   Destination    IPV4Address    Bytes  Time(ms)\n------   -----------    -----------    -----  --------\nPC-ADM   192.168.1.10   192.168.1.10   32     1\nPC-ADM   192.168.1.10   192.168.1.10   32     1", ex: "Test-Connection 192.168.1.10 -Count 2" },
+    { g: "Affiche les 3 processus qui consomment le plus de CPU.", re: /^get-process\s*\|\s*(sort-object|sort)\s+(-property\s+)?cpu\s+-desc(ending)?\s*\|\s*(select-object|select)\s+-first\s+3(\s+.*)?$/i, o: "Handles  NPM(K)  PM(K)   WS(K)    CPU(s)   Id  ProcessName\n-------  ------  -----   -----    ------   --  -----------\n   2510     118  412385  398120   812,45  6120  chrome\n   1904      77  298127  281004   355,20  3304  Teams\n   3120      90  154566  149870   122,08  1088  explorer", ex: "Get-Process | Sort-Object CPU -Descending | Select-Object -First 3" },
+    { g: "Vérifie si le fichier C:\\Logs\\app.log existe.", re: /^test-path\s+(-path\s+)?(["']?)c:\\logs\\app\.log\2$/i, o: "True", ex: "Test-Path C:\\Logs\\app.log" },
+    { g: "Redémarre le service Spooler.", re: /^restart-service\s+(-name\s+)?(["']?)spooler\2$/i, o: "", ex: "Restart-Service Spooler" }
+  ], free: [
+    [/^get-date$/i, "vendredi 13 novembre 2026 10:14:22"], [/^\$env:computername$/i, "PC-ADM"], [/^(get-location|pwd)$/i, "Path\n----\nC:\\Users\\admin"], [/^(get-childitem|ls|dir)$/i, "Mode    LastWriteTime     Length Name\n----    -------------     ------ ----\nd----   13/11/2026 09:12         Documents\n-a---   13/11/2026 10:02    812  inventaire.ps1"],
+    [/^get-help\s+get-service.*$/i, "NOM\n    Get-Service\nRÉSUMÉ\n    Obtient les services sur l'ordinateur.\nSYNTAXE\n    Get-Service [[-Name] <String[]>] [-ComputerName <String[]>] …"], [/^get-service\s*\|\s*get-member$/i, "TypeName: System.ServiceProcess.ServiceController\nName         MemberType\n----         ----------\nStart        Method\nStop         Method\nName         Property\nStatus       Property\nStartType    Property"]
+  ] },
+  def: "PowerShell est le shell et le langage de script de Windows. Ses commandes, les cmdlets, suivent la forme Verbe-Nom et renvoient des objets avec des propriétés, que le pipeline transmet d'une commande à l'autre.",
+  pts: [
+    "Verbes courants : `Get` (lire), `Set` (modifier), `New` (créer), `Remove` (supprimer), `Start` / `Stop` / `Restart`, `Test` (vérifier).",
+    "Trouver de l'aide : `Get-Command *mot*` (quelle commande ?), `Get-Help cmdlet -Examples` (comment ?), `Get-Member` (que contient l'objet ?).",
+    "Le pipeline transmet des objets : `Get-Service | Where-Object Status -eq 'Stopped' | Sort-Object Name`.",
+    "`Where-Object` filtre, `Select-Object` choisit des propriétés ou les N premiers, `Sort-Object` trie, `ForEach-Object` agit sur chaque objet (`$_`).",
+    "`Export-Csv` / `Import-Csv` pour échanger avec Excel ; `ConvertTo-Html` pour un rapport.",
+    "Comparaisons : `-eq -ne -gt -lt -ge -le -like -match -contains`. Le signe `>` redirige vers un fichier, il ne compare pas.",
+    "Stratégie d'exécution : `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` pour lancer ses scripts `.ps1`."
+  ],
+  table: { h: ["Action", "PowerShell", "Bash"], r: [
+    ["Lister", "Get-ChildItem (ls)", "ls"], ["Lire un fichier", "Get-Content (cat)", "cat"], ["Chercher du texte", "Select-String", "grep"], ["Ping", "Test-Connection", "ping"], ["Filtrer", "Where-Object", "grep / awk"]
+  ] },
+  kw: ["Cmdlet", "Verbe-Nom", "Get-Help", "Get-Command", "Get-Member", "Pipeline objet", "Where-Object", "$_"],
+  ana: "En Bash, le pipe passe une feuille de papier qu'il faut relire pour trouver l'information. En PowerShell, il passe une fiche avec des cases nommées : on demande directement la case « Status ».",
+  res: "Chaque lundi, un technicien exporte en une ligne la liste des services automatiques arrêtés de chaque serveur dans un fichier CSV qu'il ouvre dans Excel.",
+  piege: "Écrire `if ($a > 5)` : PowerShell crée un fichier nommé « 5 » au lieu de comparer. On écrit `-gt`.",
+  simIntro: "Une console PowerShell simulée : tape la cmdlet qui réalise chaque mission (les majuscules ne comptent pas). Le bouton Indice montre une réponse possible.",
+  q: [
+    { q: "Quelle forme ont les noms des cmdlets ?", o: ["Verbe-Nom", "Nom-Verbe", "verbe_nom", "NomVerbe"], e: "Get-Service, Stop-Process, New-Item…" },
+    { q: "Quelle cmdlet affiche les propriétés et méthodes d'un objet ?", o: ["Get-Member", "Get-Help", "Get-Command", "Get-Object"], e: "On l'utilise après un pipe." },
+    { q: "Que transmet le pipeline PowerShell ?", o: ["Des objets", "Du texte uniquement", "Des fichiers", "Des adresses IP"], e: "Avec leurs propriétés (Name, Status…)." },
+    { q: "Comment écrire « supérieur à » en PowerShell ?", o: ["-gt", ">", "=>", "-sup"], e: "> redirige vers un fichier." },
+    { q: "Dans ForEach-Object, l'objet courant s'appelle…", o: ["$_", "$this", "$item", "$obj"], e: "Aussi appelé $PSItem." },
+    { q: "Quelle stratégie d'exécution est un bon compromis ?", o: ["RemoteSigned", "Unrestricted", "Bypass", "Restricted"], e: "Scripts locaux autorisés, scripts téléchargés signés." }
+  ] },
+
+{ id: 56, ch: 11, pdf: AUTO_PDF, web: 'automatisation.html#ch5', t: "Scripts PowerShell : conditions, boucles, fonctions", short: "if, switch, foreach, param, try/catch", sim: 'trace',
+  trace: { lang: 'PowerShell', code: ['$services = @("Spooler", "W32Time", "wuauserv")', '$redemarres = 0', 'foreach ($s in $services) {', '    $etat = (Get-Service $s).Status', '    if ($etat -eq "Stopped") {', '        Start-Service $s; $redemarres++', '        "$s : démarré"', '    } else { "$s : déjà en marche" }', '}', '"Total redémarrés : $redemarres"'],
+    steps: [
+      { l: 0, v: { '$services': '3 éléments' }, n: "Un tableau de 3 noms de services, créé avec @( )." },
+      { l: 1, v: { '$services': '3 éléments', '$redemarres': '0' }, n: "Compteur à 0." },
+      { l: 2, v: { '$s': 'Spooler', '$redemarres': '0' }, n: "Premier tour : $s = Spooler." },
+      { l: 3, v: { '$s': 'Spooler', '$etat': 'Stopped', '$redemarres': '0' }, n: "Get-Service renvoie un objet ; on lit sa propriété Status." },
+      { l: 4, v: { '$s': 'Spooler', '$etat': 'Stopped', '$redemarres': '0' }, n: "Stopped -eq Stopped : VRAI." },
+      { l: 5, v: { '$s': 'Spooler', '$etat': 'Running', '$redemarres': '1' }, n: "Le service démarre, le compteur passe à 1 (++ ajoute 1)." },
+      { l: 6, v: { '$s': 'Spooler', '$etat': 'Running', '$redemarres': '1' }, o: 'Spooler : démarré', n: "Une chaîne seule sur une ligne est affichée." },
+      { l: 2, v: { '$s': 'W32Time', '$redemarres': '1' }, n: "Deuxième tour : W32Time." },
+      { l: 3, v: { '$s': 'W32Time', '$etat': 'Running', '$redemarres': '1' } },
+      { l: 4, v: { '$s': 'W32Time', '$etat': 'Running', '$redemarres': '1' }, n: "Running -eq Stopped : FAUX → on va dans le else." },
+      { l: 7, v: { '$s': 'W32Time', '$etat': 'Running', '$redemarres': '1' }, o: 'W32Time : déjà en marche' },
+      { l: 2, v: { '$s': 'wuauserv', '$redemarres': '1' }, n: "Troisième tour : wuauserv." },
+      { l: 3, v: { '$s': 'wuauserv', '$etat': 'Running', '$redemarres': '1' } },
+      { l: 7, v: { '$s': 'wuauserv', '$etat': 'Running', '$redemarres': '1' }, o: 'wuauserv : déjà en marche' },
+      { l: 9, v: { '$redemarres': '1' }, o: 'Total redémarrés : 1', n: "Fin de la boucle, bilan." }
+    ],
+    q: { q: "Spooler est arrêté, les deux autres tournent. Que vaudra $redemarres à la fin ?", o: ["1", "0", "2", "3"], a: 0 } },
+  def: "Un script PowerShell (.ps1) combine des cmdlets avec des variables (`$nom`), des conditions (`if`, `switch`), des boucles (`foreach`, `for`, `while`), des fonctions avec paramètres et une gestion d'erreurs `try / catch`.",
+  pts: [
+    "Variables : `$serveur = \"SRV-AD01\"`, tableau `@(\"a\",\"b\")`, table de hachage `@{ Nom = \"Alaoui\"; Service = \"RH\" }`.",
+    "Guillemets doubles : les variables sont remplacées (`\"Bonjour $nom\"`) ; guillemets simples : texte brut. `$( )` évalue une expression dans une chaîne.",
+    "`if (…) { } elseif (…) { } else { }` et `switch ($x) { \"a\" { … } default { … } }`.",
+    "`foreach ($s in $liste) { }`, `for ($i = 1; $i -le 5; $i++) { }`, `while (…) { }`.",
+    "Fonction : `function Test-Port { param([Parameter(Mandatory)][string]$Hote, [int]$Port = 443) … }`.",
+    "Erreurs : `try { … -ErrorAction Stop } catch { $_.Exception.Message } finally { }`. Sans `-ErrorAction Stop`, le catch ne s'exécute pas toujours.",
+    "Objets de sortie propres : `[PSCustomObject]@{ Hote = $h; Ouvert = $ok }`, puis `Export-Csv`."
+  ],
+  table: { h: ["Élément", "Syntaxe"], r: [["Condition", "if ($x -gt 5) { … } else { … }"], ["Boucle", "foreach ($i in $liste) { … }"], ["Fonction", "function Nom { param($a) … }"], ["Erreur", "try { … } catch { … }"]] },
+  kw: ["Variable $", "@( ) / @{ }", "if / switch", "foreach", "function / param", "try / catch", "PSCustomObject"],
+  ana: "Un script PowerShell, c'est une procédure d'entreprise écrite pour un employé infatigable : « pour chaque service de la liste, s'il est arrêté, redémarre-le et note-le ».",
+  res: "Un script de surveillance tourne toutes les heures sur les serveurs : il redémarre automatiquement les services critiques arrêtés et écrit l'événement dans un journal.",
+  piege: "Oublier `-ErrorAction Stop` dans un `try` : l'erreur s'affiche en rouge, mais le bloc `catch` (et donc le journal d'erreur) n'est jamais exécuté.",
+  simIntro: "Prédis le résultat, puis exécute le script pas à pas : observe la ligne active, les variables et l'affichage.",
+  q: [
+    { q: "Comment crée-t-on un tableau en PowerShell ?", o: ["@(\"a\", \"b\")", "[\"a\", \"b\"]", "{\"a\", \"b\"}", "(a; b)"], e: "@{ } crée une table de hachage." },
+    { q: "Quelle boucle parcourt chaque élément d'une liste ?", o: ["foreach ($x in $liste) { }", "for x in liste:", "loop $liste", "repeat $liste"], e: "for avec compteur, while avec condition." },
+    { q: "Que fait `$compteur++` ?", o: ["Ajoute 1 à la variable", "Double la variable", "Affiche la variable", "Remet à zéro"], e: "Équivaut à $compteur = $compteur + 1." },
+    { q: "Pourquoi ajouter `-ErrorAction Stop` dans un try ?", o: ["Pour que l'erreur déclenche le bloc catch", "Pour masquer l'erreur", "Pour accélérer la cmdlet", "Pour relancer la commande"], e: "Beaucoup d'erreurs sont non bloquantes par défaut." },
+    { q: "Quelle chaîne remplace la variable par sa valeur ?", o: ["\"Bonjour $nom\"", "'Bonjour $nom'", "`Bonjour $nom`", "Bonjour + $nom"], e: "Les guillemets simples gardent le texte brut." },
+    { q: "Où déclare-t-on les paramètres d'une fonction ?", o: ["Dans un bloc param( )", "Dans le nom de la fonction", "Dans $args uniquement", "Dans un fichier séparé"], e: "Avec type et valeur par défaut possibles." }
+  ] },
+
+{ id: 57, ch: 11, pdf: AUTO_PDF, web: 'automatisation.html#ch5', t: "PowerShell pour l'administration Windows", short: "CSV, comptes AD, services, journaux, distance", sim: 'pick',
+  scen: [
+    { s: "Tu dois créer 60 comptes à partir d'un fichier Excel enregistré en CSV (séparateur ;).", o: ["Import-Csv -Delimiter ';' | ForEach-Object { New-ADUser … }", "Get-Content | New-Item", "Export-Csv puis New-LocalGroup", "Set-ADUser sur chaque ligne"], a: 0, e: "Import-Csv transforme chaque ligne en objet ; ForEach-Object crée un compte par ligne." },
+    { s: "Tu veux voir les 20 derniers événements du journal Système.", o: ["Get-ChildItem C:\\Windows\\Logs", "Get-WinEvent -LogName System -MaxEvents 20", "Get-Content system.log", "Test-Path System"], a: 1, e: "Get-WinEvent lit les journaux d'événements Windows." },
+    { s: "Tu veux exécuter la même commande sur SRV-FILE et SRV-WEB en même temps.", o: ["Enter-PSSession sur chacun", "Copier le script sur une clé USB", "Invoke-Command -ComputerName SRV-FILE, SRV-WEB -ScriptBlock { … }", "Test-Connection SRV-FILE, SRV-WEB"], a: 2, e: "Invoke-Command exécute un bloc de script sur plusieurs machines (WinRM)." },
+    { s: "Le script de comptes est relancé par erreur. Comment éviter les doublons ?", o: ["Supprimer tous les comptes avant", "Tester avec Get-ADUser si le login existe avant New-ADUser", "Ajouter -Force à New-ADUser", "Ce n'est pas possible"], a: 1, e: "C'est l'idempotence : le script peut être relancé sans dégât." },
+    { s: "Le mot de passe initial des comptes doit être demandé dans le script.", o: ["$mdp = \"Azerty123\"", "Read-Host \"Mot de passe\" -AsSecureString", "Le mettre dans le CSV", "Write-Host \"Mot de passe\""], a: 1, e: "La saisie est masquée et le mot de passe n'est jamais écrit dans le fichier." },
+    { s: "Tu veux lancer chaque nuit à 2 h un script de sauvegarde.", o: ["Register-ScheduledTask avec un déclencheur New-ScheduledTaskTrigger -Daily -At 2am", "crontab -e", "Start-Sleep 7200", "Un raccourci sur le bureau"], a: 0, e: "Le Planificateur de tâches est l'équivalent de cron sous Windows." },
+    { s: "Tu veux trouver les comptes du domaine qui ne se sont pas connectés depuis longtemps.", o: ["Get-LocalUser", "Get-ADUser -Filter * -Properties LastLogonDate", "Get-Process -User", "Get-ADGroup"], a: 1, e: "La propriété LastLogonDate n'est pas renvoyée par défaut : il faut la demander avec -Properties." }
+  ],
+  def: "PowerShell administre Windows de bout en bout : comptes locaux et Active Directory, services, journaux d'événements, matériel, réseau, machines distantes et tâches planifiées.",
+  pts: [
+    "Comptes depuis un CSV : `Import-Csv` → générer le login → tester l'existence → `New-ADUser` (ou `New-LocalUser` en labo).",
+    "Mot de passe demandé avec `Read-Host -AsSecureString`, jamais écrit dans le script.",
+    "Services : `Get-Service`, `Start-Service`, `Restart-Service` ; journaux : `Get-WinEvent -LogName System`.",
+    "Matériel et système : `Get-CimInstance Win32_OperatingSystem`, `Win32_LogicalDisk` ; réseau : `Get-NetIPAddress`, `Test-NetConnection -Port`.",
+    "À distance : `Invoke-Command -ComputerName … -ScriptBlock { }`, `Enter-PSSession` (WinRM activé avec `Enable-PSRemoting`).",
+    "Planification : `New-ScheduledTaskAction`, `New-ScheduledTaskTrigger`, `Register-ScheduledTask`.",
+    "Rapports : `Export-Csv` pour Excel, `ConvertTo-Html` pour une page web."
+  ],
+  table: { h: ["Besoin", "Cmdlet"], r: [["Créer un compte AD", "New-ADUser"], ["Compte local", "New-LocalUser"], ["Journal d'événements", "Get-WinEvent"], ["Infos système", "Get-CimInstance"], ["Commande à distance", "Invoke-Command"], ["Tâche planifiée", "Register-ScheduledTask"]] },
+  kw: ["Import-Csv", "New-ADUser", "New-LocalUser", "Get-WinEvent", "Get-CimInstance", "Invoke-Command", "Tâche planifiée"],
+  ana: "La console graphique, c'est remplir 60 formulaires à la main. Le script, c'est une photocopieuse intelligente qui remplit les 60 formulaires à partir du tableau Excel.",
+  res: "À chaque rentrée, l'administrateur reçoit la liste des nouveaux stagiaires en CSV : son script crée les 300 comptes dans les bonnes unités d'organisation en moins d'une minute.",
+  piege: "Tester un script de création de comptes directement sur l'Active Directory de production. On teste d'abord sur une OU de test ou en local avec New-LocalUser.",
+  simIntro: "Choisis la cmdlet ou la méthode adaptée à chaque situation d'administration.",
+  q: [
+    { q: "Quelle cmdlet lit un fichier CSV et crée un objet par ligne ?", o: ["Import-Csv", "Get-Content", "Read-Csv", "Export-Csv"], e: "Chaque colonne devient une propriété." },
+    { q: "Quelle cmdlet crée un compte dans l'Active Directory ?", o: ["New-ADUser", "New-LocalUser", "Add-User", "Set-ADUser"], e: "Module ActiveDirectory." },
+    { q: "Comment demander un mot de passe de façon sécurisée ?", o: ["Read-Host -AsSecureString", "Write-Host", "$mdp = \"…\"", "Get-Password"], e: "Saisie masquée, chaîne sécurisée en mémoire." },
+    { q: "Quelle cmdlet exécute un bloc de commandes sur plusieurs machines distantes ?", o: ["Invoke-Command", "Test-Connection", "Copy-Item", "Start-Process"], e: "Elle utilise WinRM." },
+    { q: "Quelle cmdlet lit les journaux d'événements Windows ?", o: ["Get-WinEvent", "Get-Content", "Get-Service", "Get-History"], e: "-LogName System, Application, Security…" },
+    { q: "Quel est l'équivalent Windows de cron ?", o: ["Le Planificateur de tâches", "Le Gestionnaire des tâches", "Le registre", "Le pare-feu"], e: "Register-ScheduledTask en PowerShell." }
+  ] },
+
+{ id: 58, ch: 12, pdf: AUTO_PDF, web: 'automatisation.html#ch6', t: "Python : les bases", short: "Types, listes, dictionnaires, if, for, fonctions", sim: 'trace',
+  trace: { lang: 'Python', code: ['seuils = {"CRITIQUE": 90, "ATTENTION": 80}', 'disques = [95, 42, 83]', 'for d in disques:', '    if d >= seuils["CRITIQUE"]:', '        print(d, "CRITIQUE")', '    elif d >= seuils["ATTENTION"]:', '        print(d, "ATTENTION")', '    else:', '        print(d, "OK")'],
+    steps: [
+      { l: 0, v: { seuils: '{CRITIQUE: 90, ATTENTION: 80}' }, n: "Un dictionnaire : des paires clé → valeur, entre accolades." },
+      { l: 1, v: { disques: '[95, 42, 83]' }, n: "Une liste de 3 pourcentages d'occupation, entre crochets." },
+      { l: 2, v: { d: '95' }, n: "Premier tour : d = 95 (premier élément, indice 0)." },
+      { l: 3, v: { d: '95' }, n: "95 >= 90 : VRAI. Les 4 espaces indiquent ce qui est dans le if." },
+      { l: 4, v: { d: '95' }, o: '95 CRITIQUE' },
+      { l: 2, v: { d: '42' }, n: "Deuxième tour : d = 42." },
+      { l: 3, v: { d: '42' }, n: "42 >= 90 : faux." },
+      { l: 5, v: { d: '42' }, n: "42 >= 80 : faux aussi." },
+      { l: 7, v: { d: '42' }, n: "Aucune condition vraie : on entre dans le else." },
+      { l: 8, v: { d: '42' }, o: '42 OK' },
+      { l: 2, v: { d: '83' }, n: "Troisième tour : d = 83." },
+      { l: 3, v: { d: '83' }, n: "83 >= 90 : faux." },
+      { l: 5, v: { d: '83' }, n: "83 >= 80 : VRAI → elif." },
+      { l: 6, v: { d: '83' }, o: '83 ATTENTION', n: "Fin de la liste, fin du programme." }
+    ],
+    q: { q: "Qu'affiche le programme pour le disque à 83 % ?", o: ["83 ATTENTION", "83 CRITIQUE", "83 OK", "Rien"], a: 0 } },
+  def: "Python est un langage interprété, lisible et multiplateforme. Les blocs de code sont définis par l'indentation (4 espaces) ; il manipule des nombres, des chaînes, des listes et des dictionnaires.",
+  pts: [
+    "Afficher : `print(f\"Serveur {nom}\")` (f-string) ; saisir : `input(\"Question : \")`.",
+    "Types : `int`, `float`, `str`, `bool`, `list` `[22, 80]`, `dict` `{\"nom\": \"SW1\"}`. Les indices commencent à 0, `liste[-1]` = dernier.",
+    "Listes : `append()`, `len()`, `in`. Dictionnaires : `d[\"cle\"]`, `d.items()`.",
+    "Conditions : `if …:`, `elif …:`, `else:` avec `== != < > <= >= and or not in`.",
+    "Boucles : `for ip in liste:`, `for i in range(1, 255):` (la fin est exclue), `while condition:`, `break`, `continue`.",
+    "Fonctions : `def nom(param):` … `return valeur`.",
+    "Indentation de 4 espaces et deux-points `:` obligatoires après `if`, `for`, `while`, `def`."
+  ],
+  table: { h: ["Type", "Exemple"], r: [["int / float", "port = 22, cpu = 37.5"], ["str", "hote = \"srv-web\""], ["list", "ips = [\"10.0.0.1\", \"10.0.0.2\"]"], ["dict", "sw = {\"nom\": \"SW1\", \"ip\": \"10.0.0.2\"}"], ["bool", "actif = True"]] },
+  kw: ["Python", "f-string", "list", "dict", "Indentation", "for / range", "def / return"],
+  ana: "En Python, l'indentation est comme les retraits d'une liste à puces : ce qui est décalé « appartient » à la ligne du dessus.",
+  res: "Un script de 15 lignes lit l'occupation des disques de 40 serveurs dans un fichier et n'affiche que ceux qui dépassent 80 %.",
+  piege: "Oublier les deux-points après `if x > 5` ou mélanger tabulations et espaces : Python refuse de lancer le programme (SyntaxError / IndentationError).",
+  simIntro: "Prédis le résultat, puis exécute le programme pas à pas : la ligne active, les variables et l'affichage évoluent à chaque étape.",
+  q: [
+    { q: "Qu'est-ce qui délimite le contenu d'un if en Python ?", o: ["L'indentation", "Les accolades", "Le mot end", "Les parenthèses"], e: "4 espaces par niveau." },
+    { q: "Que donne `range(1, 5)` ?", o: ["1, 2, 3, 4", "1, 2, 3, 4, 5", "0, 1, 2, 3, 4", "5 fois le nombre 1"], e: "La borne de fin est exclue." },
+    { q: "Quel type stocke des paires clé / valeur ?", o: ["dict", "list", "tuple", "str"], e: "{\"nom\": \"SW1\"}." },
+    { q: "Avec `ips = [\"a\", \"b\", \"c\"]`, que vaut `ips[0]` ?", o: ["\"a\"", "\"b\"", "\"c\"", "Une erreur"], e: "Les indices commencent à 0." },
+    { q: "Comment afficher la variable nom dans une phrase ?", o: ["print(f\"Bonjour {nom}\")", "print(\"Bonjour $nom\")", "echo Bonjour nom", "print(Bonjour + {nom})"], e: "La f-string remplace {nom} par sa valeur." },
+    { q: "Quel mot-clé définit une fonction ?", o: ["def", "function", "func", "sub"], e: "def nom(paramètres):" }
+  ] },
+
+{ id: 59, ch: 12, pdf: AUTO_PDF, web: 'automatisation.html#ch6', t: "Python : fichiers, erreurs et modules", short: "with open, try/except, import, la console Python", sim: 'term',
+  term: { prompt: '>>>', lang: 'python', missions: [
+    { g: "Crée une variable ip qui contient l'adresse 192.168.1.10 (en texte).", re: /^ip\s*=\s*(["'])192\.168\.1\.10\1$/, o: "", ex: "ip = \"192.168.1.10\"" },
+    { g: "Affiche « Serveur : 192.168.1.10 » avec une f-string qui utilise ip.", re: /^print\(\s*f(["'])Serveur : \{ip\}\1\s*\)$/, o: "Serveur : 192.168.1.10", ex: "print(f\"Serveur : {ip}\")" },
+    { g: "Crée la liste ports qui contient 22, 80 et 443.", re: /^ports\s*=\s*\[\s*22\s*,\s*80\s*,\s*443\s*\]$/, o: "", ex: "ports = [22, 80, 443]" },
+    { g: "Ajoute 3389 à la fin de la liste ports.", re: /^ports\.append\(\s*3389\s*\)$/, o: "", ex: "ports.append(3389)" },
+    { g: "Affiche le nombre d'éléments de la liste ports.", re: /^(print\(\s*len\(\s*ports\s*\)\s*\)|len\(\s*ports\s*\))$/, o: "4", ex: "len(ports)" },
+    { g: "Importe le module ipaddress.", re: /^import\s+ipaddress$/, o: "", ex: "import ipaddress" },
+    { g: "Affiche le nombre d'adresses du réseau 10.0.0.0/24 avec ipaddress.", re: /^(print\()?\s*ipaddress\.ip_network\(\s*(["'])10\.0\.0\.0\/24\2\s*\)\.num_addresses\s*\)?$/, o: "256", ex: "ipaddress.ip_network(\"10.0.0.0/24\").num_addresses" }
+  ], free: [
+    [/^ip$/, "'192.168.1.10'"], [/^ports$/, "[22, 80, 443, 3389]"], [/^print\((["'])(.*)\1\)$/, m => m[2]], [/^(\d+)\s*([+\-*])\s*(\d+)$/, m => String(m[2] === '+' ? +m[1] + +m[3] : m[2] === '-' ? m[1] - m[3] : m[1] * m[3])], [/^2\s*\*\*\s*(\d+)$/, m => String(Math.pow(2, +m[1]))],
+    [/^open\((["'])inconnu\.txt\1\)$/, "Traceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nFileNotFoundError: [Errno 2] No such file or directory: 'inconnu.txt'"]
+  ] },
+  def: "Un script Python d'administration lit et écrit des fichiers avec `with open()`, gère les erreurs avec `try / except` pour ne pas s'arrêter brutalement, et s'appuie sur des modules : ceux fournis avec Python (os, subprocess, csv, json, ipaddress) et ceux installés avec pip.",
+  pts: [
+    "Lire : `with open(\"serveurs.txt\") as f:` puis `for ligne in f:` ; `with` ferme le fichier automatiquement.",
+    "Écrire : mode `\"w\"` (écrase) ou `\"a\"` (ajoute), comme `>` et `>>` en Bash. Préciser `encoding=\"utf-8\"`.",
+    "Erreurs : `try:` … `except FileNotFoundError:` … ; `except Exception as e:` pour afficher le message.",
+    "Modules : `import os, subprocess, csv, json, ipaddress, datetime`. Installer une bibliothèque : `pip install netmiko`.",
+    "`csv.DictReader` lit un CSV en liste de dictionnaires ; `json.dump` / `json.load` échangent avec les API.",
+    "La console interactive (`python` puis `>>>`) permet de tester une instruction avant de l'écrire dans le script."
+  ],
+  table: { h: ["Module", "Rôle"], r: [["os, pathlib", "Fichiers et dossiers"], ["subprocess", "Lancer une commande système"], ["csv, json", "Lire / écrire des données"], ["ipaddress", "Calculs d'adresses IP"], ["datetime", "Dates et heures"]] },
+  kw: ["with open", "Mode w / a", "try / except", "FileNotFoundError", "import", "pip", "csv", "json"],
+  ana: "`try / except`, c'est le filet du trapéziste : si le numéro rate (fichier absent, serveur éteint), le programme ne s'écrase pas, il rebondit sur le plan prévu.",
+  res: "Un script lit la liste des équipements dans un CSV ; si un fichier de configuration manque, il le note dans le journal et passe à l'équipement suivant au lieu de s'arrêter.",
+  piege: "Ouvrir un fichier en mode `\"w\"` pour ajouter une ligne : tout le contenu précédent est effacé. Pour un journal, on utilise `\"a\"`.",
+  simIntro: "Une console Python simulée (>>>) : tape chaque instruction demandée, puis Entrée. Essaie aussi `open(\"inconnu.txt\")` pour voir une vraie erreur.",
+  q: [
+    { q: "Quel mode d'ouverture ajoute à la fin d'un fichier ?", o: ["\"a\"", "\"w\"", "\"r\"", "\"x\""], e: "\"w\" écrase, \"r\" lit." },
+    { q: "Pourquoi utiliser `with open(...) as f:` ?", o: ["Le fichier est fermé automatiquement", "Le fichier est chiffré", "C'est plus rapide à taper", "Pour lire les fichiers binaires seulement"], e: "Même en cas d'erreur." },
+    { q: "Quelle erreur survient si le fichier n'existe pas ?", o: ["FileNotFoundError", "ValueError", "IndexError", "KeyError"], e: "On la capture avec except FileNotFoundError." },
+    { q: "Comment installe-t-on la bibliothèque netmiko ?", o: ["pip install netmiko", "import install netmiko", "apt netmiko", "python get netmiko"], e: "Puis import netmiko dans le script." },
+    { q: "Quel module lit un CSV en dictionnaires ?", o: ["csv (DictReader)", "json", "os", "socket"], e: "Chaque ligne devient un dict avec les noms de colonnes." },
+    { q: "Que fait `ports.append(3389)` ?", o: ["Ajoute 3389 à la fin de la liste", "Remplace la liste", "Supprime 3389", "Trie la liste"], e: "append = ajouter à la fin." }
+  ] },
+
+{ id: 60, ch: 12, pdf: AUTO_PDF, web: 'automatisation.html#ch7', t: "Python pour l'automatisation réseau", short: "subprocess, ipaddress, socket, Netmiko, API", sim: 'pick',
+  scen: [
+    { s: "Tu veux lancer un ping depuis Python et savoir s'il a réussi.", o: ["subprocess.run([\"ping\", \"-c\", \"1\", ip]) puis returncode == 0", "os.ping(ip)", "print(ping)", "socket.ping(ip)"], a: 0, e: "Code de retour 0 = succès, comme $? en Bash." },
+    { s: "Tu veux la liste des 62 hôtes utilisables de 192.168.10.0/26.", o: ["range(0, 64)", "list(ipaddress.ip_network(\"192.168.10.0/26\").hosts())", "socket.hosts()", "csv.hosts()"], a: 1, e: "hosts() exclut l'adresse réseau et la diffusion." },
+    { s: "Tu veux savoir si le port 22 est ouvert sur 192.168.1.10.", o: ["subprocess.run(\"ssh\")", "ipaddress.port(22)", "socket.create_connection((\"192.168.1.10\", 22), timeout=1)", "json.port(22)"], a: 2, e: "Si la connexion TCP s'établit, le port est ouvert." },
+    { s: "Tu veux récupérer la running-config de 30 switchs Cisco en SSH.", o: ["Netmiko : ConnectHandler(...).send_command(\"show running-config\")", "requests.get(\"show run\")", "ping sur chaque switch", "Telnet manuel"], a: 0, e: "Netmiko gère la session SSH et l'invite Cisco." },
+    { s: "Le script doit demander le mot de passe SSH sans l'afficher.", o: ["input()", "getpass.getpass()", "print(mdp)", "Le mettre dans le CSV"], a: 1, e: "La saisie n'apparaît pas à l'écran." },
+    { s: "Pinguer 254 adresses une par une prend 4 minutes. Comment accélérer ?", o: ["Acheter un switch plus rapide", "ThreadPoolExecutor pour pinguer en parallèle", "Réduire la liste à 10 adresses", "time.sleep(0)"], a: 1, e: "Des dizaines de pings simultanés : quelques secondes au lieu de minutes." },
+    { s: "Un utilisateur saisit l'adresse à pinguer. Comment construire la commande ?", o: ["subprocess.run(\"ping \" + saisie, shell=True)", "subprocess.run([\"ping\", \"-c\", \"1\", saisie]) après validation avec ipaddress", "os.system(saisie)", "eval(saisie)"], a: 1, e: "Liste d'arguments + validation : pas d'injection de commande." }
+  ],
+  def: "Python automatise le réseau : il lance des commandes système (subprocess), calcule des adresses (ipaddress), teste des ports (socket), produit des rapports CSV/JSON et pilote les équipements en SSH (Netmiko) ou par API REST (requests).",
+  pts: [
+    "`subprocess.run([\"ping\", \"-c\", \"1\", ip], capture_output=True)` ; succès si `returncode == 0`. Jamais `shell=True` avec une saisie utilisateur.",
+    "`ipaddress.ip_network(\"192.168.10.0/26\")` : `.netmask`, `.num_addresses`, `.hosts()`, `.subnets(new_prefix=28)`.",
+    "`socket.create_connection((hote, port), timeout=1)` dans un `try` : test de port TCP.",
+    "`ThreadPoolExecutor` lance des dizaines de tests en parallèle : un /24 se scanne en quelques secondes.",
+    "Netmiko : `ConnectHandler(device_type=\"cisco_ios\", host=…, username=…, password=…)`, puis `send_command`, `send_config_set`, `save_config`.",
+    "`getpass.getpass()` pour le mot de passe ; `argparse` pour les arguments du script.",
+    "`requests.get(url).json()` pour interroger une API REST (contrôleur SDN, pare-feu, Wi-Fi)."
+  ],
+  table: { h: ["Besoin", "Outil Python"], r: [["Lancer ping / commande", "subprocess"], ["Calculer un réseau", "ipaddress"], ["Tester un port", "socket"], ["SSH vers Cisco", "Netmiko"], ["API REST", "requests"], ["Aller plus vite", "ThreadPoolExecutor"]] },
+  kw: ["subprocess", "ipaddress", "socket", "Netmiko", "ConnectHandler", "getpass", "argparse", "API REST"],
+  ana: "Netmiko, c'est un technicien virtuel qui tape au clavier les mêmes commandes que toi sur chaque switch, sans faute de frappe et sans se fatiguer.",
+  res: "Chaque nuit, un script Python se connecte en SSH aux 30 switchs du campus, sauvegarde leur configuration dans un dossier daté et signale ceux qui ne répondent pas.",
+  piege: "Tester Netmiko sur Packet Tracer : il n'accepte pas les connexions SSH d'un vrai script. On utilise GNS3, EVE-NG, Cisco CML ou une sandbox DevNet.",
+  simIntro: "Choisis le bon outil Python pour chaque besoin d'automatisation réseau.",
+  q: [
+    { q: "Quel module Python lance une commande système comme ping ?", o: ["subprocess", "ipaddress", "json", "math"], e: "returncode 0 = succès." },
+    { q: "Quelle bibliothèque se connecte en SSH aux switchs Cisco ?", o: ["Netmiko", "Pandas", "Flask", "Tkinter"], e: "pip install netmiko." },
+    { q: "Que renvoie `ipaddress.ip_network(\"10.0.0.0/24\").num_addresses` ?", o: ["256", "254", "24", "255"], e: "2^8 adresses, dont 254 hôtes." },
+    { q: "Pourquoi éviter `shell=True` avec une saisie utilisateur ?", o: ["Risque d'injection de commande", "C'est plus lent", "Ça ne marche pas sous Linux", "Ça masque le résultat"], e: "Une saisie piégée exécuterait une autre commande." },
+    { q: "Quelle méthode Netmiko envoie des commandes de configuration ?", o: ["send_config_set", "send_command", "get_config", "write"], e: "send_command pour les commandes show." },
+    { q: "Comment accélérer un scan de 254 adresses ?", o: ["ThreadPoolExecutor (tests en parallèle)", "time.sleep(1)", "Un seul thread", "print() plus court"], e: "Les pings s'exécutent simultanément." }
+  ] }
+);
+
 /* ---------- Thème « La sécurité informatique » (leçons 39 à 47) ---------- */
 const SECU_PDF = 'docs/securite-informatique.pdf';
 THEMES.push(
@@ -4367,7 +4743,99 @@ function simDyn(el) {
   draw();
 }
 
-const SIMS = { lookup: simLookup, static: simStatic, dyn: simDyn, order: simOrder, risk: simRisk, phish: simPhish, pwd: simPwd, hash: simHash, harden: simHarden, acl: simAcl, wifi: simWifi, backup: simBackup, query: simQuery, craap: simCraap, redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
+
+/* ---------- Simulations : module Automatisation ---------- */
+
+/* --- Terminal simulé à missions (Bash, PowerShell, console Python) --- */
+function simTerm(el, t) {
+  const T = t.term; let i = 0, log = [], hint = false;
+  const ps = T.lang === 'powershell';
+  function out(cmd, txt, cls) { log.push({ c: cmd, t: txt, k: cls || '' }); }
+  function draw() {
+    const fin = i >= T.missions.length, M = T.missions[i];
+    el.innerHTML = `<div class="sim"><div class="lx-top"><div class="eyebrow">${fin ? 'Toutes les missions sont réussies' : `Mission ${i + 1} sur ${T.missions.length}`}</div><div class="pw-bar tm-p"><i class="ok" style="width:${i / T.missions.length * 100}%"></i></div></div>
+      ${fin ? `<div class="fb ok"><b>Bravo !</b><p>Tu as réalisé les ${T.missions.length} missions. Tu peux continuer à essayer des commandes librement, ou recommencer.</p></div>` : `<div class="note tm-goal"><b>${esc(M.g)}</b>${hint ? `<br><span class="muted">Indice : </span><code>${esc(M.ex)}</code>` : ''}</div>`}
+      <div class="tm ${T.lang}"><div class="tm-log">${log.map(l => `<div><span class="tm-pr">${esc(T.prompt)}</span> ${esc(l.c)}</div>${l.t ? `<pre class="tm-o ${l.k}">${esc(l.t)}</pre>` : ''}`).join('')}</div>
+      <form class="tm-in" autocomplete="off"><span class="tm-pr">${esc(T.prompt)}</span><input type="text" spellcheck="false" autocapitalize="off" aria-label="Commande"><button class="btn" type="submit">Entrée</button></form></div>
+      <div class="actions">${fin ? '' : `<button class="btn alt" data-s="hint">${hint ? 'Masquer l\'indice' : 'Indice'}</button>`}<button class="btn alt" data-s="clear">Effacer l'écran</button><button class="btn alt" data-s="again">Recommencer</button></div></div>`;
+    const lg = el.querySelector('.tm-log'); lg.scrollTop = lg.scrollHeight;
+    const inp = el.querySelector('.tm-in input'); try { inp.focus({ preventScroll: true }); } catch (e) {}
+  }
+  function run(raw) {
+    const cmd = raw.trim().replace(/\s+/g, ' '); if (!cmd) return;
+    const M = T.missions[i];
+    if (cmd === 'clear' || cmd === 'cls' || /^clear-host$/i.test(cmd)) { log = []; return; }
+    if (M && M.re.test(cmd)) { out(cmd, M.o || '✓ mission réussie', 'ok'); i++; hint = false; return; }
+    const f = (T.free || []).find(x => x[0].test(cmd));
+    if (f) { const m = cmd.match(f[0]); out(cmd, typeof f[1] === 'function' ? f[1](m) : f[1]); return; }
+    for (let k = 0; k < T.missions.length; k++) if (k !== i && T.missions[k].re.test(cmd)) { out(cmd, (T.missions[k].o || 'OK') + (k < i ? '' : '\n(bonne commande, mais ce n\'est pas encore cette mission)')); return; }
+    const first = cmd.split(' ')[0];
+    out(cmd, T.lang === 'python' ? `Ce n'est pas l'instruction attendue pour cette mission. Relis l'énoncé (guillemets, crochets, parenthèses).` : ps ? `Pas tout à fait. Vérifie le nom de la cmdlet (Verbe-Nom), le pipe | et les paramètres (-Count, -First…).` : `${first} : ce n'est pas la commande attendue. Vérifie les options (-l, -p, -n…) et les espaces.`, 'bad');
+  }
+  el.addEventListener('submit', e => { e.preventDefault(); const inp = el.querySelector('.tm-in input'); run(inp.value); draw(); });
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; if (b.dataset.s === 'hint') hint = !hint; else if (b.dataset.s === 'clear') log = []; else { i = 0; log = []; hint = false; } draw(); });
+  draw();
+}
+
+/* --- Exécution pas à pas d'un script (trace des variables) --- */
+function simTrace(el, t) {
+  const T = t.trace; let s = -1, pick = null;
+  function draw() {
+    const st = s >= 0 ? T.steps[s] : null, fin = s === T.steps.length - 1;
+    const outs = T.steps.slice(0, s + 1).filter(x => x.o).map(x => x.o);
+    const vars = st ? st.v : {};
+    el.innerHTML = `<div class="sim"><div class="field"><label>Prédiction</label><p class="def">${esc(T.q.q)}</p><div class="seg">${T.q.o.map((o, k) => `<button data-s="q" data-k="${k}" aria-pressed="${pick === k}">${esc(o)}</button>`).join('')}</div></div>
+      <div class="tr-grid"><div class="block"><h3>Script ${esc(T.lang)}</h3><pre class="code tr-code">${T.code.map((c, k) => `<span class="${st && st.l === k ? 'tr-on' : ''}"><i>${k + 1}</i>${esc(c)}</span>`).join('\n')}</pre></div>
+      <div class="tr-side"><div class="block"><h3>Variables</h3><div class="scroll"><table class="tr-v"><tbody>${Object.keys(vars).length ? Object.keys(vars).map(k => `<tr><td><code>${esc(k)}</code></td><td>${esc(vars[k])}</td></tr>`).join('') : '<tr><td class="muted">Aucune variable pour l\'instant</td></tr>'}</tbody></table></div></div>
+      <div class="block"><h3>Affichage</h3><pre class="code tr-out">${outs.length ? esc(outs.join('\n')) : ' '}</pre></div></div></div>
+      <div class="note">${st ? `<b>Étape ${s + 1} / ${T.steps.length} — ligne ${st.l + 1}.</b> ${esc(st.n || '')}` : 'Clique sur « Pas suivant » pour exécuter la première ligne.'}</div>
+      <div class="actions"><button class="btn alt" data-s="prev" ${s < 0 ? 'disabled' : ''}>← Pas précédent</button><button class="btn" data-s="next" ${fin ? 'disabled' : ''}>Pas suivant →</button><button class="btn alt" data-s="end">Tout exécuter</button><button class="btn alt" data-s="reset">Recommencer</button></div>
+      ${fin ? `<div class="fb ${pick === T.q.a ? 'ok' : 'bad'}"><b>${pick === null ? 'Script terminé.' : pick === T.q.a ? 'Ta prédiction était juste !' : 'Ta prédiction était fausse.'}</b><p>Bonne réponse : ${esc(T.q.o[T.q.a])}.</p></div>` : ''}</div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b || b.disabled) return; const a = b.dataset.s;
+    if (a === 'q') pick = +b.dataset.k; else if (a === 'next') s = Math.min(s + 1, T.steps.length - 1); else if (a === 'prev') s = Math.max(s - 1, -1); else if (a === 'end') s = T.steps.length - 1; else { s = -1; pick = null; }
+    draw();
+  });
+  draw();
+}
+
+/* --- Constructeur de ligne crontab --- */
+function simCron(el) {
+  const F = [
+    ['Minute', [['0', '0'], ['30', '30'], ['*/5', 'toutes les 5'], ['*/15', 'toutes les 15'], ['*', 'chaque minute']]],
+    ['Heure', [['*', 'chaque heure'], ['2', '2 h'], ['7', '7 h'], ['8', '8 h'], ['23', '23 h']]],
+    ['Jour du mois', [['*', 'tous'], ['1', 'le 1er'], ['15', 'le 15']]],
+    ['Mois', [['*', 'tous'], ['1', 'janvier'], ['9', 'septembre']]],
+    ['Jour de semaine', [['*', 'tous'], ['1-5', 'lun–ven'], ['0', 'dimanche'], ['6', 'samedi']]]
+  ];
+  const MIS = [['Chaque jour à 23 h 30', '30 23 * * *'], ['Du lundi au vendredi à 7 h', '0 7 * * 1-5'], ['Toutes les 5 minutes', '*/5 * * * *'], ['Le 1er de chaque mois à 8 h', '0 8 1 * *'], ['Chaque dimanche à 2 h', '0 2 * * 0'], ['Toutes les heures, à la minute 0', '0 * * * *']];
+  let v = ['*', '*', '*', '*', '*'], m = 0, done = {};
+  const JS = { '0': 'dimanche', '6': 'samedi', '1-5': 'du lundi au vendredi' }, MO = { '1': 'en janvier', '9': 'en septembre' };
+  function phrase() {
+    const [mi, h, d, mo, w] = v; let p = '';
+    if (mi.startsWith('*/')) p = `Toutes les ${mi.slice(2)} minutes`; else if (mi === '*') p = 'Chaque minute';
+    if (!p) p = h === '*' ? `Toutes les heures à la minute ${mi}` : `À ${h} h ${mi === '0' ? '' : mi}`.trim();
+    else if (h !== '*') p += `, pendant l'heure de ${h} h`;
+    p += d !== '*' ? `, le ${d === '1' ? '1er' : d} du mois` : (w === '*' ? ', tous les jours' : '');
+    if (w !== '*') p += `, ${JS[w]}`;
+    if (mo !== '*') p += `, ${MO[mo]}`;
+    return p;
+  }
+  function draw() {
+    const line = v.join(' '), ok = line === MIS[m][1]; if (ok) done[m] = true;
+    el.innerHTML = `<div class="sim"><div class="field"><label>Mission</label><div class="seg">${MIS.map((x, k) => `<button data-s="m" data-k="${k}" aria-pressed="${m === k}">${done[k] ? '✓ ' : ''}${k + 1}</button>`).join('')}</div><p class="def">${esc(MIS[m][0])}</p></div>
+      ${F.map((f, k) => `<div class="field"><label>${f[0]}</label><div class="seg">${f[1].map(o => `<button data-s="f" data-k="${k}" data-v="${o[0]}" aria-pressed="${v[k] === o[0]}"><code>${o[0]}</code> ${esc(o[1])}</button>`).join('')}</div></div>`).join('')}
+      <div class="gq"><span>⏰</span><code>${esc(line)}  /home/stagiaire/scripts/sauvegarde.sh</code></div>
+      <p class="muted">Traduction : ${esc(phrase())}.</p>
+      <div class="fb ${ok ? 'ok' : 'bad'}"><b>${ok ? 'Mission réussie.' : 'Pas encore.'}</b><p>${ok ? 'C\'est exactement la bonne ligne. Passe à la mission suivante.' : 'Ajuste les 5 champs : minute, heure, jour du mois, mois, jour de la semaine.'}</p></div>
+      <p class="muted">Missions réussies : ${Object.keys(done).length} / ${MIS.length}</p></div>`;
+  }
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; if (b.dataset.s === 'm') { m = +b.dataset.k; v = ['*', '*', '*', '*', '*']; } else v[+b.dataset.k] = b.dataset.v; draw(); });
+  draw();
+}
+
+const SIMS = { term: simTerm, trace: simTrace, cron: simCron, lookup: simLookup, static: simStatic, dyn: simDyn, order: simOrder, risk: simRisk, phish: simPhish, pwd: simPwd, hash: simHash, harden: simHarden, acl: simAcl, wifi: simWifi, backup: simBackup, query: simQuery, craap: simCraap, redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
 
 /* ---------- Application ---------- */
 
@@ -4512,7 +4980,59 @@ CHAPQ[9] = [
   { q: "Dans la table de routage Cisco, que signifie le code « O » ?", o: ["Une route apprise par OSPF", "Une route obsolète", "Une route de sortie", "Une route originale"], e: "S = statique, R = RIP, D = EIGRP, C = connectée, L = locale." }
 ];
 
-const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique", "La sécurité informatique", "Le routage statique et dynamique"];
+CHAPQ[10] = [
+  { q: "Quelle commande affiche le contenu d'un dossier avec les détails ?", o: ["ls -l", "cd -l", "pwd -l", "cat -l"], e: "-a ajoute les fichiers cachés." },
+  { q: "Que signifie `~` dans un chemin ?", o: ["Le dossier personnel de l'utilisateur", "La racine", "Le dossier parent", "Le dossier temporaire"], e: "/home/utilisateur." },
+  { q: "Quelle commande suit un journal en temps réel ?", o: ["tail -f /var/log/syslog", "head -f", "cat -live", "less -r"], e: "Ctrl+C pour arrêter." },
+  { q: "`ls /etc > liste.txt` puis `ls /var > liste.txt` : que contient liste.txt ?", o: ["Seulement le contenu de /var", "Les deux listes", "Rien", "Une erreur"], e: "> écrase ; >> aurait ajouté." },
+  { q: "Que fait `2> /dev/null` ?", o: ["Jette les messages d'erreur", "Crée un fichier null", "Supprime le fichier", "Double la sortie"], e: "/dev/null est un « trou noir »." },
+  { q: "Quelle commande donne les permissions rwxr-xr-x ?", o: ["chmod 755", "chmod 777", "chmod 644", "chmod 700"], e: "7 = rwx, 5 = r-x." },
+  { q: "Que fait `grep -i erreur fichier.log` ?", o: ["Affiche les lignes contenant « erreur », sans tenir compte de la casse", "Supprime les erreurs", "Compte les lignes", "Inverse le fichier"], e: "-v inverserait, -c compterait." },
+  { q: "Que contient `$1` dans un script ?", o: ["Le premier argument", "Le nom du script", "Le nombre d'arguments", "Le code de retour"], e: "$0 = nom, $# = nombre." },
+  { q: "Quelle condition teste si un fichier existe ?", o: ["[ -f \"$fichier\" ]", "[ -d \"$fichier\" ]", "[ -z \"$fichier\" ]", "[ -x \"$fichier\" ]"], e: "-d pour un dossier." },
+  { q: "Que vaut `$?` après une commande réussie ?", o: ["0", "1", "true", "-1"], e: "Tout autre code signale une erreur." },
+  { q: "Quelle structure lit un fichier ligne par ligne ?", o: ["while read -r ligne; do … done < fichier", "for ligne in fichier", "read fichier", "cat fichier | for"], e: "-r évite d'interpréter les \\." },
+  { q: "Que fait `cmd1 && cmd2` ?", o: ["Exécute cmd2 seulement si cmd1 a réussi", "Exécute les deux en parallèle", "Exécute cmd2 si cmd1 échoue", "Compare les deux sorties"], e: "|| fait l'inverse." },
+  { q: "La ligne cron `30 23 * * *` s'exécute…", o: ["Chaque jour à 23 h 30", "Le 23 à 30 minutes", "Toutes les 30 minutes", "Le 30 à 23 h"], e: "Minute 30, heure 23." },
+  { q: "Pourquoi mettre les variables entre guillemets (`\"$dossier\"`) ?", o: ["Pour gérer les noms contenant des espaces", "Pour les chiffrer", "Pour les rendre globales", "C'est inutile"], e: "Sans guillemets, un nom avec espace devient deux arguments." },
+  { q: "Que fait `set -e` en début de script ?", o: ["Arrête le script à la première erreur", "Active le mode écho", "Efface les variables", "Exporte les variables"], e: "Avec -u (variable non définie) et -o pipefail." }
+];
+CHAPQ[11] = [
+  { q: "Quel verbe de cmdlet sert à lire ou afficher ?", o: ["Get", "Set", "New", "Remove"], e: "Get-Service, Get-Process…" },
+  { q: "Quelle cmdlet trouve une commande à partir d'un mot ?", o: ["Get-Command", "Get-Member", "Get-Help", "Find-Item"], e: "Get-Command *Service*." },
+  { q: "Quelle cmdlet montre des exemples d'utilisation ?", o: ["Get-Help … -Examples", "Get-Member", "Show-Command -Demo", "Get-Command -Full"], e: "Get-Help Get-Service -Examples." },
+  { q: "Quel est l'équivalent PowerShell de grep ?", o: ["Select-String", "Get-Content", "Where-Object", "Find-Item"], e: "Alias sls." },
+  { q: "Que fait `Where-Object Status -eq 'Running'` ?", o: ["Garde seulement les objets dont Status vaut Running", "Démarre les services", "Trie par statut", "Affiche l'aide"], e: "C'est un filtre." },
+  { q: "Quelle cmdlet garde les 5 premiers objets ?", o: ["Select-Object -First 5", "Sort-Object -Top 5", "Get-First 5", "Where-Object -First 5"], e: "Souvent après un Sort-Object." },
+  { q: "Comment exporter des objets vers un fichier lisible par Excel ?", o: ["Export-Csv", "Out-File", "Set-Content", "ConvertTo-Json"], e: "-NoTypeInformation pour un fichier propre." },
+  { q: "`\"SRV-WEB\" -like \"SRV*\"` renvoie…", o: ["True", "False", "SRV", "Une erreur"], e: "* remplace n'importe quels caractères." },
+  { q: "`\"Admin\" -eq \"admin\"` renvoie…", o: ["True (comparaison insensible à la casse)", "False", "Une erreur", "Admin"], e: "-ceq respecte la casse." },
+  { q: "Que crée `@{ Nom = \"Alaoui\"; Service = \"RH\" }` ?", o: ["Une table de hachage", "Un tableau", "Un fichier", "Une fonction"], e: "Paires clé = valeur." },
+  { q: "Quel bloc s'exécute toujours, erreur ou non ?", o: ["finally", "catch", "try", "else"], e: "try / catch / finally." },
+  { q: "Quelle cmdlet crée un compte local Windows ?", o: ["New-LocalUser", "New-ADUser", "Add-LocalUser", "Set-User"], e: "New-ADUser pour l'Active Directory." },
+  { q: "Que fait `Invoke-Command -ComputerName SRV1, SRV2 -ScriptBlock { … }` ?", o: ["Exécute le bloc sur les deux serveurs distants", "Copie le script", "Redémarre les serveurs", "Teste leur connexion"], e: "Grâce à WinRM." },
+  { q: "Quelle commande autorise les scripts locaux tout en exigeant une signature pour ceux d'Internet ?", o: ["Set-ExecutionPolicy RemoteSigned", "Set-ExecutionPolicy Restricted", "Set-ExecutionPolicy Bypass", "Unblock-All"], e: "Bon compromis pour travailler." },
+  { q: "Comment lancer un script nommé inventaire.ps1 du dossier courant ?", o: [".\\inventaire.ps1", "inventaire", "run inventaire.ps1", "bash inventaire.ps1"], e: "Le .\\ est obligatoire pour un script du dossier courant." }
+];
+CHAPQ[12] = [
+  { q: "Comment exécute-t-on un script Python sous Linux ?", o: ["python3 script.py", "./python script", "run script.py", "bash script.py"], e: "Sous Windows : python script.py ou py script.py." },
+  { q: "Que donne `print(f\"{2 + 3} serveurs\")` ?", o: ["5 serveurs", "2 + 3 serveurs", "{2 + 3} serveurs", "Une erreur"], e: "L'expression entre accolades est évaluée." },
+  { q: "Avec `l = [10, 20, 30]`, que vaut `l[-1]` ?", o: ["30", "10", "-1", "Une erreur"], e: "Les indices négatifs partent de la fin." },
+  { q: "Comment lire la valeur associée à la clé \"ip\" d'un dictionnaire sw ?", o: ["sw[\"ip\"]", "sw.ip()", "sw(ip)", "sw->ip"], e: "Ou sw.get(\"ip\")." },
+  { q: "Que produit `for i in range(3): print(i)` ?", o: ["0 1 2", "1 2 3", "0 1 2 3", "3"], e: "range(3) = 0, 1, 2." },
+  { q: "Quel mot-clé sort immédiatement d'une boucle ?", o: ["break", "exit", "stop", "continue"], e: "continue passe au tour suivant." },
+  { q: "Quelle instruction renvoie une valeur depuis une fonction ?", o: ["return", "print", "yield only", "send"], e: "Sans return, la fonction renvoie None." },
+  { q: "Quel mode d'ouverture efface le contenu d'un fichier existant ?", o: ["\"w\"", "\"a\"", "\"r\"", "\"rb\""], e: "\"a\" ajoute à la fin." },
+  { q: "Quel bloc capture une erreur en Python ?", o: ["try / except", "try / catch", "on error", "rescue"], e: "except NomDeLErreur:" },
+  { q: "Quel module calcule masques, réseaux et hôtes IPv4 ?", o: ["ipaddress", "socket", "os", "csv"], e: "ip_network, hosts(), subnets()." },
+  { q: "Quel module teste l'ouverture d'un port TCP ?", o: ["socket", "ipaddress", "json", "datetime"], e: "socket.create_connection((hote, port))." },
+  { q: "Quel est le code de retour d'un ping réussi lancé avec subprocess ?", o: ["0", "1", "True", "200"], e: "returncode == 0." },
+  { q: "Quelle méthode Netmiko envoie une commande show ?", o: ["send_command", "send_config_set", "save_config", "connect"], e: "send_config_set pour la configuration." },
+  { q: "Quel module demande un mot de passe sans l'afficher ?", o: ["getpass", "input", "secrets", "hidden"], e: "getpass.getpass(\"Mot de passe : \")." },
+  { q: "Pourquoi utiliser `argparse` ?", o: ["Pour recevoir proprement les arguments du script et générer l'aide -h", "Pour chiffrer le script", "Pour lancer des pings", "Pour lire un CSV"], e: "python scan.py 192.168.1.0/24." }
+];
+
+const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique", "La sécurité informatique", "Le routage statique et dynamique", "Bash : le shell Linux", "PowerShell : administrer Windows", "Python : automatiser partout"];
 const CLEAD = [
   "Composants, catégories, topologies et tendances : le vocabulaire de base.",
   "Ethernet, adresses MAC, vitesse de commutation et Wi-Fi.",
@@ -4523,7 +5043,10 @@ const CLEAD = [
   "Pourquoi doubler les équipements, et les protocoles STP et VRRP qui évitent les boucles et les pannes de passerelle.",
   "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion, cadre légal et projet de veille.",
   "Menaces, authentification, cryptographie, équipements, pare-feu et ACL, Wi-Fi, sauvegardes et réponse à incident.",
-  "Table de routage et plus long préfixe, routes statiques et par défaut, RIP et OSPF, configuration d'OSPF à zone unique."
+  "Table de routage et plus long préfixe, routes statiques et par défaut, RIP et OSPF, configuration d'OSPF à zone unique.",
+  "Commandes, redirections et pipes, puis scripts avec variables, conditions, boucles, fonctions et planification cron.",
+  "Cmdlets et pipeline objet, scripts avec conditions, boucles, fonctions et try/catch, administration Windows et Active Directory.",
+  "Bases du langage, fichiers et erreurs, puis automatisation réseau : ping, ports, rapports CSV, SSH avec Netmiko."
 ];
 
 /* ---------- Labs VLAN ---------- */
@@ -4592,6 +5115,8 @@ const app = document.getElementById('app');
 const MODULES = [
   { id: 'm103', menu: "Conception d'un réseau", name: "Conception d'un réseau <em>informatique</em>", chaps: [0, 1, 2, 3, 4, 5, 9, 6], labs: true,
     lead: "Types de réseaux, réseaux locaux, adressage IP, modèles et protocoles, commutation, VLAN, routage statique et dynamique, redondance." },
+  { id: 'auto', menu: 'Automatisation', name: "Automatiser <em>l'administration</em>", chaps: [10, 11, 12], cours: 'automatisation.html', labs2: 'automatisation.html#tp',
+    lead: "Bash, PowerShell et Python pour automatiser les tâches d'administration des serveurs, des postes et du réseau." },
   { id: 'veille', menu: 'Veille technologique', name: 'Veille <em>technologique</em>', chaps: [7], cours: 'veille.html',
     lead: "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion et cadre légal." },
   { id: 'secu', menu: 'Sécurité informatique', name: 'Sécurité <em>informatique</em>', chaps: [8], cours: 'securite.html', labs2: 'securite.html#tp',

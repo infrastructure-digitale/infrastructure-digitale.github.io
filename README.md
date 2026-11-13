@@ -1,13 +1,14 @@
 # Réseaux informatiques · Infrastructure digitale
 
 Application web pour les stagiaires OFPPT de 1re année (Infrastructure digitale) :
-Trois modules (menu en haut du site) : Conception d'un réseau informatique (8 thèmes, 33 leçons, labs VLAN, QCM de fin de chapitre), Veille technologique (9 leçons) et Sécurité informatique (9 leçons, 6 TP). Chaque leçon a une fiche de cours, une simulation et un QCM corrigé ; chaque module a un QCM de 10, 20 ou 40 questions.
+Trois modules (menu en haut du site) : Conception d'un réseau informatique (8 thèmes, 33 leçons, labs VLAN, QCM de fin de chapitre), Automatiser les tâches d'administration (Bash, PowerShell, Python : 9 leçons, 6 TP), Veille technologique (9 leçons) et Sécurité informatique (9 leçons, 6 TP). Chaque leçon a une fiche de cours, une simulation et un QCM corrigé ; chaque module a un QCM de 10, 20 ou 40 questions.
 
 Site en ligne : https://infrastructure-digitale.netlify.app/
 
 ## Organisation
 - Thème « Le routage statique et dynamique » (leçons 48 à 51) avec les simulations `simLookup`, `simStatic`, `simDyn`.
 - QCM de fin de chapitre : objet `CHAPQ` (15 questions par chapitre).
+- Module Automatisation (leçons 52 à 60, chapitres 10 à 12) : simulateurs `simTerm` (terminal à missions), `simTrace` (exécution pas à pas), `simCron` ; cours `automatisation.html`, PDF `docs/automatisation-administration.pdf`.
 - Menu des modules : tableau `MODULES` (lien direct : `index.html#m103`, `#veille`, `#secu`).
 - Cours complets en HTML : `veille.html`, `securite.html` (TP et solutions : `securite.html#tp`) ; PDF dans `docs/`.
 - Simulations ajoutées : `simOrder`, `simRisk`, `simPhish`, `simPwd`, `simHash`, `simHarden`, `simAcl`, `simWifi`, `simBackup`, `simQuery`, `simCraap`.

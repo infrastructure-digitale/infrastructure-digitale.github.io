@@ -1,0 +1,1739 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automatiser les tâches d'administration — Cours complet · Infrastructure Digitale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@500&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap">
+<style>
+:root{
+  --navy:#1B2A4A; --navy2:#2C3E66; --teal:#0F766E; --teal-l:#E6F4F1;
+  --gold:#B8913A; --gold-l:#FBF4E4; --rose:#A84A62; --rose-l:#FBEEF1;
+  --violet:#5B4B8A; --violet-l:#F1EEF8; --sky:#2F6FA8; --sky-l:#EAF2FA;
+  --ink:#24292F; --muted:#5E6673; --line:#E3DED3; --cream:#FBF9F4;
+}
+
+
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Inter,"DejaVu Sans",sans-serif;font-size:10.2pt;line-height:1.58;color:var(--ink);margin:0}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--navy);line-height:1.25}
+h2{font-size:17pt;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);break-after:avoid}
+h2 .n{color:var(--gold);margin-right:8px}
+h3{font-size:12.5pt;margin:18px 0 6px;color:var(--teal);break-after:avoid}
+h4{font-size:11pt;margin:12px 0 4px;break-after:avoid}
+p{margin:6px 0 8px;text-align:justify}
+ul,ol{margin:4px 0 10px;padding-left:20px} li{margin:2px 0}
+strong{color:var(--navy)}
+
+  background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);color:#fff}
+
+
+/* KEYWORDS */
+.k{padding:1px 7px;border-radius:4px;font-weight:600;font-size:.94em;white-space:nowrap}
+.kb{background:var(--sky-l);color:var(--sky)} .kt{background:var(--teal-l);color:var(--teal)}
+.kg{background:var(--gold-l);color:#8A6A22} .kr{background:var(--rose-l);color:var(--rose)}
+.kv{background:var(--violet-l);color:var(--violet)}
+
+/* BOXES */
+.box{border-radius:10px;padding:11px 15px 9px 15px;margin:12px 0;;border-left:5px solid}
+.box .t{font-weight:700;font-size:8.6pt;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.box .t i{font-style:normal;display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:10pt}
+.box p{margin:3px 0}
+.def{background:var(--sky-l);border-color:var(--sky)} .def .t{color:var(--sky)} .def .t i{background:var(--sky)}
+.tip{background:var(--teal-l);border-color:var(--teal)} .tip .t{color:var(--teal)} .tip .t i{background:var(--teal)}
+.warn{background:var(--rose-l);border-color:var(--rose)} .warn .t{color:var(--rose)} .warn .t i{background:var(--rose)}
+.keep{background:var(--gold-l);border-color:var(--gold)} .keep .t{color:#8A6A22} .keep .t i{background:var(--gold)}
+.ana{background:var(--violet-l);border-color:var(--violet)} .ana .t{color:var(--violet)} .ana .t i{background:var(--violet)}
+.kwbox{border:1px dashed #CFC6B0;border-radius:10px;padding:9px 13px;margin:12px 0;background:#fff;}
+.kwbox .t{font-size:8.5pt;letter-spacing:1.6px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.kwbox .k{display:inline-block;margin:2px 3px}
+
+/* TABLES */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0 14px;font-size:9.2pt;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:8.8pt}
+td{padding:6px 9px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--cream)}
+tr{}
+td b{color:var(--navy)}
+.cap{font-size:8.5pt;color:var(--muted);text-align:center;font-style:italic;margin:-6px 0 12px}
+
+/* FIGURES */
+figure{margin:12px 0 14px;text-align:center;}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:8.5pt;color:var(--muted);font-style:italic;margin-top:4px}
+
+/* EXERCISES */
+.exo{border:1px solid var(--line);border-radius:10px;margin:12px 0;;overflow:hidden}
+.exo .h{background:var(--navy);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600;display:flex;justify-content:space-between}
+.exo .h span{color:#D9BD7A;font-weight:400}
+.exo .c{padding:8px 15px 6px}
+.cor{border:1px solid #CFE5DF;border-radius:10px;margin:10px 0;;overflow:hidden}
+.cor .h{background:var(--teal);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600}
+.cor .c{padding:8px 15px 6px;background:#FAFDFC}
+.lines{border-bottom:1px dotted #bbb;height:18px}
+
+.section-intro{font-family:Lora;font-style:italic;color:var(--navy2);font-size:11pt}
+
+.toc .row{display:flex;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line)}
+.toc .row .nb{font-family:Lora;font-size:17pt;color:var(--gold);width:48px}
+.toc .row .tt{flex:1;font-family:Lora;font-size:12.5pt;color:var(--navy)}
+.toc .row .ds{font-size:8.8pt;color:var(--muted);display:block;font-family:Inter}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;}
+.card h4{margin:0 0 4px;font-size:10.5pt}
+.card p{font-size:9.2pt;margin:0;text-align:left}
+.pb{break-before:page}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+/* ===== Version web ===== */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(184,145,58,.10),transparent 60%),#F6F3EC;background-attachment:fixed;font-size:16px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 80px}
+p{text-align:left}
+section.toc,.page{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07);padding:clamp(18px,4vw,36px);margin:26px 0}
+/* topnav */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(22,34,61,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,189,122,.25);box-shadow:0 4px 20px rgba(11,18,34,.18)}
+.tn-in{max-width:1100px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px}
+.tn-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none}
+.tn-logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 14px Lora,serif;color:#16223D;background:linear-gradient(135deg,#E2C78A,#B8913A)}
+.tn-name{font:600 1.05rem Lora,serif;white-space:nowrap}.tn-name em{color:#D9BD7A}
+.tn-mods{display:flex;gap:6px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tn-mod{border:1px solid rgba(255,255,255,.18);color:#D6DEEC;border-radius:999px;padding:8px 16px;font-weight:600;font-size:.92rem;white-space:nowrap;text-decoration:none}
+.tn-mod:hover{border-color:#D9BD7A;color:#fff}
+.tn-mod[aria-current="page"]{background:linear-gradient(135deg,#D9BD7A,#B8913A);border-color:transparent;color:#16223D}
+/* hero */
+.hero{position:relative;overflow:hidden;margin:26px 0;border-radius:22px;padding:clamp(26px,6vw,56px);color:#fff;background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);box-shadow:0 10px 30px rgba(11,18,34,.2)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1.5px solid rgba(217,189,122,.3);pointer-events:none}
+.hero::before{width:420px;height:420px;right:-150px;top:-160px}.hero::after{width:260px;height:260px;right:-60px;top:-80px}
+.hero .tag{font-size:.78rem;letter-spacing:4px;color:#D9BD7A;text-transform:uppercase}
+.hero h1{font-family:Lora,serif;font-size:clamp(2.3rem,8vw,3.8rem);color:#fff;margin:12px 0 4px;line-height:1.05}
+.hero h1 em{color:#D9BD7A}.hero h1 br{display:none}
+.hero .bar{width:60px;height:3px;background:#D9BD7A;margin:18px 0}
+.hero .sub{font-size:1.08rem;color:#C9D4E5;max-width:620px;font-weight:300}
+.hero .chips{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.hero .chips span{border:1px solid rgba(217,189,122,.6);color:#EBDDB5;padding:4px 12px;border-radius:20px;font-size:.8rem}
+.hero .meta{margin-top:22px;font-size:.88rem;color:#AFC0D8;line-height:1.8}.hero .meta b{color:#fff}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;min-height:48px;font-weight:700;text-decoration:none;border:0}
+.btn.gold{background:linear-gradient(135deg,#C9A24E,#A57F2C);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn.ghostw{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3)}
+/* sommaire */
+.toc .row{text-decoration:none;color:inherit;border-radius:10px;padding:10px 8px;transition:background .15s}
+.toc .row:hover{background:var(--cream)}.toc .row:hover .tt{color:var(--teal)}
+/* chapter head */
+.chead2{display:grid;grid-template-columns:150px 1fr;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);margin:56px 0 22px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07)}
+.ch-side{display:flex;flex-direction:column;justify-content:center;padding:20px;color:#fff}
+.ch-side .lbl{font-size:.72rem;letter-spacing:4px;opacity:.85}
+.ch-side .num{font:700 4.4rem/1 Lora,serif}
+.ch-body{padding:24px 28px}
+.ch-body h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin:0 0 8px}
+.ch-body .lead{font-family:Lora,serif;font-style:italic;color:var(--muted);font-size:1.05rem}
+.ch-body .obj{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.ch-body .obj h4{margin:0 0 4px;font-family:Inter;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.ch-body .quote{margin-top:16px;font-family:Lora,serif;font-style:italic;color:var(--navy2);border-left:3px solid var(--gold);padding-left:14px}
+/* contenus */
+h2{scroll-margin-top:80px}
+figure svg{width:100%;height:auto;max-width:680px}
+.tscroll{overflow-x:auto;margin:10px 0 16px;border-radius:10px}
+.tscroll table{margin:0;min-width:520px}
+details.cor{border:1px solid #CFE5DF;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+details.cor>summary{background:var(--teal);color:#fff;padding:9px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.cor>summary::-webkit-details-marker{display:none}
+details.cor>summary::after{content:"Voir le corrigé ▾";font-weight:400;font-size:.85rem;opacity:.85}
+details.cor[open]>summary::after{content:"Masquer ▴"}
+details.cor .c{padding:10px 16px;background:#FAFDFC}
+.exo,.box,.kwbox,.card{background-clip:padding-box}
+.fab{position:fixed;right:18px;bottom:18px;z-index:15;background:var(--navy);color:#D9BD7A;border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;box-shadow:0 8px 22px rgba(11,18,34,.3);font-size:.9rem}
+.foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+.foot a{color:var(--teal);font-weight:600}
+@media (max-width:640px){
+  .tn-in{flex-direction:column;align-items:stretch;gap:8px}.tn-mods{margin-left:0}.tn-mods{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.tn-mod{white-space:normal;padding:8px 6px;font-size:.8rem;line-height:1.2;text-align:center}
+  .chead2{grid-template-columns:1fr}.ch-side{flex-direction:row;align-items:baseline;gap:12px;padding:14px 20px}.ch-side .num{font-size:2.6rem}
+  .ch-body{padding:18px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero::after{display:none}
+  .toc .row .nb{width:38px;font-size:15pt}
+  body{font-size:15.5px}
+}
+@media print{.topnav,.fab,.hero-actions{display:none}}
+
+.chead2#tp .ch-side .num{font-size:3.4rem} details.cor pre{margin:6px 0}
+pre.code{background:#0F1B22;color:#D6E9EE;border-radius:10px;padding:12px 16px;font:13px/1.55 "JetBrains Mono","DejaVu Sans Mono",monospace;white-space:pre;overflow-x:auto;margin:8px 0 12px}
+pre.code .cm{color:#7F978A} pre.code .kw{color:#D9BD7A;font-weight:600} pre.code .st{color:#9FE0C0} pre.code .pr{color:#8DB8E8}
+pre.out{background:#F4F1EA;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:8px;padding:8px 14px;font:12.5px/1.5 "JetBrains Mono","DejaVu Sans Mono",monospace;white-space:pre;overflow-x:auto;margin:-4px 0 12px}
+pre.out::before{content:"Résultat";display:block;font:700 10px Inter;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:2px}
+.lang{display:inline-block;font:700 11px Inter;letter-spacing:1px;padding:2px 8px;border-radius:4px;color:#fff}
+.lb{background:#2F7D5B}.lp{background:#2F6FA8}.ly{background:#B8913A}
+</style></head>
+<body><header class="topnav"><div class="tn-in"><a class="tn-brand" href="index.html#auto"><span class="tn-logo">ID</span><span class="tn-name">Infrastructure <em>Digitale</em></span></a><nav class="tn-mods" aria-label="Modules"><a class="tn-mod" href="index.html#m103">Conception d'un réseau</a><a class="tn-mod" href="index.html#auto" aria-current="page">Automatisation</a><a class="tn-mod" href="index.html#veille">Veille technologique</a><a class="tn-mod" href="index.html#secu">Sécurité informatique</a></nav></div></header>
+<main class="wrap">
+
+<!-- ============ COVER ============ -->
+<header class="hero" id="top"><div class="hin">
+<div class="tag">Module · Infrastructure digitale</div>
+<h1>Automatiser<br/><em>l'administration</em></h1>
+<div class="bar"></div>
+<div class="sub">Écrire des scripts Bash, PowerShell et Python pour gagner du temps, éviter les erreurs et administrer des dizaines de machines comme une seule.</div>
+<div class="chips"><span>Bash</span><span>PowerShell</span><span>Python</span><span>8 chapitres</span><span>6 TP corrigés</span><span>QCM</span></div>
+</div><div class="meta">
+<b>Public :</b> Stagiaires 1<sup>re</sup> année, niveau Bac+1 — Infrastructure Digitale<br/>
+<b>Formateur :</b> M. Youssef MERZAK<br/>
+<b>Édition :</b> Novembre 2026
+  </div><div class="hero-actions"><a class="btn gold" href="#sommaire">Commencer le cours</a><a class="btn ghostw" download="" href="docs/automatisation-administration.pdf">Télécharger le PDF</a></div></header>
+<!-- ============ SOMMAIRE ============ -->
+<section class="toc" id="sommaire">
+<h2 style="margin-top:0">Sommaire</h2>
+<p class="section-intro" style="font-size:10pt">On commence par comprendre ce qu'est un script, puis on apprend trois langages : Bash (Linux), PowerShell (Windows) et Python (partout). Chaque chapitre contient des exemples complets à recopier et tester. Les TP et les corrigés sont à la fin.</p>
+<a class="row" href="#ch1"><span class="nb">01</span><span class="tt">Introduction à l'automatisation<span class="ds">Pourquoi automatiser, script, interpréteur, algorithme</span></span></a>
+<a class="row" href="#ch2"><span class="nb">02</span><span class="tt">Bash : le shell Linux<span class="ds">Commandes, chemins, redirections, pipes, permissions</span></span></a>
+<a class="row" href="#ch3"><span class="nb">03</span><span class="tt">Bash : écrire des scripts<span class="ds">Variables, arguments, conditions, boucles, fonctions, cron</span></span></a>
+<a class="row" href="#ch4"><span class="nb">04</span><span class="tt">PowerShell : les bases<span class="ds">Cmdlets Verbe-Nom, pipeline objet, variables, opérateurs</span></span></a>
+<a class="row" href="#ch5"><span class="nb">05</span><span class="tt">PowerShell : scripts d'administration<span class="ds">Conditions, boucles, fonctions, CSV, services, utilisateurs, distance</span></span></a>
+<a class="row" href="#ch6"><span class="nb">06</span><span class="tt">Python : les bases<span class="ds">Types, listes, dictionnaires, conditions, boucles, fonctions, fichiers</span></span></a>
+<a class="row" href="#ch7"><span class="nb">07</span><span class="tt">Python pour l'administration réseau<span class="ds">subprocess, ipaddress, socket, CSV/JSON, SSH avec Netmiko</span></span></a>
+<a class="row" href="#ch8"><span class="nb">08</span><span class="tt">Comparer et bien scripter<span class="ds">Équivalences Bash/PowerShell/Python, sécurité, planification, Git</span></span></a>
+<a class="row" href="#tp"><span class="nb">TP</span><span class="tt">Labs et travaux pratiques<span class="ds">6 TP avec solutions complètes</span></span></a>
+<a class="row" href="#qcm"><span class="nb">+</span><span class="tt">QCM final · Glossaire · Corrigés<span class="ds">Pour réviser et vérifier ses réponses</span></span></a>
+<h3>Comment lire ce cours ?</h3>
+<div class="legend"><span class="k kb">Définition</span><span class="k kt">Astuce</span><span class="k kr">Attention</span><span class="k kg">À retenir</span><span class="k kv">Analogie</span></div>
+<p>Les blocs de code ont une étiquette de langage : <span class="lang lb">BASH</span> <span class="lang lp">POWERSHELL</span> <span class="lang ly">PYTHON</span>. Le cadre « Résultat » montre ce qui s'affiche à l'écran.</p>
+</section>
+<!-- ============ CHAPITRE 1 ============ -->
+<section class="chead2" id="ch1"><div class="ch-side" style="background:linear-gradient(180deg,#1B2A4A,#2C3E66)"><span class="lbl">CHAPITRE</span><span class="num">01</span></div><div class="ch-body">
+<h1>Introduction à l'automatisation</h1>
+<div class="lead">Ce que tu fais trois fois à la main, un script peut le faire mille fois sans se tromper.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Expliquer l'intérêt de l'automatisation pour un technicien</li>
+<li>Distinguer langage compilé, langage interprété et shell</li>
+<li>Choisir entre Bash, PowerShell et Python</li>
+<li>Écrire un algorithme simple avant de coder</li></ul></div>
+<div class="quote">« Un bon administrateur est paresseux : il automatise tout ce qui se répète. »</div></div></section>
+<h2><span class="n">1.1</span>Pourquoi automatiser ?</h2>
+<p>Créer 40 comptes utilisateurs, sauvegarder chaque soir 10 serveurs, vérifier que 200 équipements répondent au ping… À la main, c'est long, ennuyeux et source d'erreurs. Un <span class="k kb">script</span> fait ces tâches automatiquement, toujours de la même façon.</p>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kb">script</span> est un fichier texte qui contient une suite d'instructions exécutées les unes après les autres par un <span class="k kb">interpréteur</span> (Bash, PowerShell, Python). Il automatise une tâche répétitive.</p></div>
+<div class="tscroll"><table>
+<tr><th>À la main</th><th>Avec un script</th></tr>
+<tr><td>40 comptes créés en 2 heures</td><td>40 comptes créés en 10 secondes, à partir d'un fichier CSV</td></tr>
+<tr><td>Fautes de frappe, oublis</td><td>Le même résultat à chaque exécution</td></tr>
+<tr><td>Dépend de la mémoire du technicien</td><td>La procédure est écrite, partageable et réutilisable</td></tr>
+<tr><td>Impossible la nuit ou le week-end</td><td>Planifié automatiquement (cron, Planificateur de tâches)</td></tr>
+</table></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Un script, c'est une recette de cuisine écrite pour un robot cuisinier. Tu l'écris une fois avec précision ; ensuite le robot la refait autant de fois que tu veux, à l'heure que tu veux, sans oublier le sel.</p></div>
+<h2><span class="n">1.2</span>Compilé, interprété, shell</h2>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Type</th><th>Fonctionnement</th><th style="width:26%">Exemples</th></tr>
+<tr><td><b>Langage compilé</b></td><td>Le code est traduit une fois pour toutes en programme exécutable (.exe)</td><td>C, C++, Go</td></tr>
+<tr><td><b>Langage interprété</b></td><td>Un interpréteur lit et exécute le code ligne par ligne, à chaque lancement</td><td>Python, Bash, PowerShell</td></tr>
+<tr><td><b>Shell</b></td><td>Interface en ligne de commande qui interprète les commandes tapées ou écrites dans un script</td><td>Bash (Linux), PowerShell (Windows), cmd</td></tr>
+</table></div>
+<h2><span class="n">1.3</span>Quel langage choisir ?</h2>
+<div class="tscroll"><table>
+<tr><th style="width:16%"></th><th><span class="lang lb">BASH</span></th><th><span class="lang lp">POWERSHELL</span></th><th><span class="lang ly">PYTHON</span></th></tr>
+<tr><td><b>Système</b></td><td>Linux, macOS, équipements réseau Linux</td><td>Windows (et Linux avec PowerShell 7)</td><td>Tous</td></tr>
+<tr><td><b>Manipule</b></td><td>Du <b>texte</b></td><td>Des <b>objets</b> .NET</td><td>Des objets, des données</td></tr>
+<tr><td><b>Points forts</b></td><td>Fichiers, commandes système, serveurs Linux</td><td>Active Directory, services, registre, Microsoft 365</td><td>Réseau, API, traitement de données, multiplateforme</td></tr>
+<tr><td><b>Extension</b></td><td><code>.sh</code></td><td><code>.ps1</code></td><td><code>.py</code></td></tr>
+<tr><td><b>Commentaire</b></td><td><code># …</code></td><td><code># …</code></td><td><code># …</code></td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Règle simple : <b>serveur Linux → Bash</b>, <b>Windows / Active Directory → PowerShell</b>, <b>équipements réseau, API, données → Python</b>. Un technicien moderne connaît les trois.</p></div>
+<h2><span class="n">1.4</span>Penser avant de coder : l'algorithme</h2>
+<p>Avant d'écrire un script, on décrit les étapes en français : c'est l'<span class="k kv">algorithme</span> (ou pseudo-code).</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 250">
+<defs><marker id="a1a" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#1B2A4A"></path></marker></defs>
+<g font-size="11" text-anchor="middle">
+<rect fill="#1B2A4A" height="34" rx="17" width="130" x="235" y="5"></rect><text fill="#fff" font-weight="700" x="300" y="27">DÉBUT</text>
+<rect fill="#EAF2FA" height="34" rx="6" stroke="#2F6FA8" width="200" x="200" y="58"></rect><text x="300" y="80">Lire la liste des serveurs</text>
+<polygon fill="#FBF4E4" points="300,108 380,138 300,168 220,138" stroke="#B8913A"></polygon><text x="300" y="135">Reste-t-il</text><text x="300" y="149">un serveur ?</text>
+<rect fill="#E6F4F1" height="34" rx="6" stroke="#0F766E" width="160" x="430" y="121"></rect><text x="510" y="143">Ping → noter OK / KO</text>
+<rect fill="#EAF2FA" height="34" rx="6" stroke="#2F6FA8" width="200" x="200" y="190"></rect><text x="300" y="212">Afficher le rapport</text>
+<text fill="#0F766E" font-size="10" x="400" y="132">oui</text><text fill="#A84A62" font-size="10" x="312" y="183">non</text>
+</g>
+<g fill="none" marker-end="url(#a1a)" stroke="#1B2A4A" stroke-width="1.8"><line x1="300" x2="300" y1="39" y2="55"></line><line x1="300" x2="300" y1="92" y2="105"></line><line x1="380" x2="427" y1="138" y2="138"></line><path d="M510 121 V100 H330 V108"></path><line x1="300" x2="300" y1="168" y2="187"></line></g>
+</svg>
+<figcaption>Figure 1 — Algorithme d'un script qui vérifie une liste de serveurs</figcaption>
+</figure>
+<p>Les trois briques de tout algorithme, dans tous les langages :</p>
+<div class="grid3">
+<div class="card"><h4 style="color:var(--sky)">Séquence</h4><p>Les instructions s'exécutent dans l'ordre, l'une après l'autre.</p></div>
+<div class="card"><h4 style="color:#8A6A22">Condition</h4><p>« Si le serveur répond, alors… sinon… » : <code>if</code>.</p></div>
+<div class="card"><h4 style="color:var(--teal)">Boucle</h4><p>« Pour chaque serveur de la liste… » : <code>for</code>, <code>while</code>.</p></div>
+</div>
+<h2><span class="n">1.5</span>Les règles d'un bon script</h2>
+<ul>
+<li><b>Commenter</b> : expliquer le but du script et des parties délicates (<code>#</code>).</li>
+<li><b>Tester en labo</b> avant la production, d'abord sur une seule machine.</li>
+<li><b>Gérer les erreurs</b> : que se passe-t-il si le fichier n'existe pas ou si le serveur ne répond pas ?</li>
+<li><b>Journaliser</b> : écrire ce qui a été fait dans un fichier log.</li>
+<li><b>Ne jamais écrire un mot de passe en clair</b> dans un script.</li>
+</ul>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Un script exécute exactement ce qui est écrit, très vite, sur toutes les machines. Une erreur dans une commande de suppression peut effacer des centaines de fichiers en une seconde. <b>On teste toujours sur un jeu d'essai.</b></p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Un <b>script</b> = un fichier d'instructions exécuté par un interpréteur.<br/>
+• <b>Bash</b> (Linux, texte), <b>PowerShell</b> (Windows, objets), <b>Python</b> (partout, réseau et données).<br/>
+• Algorithme : <b>séquence, condition, boucle</b>. On réfléchit avant de coder.<br/>
+• Commenter, tester, gérer les erreurs, journaliser, protéger les secrets.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Script</span><span class="k kb">Interpréteur</span><span class="k kb">Shell</span><span class="k kv">Algorithme</span><span class="k kg">Séquence</span><span class="k kg">Condition</span><span class="k kg">Boucle</span><span class="k kt">Commentaire</span><span class="k kt">Journalisation</span>
+</div>
+<h3>Exercices — Chapitre 1</h3>
+<div class="exo"><div class="h">Exercice 1.1 — Quel langage ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Créer 60 comptes dans l'Active Directory à partir d'un fichier Excel exporté en CSV.</li><li>Sauvegarder chaque nuit le dossier /var/www d'un serveur Ubuntu.</li><li>Se connecter en SSH à 30 switchs Cisco pour récupérer leur configuration.</li><li>Lister les services Windows arrêtés sur un serveur.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 1.2 — Écrire un algorithme <span>★★ moyen</span></div><div class="c">
+<p>Écris en français l'algorithme d'un script qui vérifie l'espace disque libre : s'il est inférieur à 10 %, il écrit une alerte dans un fichier log, sinon il écrit « OK ». Identifie la séquence, la condition et l'éventuelle boucle.</p></div></div>
+<!-- ============ CHAPITRE 2 ============ -->
+<section class="chead2" id="ch2"><div class="ch-side" style="background:linear-gradient(180deg,#2F7D5B,#1E5A41)"><span class="lbl">CHAPITRE</span><span class="num">02</span></div><div class="ch-body">
+<h1>Bash : le shell Linux</h1>
+<div class="lead">Le terminal Linux est l'outil quotidien de l'administrateur : rapide, précis et scriptable.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Se déplacer dans l'arborescence et manipuler des fichiers</li>
+<li>Utiliser redirections et pipes pour combiner des commandes</li>
+<li>Lire et modifier les permissions</li>
+<li>Rechercher et filtrer du texte (grep, wc, sort, cut)</li></ul></div>
+<div class="quote">« Sous Linux, tout est fichier, et tout fichier se traite avec une commande. »</div></div></section>
+<h2><span class="n">2.1</span>Le terminal et l'invite</h2>
+<p><span class="k kb">Bash</span> (<i>Bourne Again SHell</i>) est le shell par défaut de la plupart des distributions Linux. L'invite (prompt) indique l'utilisateur, la machine et le dossier courant :</p>
+<pre class="code"><span class="pr">stagiaire@srv-web:~$</span>      <span class="cm"># utilisateur normal, dans son dossier personnel (~)</span>
+<span class="pr">root@srv-web:/etc#</span>        <span class="cm"># administrateur (root), dans /etc ; le # signale les pleins droits</span></pre>
+<p>Une commande s'écrit : <code>commande -options arguments</code>. Exemple : <code>ls -l /etc</code>.</p>
+<h2><span class="n">2.2</span>L'arborescence Linux</h2>
+<figure>
+<svg font-family="DejaVu Sans Mono" viewbox="0 0 600 190">
+<g stroke="#B8913A" stroke-width="1.6"><line x1="300" x2="60" y1="38" y2="88"></line><line x1="300" x2="160" y1="38" y2="88"></line><line x1="300" x2="260" y1="38" y2="88"></line><line x1="300" x2="350" y1="38" y2="88"></line><line x1="300" x2="440" y1="38" y2="88"></line><line x1="300" x2="540" y1="38" y2="88"></line><line x1="160" x2="160" y1="110" y2="140"></line></g>
+<g font-size="12" text-anchor="middle">
+<rect fill="#1B2A4A" height="26" rx="6" width="60" x="270" y="14"></rect><text fill="#D9BD7A" font-weight="700" x="300" y="32">/</text>
+<g fill="#E6F4F1" stroke="#2F7D5B"><rect height="24" rx="5" width="70" x="25" y="88"></rect><rect height="24" rx="5" width="70" x="125" y="88"></rect><rect height="24" rx="5" width="70" x="225" y="88"></rect><rect height="24" rx="5" width="70" x="315" y="88"></rect><rect height="24" rx="5" width="70" x="405" y="88"></rect><rect height="24" rx="5" width="70" x="505" y="88"></rect><rect height="24" rx="5" width="110" x="105" y="140"></rect></g>
+<text x="60" y="105">/etc</text><text x="160" y="105">/home</text><text x="260" y="105">/var</text><text x="350" y="105">/tmp</text><text x="440" y="105">/bin</text><text x="540" y="105">/root</text><text x="160" y="157">/home/ahmed</text>
+<g fill="#555" font-family="Inter" font-size="9.5"><text x="60" y="128">configuration</text><text x="260" y="128">logs, sites web</text><text x="350" y="128">temporaire</text><text x="440" y="128">commandes</text><text x="540" y="128">admin</text><text x="160" y="180">dossier perso (~)</text></g>
+</g>
+</svg>
+<figcaption>Figure 2 — L'arborescence Linux part de la racine /</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Chemin</th><th>Signification</th><th style="width:30%">Exemple</th></tr>
+<tr><td><b>Absolu</b></td><td>Part de la racine <code>/</code>, valable partout</td><td><code>/var/log/syslog</code></td></tr>
+<tr><td><b>Relatif</b></td><td>Part du dossier courant</td><td><code>scripts/sauve.sh</code></td></tr>
+<tr><td><code>.</code> / <code>..</code></td><td>Dossier courant / dossier parent</td><td><code>cd ..</code></td></tr>
+<tr><td><code>~</code></td><td>Dossier personnel de l'utilisateur</td><td><code>cd ~</code></td></tr>
+</table></div>
+<h2><span class="n">2.3</span>Les commandes essentielles</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Commande</th><th>Rôle</th><th style="width:34%">Exemple</th></tr>
+<tr><td><code>pwd</code></td><td>Afficher le dossier courant</td><td><code>pwd</code></td></tr>
+<tr><td><code>ls -la</code></td><td>Lister, avec détails et fichiers cachés</td><td><code>ls -la /etc</code></td></tr>
+<tr><td><code>cd</code></td><td>Changer de dossier</td><td><code>cd /var/log</code></td></tr>
+<tr><td><code>mkdir -p</code></td><td>Créer un dossier (et ses parents)</td><td><code>mkdir -p backup/2026</code></td></tr>
+<tr><td><code>touch</code></td><td>Créer un fichier vide</td><td><code>touch rapport.txt</code></td></tr>
+<tr><td><code>cp -r</code> / <code>mv</code></td><td>Copier (dossier : -r) / déplacer ou renommer</td><td><code>cp -r site/ site.bak/</code></td></tr>
+<tr><td><code>rm</code> / <code>rm -r</code></td><td>Supprimer un fichier / un dossier</td><td><code>rm vieux.log</code></td></tr>
+<tr><td><code>cat</code>, <code>less</code></td><td>Afficher un fichier (entier / page par page)</td><td><code>cat /etc/hostname</code></td></tr>
+<tr><td><code>head</code>, <code>tail -f</code></td><td>Début / fin d'un fichier (-f : en direct)</td><td><code>tail -f /var/log/syslog</code></td></tr>
+<tr><td><code>echo</code></td><td>Afficher un texte</td><td><code>echo "Bonjour"</code></td></tr>
+<tr><td><code>man</code>, <code>--help</code></td><td>Aide d'une commande</td><td><code>man ls</code></td></tr>
+<tr><td><code>sudo</code></td><td>Exécuter en administrateur</td><td><code>sudo apt update</code></td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p><code>rm -rf</code> supprime <b>sans confirmation ni corbeille</b>. Une commande comme <code>rm -rf / dossier</code> (avec un espace de trop) détruit tout le système. Relis toujours avant d'appuyer sur Entrée.</p></div>
+<h2><span class="n">2.4</span>Redirections et pipes</h2>
+<p>Chaque commande a une <b>entrée</b> (stdin, 0), une <b>sortie</b> (stdout, 1) et une sortie d'<b>erreurs</b> (stderr, 2). On peut les rediriger :</p>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Symbole</th><th>Effet</th><th style="width:40%">Exemple</th></tr>
+<tr><td><code>&gt;</code></td><td>Écrit la sortie dans un fichier (écrase)</td><td><code>ls /etc &gt; liste.txt</code></td></tr>
+<tr><td><code>&gt;&gt;</code></td><td>Ajoute à la fin du fichier</td><td><code>echo "OK" &gt;&gt; journal.log</code></td></tr>
+<tr><td><code>2&gt;</code></td><td>Redirige les erreurs</td><td><code>find / -name x 2&gt; /dev/null</code></td></tr>
+<tr><td><code>&lt;</code></td><td>Lit l'entrée depuis un fichier</td><td><code>wc -l &lt; liste.txt</code></td></tr>
+<tr><td><code>|</code> (pipe)</td><td>Envoie la sortie d'une commande à l'entrée de la suivante</td><td><code>cat /etc/passwd | wc -l</code></td></tr>
+</table></div>
+<figure>
+<svg font-family="DejaVu Sans Mono" viewbox="0 0 600 90">
+<defs><marker id="a2p" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#B8913A"></path></marker></defs>
+<g font-size="12" text-anchor="middle">
+<rect fill="#E6F4F1" height="40" rx="8" stroke="#2F7D5B" width="150" x="5" y="25"></rect><text x="80" y="50">cat access.log</text>
+<rect fill="#E6F4F1" height="40" rx="8" stroke="#2F7D5B" width="150" x="215" y="25"></rect><text x="290" y="50">grep "404"</text>
+<rect fill="#E6F4F1" height="40" rx="8" stroke="#2F7D5B" width="150" x="425" y="25"></rect><text x="500" y="50">wc -l</text>
+<text fill="#B8913A" font-weight="700" x="185" y="40">|</text><text fill="#B8913A" font-weight="700" x="395" y="40">|</text>
+<g fill="#555" font-family="Inter" font-size="9.5"><text x="80" y="82">toutes les lignes</text><text x="290" y="82">lignes avec 404</text><text x="500" y="82">nombre : 17</text></g>
+</g>
+<g marker-end="url(#a2p)" stroke="#B8913A" stroke-width="2"><line x1="157" x2="211" y1="45" y2="45"></line><line x1="367" x2="421" y1="45" y2="45"></line></g>
+</svg>
+<figcaption>Figure 3 — Un pipeline : combien d'erreurs 404 dans le journal du site web ?</figcaption>
+</figure>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Le pipe <code>|</code>, c'est une chaîne de montage : chaque ouvrier (commande) fait une seule chose et passe la pièce au suivant.</p></div>
+<h2><span class="n">2.5</span>Rechercher et filtrer du texte</h2>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Commande</th><th>Rôle</th><th style="width:40%">Exemple</th></tr>
+<tr><td><code>grep</code></td><td>Garde les lignes qui contiennent un motif (-i : sans casse, -v : inverse)</td><td><code>grep -i "error" /var/log/syslog</code></td></tr>
+<tr><td><code>wc -l</code></td><td>Compte les lignes</td><td><code>wc -l /etc/passwd</code></td></tr>
+<tr><td><code>sort</code> / <code>uniq -c</code></td><td>Trie / compte les doublons</td><td><code>sort ips.txt | uniq -c</code></td></tr>
+<tr><td><code>cut -d: -f1</code></td><td>Découpe des colonnes</td><td><code>cut -d: -f1 /etc/passwd</code></td></tr>
+<tr><td><code>find</code></td><td>Cherche des fichiers</td><td><code>find /var/log -name "*.log" -mtime +7</code></td></tr>
+<tr><td><code>df -h</code> / <code>du -sh</code></td><td>Espace disque / taille d'un dossier</td><td><code>du -sh /var/www</code></td></tr>
+<tr><td><code>ps aux</code>, <code>top</code></td><td>Processus en cours</td><td><code>ps aux | grep nginx</code></td></tr>
+<tr><td><code>ip a</code>, <code>ping -c 4</code></td><td>Adresses réseau / test de connectivité</td><td><code>ping -c 4 8.8.8.8</code></td></tr>
+</table></div>
+<pre class="code"><span class="cm"># Les 5 adresses IP qui ont le plus visité le site web</span>
+cut -d' ' -f1 /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -5</pre>
+<pre class="out">    812 41.250.12.7
+    455 105.66.3.21
+    120 196.200.1.9
+     98 41.141.8.33
+     47 105.155.2.10</pre>
+<h2><span class="n">2.6</span>Les permissions</h2>
+<p>Chaque fichier a des droits pour trois catégories : le <b>propriétaire</b> (u), le <b>groupe</b> (g), les <b>autres</b> (o). Trois droits : <b>r</b> (lire, 4), <b>w</b> (écrire, 2), <b>x</b> (exécuter, 1).</p>
+<pre class="code">ls -l sauvegarde.sh</pre>
+<pre class="out">-rwxr-x--- 1 ahmed admins 812 nov 13 10:02 sauvegarde.sh</pre>
+<figure>
+<svg font-family="DejaVu Sans Mono" viewbox="0 0 600 110">
+<g font-size="16" font-weight="700" text-anchor="middle">
+<rect fill="#F4F1EA" height="40" rx="6" stroke="#999" width="40" x="40" y="15"></rect><text x="60" y="42">-</text>
+<rect fill="#E6F4F1" height="40" rx="6" stroke="#2F7D5B" width="130" x="90" y="15"></rect><text fill="#2F7D5B" x="155" y="42">r w x</text>
+<rect fill="#EAF2FA" height="40" rx="6" stroke="#2F6FA8" width="130" x="230" y="15"></rect><text fill="#2F6FA8" x="295" y="42">r - x</text>
+<rect fill="#FBEEF1" height="40" rx="6" stroke="#A84A62" width="130" x="370" y="15"></rect><text fill="#A84A62" x="435" y="42">- - -</text>
+<g fill="#333" font-family="Inter" font-size="10.5" font-weight="400"><text x="60" y="75">type</text><text x="155" y="75">propriétaire (u)</text><text x="295" y="75">groupe (g)</text><text x="435" y="75">autres (o)</text>
+<text fill="#2F7D5B" x="155" y="95">4+2+1 = 7</text><text fill="#2F6FA8" x="295" y="95">4+0+1 = 5</text><text fill="#A84A62" x="435" y="95">0</text><text fill="#B8913A" font-size="20" font-weight="700" x="550" y="42">750</text></g>
+</g>
+</svg>
+<figcaption>Figure 4 — Lire les permissions : rwxr-x--- = 750</figcaption>
+</figure>
+<pre class="code">chmod 750 sauvegarde.sh      <span class="cm"># rwx pour le propriétaire, r-x pour le groupe, rien pour les autres</span>
+chmod +x sauvegarde.sh       <span class="cm"># ajoute le droit d'exécution</span>
+sudo chown ahmed:admins sauvegarde.sh   <span class="cm"># change le propriétaire et le groupe</span></pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : les valeurs à connaître</div>
+<p><b>755</b> = scripts et dossiers publics · <b>644</b> = fichiers texte · <b>700</b> = privé · <b>600</b> = fichier secret (clé SSH). Jamais <b>777</b> : tout le monde pourrait modifier le fichier.</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Chemins absolus (/…) et relatifs ; <code>.</code> <code>..</code> <code>~</code>.<br/>
+• <code>&gt;</code> écrase, <code>&gt;&gt;</code> ajoute, <code>2&gt;</code> erreurs, <code>|</code> enchaîne les commandes.<br/>
+• <code>grep</code>, <code>wc</code>, <code>sort</code>, <code>uniq</code>, <code>cut</code>, <code>find</code> pour filtrer.<br/>
+• Permissions rwx pour u/g/o, en chiffres (r=4, w=2, x=1) : <code>chmod 750</code>.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Bash</span><span class="k kb">Prompt</span><span class="k kg">Chemin absolu</span><span class="k kg">Chemin relatif</span><span class="k kv">Redirection</span><span class="k kv">Pipe</span><span class="k kt">grep</span><span class="k kt">chmod</span><span class="k kr">rm -rf</span><span class="k kb">sudo</span>
+</div>
+<h3>Exercices — Chapitre 2</h3>
+<div class="exo"><div class="h">Exercice 2.1 — Quelle commande ? <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Afficher le dossier dans lequel tu te trouves.</li><li>Créer le dossier <code>backup/2026/novembre</code> en une seule commande.</li><li>Afficher les 20 dernières lignes de <code>/var/log/syslog</code>.</li><li>Ajouter la ligne « Sauvegarde terminée » à la fin de <code>journal.log</code>.</li><li>Compter le nombre de comptes dans <code>/etc/passwd</code>.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 2.2 — Permissions <span>★★ moyen</span></div><div class="c">
+<p>(a) Traduis en chiffres : <code>rw-r--r--</code>, <code>rwx------</code>, <code>rwxrwxr-x</code>. (b) Traduis en lettres : <code>755</code>, <code>600</code>. (c) Que faut-il faire pour pouvoir lancer <code>./script.sh</code> si on obtient « Permission non accordée » ?</p></div></div>
+<div class="exo"><div class="h">Exercice 2.3 — Pipeline <span>★★ moyen</span></div><div class="c">
+<p>Écris une commande qui affiche le nombre de lignes contenant « Failed password » dans <code>/var/log/auth.log</code> (tentatives de connexion SSH échouées).</p></div></div>
+<!-- ============ CHAPITRE 3 ============ -->
+<section class="chead2" id="ch3"><div class="ch-side" style="background:linear-gradient(180deg,#1E5A41,#0F766E)"><span class="lbl">CHAPITRE</span><span class="num">03</span></div><div class="ch-body">
+<h1>Bash : écrire des scripts</h1>
+<div class="lead">Quand les commandes s'enchaînent dans un fichier, le terminal devient un robot d'administration.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Créer et exécuter un script Bash</li>
+<li>Utiliser variables, arguments et saisies</li>
+<li>Écrire des conditions, des boucles et des fonctions</li>
+<li>Gérer les codes de retour et planifier avec cron</li></ul></div>
+<div class="quote">« Un script Bash, c'est l'historique de tes commandes… qui a appris à réfléchir. »</div></div></section>
+<h2><span class="n">3.1</span>Premier script</h2>
+<span class="lang lb">BASH</span>
+<pre class="code"><span class="kw">#!/bin/bash</span>
+<span class="cm"># bonjour.sh — premier script : affiche un message et la date</span>
+echo <span class="st">"Bonjour, je suis le serveur $(hostname)"</span>
+echo <span class="st">"Nous sommes le $(date +%d/%m/%Y)"</span></pre>
+<pre class="code">chmod +x bonjour.sh     <span class="cm"># rendre le script exécutable</span>
+./bonjour.sh            <span class="cm"># l'exécuter (ou : bash bonjour.sh)</span></pre>
+<pre class="out">Bonjour, je suis le serveur srv-web
+Nous sommes le 13/11/2026</pre>
+<div class="box def"><div class="t"><i>i</i>Le shebang</div>
+<p>La première ligne <code>#!/bin/bash</code> s'appelle le <span class="k kb">shebang</span> : elle indique quel interpréteur doit exécuter le fichier. <code>$(commande)</code> remplace la commande par son résultat (<span class="k kv">substitution de commande</span>).</p></div>
+<h2><span class="n">3.2</span>Variables, arguments et saisie</h2>
+<pre class="code"><span class="kw">#!/bin/bash</span>
+nom=<span class="st">"Salma"</span>                 <span class="cm"># PAS d'espace autour du =</span>
+dossier=<span class="st">"/home/$nom"</span>
+nb=$(ls "$dossier" | wc -l)   <span class="cm"># résultat d'une commande</span>
+echo <span class="st">"$nom a $nb fichiers dans $dossier"</span>
+echo <span class="st">"Calcul : $(( nb * 2 ))"</span>   <span class="cm"># calcul entier</span></pre>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Variable spéciale</th><th>Contenu</th></tr>
+<tr><td><code>$0</code></td><td>Nom du script</td></tr>
+<tr><td><code>$1</code>, <code>$2</code>…</td><td>1<sup>er</sup>, 2<sup>e</sup> argument passé au script</td></tr>
+<tr><td><code>$#</code></td><td>Nombre d'arguments</td></tr>
+<tr><td><code>$@</code></td><td>Tous les arguments</td></tr>
+<tr><td><code>$?</code></td><td>Code de retour de la dernière commande (0 = succès)</td></tr>
+<tr><td><code>$USER</code>, <code>$HOME</code></td><td>Variables d'environnement : utilisateur, dossier personnel</td></tr>
+</table></div>
+<pre class="code"><span class="kw">#!/bin/bash</span>
+<span class="cm"># creer_dossier.sh — usage : ./creer_dossier.sh nom_du_projet</span>
+<span class="kw">if</span> [ $# -ne 1 ]; <span class="kw">then</span>
+  echo <span class="st">"Usage : $0 nom_du_projet"</span>
+  exit 1
+<span class="kw">fi</span>
+mkdir -p <span class="st">"/srv/projets/$1"</span> &amp;&amp; echo <span class="st">"Projet $1 créé"</span>
+
+read -p <span class="st">"Ton prénom : "</span> prenom   <span class="cm"># saisie au clavier</span>
+echo <span class="st">"Bienvenue $prenom"</span></pre>
+<div class="box warn"><div class="t"><i>!</i>Piège n° 1 de Bash</div>
+<p><code>nom = "Salma"</code> (avec espaces) provoque une erreur : Bash croit que <code>nom</code> est une commande. Écris <code>nom="Salma"</code>. Et mets les variables entre guillemets (<code>"$dossier"</code>) pour éviter les problèmes avec les noms qui contiennent des espaces.</p></div>
+<h2><span class="n">3.3</span>Les conditions</h2>
+<pre class="code"><span class="kw">if</span> [ condition ]; <span class="kw">then</span>
+  ...
+<span class="kw">elif</span> [ autre_condition ]; <span class="kw">then</span>
+  ...
+<span class="kw">else</span>
+  ...
+<span class="kw">fi</span></pre>
+<div class="tscroll"><table>
+<tr><th>Nombres</th><th>Sens</th><th>Texte</th><th>Sens</th><th>Fichiers</th><th>Sens</th></tr>
+<tr><td><code>-eq</code></td><td>égal</td><td><code>=</code></td><td>égal</td><td><code>-f</code></td><td>fichier existe</td></tr>
+<tr><td><code>-ne</code></td><td>différent</td><td><code>!=</code></td><td>différent</td><td><code>-d</code></td><td>dossier existe</td></tr>
+<tr><td><code>-gt</code> / <code>-ge</code></td><td>&gt; / ≥</td><td><code>-z</code></td><td>vide</td><td><code>-r</code> / <code>-w</code></td><td>lisible / modifiable</td></tr>
+<tr><td><code>-lt</code> / <code>-le</code></td><td>&lt; / ≤</td><td><code>-n</code></td><td>non vide</td><td><code>-x</code></td><td>exécutable</td></tr>
+</table></div>
+<span class="lang lb">BASH</span>
+<pre class="code"><span class="kw">#!/bin/bash</span>
+<span class="cm"># disque.sh — alerte si la partition / est remplie à plus de 80 %</span>
+usage=$(df / | tail -1 | awk '{print $5}' | tr -d '%')
+<span class="kw">if</span> [ <span class="st">"$usage"</span> -ge 90 ]; <span class="kw">then</span>
+  echo <span class="st">"CRITIQUE : disque plein à $usage %"</span>
+<span class="kw">elif</span> [ <span class="st">"$usage"</span> -ge 80 ]; <span class="kw">then</span>
+  echo <span class="st">"ATTENTION : disque à $usage %"</span>
+<span class="kw">else</span>
+  echo <span class="st">"OK : disque à $usage %"</span>
+<span class="kw">fi</span></pre>
+<pre class="out">ATTENTION : disque à 83 %</pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : les espaces dans les crochets</div>
+<p><code>[ "$a" -eq 5 ]</code> : un espace <b>après</b> <code>[</code> et <b>avant</b> <code>]</code>, obligatoire. <code>["$a" -eq 5]</code> provoque l'erreur « commande introuvable ».</p></div>
+<h3>Choix multiple : case</h3>
+<pre class="code"><span class="kw">case</span> <span class="st">"$1"</span> <span class="kw">in</span>
+  start)   systemctl start nginx ;;
+  stop)    systemctl stop nginx ;;
+  status)  systemctl status nginx ;;
+  *)       echo <span class="st">"Usage : $0 {start|stop|status}"</span> ;;
+<span class="kw">esac</span></pre>
+<h2><span class="n">3.4</span>Les boucles</h2>
+<pre class="code"><span class="cm"># for : pour chaque élément d'une liste</span>
+<span class="kw">for</span> ip <span class="kw">in</span> 192.168.1.1 192.168.1.10 192.168.1.20; <span class="kw">do</span>
+  <span class="kw">if</span> ping -c 1 -W 1 <span class="st">"$ip"</span> &gt; /dev/null; <span class="kw">then</span>
+    echo <span class="st">"$ip : joignable"</span>
+  <span class="kw">else</span>
+    echo <span class="st">"$ip : INJOIGNABLE"</span>
+  <span class="kw">fi</span>
+<span class="kw">done</span>
+
+<span class="cm"># for avec une plage de nombres : scanner 192.168.1.1 à .20</span>
+<span class="kw">for</span> i <span class="kw">in</span> {1..20}; <span class="kw">do</span>
+  ping -c 1 -W 1 192.168.1.$i &gt; /dev/null &amp;&amp; echo <span class="st">"192.168.1.$i répond"</span>
+<span class="kw">done</span>
+
+<span class="cm"># while : tant que… ici, lire un fichier ligne par ligne</span>
+<span class="kw">while</span> read -r utilisateur; <span class="kw">do</span>
+  echo <span class="st">"Traitement de $utilisateur"</span>
+<span class="kw">done</span> &lt; utilisateurs.txt</pre>
+<pre class="out">192.168.1.1 : joignable
+192.168.1.10 : joignable
+192.168.1.20 : INJOIGNABLE</pre>
+<h2><span class="n">3.5</span>Fonctions et codes de retour</h2>
+<pre class="code"><span class="kw">#!/bin/bash</span>
+LOG=<span class="st">"/var/log/mes_scripts.log"</span>
+
+journal() {                                  <span class="cm"># définition d'une fonction</span>
+  echo <span class="st">"$(date '+%F %T') - $1"</span> &gt;&gt; <span class="st">"$LOG"</span>
+}
+
+verifier_service() {
+  <span class="kw">if</span> systemctl is-active --quiet <span class="st">"$1"</span>; <span class="kw">then</span>
+    journal <span class="st">"$1 fonctionne"</span>;  return 0
+  <span class="kw">else</span>
+    journal <span class="st">"$1 ARRÊTÉ, redémarrage"</span>; systemctl restart <span class="st">"$1"</span>; return 1
+  <span class="kw">fi</span>
+}
+
+<span class="kw">for</span> s <span class="kw">in</span> nginx ssh cron; <span class="kw">do</span> verifier_service <span class="st">"$s"</span>; <span class="kw">done</span></pre>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Élément</th><th>Rôle</th></tr>
+<tr><td><code>return 0</code> / <code>exit 0</code></td><td>Succès (une fonction / tout le script)</td></tr>
+<tr><td><code>return 1</code> / <code>exit 1</code></td><td>Échec (tout code différent de 0)</td></tr>
+<tr><td><code>cmd1 &amp;&amp; cmd2</code></td><td>cmd2 seulement si cmd1 a réussi</td></tr>
+<tr><td><code>cmd1 || cmd2</code></td><td>cmd2 seulement si cmd1 a échoué</td></tr>
+<tr><td><code>set -e</code></td><td>Arrête le script à la première erreur (prudent pour les scripts sensibles)</td></tr>
+</table></div>
+<h2><span class="n">3.6</span>Exemple complet : sauvegarde avec rotation</h2>
+<span class="lang lb">BASH</span>
+<pre class="code"><span class="kw">#!/bin/bash</span>
+<span class="cm"># sauvegarde.sh — archive /var/www chaque jour et garde 7 jours d'historique</span>
+SOURCE=<span class="st">"/var/www"</span>
+DEST=<span class="st">"/backup"</span>
+DATE=$(date +%F)                               <span class="cm"># ex. 2026-11-13</span>
+ARCHIVE=<span class="st">"$DEST/www-$DATE.tar.gz"</span>
+
+mkdir -p <span class="st">"$DEST"</span>
+<span class="kw">if</span> tar -czf <span class="st">"$ARCHIVE"</span> <span class="st">"$SOURCE"</span> 2&gt;/dev/null; <span class="kw">then</span>
+  echo <span class="st">"$(date '+%F %T') OK $ARCHIVE ($(du -h "$ARCHIVE" | cut -f1))"</span> &gt;&gt; <span class="st">"$DEST/sauvegarde.log"</span>
+<span class="kw">else</span>
+  echo <span class="st">"$(date '+%F %T') ERREUR sauvegarde"</span> &gt;&gt; <span class="st">"$DEST/sauvegarde.log"</span>
+  exit 1
+<span class="kw">fi</span>
+find <span class="st">"$DEST"</span> -name <span class="st">"www-*.tar.gz"</span> -mtime +7 -delete   <span class="cm"># rotation : supprime après 7 jours</span></pre>
+<h2><span class="n">3.7</span>Planifier avec cron</h2>
+<p><span class="k kt">cron</span> exécute des commandes à heure fixe. On modifie sa table avec <code>crontab -e</code>.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 110">
+<g text-anchor="middle">
+<rect fill="#E6F4F1" height="50" rx="8" stroke="#2F7D5B" width="70" x="5" y="10"></rect><text fill="#2F7D5B" font-family="DejaVu Sans Mono" font-size="18" font-weight="700" x="40" y="43">30</text>
+<rect fill="#EAF2FA" height="50" rx="8" stroke="#2F6FA8" width="70" x="83" y="10"></rect><text fill="#2F6FA8" font-family="DejaVu Sans Mono" font-size="18" font-weight="700" x="118" y="43">2</text>
+<rect fill="#FBF4E4" height="50" rx="8" stroke="#B8913A" width="70" x="161" y="10"></rect><text fill="#8A6A22" font-family="DejaVu Sans Mono" font-size="18" font-weight="700" x="196" y="43">*</text>
+<rect fill="#F1EEF8" height="50" rx="8" stroke="#5B4B8A" width="70" x="239" y="10"></rect><text fill="#5B4B8A" font-family="DejaVu Sans Mono" font-size="18" font-weight="700" x="274" y="43">*</text>
+<rect fill="#FBEEF1" height="50" rx="8" stroke="#A84A62" width="70" x="317" y="10"></rect><text fill="#A84A62" font-family="DejaVu Sans Mono" font-size="18" font-weight="700" x="352" y="43">1-5</text>
+<rect fill="#0F1B22" height="50" rx="8" width="220" x="395" y="10"></rect><text fill="#D6E9EE" font-family="DejaVu Sans Mono" font-size="11.5" x="505" y="41">/usr/local/bin/sauvegarde.sh</text>
+<g fill="#333" font-size="10"><text x="40" y="78">minute</text><text fill="#777" x="40" y="92">0-59</text><text x="118" y="78">heure</text><text fill="#777" x="118" y="92">0-23</text><text x="196" y="78">jour du mois</text><text fill="#777" x="196" y="92">1-31</text><text x="274" y="78">mois</text><text fill="#777" x="274" y="92">1-12</text><text x="352" y="78">jour semaine</text><text fill="#777" x="352" y="92">0-7 (0/7 = dim.)</text><text x="505" y="78">commande (chemin absolu)</text></g>
+</g>
+</svg>
+<figcaption>Figure 5 — « Du lundi au vendredi à 2 h 30, lancer la sauvegarde »</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:36%">Ligne crontab</th><th>Signification</th></tr>
+<tr><td><code>0 * * * *</code></td><td>Toutes les heures, à la minute 0</td></tr>
+<tr><td><code>*/5 * * * *</code></td><td>Toutes les 5 minutes</td></tr>
+<tr><td><code>0 23 * * 0</code></td><td>Chaque dimanche à 23 h</td></tr>
+<tr><td><code>0 8 1 * *</code></td><td>Le 1<sup>er</sup> de chaque mois à 8 h</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <code>#!/bin/bash</code>, <code>chmod +x</code>, <code>./script.sh</code>.<br/>
+• Variables sans espace autour du <code>=</code>, entre guillemets à l'usage ; <code>$1 $# $? $(cmd)</code>.<br/>
+• <code>if [ … ]; then … fi</code>, <code>case</code>, <code>for … do … done</code>, <code>while read</code>.<br/>
+• Fonctions, codes de retour (0 = succès), <code>&amp;&amp;</code> / <code>||</code>, cron pour planifier.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Shebang</span><span class="k kg">Variable</span><span class="k kg">$1 / $#</span><span class="k kv">if / test</span><span class="k kv">case</span><span class="k kv">for / while</span><span class="k kt">Fonction</span><span class="k kb">Code de retour</span><span class="k kt">cron</span><span class="k kt">tar</span>
+</div>
+<h3>Exercices — Chapitre 3</h3>
+<div class="exo"><div class="h">Exercice 3.1 — Trouver les erreurs <span>★ facile</span></div><div class="c">
+<pre class="code">#!/bin/bash
+nom = "admin"
+if ["$nom" = "admin"] then
+  echo "Bonjour $nom"
+fi</pre><p>Corrige les 3 erreurs de ce script.</p></div></div>
+<div class="exo"><div class="h">Exercice 3.2 — Prédire le résultat <span>★★ moyen</span></div><div class="c">
+<pre class="code">total=0
+for n in 2 4 6; do
+  total=$(( total + n ))
+done
+echo "Total = $total"</pre><p>Qu'affiche ce script ? Donne la valeur de <code>total</code> après chaque tour de boucle.</p></div></div>
+<div class="exo"><div class="h">Exercice 3.3 — Écrire un script <span>★★★ difficile</span></div><div class="c">
+<p>Écris <code>verif_fichier.sh</code> qui reçoit un nom de fichier en argument. S'il n'y a pas d'argument, il affiche l'usage et quitte avec le code 1. Si le fichier existe, il affiche son nombre de lignes ; sinon, il affiche « Fichier introuvable » et quitte avec le code 2. Puis écris la ligne crontab qui le lance chaque jour à 7 h sur <code>/var/log/syslog</code>.</p></div></div>
+<!-- ============ CHAPITRE 4 ============ -->
+<section class="chead2" id="ch4"><div class="ch-side" style="background:linear-gradient(180deg,#2F6FA8,#1F4F7E)"><span class="lbl">CHAPITRE</span><span class="num">04</span></div><div class="ch-body">
+<h1>PowerShell : les bases</h1>
+<div class="lead">Sous Windows, PowerShell ne manipule pas du texte : il manipule des objets, et ça change tout.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre la syntaxe Verbe-Nom des cmdlets</li>
+<li>Trouver de l'aide avec Get-Help, Get-Command, Get-Member</li>
+<li>Utiliser le pipeline objet : filtrer, trier, sélectionner, exporter</li>
+<li>Manipuler variables, tableaux et opérateurs</li></ul></div>
+<div class="quote">« Avec PowerShell, on ne cherche plus une colonne dans du texte : on demande une propriété à un objet. »</div></div></section>
+<h2><span class="n">4.1</span>Les cmdlets</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Une <span class="k kb">cmdlet</span> (prononcer « command-let ») est une commande PowerShell. Son nom suit toujours la forme <b>Verbe-Nom</b> : <code>Get-Service</code>, <code>Stop-Process</code>, <code>New-Item</code>. Les scripts ont l'extension <code>.ps1</code>.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:14%">Verbe</th><th>Action</th><th style="width:40%">Exemples</th></tr>
+<tr><td><b>Get</b></td><td>Lire, afficher</td><td><code>Get-Service</code>, <code>Get-Process</code>, <code>Get-ChildItem</code></td></tr>
+<tr><td><b>Set</b></td><td>Modifier</td><td><code>Set-Location</code>, <code>Set-ExecutionPolicy</code></td></tr>
+<tr><td><b>New</b></td><td>Créer</td><td><code>New-Item</code>, <code>New-LocalUser</code>, <code>New-ADUser</code></td></tr>
+<tr><td><b>Remove</b></td><td>Supprimer</td><td><code>Remove-Item</code></td></tr>
+<tr><td><b>Start / Stop / Restart</b></td><td>Démarrer / arrêter</td><td><code>Start-Service</code>, <code>Restart-Computer</code></td></tr>
+<tr><td><b>Test</b></td><td>Vérifier</td><td><code>Test-Connection</code>, <code>Test-Path</code></td></tr>
+</table></div>
+<h3>Les équivalences avec Linux et cmd</h3>
+<div class="tscroll"><table>
+<tr><th>Action</th><th>PowerShell</th><th>Alias</th><th>Bash</th></tr>
+<tr><td>Lister</td><td><code>Get-ChildItem</code></td><td><code>ls</code>, <code>dir</code></td><td><code>ls</code></td></tr>
+<tr><td>Changer de dossier</td><td><code>Set-Location</code></td><td><code>cd</code></td><td><code>cd</code></td></tr>
+<tr><td>Afficher un fichier</td><td><code>Get-Content</code></td><td><code>cat</code>, <code>type</code></td><td><code>cat</code></td></tr>
+<tr><td>Copier</td><td><code>Copy-Item</code></td><td><code>cp</code>, <code>copy</code></td><td><code>cp</code></td></tr>
+<tr><td>Supprimer</td><td><code>Remove-Item</code></td><td><code>rm</code>, <code>del</code></td><td><code>rm</code></td></tr>
+<tr><td>Chercher du texte</td><td><code>Select-String</code></td><td><code>sls</code></td><td><code>grep</code></td></tr>
+<tr><td>Ping</td><td><code>Test-Connection</code></td><td>—</td><td><code>ping</code></td></tr>
+</table></div>
+<h2><span class="n">4.2</span>Trouver de l'aide</h2>
+<span class="lang lp">POWERSHELL</span>
+<pre class="code">Get-Help Get-Service -Examples      <span class="cm"># exemples d'utilisation</span>
+Get-Command *Service*               <span class="cm"># toutes les commandes qui parlent de services</span>
+Get-Command -Verb Get -Noun *User*  <span class="cm"># cmdlets « Get » sur des utilisateurs</span>
+Get-Service | Get-Member            <span class="cm"># propriétés et méthodes des objets renvoyés</span></pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : les 3 commandes magiques</div>
+<p><b>Get-Command</b> (trouver la commande), <b>Get-Help</b> (comprendre comment l'utiliser), <b>Get-Member</b> (voir ce que contient l'objet). Avec ces trois-là, tu peux te débrouiller seul face à n'importe quelle tâche. Et la touche <b>Tab</b> complète automatiquement les noms.</p></div>
+<h2><span class="n">4.3</span>Le pipeline objet</h2>
+<p>En Bash, le pipe transmet du <b>texte</b>. En PowerShell, il transmet des <span class="k kg">objets</span> avec des propriétés (Name, Status, CPU…). On n'a plus besoin de découper des colonnes.</p>
+<figure>
+<svg font-family="DejaVu Sans Mono" viewbox="0 0 620 120">
+<defs><marker id="a4p" markerheight="9" markerwidth="9" orient="auto" refx="8" refy="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#B8913A"></path></marker></defs>
+<g font-size="11" text-anchor="middle">
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="135" x="5" y="20"></rect><text x="72" y="46">Get-Service</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="185" x="165" y="20"></rect><text x="257" y="40">Where-Object</text><text font-size="9.5" x="257" y="55">Status -eq 'Stopped'</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="115" x="375" y="20"></rect><text x="432" y="40">Sort-Object</text><text font-size="9.5" x="432" y="55">Name</text>
+<rect fill="#EAF2FA" height="44" rx="8" stroke="#2F6FA8" width="105" x="510" y="20"></rect><text x="562" y="40">Export-Csv</text><text font-size="9.5" x="562" y="55">arretes.csv</text>
+<g fill="#555" font-family="Inter" font-size="9.5"><text x="72" y="85">≈ 250 objets</text><text x="72" y="98">service</text><text x="257" y="85">garde les arrêtés</text><text x="432" y="85">trie par nom</text><text x="562" y="85">fichier Excel</text></g>
+</g>
+<g marker-end="url(#a4p)" stroke="#B8913A" stroke-width="2"><line x1="142" x2="161" y1="42" y2="42"></line><line x1="352" x2="371" y1="42" y2="42"></line><line x1="492" x2="506" y1="42" y2="42"></line></g>
+</svg>
+<figcaption>Figure 6 — Le pipeline PowerShell transmet des objets, pas du texte</figcaption>
+</figure>
+<pre class="code">Get-Service | Where-Object Status -eq 'Stopped' | Sort-Object Name | Export-Csv arretes.csv -NoTypeInformation
+
+<span class="cm"># Les 5 processus qui consomment le plus de mémoire</span>
+Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 5 Name, Id, WorkingSet</pre>
+<pre class="out">Name        Id WorkingSet
+----        -- ----------
+chrome    6120  412385280
+Teams     3304  298127360
+explorer  1088  154566656
+svchost    912   98304000
+Code      7716   87425024</pre>
+<div class="tscroll"><table>
+<tr><th style="width:26%">Cmdlet</th><th>Rôle</th><th style="width:20%">Alias</th></tr>
+<tr><td><code>Where-Object</code></td><td>Filtrer les objets selon une condition</td><td><code>where</code>, <code>?</code></td></tr>
+<tr><td><code>Select-Object</code></td><td>Choisir des propriétés ou les N premiers</td><td><code>select</code></td></tr>
+<tr><td><code>Sort-Object</code></td><td>Trier</td><td><code>sort</code></td></tr>
+<tr><td><code>ForEach-Object</code></td><td>Agir sur chaque objet (<code>$_</code> = l'objet courant)</td><td><code>%</code>, <code>foreach</code></td></tr>
+<tr><td><code>Measure-Object</code></td><td>Compter, sommer, moyenne</td><td><code>measure</code></td></tr>
+<tr><td><code>Format-Table</code> / <code>Out-GridView</code></td><td>Mettre en forme / afficher dans une fenêtre</td><td><code>ft</code></td></tr>
+<tr><td><code>Export-Csv</code> / <code>Import-Csv</code></td><td>Écrire / lire un fichier CSV</td><td>—</td></tr>
+</table></div>
+<h2><span class="n">4.4</span>Variables, tableaux et opérateurs</h2>
+<pre class="code">$serveur = <span class="st">"SRV-AD01"</span>                 <span class="cm"># chaîne</span>
+$nb = 42                               <span class="cm"># entier</span>
+$liste = @(<span class="st">"SRV-AD01"</span>, <span class="st">"SRV-FILE"</span>, <span class="st">"SRV-WEB"</span>)  <span class="cm"># tableau</span>
+$liste[0]                              <span class="cm"># premier élément : SRV-AD01</span>
+$liste.Count                           <span class="cm"># 3</span>
+$user = @{ Nom = <span class="st">"Alaoui"</span>; Prenom = <span class="st">"Salma"</span>; Service = <span class="st">"RH"</span> }  <span class="cm"># table de hachage</span>
+$user.Service                          <span class="cm"># RH</span>
+<span class="st">"Le serveur $serveur a $nb sessions"</span>    <span class="cm"># guillemets doubles : variables remplacées</span>
+<span class="st">'Le serveur $serveur'</span>                   <span class="cm"># guillemets simples : texte brut</span></pre>
+<div class="tscroll"><table>
+<tr><th>Opérateur</th><th>Sens</th><th>Opérateur</th><th>Sens</th></tr>
+<tr><td><code>-eq</code> / <code>-ne</code></td><td>égal / différent</td><td><code>-like "SRV*"</code></td><td>correspond au motif (joker *)</td></tr>
+<tr><td><code>-gt</code> / <code>-lt</code></td><td>plus grand / plus petit</td><td><code>-match</code></td><td>expression régulière</td></tr>
+<tr><td><code>-ge</code> / <code>-le</code></td><td>≥ / ≤</td><td><code>-contains</code></td><td>le tableau contient</td></tr>
+<tr><td><code>-and</code> / <code>-or</code> / <code>-not</code></td><td>et / ou / non</td><td><code>-in</code></td><td>la valeur est dans le tableau</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Piège classique</div>
+<p>En PowerShell, <code>=</code> sert à <b>affecter</b> et <code>&gt;</code> à <b>rediriger vers un fichier</b>. Pour comparer, on utilise <code>-eq</code>, <code>-gt</code>… <code>if ($a &gt; 5)</code> crée un fichier nommé « 5 » au lieu de comparer !</p></div>
+<h2><span class="n">4.5</span>Exécuter un script : la stratégie d'exécution</h2>
+<p>Par défaut, Windows bloque souvent les scripts .ps1. La <span class="k kv">stratégie d'exécution</span> (execution policy) le contrôle :</p>
+<pre class="code">Get-ExecutionPolicy
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser   <span class="cm"># scripts locaux autorisés, scripts téléchargés signés</span>
+.\inventaire.ps1                                      <span class="cm"># lancer un script du dossier courant</span></pre>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Stratégie</th><th>Effet</th></tr>
+<tr><td><b>Restricted</b></td><td>Aucun script (défaut sur les postes clients Windows)</td></tr>
+<tr><td><b>RemoteSigned</b></td><td>Scripts locaux autorisés ; scripts venant d'Internet doivent être signés (bon compromis)</td></tr>
+<tr><td><b>AllSigned</b></td><td>Tous les scripts doivent être signés</td></tr>
+<tr><td><b>Unrestricted / Bypass</b></td><td>Tout est autorisé — à éviter</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Cmdlets <b>Verbe-Nom</b>, scripts <code>.ps1</code>, aide : <b>Get-Help, Get-Command, Get-Member</b>.<br/>
+• Le pipeline transmet des <b>objets</b> : Where-Object, Select-Object, Sort-Object, ForEach-Object, Export-Csv.<br/>
+• Variables <code>$nom</code>, tableaux <code>@( )</code>, tables <code>@{ }</code>. Comparaisons : <code>-eq -ne -gt -lt -like</code>.<br/>
+• Stratégie d'exécution : <b>RemoteSigned</b> pour travailler.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Cmdlet</span><span class="k kg">Verbe-Nom</span><span class="k kt">Get-Help</span><span class="k kt">Get-Member</span><span class="k kv">Pipeline objet</span><span class="k kv">Where-Object</span><span class="k kb">$_</span><span class="k kg">-eq / -like</span><span class="k kr">ExecutionPolicy</span>
+</div>
+<h3>Exercices — Chapitre 4</h3>
+<div class="exo"><div class="h">Exercice 4.1 — Trouver la cmdlet <span>★ facile</span></div><div class="c">
+<ol type="a"><li>Lister les fichiers du dossier courant.</li><li>Afficher les services en cours d'exécution.</li><li>Tester si le serveur 192.168.1.10 répond.</li><li>Vérifier si le fichier <code>C:\Logs\app.log</code> existe.</li><li>Redémarrer le service « Spooler ».</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 4.2 — Pipeline <span>★★ moyen</span></div><div class="c">
+<p>Écris une commande qui affiche le nom et l'Id des 3 processus qui utilisent le plus de CPU, puis une commande qui exporte la liste des services arrêtés dans <code>C:\Rapports\services.csv</code>.</p></div></div>
+<div class="exo"><div class="h">Exercice 4.3 — Opérateurs <span>★★ moyen</span></div><div class="c">
+<p>Que renvoient : (a) <code>5 -gt 3</code> ; (b) <code>"SRV-WEB" -like "SRV*"</code> ; (c) <code>@(1,2,3) -contains 4</code> ; (d) <code>"Admin" -eq "admin"</code> ?</p></div></div>
+<!-- ============ CHAPITRE 5 ============ -->
+<section class="chead2" id="ch5"><div class="ch-side" style="background:linear-gradient(180deg,#1F4F7E,#1B2A4A)"><span class="lbl">CHAPITRE</span><span class="num">05</span></div><div class="ch-body">
+<h1>PowerShell : scripts d'administration</h1>
+<div class="lead">Comptes, services, journaux, machines distantes : tout l'administratif Windows tient dans quelques lignes.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Écrire conditions, boucles et fonctions en PowerShell</li>
+<li>Gérer les erreurs avec try / catch</li>
+<li>Créer des utilisateurs en masse à partir d'un CSV</li>
+<li>Administrer des machines à distance et planifier un script</li></ul></div>
+<div class="quote">« Ce qui prend une matinée dans la console graphique prend dix secondes dans un script. »</div></div></section>
+<h2><span class="n">5.1</span>Conditions</h2>
+<span class="lang lp">POWERSHELL</span>
+<pre class="code">$disque = Get-PSDrive C
+$libreGo = [math]::Round($disque.Free / 1GB, 1)
+
+<span class="kw">if</span> ($libreGo -lt 5) {
+    Write-Host <span class="st">"CRITIQUE : $libreGo Go libres"</span> -ForegroundColor Red
+} <span class="kw">elseif</span> ($libreGo -lt 20) {
+    Write-Host <span class="st">"ATTENTION : $libreGo Go libres"</span> -ForegroundColor Yellow
+} <span class="kw">else</span> {
+    Write-Host <span class="st">"OK : $libreGo Go libres"</span> -ForegroundColor Green
+}
+
+<span class="kw">switch</span> ($env:COMPUTERNAME) {
+    <span class="st">"SRV-AD01"</span> { <span class="st">"Contrôleur de domaine"</span> }
+    <span class="st">"SRV-FILE"</span> { <span class="st">"Serveur de fichiers"</span> }
+    <span class="kw">default</span>    { <span class="st">"Poste client"</span> }
+}</pre>
+<h2><span class="n">5.2</span>Boucles</h2>
+<pre class="code">$serveurs = <span class="st">"192.168.1.1"</span>, <span class="st">"192.168.1.10"</span>, <span class="st">"192.168.1.20"</span>
+
+<span class="kw">foreach</span> ($ip <span class="kw">in</span> $serveurs) {                      <span class="cm"># pour chaque élément</span>
+    <span class="kw">if</span> (Test-Connection $ip -Count 1 -Quiet) { <span class="st">"$ip : joignable"</span> }
+    <span class="kw">else</span> { <span class="st">"$ip : INJOIGNABLE"</span> }
+}
+
+<span class="kw">for</span> ($i = 1; $i -le 5; $i++) { <span class="st">"Tour n° $i"</span> }      <span class="cm"># compteur</span>
+
+$essai = 0
+<span class="kw">while</span> (-not (Test-Path <span class="st">"C:\Import\fichier.csv"</span>) -and $essai -lt 10) {   <span class="cm"># tant que…</span>
+    Start-Sleep -Seconds 30; $essai++
+}
+
+Get-ChildItem C:\Logs -Filter *.log | ForEach-Object { <span class="st">"$($_.Name) : $([math]::Round($_.Length/1KB)) Ko"</span> }</pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : $_ et $( )</div>
+<p>Dans un pipeline, <code>$_</code> (ou <code>$PSItem</code>) désigne l'objet en cours. Dans une chaîne, <code>$( … )</code> évalue une expression : <code>"$($_.Name)"</code> affiche la propriété Name.</p></div>
+<h2><span class="n">5.3</span>Fonctions et paramètres</h2>
+<pre class="code"><span class="kw">function</span> Test-Port {
+    <span class="kw">param</span>(
+        [Parameter(Mandatory)] [string]$Hote,
+        [int]$Port = 443
+    )
+    $ok = (Test-NetConnection $Hote -Port $Port -WarningAction SilentlyContinue).TcpTestSucceeded
+    [PSCustomObject]@{ Hote = $Hote; Port = $Port; Ouvert = $ok }
+}
+
+Test-Port -Hote <span class="st">"srv-web"</span> -Port 80
+<span class="st">"srv-web"</span>,<span class="st">"srv-ad01"</span> | ForEach-Object { Test-Port -Hote $_ -Port 3389 }</pre>
+<pre class="out">Hote     Port Ouvert
+----     ---- ------
+srv-web    80   True
+srv-web  3389  False
+srv-ad01 3389   True</pre>
+<h2><span class="n">5.4</span>Gérer les erreurs : try / catch</h2>
+<pre class="code"><span class="kw">try</span> {
+    Copy-Item <span class="st">"C:\Data\*"</span> <span class="st">"\\SRV-FILE\Backup\"</span> -Recurse -ErrorAction Stop
+    Add-Content C:\Logs\backup.log <span class="st">"$(Get-Date) OK"</span>
+}
+<span class="kw">catch</span> {
+    Add-Content C:\Logs\backup.log <span class="st">"$(Get-Date) ERREUR : $($_.Exception.Message)"</span>
+}
+<span class="kw">finally</span> {
+    Write-Host <span class="st">"Fin de la sauvegarde"</span>        <span class="cm"># exécuté dans tous les cas</span>
+}</pre>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Beaucoup de cmdlets n'arrêtent pas le script en cas d'erreur (erreur « non bloquante »). Sans <code>-ErrorAction Stop</code>, le bloc <code>catch</code> ne s'exécute pas.</p></div>
+<h2><span class="n">5.5</span>Créer des utilisateurs à partir d'un fichier CSV</h2>
+<p>Fichier <code>nouveaux.csv</code> (exporté depuis Excel, séparateur virgule) :</p>
+<pre class="out">Prenom,Nom,Service
+Salma,Alaoui,RH
+Karim,Bennani,Compta
+Yassine,Idrissi,Informatique</pre>
+<span class="lang lp">POWERSHELL</span>
+<pre class="code"><span class="cm"># creer_comptes.ps1 — comptes Active Directory (module ActiveDirectory, à lancer sur un serveur ou poste RSAT)</span>
+Import-Module ActiveDirectory
+$mdp = Read-Host <span class="st">"Mot de passe initial"</span> -AsSecureString
+
+Import-Csv .\nouveaux.csv | ForEach-Object {
+    $login = ($_.Prenom.Substring(0,1) + $_.Nom).ToLower()        <span class="cm"># s + alaoui = salaoui</span>
+    <span class="kw">if</span> (Get-ADUser -Filter <span class="st">"SamAccountName -eq '$login'"</span>) {
+        Write-Warning <span class="st">"$login existe déjà"</span>
+    } <span class="kw">else</span> {
+        New-ADUser -Name <span class="st">"$($_.Prenom) $($_.Nom)"</span> -GivenName $_.Prenom -Surname $_.Nom `
+            -SamAccountName $login -Department $_.Service `
+            -Path <span class="st">"OU=$($_.Service),OU=Utilisateurs,DC=ecole,DC=local"</span> `
+            -AccountPassword $mdp -ChangePasswordAtLogon $true -Enabled $true
+        Write-Host <span class="st">"Compte $login créé"</span> -ForegroundColor Green
+    }
+}</pre>
+<div class="box tip"><div class="t"><i>✓</i>Sans Active Directory ?</div>
+<p>Sur un PC Windows de labo, on remplace <code>New-ADUser</code> par <code>New-LocalUser -Name $login -Password $mdp -FullName "…"</code> (PowerShell en administrateur). Le reste du script est identique.</p></div>
+<h2><span class="n">5.6</span>Tâches d'administration courantes</h2>
+<div class="tscroll"><table>
+<tr><th style="width:44%">Commande</th><th>Rôle</th></tr>
+<tr><td><code>Get-Service Spooler | Restart-Service</code></td><td>Redémarrer un service</td></tr>
+<tr><td><code>Get-WinEvent -LogName System -MaxEvents 20</code></td><td>20 derniers événements système</td></tr>
+<tr><td><code>Get-EventLog Security -InstanceId 4625 -Newest 50</code></td><td>Échecs de connexion (Windows PowerShell 5.1)</td></tr>
+<tr><td><code>Get-CimInstance Win32_OperatingSystem</code></td><td>Version de Windows, mémoire, dernier démarrage</td></tr>
+<tr><td><code>Get-NetIPAddress -AddressFamily IPv4</code></td><td>Adresses IP de la machine</td></tr>
+<tr><td><code>Get-LocalUser</code> / <code>Get-ADUser -Filter *</code></td><td>Comptes locaux / comptes du domaine</td></tr>
+<tr><td><code>Get-ADUser -Filter * -Properties LastLogonDate</code></td><td>Repérer les comptes inactifs</td></tr>
+</table></div>
+<h2><span class="n">5.7</span>Administrer à distance</h2>
+<pre class="code"><span class="cm"># Exécuter une commande sur plusieurs serveurs en même temps (WinRM activé : Enable-PSRemoting)</span>
+Invoke-Command -ComputerName SRV-FILE, SRV-WEB -ScriptBlock {
+    Get-Service W32Time | Select-Object Status, Name
+} -Credential (Get-Credential)
+
+Enter-PSSession -ComputerName SRV-FILE        <span class="cm"># session interactive à distance (exit pour sortir)</span></pre>
+<h2><span class="n">5.8</span>Planifier un script</h2>
+<pre class="code">$action  = New-ScheduledTaskAction -Execute <span class="st">"powershell.exe"</span> -Argument <span class="st">"-File C:\Scripts\sauvegarde.ps1"</span>
+$trigger = New-ScheduledTaskTrigger -Daily -At 2am
+Register-ScheduledTask -TaskName <span class="st">"Sauvegarde nocturne"</span> -Action $action -Trigger $trigger -User <span class="st">"SYSTEM"</span></pre>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <code>if / elseif / else</code>, <code>switch</code>, <code>foreach</code>, <code>for</code>, <code>while</code>, <code>ForEach-Object</code>.<br/>
+• Fonctions avec <code>param()</code>, objets de sortie <code>[PSCustomObject]</code>.<br/>
+• <code>try / catch / finally</code> avec <code>-ErrorAction Stop</code>.<br/>
+• <code>Import-Csv</code> + <code>New-ADUser</code> = comptes en masse ; <code>Invoke-Command</code> à distance ; tâche planifiée.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">foreach</span><span class="k kv">switch</span><span class="k kt">function / param</span><span class="k kb">PSCustomObject</span><span class="k kr">try / catch</span><span class="k kg">Import-Csv</span><span class="k kg">New-ADUser</span><span class="k kt">Invoke-Command</span><span class="k kt">Tâche planifiée</span>
+</div>
+<h3>Exercices — Chapitre 5</h3>
+<div class="exo"><div class="h">Exercice 5.1 — Boucle et condition <span>★★ moyen</span></div><div class="c">
+<p>Écris un script qui parcourt les services <code>Spooler</code>, <code>W32Time</code> et <code>wuauserv</code> : pour chacun, s'il est arrêté, il le démarre et affiche « démarré », sinon il affiche « déjà en marche ».</p></div></div>
+<div class="exo"><div class="h">Exercice 5.2 — Lire un script <span>★★ moyen</span></div><div class="c">
+<p>Dans le script de création de comptes (§5.5), quel login sera créé pour « Yassine Idrissi » ? Que se passe-t-il si on relance le script une deuxième fois ? Pourquoi demande-t-on le mot de passe avec <code>-AsSecureString</code> ?</p></div></div>
+<div class="exo"><div class="h">Exercice 5.3 — try / catch <span>★★★ difficile</span></div><div class="c">
+<p>Écris une fonction <code>Sauver-Dossier</code> avec deux paramètres obligatoires <code>-Source</code> et <code>-Destination</code>. Elle copie le dossier, écrit « OK » ou le message d'erreur dans <code>C:\Logs\sauvegarde.log</code> avec la date.</p></div></div>
+<!-- ============ CHAPITRE 6 ============ -->
+<section class="chead2" id="ch6"><div class="ch-side" style="background:linear-gradient(180deg,#B8913A,#8A6A22)"><span class="lbl">CHAPITRE</span><span class="num">06</span></div><div class="ch-body">
+<h1>Python : les bases</h1>
+<div class="lead">Lisible comme du français, puissant comme un couteau suisse : Python est le langage de l'automatisation moderne.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Écrire et exécuter un premier programme Python</li>
+<li>Utiliser les types : nombres, chaînes, listes, dictionnaires</li>
+<li>Écrire conditions, boucles et fonctions</li>
+<li>Lire et écrire des fichiers, gérer les erreurs</li></ul></div>
+<div class="quote">« En Python, l'indentation n'est pas une question de style : c'est la syntaxe. »</div></div></section>
+<h2><span class="n">6.1</span>Premier programme</h2>
+<span class="lang ly">PYTHON</span>
+<pre class="code"><span class="cm"># bonjour.py</span>
+nom = input(<span class="st">"Ton prénom : "</span>)
+print(<span class="st">f"Bonjour {nom}, bienvenue en Infrastructure Digitale !"</span>)</pre>
+<pre class="code">python3 bonjour.py        <span class="cm"># Linux   (sous Windows : python bonjour.py ou py bonjour.py)</span></pre>
+<pre class="out">Ton prénom : Salma
+Bonjour Salma, bienvenue en Infrastructure Digitale !</pre>
+<div class="box def"><div class="t"><i>i</i>Les f-strings</div>
+<p>Une chaîne précédée de <code>f</code> remplace ce qui est entre accolades par sa valeur : <code>f"{nom} a {age} ans"</code>. C'est la façon moderne d'afficher des variables.</p></div>
+<h2><span class="n">6.2</span>Types de données</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Type</th><th style="width:36%">Exemple</th><th>Usage en administration</th></tr>
+<tr><td><b>int</b> / <b>float</b></td><td><code>port = 22</code>, <code>cpu = 37.5</code></td><td>Ports, pourcentages, tailles</td></tr>
+<tr><td><b>str</b></td><td><code>hote = "srv-web"</code></td><td>Noms, adresses, commandes</td></tr>
+<tr><td><b>bool</b></td><td><code>actif = True</code></td><td>État : joignable ou non</td></tr>
+<tr><td><b>list</b></td><td><code>ips = ["10.0.0.1", "10.0.0.2"]</code></td><td>Liste de serveurs, de ports</td></tr>
+<tr><td><b>dict</b></td><td><code>sw = {"nom": "SW1", "ip": "10.0.0.2"}</code></td><td>Description d'un équipement</td></tr>
+</table></div>
+<pre class="code">ips = [<span class="st">"10.0.0.1"</span>, <span class="st">"10.0.0.2"</span>, <span class="st">"10.0.0.3"</span>]
+ips.append(<span class="st">"10.0.0.4"</span>)        <span class="cm"># ajouter</span>
+print(ips[0], len(ips))       <span class="cm"># 10.0.0.1 4  (les indices commencent à 0)</span>
+print(ips[-1])                <span class="cm"># dernier : 10.0.0.4</span>
+
+switch = {<span class="st">"nom"</span>: <span class="st">"SW1"</span>, <span class="st">"ip"</span>: <span class="st">"10.0.0.2"</span>, <span class="st">"ports"</span>: 24}
+print(switch[<span class="st">"nom"</span>])          <span class="cm"># SW1</span>
+switch[<span class="st">"vlan"</span>] = 10            <span class="cm"># ajouter une clé</span>
+<span class="kw">for</span> cle, valeur <span class="kw">in</span> switch.items():
+    print(cle, <span class="st">"="</span>, valeur)</pre>
+<h2><span class="n">6.3</span>Conditions et indentation</h2>
+<pre class="code">cpu = 87
+<span class="kw">if</span> cpu &gt;= 90:
+    print(<span class="st">"CRITIQUE"</span>)
+<span class="kw">elif</span> cpu &gt;= 75:
+    print(<span class="st">"ATTENTION"</span>)          <span class="cm"># ← affiché</span>
+<span class="kw">else</span>:
+    print(<span class="st">"OK"</span>)</pre>
+<div class="box warn"><div class="t"><i>!</i>L'indentation est obligatoire</div>
+<p>En Python, ce sont les <b>4 espaces</b> au début de la ligne qui indiquent ce qui est « à l'intérieur » du <code>if</code>, de la boucle ou de la fonction. Une indentation incohérente provoque une <code>IndentationError</code>. N'oublie pas non plus les <b>deux-points</b> <code>:</code> à la fin de la ligne <code>if</code>, <code>for</code>, <code>def</code>.</p></div>
+<div class="tscroll"><table>
+<tr><th>Comparaison</th><th>Sens</th><th>Logique</th><th>Sens</th></tr>
+<tr><td><code>==</code> / <code>!=</code></td><td>égal / différent</td><td><code>and</code></td><td>et</td></tr>
+<tr><td><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></td><td>comparaisons</td><td><code>or</code></td><td>ou</td></tr>
+<tr><td><code>in</code></td><td>appartient à</td><td><code>not</code></td><td>non</td></tr>
+</table></div>
+<h2><span class="n">6.4</span>Boucles</h2>
+<pre class="code"><span class="kw">for</span> ip <span class="kw">in</span> ips:                      <span class="cm"># parcourir une liste</span>
+    print(<span class="st">f"Vérification de {ip}"</span>)
+
+<span class="kw">for</span> i <span class="kw">in</span> range(1, 6):              <span class="cm"># 1, 2, 3, 4, 5 (la borne de fin est exclue)</span>
+    print(<span class="st">f"192.168.1.{i}"</span>)
+
+essais = 0
+<span class="kw">while</span> essais &lt; 3:                    <span class="cm"># tant que</span>
+    essais += 1
+    print(<span class="st">"Tentative"</span>, essais)</pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce : range()</div>
+<p><code>range(5)</code> donne 0, 1, 2, 3, 4 ; <code>range(1, 255)</code> donne 1 à 254 : pratique pour parcourir les hôtes d'un /24. <code>break</code> sort de la boucle, <code>continue</code> passe au tour suivant.</p></div>
+<h2><span class="n">6.5</span>Fonctions</h2>
+<pre class="code"><span class="kw">def</span> calcul_hotes(prefixe):
+    <span class="st">"""Renvoie le nombre d'hôtes utilisables pour un préfixe IPv4."""</span>
+    <span class="kw">return</span> 2 ** (32 - prefixe) - 2
+
+<span class="kw">for</span> p <span class="kw">in</span> (24, 26, 30):
+    print(<span class="st">f"/{p} : {calcul_hotes(p)} hôtes"</span>)</pre>
+<pre class="out">/24 : 254 hôtes
+/26 : 62 hôtes
+/30 : 2 hôtes</pre>
+<h2><span class="n">6.6</span>Fichiers et erreurs</h2>
+<pre class="code"><span class="cm"># Lire un fichier ligne par ligne</span>
+<span class="kw">with</span> open(<span class="st">"serveurs.txt"</span>) <span class="kw">as</span> f:          <span class="cm"># with ferme le fichier automatiquement</span>
+    serveurs = [ligne.strip() <span class="kw">for</span> ligne <span class="kw">in</span> f <span class="kw">if</span> ligne.strip()]
+
+<span class="cm"># Écrire (w = écraser, a = ajouter)</span>
+<span class="kw">with</span> open(<span class="st">"rapport.txt"</span>, <span class="st">"a"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    f.write(<span class="st">"Sauvegarde OK\n"</span>)
+
+<span class="cm"># Gérer une erreur</span>
+<span class="kw">try</span>:
+    <span class="kw">with</span> open(<span class="st">"config.txt"</span>) <span class="kw">as</span> f:
+        contenu = f.read()
+<span class="kw">except</span> FileNotFoundError:
+    print(<span class="st">"Le fichier config.txt est introuvable"</span>)</pre>
+<h2><span class="n">6.7</span>Les modules</h2>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Module</th><th>Rôle</th><th style="width:36%">Exemple</th></tr>
+<tr><td><code>os</code>, <code>pathlib</code></td><td>Fichiers, dossiers, variables d'environnement</td><td><code>os.listdir("/var/log")</code></td></tr>
+<tr><td><code>subprocess</code></td><td>Lancer une commande système</td><td><code>subprocess.run(["ping","-c","1",ip])</code></td></tr>
+<tr><td><code>datetime</code></td><td>Dates et heures</td><td><code>datetime.now().strftime("%F")</code></td></tr>
+<tr><td><code>ipaddress</code></td><td>Calculs d'adresses IP</td><td><code>ipaddress.ip_network("10.0.0.0/24")</code></td></tr>
+<tr><td><code>socket</code></td><td>Connexions réseau, test de ports</td><td><code>socket.create_connection(...)</code></td></tr>
+<tr><td><code>csv</code>, <code>json</code></td><td>Lire / écrire des données</td><td><code>csv.DictReader(f)</code></td></tr>
+<tr><td><code>netmiko</code>, <code>requests</code> (pip)</td><td>SSH vers équipements, API web</td><td><code>pip install netmiko</code></td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <code>print()</code>, <code>input()</code>, f-strings <code>f"{var}"</code>.<br/>
+• Types : int, float, str, bool, <b>list</b> <code>[ ]</code>, <b>dict</b> <code>{ }</code> ; indices à partir de 0.<br/>
+• <b>Indentation de 4 espaces</b> et <b>deux-points</b> après <code>if</code>, <code>for</code>, <code>while</code>, <code>def</code>.<br/>
+• <code>with open()</code> pour les fichiers, <code>try / except</code> pour les erreurs, <code>import</code> pour les modules.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Variable</span><span class="k kg">f-string</span><span class="k kv">list</span><span class="k kv">dict</span><span class="k kr">Indentation</span><span class="k kv">for / range</span><span class="k kt">def / return</span><span class="k kt">with open</span><span class="k kr">try / except</span><span class="k kb">import</span>
+</div>
+<h3>Exercices — Chapitre 6</h3>
+<div class="exo"><div class="h">Exercice 6.1 — Prédire la sortie <span>★ facile</span></div><div class="c">
+<pre class="code">ports = [22, 80, 443]
+ports.append(3389)
+print(len(ports), ports[1], ports[-1])
+for p in ports:
+    if p &lt; 100:
+        print(p, "bien connu")</pre></div></div>
+<div class="exo"><div class="h">Exercice 6.2 — Dictionnaire <span>★★ moyen</span></div><div class="c">
+<p>Crée un dictionnaire <code>routeur</code> avec les clés nom (R1), ip (10.0.12.1) et modele (ISR 4321). Ajoute la clé <code>site</code> = « Fès », puis affiche « R1 (10.0.12.1) se trouve à Fès » avec une f-string.</p></div></div>
+<div class="exo"><div class="h">Exercice 6.3 — Fonction <span>★★ moyen</span></div><div class="c">
+<p>Écris une fonction <code>niveau_disque(pourcentage)</code> qui renvoie « CRITIQUE » à partir de 90, « ATTENTION » à partir de 80, sinon « OK ». Teste-la avec 95, 85 et 40.</p></div></div>
+<!-- ============ CHAPITRE 7 ============ -->
+<section class="chead2" id="ch7"><div class="ch-side" style="background:linear-gradient(180deg,#8A6A22,#1B2A4A)"><span class="lbl">CHAPITRE</span><span class="num">07</span></div><div class="ch-body">
+<h1>Python pour l'administration réseau</h1>
+<div class="lead">Scanner un réseau, tester des ports, sauvegarder la configuration de 30 switchs : Python le fait pendant ton café.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Lancer des commandes système avec subprocess</li>
+<li>Manipuler des adresses et des réseaux avec ipaddress</li>
+<li>Tester des ports avec socket et produire un rapport CSV/JSON</li>
+<li>Se connecter en SSH à un équipement Cisco avec Netmiko</li></ul></div>
+<div class="quote">« L'automatisation réseau commence le jour où l'on arrête de copier-coller la même commande sur 30 équipements. »</div></div></section>
+<h2><span class="n">7.1</span>Lancer des commandes système : subprocess</h2>
+<span class="lang ly">PYTHON</span>
+<pre class="code"><span class="kw">import</span> subprocess, platform
+
+<span class="kw">def</span> ping(hote):
+    <span class="st">"""Renvoie True si l'hôte répond à un ping (Windows ou Linux)."""</span>
+    option = <span class="st">"-n"</span> <span class="kw">if</span> platform.system() == <span class="st">"Windows"</span> <span class="kw">else</span> <span class="st">"-c"</span>
+    r = subprocess.run([<span class="st">"ping"</span>, option, <span class="st">"1"</span>, hote], capture_output=<span class="kw">True</span>)
+    <span class="kw">return</span> r.returncode == 0          <span class="cm"># 0 = succès, comme $? en Bash</span>
+
+print(ping(<span class="st">"8.8.8.8"</span>))</pre>
+<div class="box warn"><div class="t"><i>!</i>Sécurité</div>
+<p>On passe la commande sous forme de <b>liste</b> <code>["ping", "-c", "1", hote]</code> et jamais avec <code>shell=True</code> sur une valeur saisie par l'utilisateur : sinon une saisie comme <code>8.8.8.8; rm -rf ~</code> exécuterait une deuxième commande (injection de commande).</p></div>
+<h2><span class="n">7.2</span>Calculer des adresses : ipaddress</h2>
+<pre class="code"><span class="kw">import</span> ipaddress
+
+reseau = ipaddress.ip_network(<span class="st">"192.168.10.0/26"</span>)
+print(reseau.netmask, reseau.num_addresses)          <span class="cm"># 255.255.255.192 64</span>
+print(reseau.network_address, reseau.broadcast_address)
+hotes = list(reseau.hosts())
+print(hotes[0], <span class="st">"→"</span>, hotes[-1], <span class="st">f"({len(hotes)} hôtes)"</span>)
+print(ipaddress.ip_address(<span class="st">"192.168.10.70"</span>) <span class="kw">in</span> reseau)  <span class="cm"># False</span>
+<span class="kw">for</span> sous_reseau <span class="kw">in</span> reseau.subnets(new_prefix=28):    <span class="cm"># découpage en /28</span>
+    print(sous_reseau)</pre>
+<pre class="out">255.255.255.192 64
+192.168.10.0 192.168.10.63
+192.168.10.1 → 192.168.10.62 (62 hôtes)
+False
+192.168.10.0/28
+192.168.10.16/28
+192.168.10.32/28
+192.168.10.48/28</pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Le module <code>ipaddress</code> est un excellent outil pour <b>vérifier tes calculs de sous-réseaux</b> du chapitre adressage : il donne masque, diffusion, plage d'hôtes et découpage.</p></div>
+<h2><span class="n">7.3</span>Scanner un réseau et produire un rapport</h2>
+<span class="lang ly">PYTHON</span>
+<pre class="code"><span class="cm"># scan_reseau.py — ping de toutes les adresses d'un réseau, rapport CSV</span>
+<span class="kw">import</span> ipaddress, subprocess, platform, csv
+<span class="kw">from</span> concurrent.futures <span class="kw">import</span> ThreadPoolExecutor
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+
+RESEAU = <span class="st">"192.168.1.0/24"</span>
+
+<span class="kw">def</span> ping(ip):
+    opt = <span class="st">"-n"</span> <span class="kw">if</span> platform.system() == <span class="st">"Windows"</span> <span class="kw">else</span> <span class="st">"-c"</span>
+    r = subprocess.run([<span class="st">"ping"</span>, opt, <span class="st">"1"</span>, str(ip)], capture_output=<span class="kw">True</span>)
+    <span class="kw">return</span> str(ip), r.returncode == 0
+
+hotes = list(ipaddress.ip_network(RESEAU).hosts())
+<span class="kw">with</span> ThreadPoolExecutor(max_workers=50) <span class="kw">as</span> ex:      <span class="cm"># 50 pings en parallèle</span>
+    resultats = list(ex.map(ping, hotes))
+
+actifs = [ip <span class="kw">for</span> ip, ok <span class="kw">in</span> resultats <span class="kw">if</span> ok]
+<span class="kw">with</span> open(<span class="st">f"scan_{datetime.now():%Y%m%d}.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>) <span class="kw">as</span> f:
+    w = csv.writer(f)
+    w.writerow([<span class="st">"ip"</span>, <span class="st">"etat"</span>])
+    <span class="kw">for</span> ip, ok <span class="kw">in</span> resultats:
+        w.writerow([ip, <span class="st">"UP"</span> <span class="kw">if</span> ok <span class="kw">else</span> <span class="st">"DOWN"</span>])
+print(<span class="st">f"{len(actifs)} hôtes actifs sur {len(hotes)}"</span>)</pre>
+<pre class="out">14 hôtes actifs sur 254</pre>
+<h2><span class="n">7.4</span>Tester des ports : socket</h2>
+<pre class="code"><span class="kw">import</span> socket
+
+<span class="kw">def</span> port_ouvert(hote, port, delai=1):
+    <span class="kw">try</span>:
+        <span class="kw">with</span> socket.create_connection((hote, port), timeout=delai):
+            <span class="kw">return</span> <span class="kw">True</span>
+    <span class="kw">except</span> OSError:
+        <span class="kw">return</span> <span class="kw">False</span>
+
+SERVICES = {22: <span class="st">"SSH"</span>, 80: <span class="st">"HTTP"</span>, 443: <span class="st">"HTTPS"</span>, 3389: <span class="st">"RDP"</span>}
+<span class="kw">for</span> port, nom <span class="kw">in</span> SERVICES.items():
+    etat = <span class="st">"ouvert"</span> <span class="kw">if</span> port_ouvert(<span class="st">"192.168.1.10"</span>, port) <span class="kw">else</span> <span class="st">"fermé"</span>
+    print(<span class="st">f"{port:&gt;5} {nom:&lt;6} {etat}"</span>)</pre>
+<pre class="out">   22 SSH    ouvert
+   80 HTTP   ouvert
+  443 HTTPS  ouvert
+ 3389 RDP    fermé</pre>
+<div class="box warn"><div class="t"><i>!</i>Cadre légal</div>
+<p>Scanner les ports d'un réseau qui ne t'appartient pas, sans autorisation écrite, est interdit (loi 07-03). Ces scripts s'utilisent uniquement sur ton labo ou sur le réseau dont tu as la charge.</p></div>
+<h2><span class="n">7.5</span>Lire des données : CSV et JSON</h2>
+<p>Fichier <code>equipements.csv</code> :</p>
+<pre class="out">nom,ip,type
+SW1,10.0.0.2,cisco_ios
+SW2,10.0.0.3,cisco_ios
+R1,10.0.0.1,cisco_ios</pre>
+<pre class="code"><span class="kw">import</span> csv, json
+
+<span class="kw">with</span> open(<span class="st">"equipements.csv"</span>) <span class="kw">as</span> f:
+    equipements = list(csv.DictReader(f))      <span class="cm"># liste de dictionnaires</span>
+print(equipements[0][<span class="st">"ip"</span>])                    <span class="cm"># 10.0.0.2</span>
+
+<span class="kw">with</span> open(<span class="st">"inventaire.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> f:
+    json.dump(equipements, f, indent=2)         <span class="cm"># sauvegarde en JSON</span></pre>
+<h2><span class="n">7.6</span>SSH vers des équipements Cisco : Netmiko</h2>
+<p><span class="k kt">Netmiko</span> est une bibliothèque Python qui se connecte en SSH aux routeurs et switchs (Cisco, Juniper, Huawei, Fortinet…) et envoie des commandes comme un technicien le ferait.</p>
+<pre class="code">pip install netmiko</pre>
+<span class="lang ly">PYTHON</span>
+<pre class="code"><span class="cm"># sauver_configs.py — récupère la running-config de chaque équipement du CSV</span>
+<span class="kw">import</span> csv, getpass
+<span class="kw">from</span> datetime <span class="kw">import</span> date
+<span class="kw">from</span> netmiko <span class="kw">import</span> ConnectHandler
+
+utilisateur = input(<span class="st">"Utilisateur SSH : "</span>)
+mdp = getpass.getpass(<span class="st">"Mot de passe : "</span>)           <span class="cm"># saisi sans s'afficher</span>
+
+<span class="kw">with</span> open(<span class="st">"equipements.csv"</span>) <span class="kw">as</span> f:
+    <span class="kw">for</span> eq <span class="kw">in</span> csv.DictReader(f):
+        <span class="kw">try</span>:
+            conn = ConnectHandler(device_type=eq[<span class="st">"type"</span>], host=eq[<span class="st">"ip"</span>],
+                                  username=utilisateur, password=mdp)
+            config = conn.send_command(<span class="st">"show running-config"</span>)
+            conn.disconnect()
+            <span class="kw">with</span> open(<span class="st">f"{eq['nom']}_{date.today()}.cfg"</span>, <span class="st">"w"</span>) <span class="kw">as</span> out:
+                out.write(config)
+            print(<span class="st">f"[OK]  {eq['nom']}"</span>)
+        <span class="kw">except</span> Exception <span class="kw">as</span> e:
+            print(<span class="st">f"[ERR] {eq['nom']} : {e}"</span>)</pre>
+<pre class="code"><span class="cm"># Envoyer des commandes de configuration (créer un VLAN sur tous les switchs)</span>
+conn.send_config_set([<span class="st">"vlan 30"</span>, <span class="st">"name INVITES"</span>])
+conn.save_config()                                   <span class="cm"># équivalent de write memory</span></pre>
+<div class="box tip"><div class="t"><i>✓</i>Où tester ?</div>
+<p>Packet Tracer ne peut pas recevoir de connexions SSH depuis un vrai script Python. Pour ces exercices, on utilise <b>GNS3</b>, <b>EVE-NG</b>, <b>Cisco CML</b> ou les <b>sandbox gratuites Cisco DevNet</b>, avec SSH activé sur les équipements (chapitre sécurité).</p></div>
+<h2><span class="n">7.7</span>Interroger une API REST : requests</h2>
+<p>Les équipements modernes (contrôleurs SDN comme OpenDaylight, pare-feu, Wi-Fi) s'administrent par <span class="k kv">API REST</span> : on envoie des requêtes HTTP et on reçoit du JSON.</p>
+<pre class="code"><span class="kw">import</span> requests
+r = requests.get(<span class="st">"https://api.ipify.org?format=json"</span>, timeout=5)
+print(r.status_code, r.json()[<span class="st">"ip"</span>])               <span class="cm"># 200  41.250.x.x (ton IP publique)</span></pre>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• <code>subprocess.run([...])</code> lance une commande ; <code>returncode == 0</code> = succès.<br/>
+• <code>ipaddress</code> calcule réseaux, masques, hôtes ; <code>socket</code> teste des ports.<br/>
+• <code>csv.DictReader</code> et <code>json.dump</code> pour les données ; <code>ThreadPoolExecutor</code> pour aller vite.<br/>
+• <b>Netmiko</b> : SSH vers les équipements ; <b>requests</b> : API REST. Mots de passe avec <code>getpass</code>.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kt">subprocess</span><span class="k kt">ipaddress</span><span class="k kt">socket</span><span class="k kg">csv / json</span><span class="k kv">Netmiko</span><span class="k kv">API REST</span><span class="k kb">requests</span><span class="k kt">getpass</span><span class="k kr">Injection de commande</span>
+</div>
+<h3>Exercices — Chapitre 7</h3>
+<div class="exo"><div class="h">Exercice 7.1 — ipaddress <span>★ facile</span></div><div class="c">
+<p>Pour le réseau <code>10.10.0.0/22</code>, que vont afficher <code>num_addresses</code>, <code>netmask</code> et <code>broadcast_address</code> ? Combien d'hôtes utilisables ?</p></div></div>
+<div class="exo"><div class="h">Exercice 7.2 — Compléter un script <span>★★ moyen</span></div><div class="c">
+<p>À partir de la fonction <code>port_ouvert()</code>, écris une boucle qui teste le port 22 sur les adresses 192.168.1.1 à 192.168.1.10 et affiche seulement celles qui ont SSH ouvert.</p></div></div>
+<div class="exo"><div class="h">Exercice 7.3 — Lire du code Netmiko <span>★★ moyen</span></div><div class="c">
+<p>Dans <code>sauver_configs.py</code> : (a) pourquoi utiliser <code>getpass</code> plutôt que <code>input</code> ? (b) que se passe-t-il si SW2 est éteint ? (c) quel nom aura le fichier de R1 le 13 novembre 2026 ?</p></div></div>
+<!-- ============ CHAPITRE 8 ============ -->
+<section class="chead2" id="ch8"><div class="ch-side" style="background:linear-gradient(180deg,#5B4B8A,#433668)"><span class="lbl">CHAPITRE</span><span class="num">08</span></div><div class="ch-body">
+<h1>Comparer et bien scripter</h1>
+<div class="lead">Un bon script ne se contente pas de marcher : il est lisible, sûr, testé et retrouvable.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Traduire une instruction d'un langage à l'autre</li>
+<li>Appliquer les bonnes pratiques de sécurité des scripts</li>
+<li>Planifier sous Linux et Windows</li>
+<li>Versionner ses scripts avec Git</li></ul></div>
+<div class="quote">« Écris tes scripts comme si la personne qui les maintiendra était toi, dans six mois, à 3 h du matin. »</div></div></section>
+<h2><span class="n">8.1</span>Tableau d'équivalences</h2>
+<div class="tscroll"><table style="font-size:8.6pt">
+<tr><th style="width:17%">Notion</th><th><span class="lang lb">BASH</span></th><th><span class="lang lp">POWERSHELL</span></th><th><span class="lang ly">PYTHON</span></th></tr>
+<tr><td><b>Variable</b></td><td><code>nom="SW1"</code></td><td><code>$nom = "SW1"</code></td><td><code>nom = "SW1"</code></td></tr>
+<tr><td><b>Afficher</b></td><td><code>echo "$nom"</code></td><td><code>Write-Host $nom</code></td><td><code>print(nom)</code></td></tr>
+<tr><td><b>Saisie</b></td><td><code>read -p "?" x</code></td><td><code>$x = Read-Host "?"</code></td><td><code>x = input("?")</code></td></tr>
+<tr><td><b>Liste</b></td><td><code>l=(a b c)</code></td><td><code>$l = @("a","b","c")</code></td><td><code>l = ["a","b","c"]</code></td></tr>
+<tr><td><b>Condition</b></td><td><code>if [ $x -gt 5 ]; then … fi</code></td><td><code>if ($x -gt 5) { … }</code></td><td><code>if x &gt; 5:</code></td></tr>
+<tr><td><b>Boucle</b></td><td><code>for i in $l; do … done</code></td><td><code>foreach ($i in $l) { … }</code></td><td><code>for i in l:</code></td></tr>
+<tr><td><b>Fonction</b></td><td><code>f() { … }</code></td><td><code>function F { param($a) … }</code></td><td><code>def f(a):</code></td></tr>
+<tr><td><b>Arguments</b></td><td><code>$1</code>, <code>$#</code></td><td><code>param()</code>, <code>$args</code></td><td><code>sys.argv</code>, <code>argparse</code></td></tr>
+<tr><td><b>Erreurs</b></td><td><code>$?</code>, <code>||</code>, <code>set -e</code></td><td><code>try { } catch { }</code></td><td><code>try: … except:</code></td></tr>
+<tr><td><b>Lire un fichier</b></td><td><code>while read l; do … done &lt; f</code></td><td><code>Get-Content f</code></td><td><code>open(f)</code></td></tr>
+<tr><td><b>Planifier</b></td><td>cron</td><td>Planificateur de tâches</td><td>cron ou Planificateur</td></tr>
+</table></div>
+<figure>
+<svg font-family="DejaVu Sans Mono" font-size="10.5" viewbox="0 0 620 200">
+<g font-family="Inter" font-size="12" font-weight="700" text-anchor="middle"><text fill="#2F7D5B" x="105" y="20">Bash</text><text fill="#2F6FA8" x="310" y="20">PowerShell</text><text fill="#8A6A22" x="515" y="20">Python</text></g>
+<rect fill="#0F1B22" height="160" rx="10" width="200" x="5" y="30"></rect><rect fill="#0F1B22" height="160" rx="10" width="200" x="210" y="30"></rect><rect fill="#0F1B22" height="160" rx="10" width="200" x="415" y="30"></rect>
+<g fill="#D6E9EE">
+<text x="15" y="55">for ip in $(cat l.txt)</text><text x="15" y="72">do</text><text x="25" y="89">ping -c1 $ip &gt;/dev/null \</text><text x="25" y="106"> &amp;&amp; echo "$ip UP" \</text><text x="25" y="123"> || echo "$ip DOWN"</text><text x="15" y="140">done</text>
+<text x="220" y="55">Get-Content l.txt |</text><text x="220" y="72">ForEach-Object {</text><text x="230" y="89">if (Test-Connection $_</text><text x="240" y="106">-Count 1 -Quiet)</text><text x="230" y="123">{"$_ UP"} else</text><text x="230" y="140">{"$_ DOWN"}</text><text x="220" y="157">}</text>
+<text x="425" y="55">for ip in open("l.txt"):</text><text x="435" y="72">ip = ip.strip()</text><text x="435" y="89">ok = ping(ip)</text><text x="435" y="106">print(ip, "UP" if ok</text><text x="435" y="123">      else "DOWN")</text>
+</g>
+</svg>
+<figcaption>Figure 7 — La même tâche (pinger une liste de serveurs) dans les trois langages</figcaption>
+</figure>
+<h2><span class="n">8.2</span>Sécurité des scripts</h2>
+<div class="tscroll"><table>
+<tr><th style="width:34%">❌ À ne jamais faire</th><th>✅ À faire</th></tr>
+<tr><td>Écrire un mot de passe en clair dans le script</td><td>Le demander (<code>read -s</code>, <code>Read-Host -AsSecureString</code>, <code>getpass</code>) ou utiliser un coffre (gestionnaire de secrets, clé SSH)</td></tr>
+<tr><td>Lancer tous les scripts en root / administrateur</td><td>Utiliser le minimum de droits, <code>sudo</code> seulement où c'est nécessaire</td></tr>
+<tr><td>Exécuter un script téléchargé sans le lire</td><td>Le lire entièrement, le tester en labo</td></tr>
+<tr><td>Construire une commande avec une saisie non vérifiée</td><td>Valider les entrées, passer les arguments séparément</td></tr>
+<tr><td><code>chmod 777</code> sur un script</td><td><code>chmod 750</code> ou <code>700</code></td></tr>
+<tr><td>Supprimer sans vérifier la variable</td><td><code>[ -n "$DOSSIER" ] &amp;&amp; rm -r "$DOSSIER"</code> : jamais de <code>rm -rf "$VAR/"</code> avec une variable vide</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Le piège de la variable vide</div>
+<p>Si <code>DOSSIER</code> est vide à cause d'une faute de frappe, <code>rm -rf "$DOSSIER/"*</code> devient <code>rm -rf /*</code>. Toujours vérifier qu'une variable n'est pas vide avant une suppression, et activer <code>set -u</code> en Bash (erreur si variable non définie).</p></div>
+<h2><span class="n">8.3</span>Les bonnes pratiques d'écriture</h2>
+<div class="grid2">
+<div class="card"><h4 style="color:var(--teal)">Lisibilité</h4><p>• En-tête : but, auteur, date, usage<br/>• Noms de variables clairs (<code>dossier_source</code> et pas <code>x</code>)<br/>• Commentaires sur le « pourquoi »<br/>• Une fonction = une tâche</p></div>
+<div class="card"><h4 style="color:var(--sky)">Fiabilité</h4><p>• Vérifier les arguments en entrée<br/>• Gérer les erreurs et les codes de retour<br/>• Journaliser (date + action + résultat)<br/>• <b>Idempotence</b> : relancer le script ne casse rien (ne pas recréer un compte existant)</p></div>
+</div>
+<pre class="code"><span class="cm">#!/bin/bash
+# ------------------------------------------------------------
+# Nom     : sauvegarde.sh
+# But     : archiver /var/www et garder 7 jours d'historique
+# Auteur  : Équipe infrastructure — Usage : ./sauvegarde.sh
+# Version : 1.2 (13/11/2026)
+# ------------------------------------------------------------</span>
+set -euo pipefail          <span class="cm"># arrêt sur erreur, variable non définie, erreur dans un pipe</span></pre>
+<h2><span class="n">8.4</span>Versionner avec Git</h2>
+<p><span class="k kt">Git</span> garde l'historique de chaque modification des scripts : qui a changé quoi, quand, et la possibilité de revenir en arrière.</p>
+<pre class="code">git init                                 <span class="cm"># créer le dépôt dans le dossier des scripts</span>
+git add sauvegarde.sh
+git commit -m <span class="st">"Ajout de la rotation sur 7 jours"</span>
+git log --oneline                        <span class="cm"># historique</span>
+git diff                                 <span class="cm"># voir les changements non enregistrés</span></pre>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Ajoute un fichier <code>.gitignore</code> pour ne jamais publier les fichiers de mots de passe, les logs ou les sauvegardes. Un dépôt GitHub public n'est pas l'endroit pour une configuration de routeur réelle.</p></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>• Les trois langages ont les mêmes briques : variables, conditions, boucles, fonctions, erreurs.<br/>
+• Jamais de mot de passe en clair, minimum de droits, validation des entrées, attention aux variables vides.<br/>
+• En-tête, commentaires, journalisation, idempotence.<br/>
+• <b>Git</b> pour l'historique ; <b>cron</b> / <b>Planificateur de tâches</b> pour l'automatisation dans le temps.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kg">Équivalences</span><span class="k kr">Mot de passe en clair</span><span class="k kt">Moindre privilège</span><span class="k kt">Validation des entrées</span><span class="k kb">Idempotence</span><span class="k kv">set -euo pipefail</span><span class="k kt">Git</span><span class="k kb">.gitignore</span>
+</div>
+<h3>Exercices — Chapitre 8</h3>
+<div class="exo"><div class="h">Exercice 8.1 — Traduire <span>★★ moyen</span></div><div class="c">
+<p>Traduis ce code Python en Bash puis en PowerShell :</p>
+<pre class="code">for i in range(1, 4):
+    print(f"Serveur {i}")</pre></div></div>
+<div class="exo"><div class="h">Exercice 8.2 — Audit de script <span>★★★ difficile</span></div><div class="c">
+<pre class="code">#!/bin/bash
+PASS="Cisco123"
+read -p "Dossier à nettoyer : " D
+rm -rf $D/*
+sshpass -p $PASS ssh admin@10.0.0.1 "show run" &gt; config.txt</pre>
+<p>Relève au moins 4 problèmes de sécurité ou de fiabilité et propose une correction pour chacun.</p></div></div>
+<!-- ============ TP ============ -->
+<section class="chead2" id="tp"><div class="ch-side" style="background:linear-gradient(180deg,#0F4F5C,#1B2A4A)"><span class="lbl">LABS</span><span class="num">TP</span></div><div class="ch-body">
+<h1>Labs et travaux pratiques</h1>
+<div class="lead">Six TP réels d'administration, deux par langage, avec leur solution complète et commentée.</div>
+<div class="obj"><h4>Liste des TP</h4>
+<ul><li>TP 1 — Bash : sauvegarde automatique avec rotation et cron</li>
+<li>TP 2 — Bash : création de comptes Linux à partir d'un fichier</li>
+<li>TP 3 — PowerShell : rapport d'inventaire d'un poste en HTML</li>
+<li>TP 4 — PowerShell : comptes utilisateurs en masse depuis un CSV</li>
+<li>TP 5 — Python : scanner un réseau et produire un rapport CSV</li>
+<li>TP 6 — Python : sauvegarder la configuration de switchs Cisco (Netmiko)</li></ul></div>
+<div class="quote">« Un script qui n'a jamais tourné n'est qu'une hypothèse. »</div></div></section>
+<h2><span class="n">TP</span>Préparer son environnement</h2>
+<div class="tscroll"><table>
+<tr><th style="width:6%">TP</th><th>Titre</th><th style="width:15%">Niveau</th><th style="width:10%">Durée</th><th style="width:28%">Environnement</th></tr>
+<tr><td>1</td><td><b>Sauvegarde avec rotation</b></td><td>★ Débutant</td><td>1 h</td><td>Ubuntu (VM ou WSL)</td></tr>
+<tr><td>2</td><td><b>Comptes Linux en masse</b></td><td>★★ Intermédiaire</td><td>1 h</td><td>Ubuntu, droits sudo</td></tr>
+<tr><td>3</td><td><b>Inventaire HTML</b></td><td>★ Débutant</td><td>1 h</td><td>Windows 10/11, PowerShell</td></tr>
+<tr><td>4</td><td><b>Comptes depuis un CSV</b></td><td>★★ Intermédiaire</td><td>1 h 30</td><td>Windows (local) ou Windows Server (AD)</td></tr>
+<tr><td>5</td><td><b>Scanner réseau</b></td><td>★★ Intermédiaire</td><td>1 h 30</td><td>Python 3 (Windows ou Linux)</td></tr>
+<tr><td>6</td><td><b>Configs Cisco via SSH</b></td><td>★★★ Avancé</td><td>2 h</td><td>Python + Netmiko + GNS3 / CML / DevNet</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Installer rapidement</div>
+<p><b>Linux sous Windows :</b> <code>wsl --install</code> (PowerShell administrateur) installe Ubuntu. <b>Python :</b> python.org ou <code>winget install Python.Python.3.12</code>, puis <code>python --version</code>. <b>Éditeur :</b> Visual Studio Code avec les extensions Python, PowerShell et Bash.</p></div>
+<!-- TP1 -->
+<h2><span class="n">TP 1</span>Bash : sauvegarde automatique avec rotation</h2>
+<p><b>Objectifs :</b> archiver un dossier avec la date dans le nom, journaliser, supprimer les archives de plus de 7 jours, planifier avec cron.</p>
+<h4>Étapes</h4>
+<ol>
+<li>Créer un dossier de test : <code>mkdir -p ~/site &amp;&amp; echo "index" &gt; ~/site/index.html</code>.</li>
+<li>Écrire <code>~/scripts/sauvegarde.sh</code> qui crée <code>~/backup/site-AAAA-MM-JJ_HHhMM.tar.gz</code>.</li>
+<li>Écrire une ligne dans <code>~/backup/sauvegarde.log</code> : date, nom de l'archive, taille, OK ou ERREUR.</li>
+<li>Supprimer les archives de plus de 7 jours (<code>find … -mtime +7 -delete</code>).</li>
+<li>Le script accepte un argument facultatif : le dossier à sauvegarder (par défaut <code>~/site</code>). Si le dossier n'existe pas : message d'erreur et code de sortie 1.</li>
+<li>Planifier le script tous les jours à 23 h 30 avec <code>crontab -e</code>, puis vérifier avec <code>crontab -l</code>.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 1</summary><div class="c">
+<pre class="code">#!/bin/bash
+# sauvegarde.sh — usage : ./sauvegarde.sh [dossier]
+set -u
+SOURCE="${1:-$HOME/site}"                  # argument 1 ou valeur par défaut
+DEST="$HOME/backup"
+LOG="$DEST/sauvegarde.log"
+HORO=$(date +%F_%Hh%M)
+ARCHIVE="$DEST/$(basename "$SOURCE")-$HORO.tar.gz"
+
+if [ ! -d "$SOURCE" ]; then
+  echo "Erreur : le dossier $SOURCE n'existe pas" &gt;&amp;2
+  exit 1
+fi
+mkdir -p "$DEST"
+
+if tar -czf "$ARCHIVE" -C "$(dirname "$SOURCE")" "$(basename "$SOURCE")"; then
+  TAILLE=$(du -h "$ARCHIVE" | cut -f1)
+  echo "$(date '+%F %T') OK $ARCHIVE $TAILLE" &gt;&gt; "$LOG"
+else
+  echo "$(date '+%F %T') ERREUR $SOURCE" &gt;&gt; "$LOG"
+  exit 2
+fi
+
+find "$DEST" -name "*.tar.gz" -mtime +7 -delete
+echo "Sauvegarde terminée : $ARCHIVE ($TAILLE)"</pre>
+<pre class="code">chmod 750 ~/scripts/sauvegarde.sh
+crontab -e
+30 23 * * * /home/stagiaire/scripts/sauvegarde.sh &gt;&gt; /home/stagiaire/backup/cron.log 2&gt;&amp;1</pre>
+<p><b>Points clés :</b> <code>${1:-valeur}</code> donne une valeur par défaut ; <code>-C</code> évite de stocker le chemin complet dans l'archive ; dans cron on écrit des <b>chemins absolus</b> (cron n'a pas le même environnement que ton terminal) ; <code>2&gt;&amp;1</code> envoie aussi les erreurs dans le log.</p></div></details>
+<!-- TP2 -->
+<h2><span class="n">TP 2</span>Bash : créer des comptes Linux à partir d'un fichier</h2>
+<p><b>Objectifs :</b> lire un fichier ligne par ligne, créer comptes et groupes, gérer les comptes déjà existants, produire un compte rendu.</p>
+<p>Fichier <code>comptes.txt</code> (login:groupe) :</p>
+<pre class="out">salaoui:rh
+kbennani:compta
+yidrissi:info
+salaoui:rh</pre>
+<h4>Étapes</h4>
+<ol>
+<li>Vérifier que le script est lancé en root (<code>$EUID -eq 0</code>), sinon quitter.</li>
+<li>Pour chaque ligne : créer le groupe s'il n'existe pas (<code>getent group</code>, <code>groupadd</code>).</li>
+<li>Si le compte existe déjà (<code>id</code>), afficher « déjà existant » et passer au suivant.</li>
+<li>Sinon : <code>useradd -m -g groupe -s /bin/bash login</code>, mot de passe initial et obligation de le changer (<code>chage -d 0</code>).</li>
+<li>Afficher à la fin le nombre de comptes créés et ignorés.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 2</summary><div class="c">
+<pre class="code">#!/bin/bash
+# creer_comptes.sh — usage : sudo ./creer_comptes.sh comptes.txt
+FICHIER="${1:?Usage : $0 fichier}"
+[ "$EUID" -eq 0 ] || { echo "À lancer avec sudo"; exit 1; }
+[ -f "$FICHIER" ] || { echo "Fichier introuvable"; exit 2; }
+read -s -p "Mot de passe initial : " MDP; echo
+crees=0; ignores=0
+
+while IFS=: read -r login groupe; do
+  [ -z "$login" ] &amp;&amp; continue                       # ignore les lignes vides
+  getent group "$groupe" &gt; /dev/null || groupadd "$groupe"
+  if id "$login" &amp;&gt; /dev/null; then
+    echo "[=] $login déjà existant"; ignores=$((ignores + 1))
+  else
+    useradd -m -g "$groupe" -s /bin/bash "$login"
+    echo "$login:$MDP" | chpasswd
+    chage -d 0 "$login"                              # changement à la 1re connexion
+    echo "[+] $login créé dans $groupe"; crees=$((crees + 1))
+  fi
+done &lt; "$FICHIER"
+echo "Bilan : $crees créé(s), $ignores ignoré(s)"</pre>
+<pre class="out">[+] salaoui créé dans rh
+[+] kbennani créé dans compta
+[+] yidrissi créé dans info
+[=] salaoui déjà existant
+Bilan : 3 créé(s), 1 ignoré(s)</pre>
+<p><b>Points clés :</b> <code>IFS=:</code> découpe chaque ligne sur les deux-points ; <code>read -s</code> masque la saisie du mot de passe ; le test avec <code>id</code> rend le script <b>idempotent</b> (on peut le relancer sans erreur).</p></div></details>
+<!-- TP3 -->
+<h2><span class="n">TP 3</span>PowerShell : rapport d'inventaire HTML</h2>
+<p><b>Objectifs :</b> collecter les informations d'un poste (système, mémoire, disques, IP, services arrêtés) et produire une page HTML lisible.</p>
+<h4>Étapes</h4>
+<ol>
+<li>Récupérer nom de la machine, version de Windows, mémoire totale et date du dernier démarrage (<code>Get-CimInstance Win32_OperatingSystem</code>, <code>Win32_ComputerSystem</code>).</li>
+<li>Lister les disques avec taille, espace libre et pourcentage libre (<code>Win32_LogicalDisk</code>, <code>DriveType=3</code>).</li>
+<li>Lister les adresses IPv4 (<code>Get-NetIPAddress</code>), sans l'adresse 127.0.0.1.</li>
+<li>Lister les services automatiques arrêtés.</li>
+<li>Assembler un rapport avec <code>ConvertTo-Html</code> et l'enregistrer dans <code>C:\Rapports\NOM-DATE.html</code>, puis l'ouvrir.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 3</summary><div class="c">
+<pre class="code"># inventaire.ps1
+$os  = Get-CimInstance Win32_OperatingSystem
+$cs  = Get-CimInstance Win32_ComputerSystem
+$dossier = "C:\Rapports"; New-Item $dossier -ItemType Directory -Force | Out-Null
+
+$systeme = [PSCustomObject]@{
+    Machine      = $env:COMPUTERNAME
+    Windows      = $os.Caption
+    'RAM (Go)'   = [math]::Round($cs.TotalPhysicalMemory / 1GB, 1)
+    Demarrage    = $os.LastBootUpTime
+}
+$disques = Get-CimInstance Win32_LogicalDisk -Filter "DriveType=3" | ForEach-Object {
+    [PSCustomObject]@{ Lecteur = $_.DeviceID
+        'Taille (Go)' = [math]::Round($_.Size / 1GB, 1)
+        'Libre (Go)'  = [math]::Round($_.FreeSpace / 1GB, 1)
+        'Libre (%)'   = [math]::Round($_.FreeSpace / $_.Size * 100) }
+}
+$ips = Get-NetIPAddress -AddressFamily IPv4 | Where-Object IPAddress -ne "127.0.0.1" |
+       Select-Object InterfaceAlias, IPAddress, PrefixLength
+$services = Get-Service | Where-Object { $_.StartType -eq 'Automatic' -and $_.Status -ne 'Running' } |
+       Select-Object Name, DisplayName, Status
+
+$style = "&lt;style&gt;body{font-family:Segoe UI}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:4px 8px}th{background:#1B2A4A;color:#fff}&lt;/style&gt;"
+$html = @(
+  $systeme  | ConvertTo-Html -Fragment -As List -PreContent "&lt;h2&gt;Système&lt;/h2&gt;"
+  $disques  | ConvertTo-Html -Fragment -PreContent "&lt;h2&gt;Disques&lt;/h2&gt;"
+  $ips      | ConvertTo-Html -Fragment -PreContent "&lt;h2&gt;Adresses IP&lt;/h2&gt;"
+  $services | ConvertTo-Html -Fragment -PreContent "&lt;h2&gt;Services automatiques arrêtés&lt;/h2&gt;"
+)
+$fichier = "$dossier\$env:COMPUTERNAME-$(Get-Date -Format yyyy-MM-dd).html"
+ConvertTo-Html -Head $style -Body $html -Title "Inventaire $env:COMPUTERNAME" | Out-File $fichier -Encoding utf8
+Start-Process $fichier</pre>
+<p><b>Points clés :</b> <code>Get-CimInstance</code> interroge WMI (matériel, système) ; on construit des objets propres avec <code>[PSCustomObject]</code> ; <code>-Fragment</code> produit seulement le tableau, qu'on assemble dans une page complète.</p></div></details>
+<!-- TP4 -->
+<h2><span class="n">TP 4</span>PowerShell : comptes utilisateurs depuis un CSV</h2>
+<p><b>Objectifs :</b> importer un CSV, générer les logins, créer les comptes (locaux ou AD), éviter les doublons, produire un journal.</p>
+<pre class="out">Prenom;Nom;Groupe
+Salma;Alaoui;Utilisateurs
+Karim;Bennani;Utilisateurs
+Yassine;Idrissi;Administrateurs</pre>
+<h4>Étapes</h4>
+<ol>
+<li>Importer le fichier (séparateur <code>;</code>, comme les CSV d'Excel en français) : <code>Import-Csv -Delimiter ';'</code>.</li>
+<li>Générer le login : première lettre du prénom + nom, en minuscules, sans espace.</li>
+<li>Demander une seule fois le mot de passe initial de façon sécurisée.</li>
+<li>Pour chaque ligne : si le compte existe → journal « ignoré » ; sinon créer le compte et l'ajouter au groupe.</li>
+<li>Exporter le bilan dans <code>bilan.csv</code> (login, statut).</li>
+</ol>
+<details class="cor"><summary>Solution — TP 4 (version comptes locaux, PowerShell en administrateur)</summary><div class="c">
+<pre class="code"># comptes_locaux.ps1
+$mdp = Read-Host "Mot de passe initial" -AsSecureString
+$bilan = foreach ($u in Import-Csv .\nouveaux.csv -Delimiter ';') {
+    $login = ($u.Prenom.Substring(0,1) + $u.Nom).ToLower() -replace '\s',''
+    if (Get-LocalUser -Name $login -ErrorAction SilentlyContinue) {
+        $statut = "ignoré (existe)"
+    } else {
+        try {
+            New-LocalUser -Name $login -FullName "$($u.Prenom) $($u.Nom)" -Password $mdp -ErrorAction Stop | Out-Null
+            Add-LocalGroupMember -Group $u.Groupe -Member $login -ErrorAction Stop
+            $statut = "créé"
+        } catch { $statut = "ERREUR : $($_.Exception.Message)" }
+    }
+    [PSCustomObject]@{ Login = $login; Groupe = $u.Groupe; Statut = $statut }
+}
+$bilan | Format-Table
+$bilan | Export-Csv .\bilan.csv -NoTypeInformation -Delimiter ';' -Encoding UTF8</pre>
+<pre class="out">Login    Groupe          Statut
+-----    ------          ------
+salaoui  Utilisateurs    créé
+kbennani Utilisateurs    créé
+yidrissi Administrateurs créé</pre>
+<p><b>Version Active Directory :</b> remplacer <code>Get-LocalUser</code> par <code>Get-ADUser -Filter "SamAccountName -eq '$login'"</code>, <code>New-LocalUser</code> par <code>New-ADUser … -AccountPassword $mdp -Enabled $true -ChangePasswordAtLogon $true</code> et <code>Add-LocalGroupMember</code> par <code>Add-ADGroupMember</code> (voir §5.5). Sur un poste Windows en anglais, le groupe s'appelle « Users ».</p></div></details>
+<!-- TP5 -->
+<h2><span class="n">TP 5</span>Python : scanner un réseau</h2>
+<p><b>Objectifs :</b> recevoir un réseau en argument, pinger tous les hôtes en parallèle, tester les ports 22 et 80 sur les hôtes actifs, produire un CSV.</p>
+<h4>Étapes</h4>
+<ol>
+<li>Utiliser <code>argparse</code> pour recevoir le réseau : <code>python scan.py 192.168.1.0/24</code>.</li>
+<li>Valider le réseau avec <code>ipaddress</code> (message clair si l'adresse est invalide).</li>
+<li>Pinger tous les hôtes avec <code>ThreadPoolExecutor</code>.</li>
+<li>Pour chaque hôte actif, tester les ports 22 et 80 avec <code>socket</code>.</li>
+<li>Enregistrer <code>scan_AAAAMMJJ.csv</code> (ip, ssh, http) et afficher le résumé.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 5</summary><div class="c">
+<pre class="code">#!/usr/bin/env python3
+"""scan.py — usage : python scan.py 192.168.1.0/24"""
+import argparse, csv, ipaddress, platform, socket, subprocess, sys
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
+
+def ping(ip):
+    opt = "-n" if platform.system() == "Windows" else "-c"
+    r = subprocess.run(["ping", opt, "1", "-w" if opt == "-n" else "-W", "1000" if opt == "-n" else "1", ip],
+                       capture_output=True)
+    return r.returncode == 0
+
+def port_ouvert(ip, port):
+    try:
+        with socket.create_connection((ip, port), timeout=0.5):
+            return True
+    except OSError:
+        return False
+
+parser = argparse.ArgumentParser(description="Scanner de réseau du labo")
+parser.add_argument("reseau", help="exemple : 192.168.1.0/24")
+args = parser.parse_args()
+try:
+    reseau = ipaddress.ip_network(args.reseau, strict=False)
+except ValueError:
+    sys.exit(f"Réseau invalide : {args.reseau}")
+
+hotes = [str(h) for h in reseau.hosts()]
+with ThreadPoolExecutor(max_workers=64) as ex:
+    etats = dict(zip(hotes, ex.map(ping, hotes)))
+actifs = [ip for ip, ok in etats.items() if ok]
+
+fichier = f"scan_{datetime.now():%Y%m%d}.csv"
+with open(fichier, "w", newline="") as f:
+    w = csv.writer(f, delimiter=";")
+    w.writerow(["ip", "ssh", "http"])
+    for ip in actifs:
+        ssh, web = port_ouvert(ip, 22), port_ouvert(ip, 80)
+        w.writerow([ip, ssh, web])
+        print(f"{ip:15}  SSH:{'oui' if ssh else 'non':3}  HTTP:{'oui' if web else 'non'}")
+print(f"\n{len(actifs)} hôte(s) actif(s) sur {len(hotes)} — rapport : {fichier}")</pre>
+<p><b>Points clés :</b> <code>argparse</code> génère automatiquement l'aide (<code>-h</code>) ; <code>strict=False</code> accepte 192.168.1.15/24 ; le ping en parallèle réduit le scan d'un /24 de plusieurs minutes à quelques secondes ; le CSV avec <code>;</code> s'ouvre directement dans Excel en français.</p></div></details>
+<!-- TP6 -->
+<h2><span class="n">TP 6</span>Python : sauvegarder la configuration de switchs Cisco</h2>
+<p><b>Objectifs :</b> lire un inventaire CSV, se connecter en SSH à chaque équipement avec Netmiko, enregistrer la configuration et créer un VLAN partout.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 140">
+<g stroke="#1B2A4A" stroke-width="2"><line x1="140" x2="260" y1="70" y2="70"></line><line x1="340" x2="440" y1="70" y2="30"></line><line x1="340" x2="440" y1="70" y2="70"></line><line x1="340" x2="440" y1="70" y2="110"></line></g>
+<g font-size="11" text-anchor="middle">
+<rect fill="#FBF4E4" height="50" rx="8" stroke="#B8913A" width="130" x="10" y="45"></rect><text fill="#8A6A22" font-weight="700" x="75" y="66">PC Python</text><text font-size="9.5" x="75" y="82">10.0.0.100</text>
+<rect fill="#E6F4F1" height="40" rx="8" stroke="#0F766E" width="80" x="260" y="50"></rect><text fill="#0F766E" font-weight="700" x="300" y="74">SW-CŒUR</text>
+<g fill="#EAF2FA" stroke="#2F6FA8"><rect height="32" rx="6" width="150" x="440" y="14"></rect><rect height="32" rx="6" width="150" x="440" y="54"></rect><rect height="32" rx="6" width="150" x="440" y="94"></rect></g>
+<text x="515" y="34">SW1 · 10.0.0.2</text><text x="515" y="74">SW2 · 10.0.0.3</text><text x="515" y="114">SW3 · 10.0.0.4</text>
+<text fill="#555" font-size="9.5" x="200" y="60">SSH (port 22)</text>
+</g>
+</svg>
+<figcaption>Topologie du TP 6 (GNS3, EVE-NG ou CML ; SSH configuré sur chaque switch)</figcaption>
+</figure>
+<h4>Étapes</h4>
+<ol>
+<li>Sur chaque switch : hostname, domaine, compte local privilège 15, clés RSA, SSH v2, adresse IP de gestion (voir module Sécurité, TP 1). Vérifier <code>ssh admin@10.0.0.2</code> depuis le PC.</li>
+<li>Créer <code>equipements.csv</code> (nom, ip, type = <code>cisco_ios</code>).</li>
+<li>Écrire le script : demander utilisateur et mot de passe (getpass), boucler sur l'inventaire.</li>
+<li>Pour chaque switch : <code>show running-config</code> → fichier <code>configs/NOM_DATE.cfg</code>.</li>
+<li>Option <code>--vlan 30 --nom INVITES</code> : créer le VLAN sur tous les switchs puis <code>save_config()</code>.</li>
+<li>Gérer les erreurs (équipement éteint, mauvais mot de passe) sans arrêter le script ; bilan final.</li>
+</ol>
+<details class="cor"><summary>Solution — TP 6</summary><div class="c">
+<pre class="code">#!/usr/bin/env python3
+"""configs.py — sauvegarde des configurations et création de VLAN (Netmiko)"""
+import argparse, csv, getpass, pathlib
+from datetime import date
+from netmiko import ConnectHandler
+from netmiko.exceptions import NetmikoAuthenticationException, NetmikoTimeoutException
+
+p = argparse.ArgumentParser()
+p.add_argument("--inventaire", default="equipements.csv")
+p.add_argument("--vlan", type=int, help="numéro de VLAN à créer")
+p.add_argument("--nom", default="NOUVEAU", help="nom du VLAN")
+args = p.parse_args()
+
+user = input("Utilisateur SSH : ")
+mdp = getpass.getpass("Mot de passe : ")
+dossier = pathlib.Path("configs"); dossier.mkdir(exist_ok=True)
+ok, ko = [], []
+
+with open(args.inventaire) as f:
+    for eq in csv.DictReader(f):
+        try:
+            with ConnectHandler(device_type=eq["type"], host=eq["ip"],
+                                username=user, password=mdp, timeout=10) as conn:
+                cfg = conn.send_command("show running-config")
+                (dossier / f"{eq['nom']}_{date.today()}.cfg").write_text(cfg)
+                if args.vlan:
+                    conn.send_config_set([f"vlan {args.vlan}", f"name {args.nom}"])
+                    conn.save_config()
+            ok.append(eq["nom"]); print(f"[OK]  {eq['nom']}")
+        except NetmikoAuthenticationException:
+            ko.append(eq["nom"]); print(f"[ERR] {eq['nom']} : identifiants refusés")
+        except NetmikoTimeoutException:
+            ko.append(eq["nom"]); print(f"[ERR] {eq['nom']} : injoignable")
+
+print(f"\nBilan : {len(ok)} réussi(s), {len(ko)} en échec {ko if ko else ''}")</pre>
+<pre class="code">python configs.py                          # sauvegarde seule
+python configs.py --vlan 30 --nom INVITES  # sauvegarde + VLAN 30 sur tous les switchs</pre>
+<p><b>Vérification :</b> sur un switch, <code>show vlan brief</code> affiche le VLAN 30 INVITES ; le dossier <code>configs</code> contient un fichier par équipement. <b>Points clés :</b> <code>with ConnectHandler(...)</code> ferme la session même en cas d'erreur ; on capture des exceptions précises pour un bilan clair ; le mot de passe n'apparaît jamais dans le code.</p></div></details>
+<!-- ============ QCM ============ -->
+<h2 class="" id="qcm"><span class="n">★</span>QCM final de révision</h2>
+<p class="section-intro">20 questions, une seule bonne réponse. Corrigé à la fin du document.</p>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:5%">#</th><th>Question</th><th style="width:46%">Réponses</th></tr>
+<tr><td>1</td><td>Quelle est la première ligne d'un script Bash ?</td><td>a) #!/bin/bash · b) //bash · c) &lt;bash&gt;</td></tr>
+<tr><td>2</td><td>Quelle commande rend un script exécutable ?</td><td>a) run script.sh · b) chmod +x script.sh · c) exec script.sh</td></tr>
+<tr><td>3</td><td>En Bash, <code>&gt;&gt;</code> sert à…</td><td>a) écraser un fichier · b) comparer · c) ajouter à la fin d'un fichier</td></tr>
+<tr><td>4</td><td>Les permissions <code>rwxr-x---</code> valent…</td><td>a) 750 · b) 755 · c) 640</td></tr>
+<tr><td>5</td><td><code>$#</code> en Bash contient…</td><td>a) le nom du script · b) le nombre d'arguments · c) le code de retour</td></tr>
+<tr><td>6</td><td>Quelle ligne Bash est correcte ?</td><td>a) nom = "srv" · b) $nom="srv" · c) nom="srv"</td></tr>
+<tr><td>7</td><td>Un code de retour égal à 0 signifie…</td><td>a) succès · b) erreur · c) aucun résultat</td></tr>
+<tr><td>8</td><td>La ligne cron <code>0 2 * * *</code> s'exécute…</td><td>a) toutes les 2 minutes · b) chaque jour à 2 h · c) le 2 du mois</td></tr>
+<tr><td>9</td><td>Le nom d'une cmdlet PowerShell suit la forme…</td><td>a) Nom-Verbe · b) Verbe-Nom · c) verbe_nom</td></tr>
+<tr><td>10</td><td>Quelle cmdlet affiche les propriétés d'un objet ?</td><td>a) Get-Help · b) Get-Command · c) Get-Member</td></tr>
+<tr><td>11</td><td>Le pipeline PowerShell transmet…</td><td>a) des objets · b) du texte uniquement · c) des fichiers</td></tr>
+<tr><td>12</td><td>Pour comparer « est plus grand que » en PowerShell, on écrit…</td><td>a) &gt; · b) -gt · c) =&gt;</td></tr>
+<tr><td>13</td><td>Dans <code>ForEach-Object</code>, l'objet courant s'appelle…</td><td>a) $this · b) $item · c) $_</td></tr>
+<tr><td>14</td><td>Quelle stratégie d'exécution est un bon compromis ?</td><td>a) RemoteSigned · b) Unrestricted · c) Bypass</td></tr>
+<tr><td>15</td><td>Pour que catch s'exécute sur une erreur de cmdlet, on ajoute…</td><td>a) -Force · b) -ErrorAction Stop · c) -Verbose</td></tr>
+<tr><td>16</td><td>En Python, qu'est-ce qui délimite le contenu d'un if ?</td><td>a) les accolades · b) le mot end · c) l'indentation</td></tr>
+<tr><td>17</td><td><code>range(1, 5)</code> produit…</td><td>a) 1, 2, 3, 4 · b) 1, 2, 3, 4, 5 · c) 0, 1, 2, 3, 4</td></tr>
+<tr><td>18</td><td>Quel type Python stocke des paires clé / valeur ?</td><td>a) list · b) dict · c) tuple</td></tr>
+<tr><td>19</td><td>Quelle bibliothèque Python se connecte en SSH aux switchs Cisco ?</td><td>a) Netmiko · b) Pandas · c) Flask</td></tr>
+<tr><td>20</td><td>Où mettre le mot de passe d'un script ?</td><td>a) en clair dans le script · b) le demander à l'exécution ou utiliser un coffre à secrets · c) dans le nom du fichier</td></tr>
+</table></div>
+<!-- ============ GLOSSAIRE ============ -->
+<h2 class="" id="glossaire"><span class="n">A–Z</span>Glossaire</h2>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:24%">Terme</th><th>Définition simple</th></tr>
+<tr><td><b>Algorithme</b></td><td>Suite d'étapes décrite avant de coder.</td></tr>
+<tr><td><b>API REST</b></td><td>Interface qui permet de piloter un logiciel ou un équipement avec des requêtes HTTP.</td></tr>
+<tr><td><b>Argument</b></td><td>Valeur passée au script ou à la fonction ($1, param, sys.argv).</td></tr>
+<tr><td><b>Cmdlet</b></td><td>Commande PowerShell au format Verbe-Nom.</td></tr>
+<tr><td><b>Code de retour</b></td><td>Nombre renvoyé par une commande : 0 = succès.</td></tr>
+<tr><td><b>cron</b></td><td>Planificateur de tâches de Linux.</td></tr>
+<tr><td><b>CSV</b></td><td>Fichier texte tabulaire, colonnes séparées par , ou ;.</td></tr>
+<tr><td><b>dict</b></td><td>Dictionnaire Python : paires clé / valeur.</td></tr>
+<tr><td><b>Fonction</b></td><td>Bloc de code nommé et réutilisable.</td></tr>
+<tr><td><b>Git</b></td><td>Outil de gestion de versions des fichiers.</td></tr>
+<tr><td><b>Idempotence</b></td><td>Relancer un script donne le même résultat sans rien casser.</td></tr>
+<tr><td><b>Indentation</b></td><td>Décalage du début de ligne ; en Python, il définit les blocs.</td></tr>
+<tr><td><b>Interpréteur</b></td><td>Programme qui exécute un script ligne par ligne.</td></tr>
+<tr><td><b>JSON</b></td><td>Format de données texte utilisé par les API.</td></tr>
+<tr><td><b>Netmiko</b></td><td>Bibliothèque Python de connexion SSH aux équipements réseau.</td></tr>
+<tr><td><b>Pipe</b></td><td>Symbole | qui envoie la sortie d'une commande à la suivante.</td></tr>
+<tr><td><b>Pipeline objet</b></td><td>Pipe PowerShell qui transmet des objets avec leurs propriétés.</td></tr>
+<tr><td><b>Redirection</b></td><td>Envoyer la sortie vers un fichier (&gt;, &gt;&gt;, 2&gt;).</td></tr>
+<tr><td><b>Shebang</b></td><td>Première ligne #! indiquant l'interpréteur.</td></tr>
+<tr><td><b>Shell</b></td><td>Interface en ligne de commande (Bash, PowerShell).</td></tr>
+<tr><td><b>Stratégie d'exécution</b></td><td>Règle Windows qui autorise ou bloque les scripts .ps1.</td></tr>
+<tr><td><b>subprocess</b></td><td>Module Python pour lancer des commandes système.</td></tr>
+<tr><td><b>Variable</b></td><td>Nom qui contient une valeur.</td></tr>
+</table></div>
+<!-- ============ CORRIGÉS ============ -->
+<section class="chead2" id="corriges"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#1B2A4A)"><span class="lbl">ANNEXE</span><span class="num">✓</span></div><div class="ch-body">
+<h1>Corrigés des exercices</h1>
+<div class="lead">Tape les solutions et exécute-les : un script se comprend vraiment quand on le voit tourner.</div>
+<div class="obj"><h4>Contenu</h4>
+<ul><li>Corrigés des exercices des chapitres 1 à 8</li><li>Corrigé du QCM final</li><li>Les solutions des TP sont placées après chaque TP</li></ul></div>
+<div class="quote">« Une erreur de syntaxe n'est pas un échec : c'est l'interpréteur qui t'apprend son langage. »</div></div></section>
+<h2><span class="n">C1</span>Corrigés — Chapitre 1</h2>
+<details class="cor"><summary>Corrigé 1.1</summary><div class="c"><p>a) PowerShell (Active Directory, Import-Csv + New-ADUser) · b) Bash (serveur Ubuntu, tar + cron) · c) Python (Netmiko, SSH vers 30 équipements) · d) PowerShell (<code>Get-Service | Where-Object Status -eq 'Stopped'</code>).</p></div></details>
+<details class="cor"><summary>Corrigé 1.2</summary><div class="c"><p>1. Lire le pourcentage d'espace libre du disque. 2. <b>Si</b> il est inférieur à 10 % <b>alors</b> écrire « ALERTE + date + valeur » dans le log, <b>sinon</b> écrire « OK + date ». 3. Fin.<br/><b>Séquence :</b> lire, puis tester, puis écrire. <b>Condition :</b> le « si … sinon ». <b>Boucle :</b> aucune pour un seul disque ; on en ajoute une (« pour chaque disque… ») s'il y a plusieurs partitions.</p></div></details>
+<h2><span class="n">C2</span>Corrigés — Chapitre 2</h2>
+<details class="cor"><summary>Corrigé 2.1</summary><div class="c"><p>a) <code>pwd</code> · b) <code>mkdir -p backup/2026/novembre</code> · c) <code>tail -n 20 /var/log/syslog</code> · d) <code>echo "Sauvegarde terminée" &gt;&gt; journal.log</code> · e) <code>wc -l /etc/passwd</code> (ou <code>wc -l &lt; /etc/passwd</code> pour n'afficher que le nombre).</p></div></details>
+<details class="cor"><summary>Corrigé 2.2</summary><div class="c"><p>a) <code>rw-r--r--</code> = 644 · <code>rwx------</code> = 700 · <code>rwxrwxr-x</code> = 775. b) 755 = <code>rwxr-xr-x</code> · 600 = <code>rw-------</code>. c) Il manque le droit d'exécution : <code>chmod +x script.sh</code> (ou <code>chmod 750 script.sh</code>), puis <code>./script.sh</code>.</p></div></details>
+<details class="cor"><summary>Corrigé 2.3</summary><div class="c"><pre class="code">grep "Failed password" /var/log/auth.log | wc -l
+# ou plus court :
+grep -c "Failed password" /var/log/auth.log</pre></div></details>
+<h2><span class="n">C3</span>Corrigés — Chapitre 3</h2>
+<details class="cor"><summary>Corrigé 3.1</summary><div class="c"><pre class="code">#!/bin/bash
+nom="admin"                         # 1) pas d'espace autour du =
+if [ "$nom" = "admin" ]; then       # 2) espaces dans les crochets  3) ; avant then
+  echo "Bonjour $nom"
+fi</pre></div></details>
+<details class="cor"><summary>Corrigé 3.2</summary><div class="c"><p>Tour 1 : total = 0 + 2 = <b>2</b> · Tour 2 : 2 + 4 = <b>6</b> · Tour 3 : 6 + 6 = <b>12</b>. Le script affiche <code>Total = 12</code>.</p></div></details>
+<details class="cor"><summary>Corrigé 3.3</summary><div class="c"><pre class="code">#!/bin/bash
+# verif_fichier.sh — usage : ./verif_fichier.sh fichier
+if [ $# -ne 1 ]; then
+  echo "Usage : $0 fichier"
+  exit 1
+fi
+if [ -f "$1" ]; then
+  echo "$1 contient $(wc -l &lt; "$1") lignes"
+else
+  echo "Fichier introuvable"
+  exit 2
+fi</pre>
+<pre class="code"># crontab -e
+0 7 * * * /home/stagiaire/scripts/verif_fichier.sh /var/log/syslog &gt;&gt; /home/stagiaire/verif.log 2&gt;&amp;1</pre></div></details>
+<h2><span class="n">C4</span>Corrigés — Chapitre 4</h2>
+<details class="cor"><summary>Corrigé 4.1</summary><div class="c"><p>a) <code>Get-ChildItem</code> · b) <code>Get-Service | Where-Object Status -eq 'Running'</code> · c) <code>Test-Connection 192.168.1.10 -Count 2</code> · d) <code>Test-Path C:\Logs\app.log</code> · e) <code>Restart-Service Spooler</code>.</p></div></details>
+<details class="cor"><summary>Corrigé 4.2</summary><div class="c"><pre class="code">Get-Process | Sort-Object CPU -Descending | Select-Object -First 3 Name, Id
+Get-Service | Where-Object Status -eq 'Stopped' | Export-Csv C:\Rapports\services.csv -NoTypeInformation</pre></div></details>
+<details class="cor"><summary>Corrigé 4.3</summary><div class="c"><p>a) <code>True</code> · b) <code>True</code> (le joker * remplace « -WEB ») · c) <code>False</code> · d) <code>True</code> : les comparaisons PowerShell ne tiennent <b>pas compte de la casse</b> par défaut (<code>-ceq</code> pour la respecter).</p></div></details>
+<h2><span class="n">C5</span>Corrigés — Chapitre 5</h2>
+<details class="cor"><summary>Corrigé 5.1</summary><div class="c"><pre class="code">foreach ($nom in "Spooler", "W32Time", "wuauserv") {
+    $s = Get-Service $nom
+    if ($s.Status -eq 'Stopped') {
+        Start-Service $nom
+        Write-Host "$nom démarré" -ForegroundColor Green
+    } else {
+        Write-Host "$nom déjà en marche"
+    }
+}</pre></div></details>
+<details class="cor"><summary>Corrigé 5.2</summary><div class="c"><p>Login : <b>yidrissi</b> (Y + Idrissi, en minuscules). En relançant le script, chaque compte déjà présent est détecté par <code>Get-ADUser</code> : un avertissement « existe déjà » s'affiche et rien n'est recréé (script idempotent). <code>-AsSecureString</code> masque la saisie et garde le mot de passe chiffré en mémoire : il n'apparaît ni à l'écran ni dans le script.</p></div></details>
+<details class="cor"><summary>Corrigé 5.3</summary><div class="c"><pre class="code">function Sauver-Dossier {
+    param(
+        [Parameter(Mandatory)] [string]$Source,
+        [Parameter(Mandatory)] [string]$Destination
+    )
+    $log = "C:\Logs\sauvegarde.log"
+    try {
+        Copy-Item $Source $Destination -Recurse -Force -ErrorAction Stop
+        Add-Content $log "$(Get-Date -Format 'yyyy-MM-dd HH:mm') OK $Source -&gt; $Destination"
+    } catch {
+        Add-Content $log "$(Get-Date -Format 'yyyy-MM-dd HH:mm') ERREUR $Source : $($_.Exception.Message)"
+    }
+}
+Sauver-Dossier -Source C:\Data -Destination D:\Backup\Data</pre></div></details>
+<h2><span class="n">C6</span>Corrigés — Chapitre 6</h2>
+<details class="cor"><summary>Corrigé 6.1</summary><div class="c"><pre class="out">4 80 3389
+22 bien connu
+80 bien connu</pre><p>La liste devient [22, 80, 443, 3389] : 4 éléments, <code>ports[1]</code> = 80 (indices à partir de 0), <code>ports[-1]</code> = 3389. Seuls 22 et 80 sont inférieurs à 100.</p></div></details>
+<details class="cor"><summary>Corrigé 6.2</summary><div class="c"><pre class="code">routeur = {"nom": "R1", "ip": "10.0.12.1", "modele": "ISR 4321"}
+routeur["site"] = "Fès"
+print(f"{routeur['nom']} ({routeur['ip']}) se trouve à {routeur['site']}")</pre></div></details>
+<details class="cor"><summary>Corrigé 6.3</summary><div class="c"><pre class="code">def niveau_disque(pourcentage):
+    if pourcentage &gt;= 90:
+        return "CRITIQUE"
+    elif pourcentage &gt;= 80:
+        return "ATTENTION"
+    return "OK"
+
+for v in (95, 85, 40):
+    print(v, niveau_disque(v))      # 95 CRITIQUE / 85 ATTENTION / 40 OK</pre></div></details>
+<h2><span class="n">C7</span>Corrigés — Chapitre 7</h2>
+<details class="cor"><summary>Corrigé 7.1</summary><div class="c"><p>/22 = 10 bits d'hôte : <code>num_addresses</code> = <b>1024</b>, <code>netmask</code> = <b>255.255.252.0</b>, <code>broadcast_address</code> = <b>10.10.3.255</b>. Hôtes utilisables : 1024 − 2 = <b>1022</b> (de 10.10.0.1 à 10.10.3.254).</p></div></details>
+<details class="cor"><summary>Corrigé 7.2</summary><div class="c"><pre class="code">for i in range(1, 11):
+    ip = f"192.168.1.{i}"
+    if port_ouvert(ip, 22):
+        print(f"{ip} : SSH ouvert")</pre></div></details>
+<details class="cor"><summary>Corrigé 7.3</summary><div class="c"><p>a) <code>getpass</code> n'affiche pas le mot de passe pendant la saisie (personne ne le lit par-dessus l'épaule, il ne reste pas dans l'historique). b) La connexion échoue : l'exception est capturée, le script affiche <code>[ERR] SW2 : …</code> et <b>continue</b> avec les équipements suivants. c) <code>R1_2026-11-13.cfg</code> (<code>date.today()</code> s'écrit au format AAAA-MM-JJ).</p></div></details>
+<h2><span class="n">C8</span>Corrigés — Chapitre 8</h2>
+<details class="cor"><summary>Corrigé 8.1</summary><div class="c"><pre class="code"># Bash
+for i in {1..3}; do echo "Serveur $i"; done
+
+# PowerShell
+for ($i = 1; $i -le 3; $i++) { "Serveur $i" }
+# ou : 1..3 | ForEach-Object { "Serveur $_" }</pre></div></details>
+<details class="cor"><summary>Corrigé 8.2</summary><div class="c">
+<div class="tscroll"><table style="margin:4px 0"><tr><th>Problème</th><th>Correction</th></tr>
+<tr><td>Mot de passe <code>Cisco123</code> en clair dans le script</td><td>Authentification SSH par clé, ou mot de passe demandé avec <code>read -s</code></td></tr>
+<tr><td><code>rm -rf $D/*</code> : si D est vide, cela devient <code>rm -rf /*</code></td><td><code>[ -n "$D" ] &amp;&amp; [ -d "$D" ] || exit 1</code> avant, et guillemets : <code>rm -rf "${D:?}"/*</code></td></tr>
+<tr><td>Variables sans guillemets (espaces dans les noms)</td><td>Toujours <code>"$D"</code>, <code>"$PASS"</code></td></tr>
+<tr><td><code>sshpass -p</code> : le mot de passe est visible dans la liste des processus</td><td>Clés SSH, ou Python + Netmiko + getpass</td></tr>
+<tr><td>Aucune gestion d'erreur ni journal</td><td><code>set -euo pipefail</code>, tests des codes de retour, fichier log</td></tr>
+</table></div></div></details>
+<h2><span class="n">Q</span>Corrigé du QCM final</h2>
+<div class="tscroll"><table style="text-align:center">
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+<tr><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>b</td><td>c</td></tr>
+<tr><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+<tr><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>a</td><td>b</td></tr>
+</table></div>
+<div class="grid3">
+<div class="card" style="border-color:#0F766E"><h4 style="color:var(--teal)">17 à 20</h4><p>Excellent : attaque les TP 5 et 6.</p></div>
+<div class="card" style="border-color:#B8913A"><h4 style="color:#8A6A22">12 à 16</h4><p>Bien. Refais les exercices de tes erreurs.</p></div>
+<div class="card" style="border-color:#A84A62"><h4 style="color:var(--rose)">Moins de 12</h4><p>Reprends les encadrés « À retenir » et le tableau d'équivalences (§8.1).</p></div>
+</div>
+<div style="margin-top:30px;background:linear-gradient(135deg,#1B2A4A,#0F4F5C);border-radius:14px;padding:22px 26px;color:#fff;break-inside:avoid">
+<div style="font-family:Lora;font-size:16pt;color:#D9BD7A;margin-bottom:6px">Le mot de la fin</div>
+<p style="color:#E4EAF3;margin:0">Commence petit : un script de cinq lignes qui t'évite une tâche ennuyeuse chaque semaine. Puis améliore-le : arguments, journal, gestion d'erreurs, planification. En quelques mois, tu auras ta propre <b style="color:#fff">boîte à outils d'administrateur</b>, et c'est exactement ce que les recruteurs cherchent chez un technicien infrastructure.</p>
+</div>
+
+<p class="foot">Module Automatiser les tâches d'administration · OFPPT Infrastructure Digitale · <a href="index.html#auto">Leçons, simulations et QCM</a> · <a href="docs/automatisation-administration.pdf" download>Version PDF</a></p>
+</main>
+<a class="fab" href="#sommaire">☰ Sommaire</a>
+</body></html>
