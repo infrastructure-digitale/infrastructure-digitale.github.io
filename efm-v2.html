@@ -1,0 +1,210 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>EFM V2 — Conception d'un réseau informatique</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@500&family=Lora:ital,wght@0,600;0,700;1,600&display=swap">
+<style>
+:root{
+  --navy:#1B2A4A; --navy2:#2C3E66; --teal:#0F766E; --teal-l:#E6F4F1;
+  --gold:#B8913A; --gold-l:#FBF4E4; --rose:#A84A62; --rose-l:#FBEEF1;
+  --violet:#5B4B8A; --violet-l:#F1EEF8; --sky:#2F6FA8; --sky-l:#EAF2FA;
+  --ink:#24292F; --muted:#5E6673; --line:#E3DED3; --cream:#FBF9F4;
+}
+
+
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Inter,"DejaVu Sans",sans-serif;font-size:10.2pt;line-height:1.58;color:var(--ink);margin:0}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--navy);line-height:1.25}
+h2{font-size:17pt;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);break-after:avoid}
+h2 .n{color:var(--gold);margin-right:8px}
+h3{font-size:12.5pt;margin:18px 0 6px;color:var(--teal);break-after:avoid}
+h4{font-size:11pt;margin:12px 0 4px;break-after:avoid}
+p{margin:6px 0 8px;text-align:justify}
+ul,ol{margin:4px 0 10px;padding-left:20px} li{margin:2px 0}
+strong{color:var(--navy)}
+
+  background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);color:#fff}
+
+
+/* KEYWORDS */
+.k{padding:1px 7px;border-radius:4px;font-weight:600;font-size:.94em;white-space:nowrap}
+.kb{background:var(--sky-l);color:var(--sky)} .kt{background:var(--teal-l);color:var(--teal)}
+.kg{background:var(--gold-l);color:#8A6A22} .kr{background:var(--rose-l);color:var(--rose)}
+.kv{background:var(--violet-l);color:var(--violet)}
+
+/* BOXES */
+.box{border-radius:10px;padding:11px 15px 9px 15px;margin:12px 0;;border-left:5px solid}
+.box .t{font-weight:700;font-size:8.6pt;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.box .t i{font-style:normal;display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:10pt}
+.box p{margin:3px 0}
+.def{background:var(--sky-l);border-color:var(--sky)} .def .t{color:var(--sky)} .def .t i{background:var(--sky)}
+.tip{background:var(--teal-l);border-color:var(--teal)} .tip .t{color:var(--teal)} .tip .t i{background:var(--teal)}
+.warn{background:var(--rose-l);border-color:var(--rose)} .warn .t{color:var(--rose)} .warn .t i{background:var(--rose)}
+.keep{background:var(--gold-l);border-color:var(--gold)} .keep .t{color:#8A6A22} .keep .t i{background:var(--gold)}
+.ana{background:var(--violet-l);border-color:var(--violet)} .ana .t{color:var(--violet)} .ana .t i{background:var(--violet)}
+.kwbox{border:1px dashed #CFC6B0;border-radius:10px;padding:9px 13px;margin:12px 0;background:#fff;}
+.kwbox .t{font-size:8.5pt;letter-spacing:1.6px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.kwbox .k{display:inline-block;margin:2px 3px}
+
+/* TABLES */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0 14px;font-size:9.2pt;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:8.8pt}
+td{padding:6px 9px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--cream)}
+tr{}
+td b{color:var(--navy)}
+.cap{font-size:8.5pt;color:var(--muted);text-align:center;font-style:italic;margin:-6px 0 12px}
+
+/* FIGURES */
+figure{margin:12px 0 14px;text-align:center;}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:8.5pt;color:var(--muted);font-style:italic;margin-top:4px}
+
+/* EXERCISES */
+.exo{border:1px solid var(--line);border-radius:10px;margin:12px 0;;overflow:hidden}
+.exo .h{background:var(--navy);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600;display:flex;justify-content:space-between}
+.exo .h span{color:#D9BD7A;font-weight:400}
+.exo .c{padding:8px 15px 6px}
+.cor{border:1px solid #CFE5DF;border-radius:10px;margin:10px 0;;overflow:hidden}
+.cor .h{background:var(--teal);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600}
+.cor .c{padding:8px 15px 6px;background:#FAFDFC}
+.lines{border-bottom:1px dotted #bbb;height:18px}
+
+.section-intro{font-family:Lora;font-style:italic;color:var(--navy2);font-size:11pt}
+
+.toc .row{display:flex;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line)}
+.toc .row .nb{font-family:Lora;font-size:17pt;color:var(--gold);width:48px}
+.toc .row .tt{flex:1;font-family:Lora;font-size:12.5pt;color:var(--navy)}
+.toc .row .ds{font-size:8.8pt;color:var(--muted);display:block;font-family:Inter}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;}
+.card h4{margin:0 0 4px;font-size:10.5pt}
+.card p{font-size:9.2pt;margin:0;text-align:left}
+.pb{break-before:page}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+/* ===== Version web ===== */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(184,145,58,.10),transparent 60%),#F6F3EC;background-attachment:fixed;font-size:16px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 80px}
+p{text-align:left}
+section.toc,.page{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07);padding:clamp(18px,4vw,36px);margin:26px 0}
+/* topnav */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(22,34,61,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,189,122,.25);box-shadow:0 4px 20px rgba(11,18,34,.18)}
+.tn-in{max-width:1100px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px}
+.tn-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none}
+.tn-logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 14px Lora,serif;color:#16223D;background:linear-gradient(135deg,#E2C78A,#B8913A)}
+.tn-name{font:600 1.05rem Lora,serif;white-space:nowrap}.tn-name em{color:#D9BD7A}
+.tn-mods{display:flex;gap:6px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tn-mod{border:1px solid rgba(255,255,255,.18);color:#D6DEEC;border-radius:999px;padding:8px 16px;font-weight:600;font-size:.92rem;white-space:nowrap;text-decoration:none}
+.tn-mod:hover{border-color:#D9BD7A;color:#fff}
+.tn-mod[aria-current="page"]{background:linear-gradient(135deg,#D9BD7A,#B8913A);border-color:transparent;color:#16223D}
+/* hero */
+.hero{position:relative;overflow:hidden;margin:26px 0;border-radius:22px;padding:clamp(26px,6vw,56px);color:#fff;background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);box-shadow:0 10px 30px rgba(11,18,34,.2)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1.5px solid rgba(217,189,122,.3);pointer-events:none}
+.hero::before{width:420px;height:420px;right:-150px;top:-160px}.hero::after{width:260px;height:260px;right:-60px;top:-80px}
+.hero .tag{font-size:.78rem;letter-spacing:4px;color:#D9BD7A;text-transform:uppercase}
+.hero h1{font-family:Lora,serif;font-size:clamp(2.3rem,8vw,3.8rem);color:#fff;margin:12px 0 4px;line-height:1.05}
+.hero h1 em{color:#D9BD7A}.hero h1 br{display:none}
+.hero .bar{width:60px;height:3px;background:#D9BD7A;margin:18px 0}
+.hero .sub{font-size:1.08rem;color:#C9D4E5;max-width:620px;font-weight:300}
+.hero .chips{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.hero .chips span{border:1px solid rgba(217,189,122,.6);color:#EBDDB5;padding:4px 12px;border-radius:20px;font-size:.8rem}
+.hero .meta{margin-top:22px;font-size:.88rem;color:#AFC0D8;line-height:1.8}.hero .meta b{color:#fff}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;min-height:48px;font-weight:700;text-decoration:none;border:0}
+.btn.gold{background:linear-gradient(135deg,#C9A24E,#A57F2C);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn.ghostw{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3)}
+/* sommaire */
+.toc .row{text-decoration:none;color:inherit;border-radius:10px;padding:10px 8px;transition:background .15s}
+.toc .row:hover{background:var(--cream)}.toc .row:hover .tt{color:var(--teal)}
+/* chapter head */
+.chead2{display:grid;grid-template-columns:150px 1fr;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);margin:56px 0 22px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07)}
+.ch-side{display:flex;flex-direction:column;justify-content:center;padding:20px;color:#fff}
+.ch-side .lbl{font-size:.72rem;letter-spacing:4px;opacity:.85}
+.ch-side .num{font:700 4.4rem/1 Lora,serif}
+.ch-body{padding:24px 28px}
+.ch-body h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin:0 0 8px}
+.ch-body .lead{font-family:Lora,serif;font-style:italic;color:var(--muted);font-size:1.05rem}
+.ch-body .obj{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.ch-body .obj h4{margin:0 0 4px;font-family:Inter;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.ch-body .quote{margin-top:16px;font-family:Lora,serif;font-style:italic;color:var(--navy2);border-left:3px solid var(--gold);padding-left:14px}
+/* contenus */
+h2{scroll-margin-top:80px}
+figure svg{width:100%;height:auto;max-width:680px}
+.tscroll{overflow-x:auto;margin:10px 0 16px;border-radius:10px}
+.tscroll table{margin:0;min-width:520px}
+details.cor{border:1px solid #CFE5DF;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+details.cor>summary{background:var(--teal);color:#fff;padding:9px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.cor>summary::-webkit-details-marker{display:none}
+details.cor>summary::after{content:"Voir le corrigé ▾";font-weight:400;font-size:.85rem;opacity:.85}
+details.cor[open]>summary::after{content:"Masquer ▴"}
+details.cor .c{padding:10px 16px;background:#FAFDFC}
+.exo,.box,.kwbox,.card{background-clip:padding-box}
+.fab{position:fixed;right:18px;bottom:18px;z-index:15;background:var(--navy);color:#D9BD7A;border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;box-shadow:0 8px 22px rgba(11,18,34,.3);font-size:.9rem}
+.foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+.foot a{color:var(--teal);font-weight:600}
+@media (max-width:640px){
+  .tn-in{flex-direction:column;align-items:stretch;gap:8px}.tn-mods{margin-left:0}.tn-mod{flex:1 0 auto;text-align:center}
+  .chead2{grid-template-columns:1fr}.ch-side{flex-direction:row;align-items:baseline;gap:12px;padding:14px 20px}.ch-side .num{font-size:2.6rem}
+  .ch-body{padding:18px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero::after{display:none}
+  .toc .row .nb{width:38px;font-size:15pt}
+  body{font-size:15.5px}
+}
+@media print{.topnav,.fab,.hero-actions{display:none}}
+
+.tn-mods{display:flex}
+.exam-head{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;background:linear-gradient(150deg,#16223D,#1B2A4A 55%,#0F4F5C);color:#fff;border-radius:20px;padding:26px 30px;margin:26px 0 16px}
+.exam-head h1{color:#fff;font-size:clamp(1.6rem,4.5vw,2.4rem);margin:4px 0}.exam-head h1 em{color:#D9BD7A}
+.exam-head .tag{font:600 .75rem Inter;letter-spacing:3px;color:#D9BD7A;text-transform:uppercase}
+.exam-head .sub{color:#C9D4E5}
+.note40{background:#D9BD7A;color:#16223D;border-radius:16px;padding:12px 18px;text-align:center;font:700 2rem Lora}.note40 small{display:block;font:600 .75rem Inter;letter-spacing:1px}
+.idt{width:100%;border-collapse:collapse;margin:8px 0 14px}.idt td{border:1px solid var(--line);padding:10px 12px;background:#fff}.idt td b{color:var(--navy)}
+.vsel{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}.vsel a{border:1px solid var(--line);border-radius:999px;padding:8px 18px;text-decoration:none;color:var(--navy);font-weight:600;background:#fff}.vsel a.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.part{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:2px solid var(--gold);margin:30px 0 10px;padding-bottom:6px}
+.part h2{border:0;margin:0;padding:0}.pts{font:700 .95rem Inter;background:var(--gold-l);color:#8A6A22;border-radius:999px;padding:4px 14px;white-space:nowrap}
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0;break-inside:avoid}
+.q .qh{display:flex;justify-content:space-between;gap:10px;font-weight:600;color:var(--navy)}.q .qh span{color:#8A6A22;font-size:.85rem;white-space:nowrap}
+.q ol{list-style:none;padding:0;margin:8px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}.q li{display:flex;gap:8px;align-items:flex-start}
+.q li i{font-style:normal;flex:none;width:22px;height:22px;border:1.5px solid #9AA4B2;border-radius:5px;display:grid;place-items:center;font:600 11px Inter;color:#5E6673}
+.task{background:#fff;border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden;break-inside:avoid}
+.task .th{display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;padding:8px 16px;font-weight:600}.task .th span{background:#D9BD7A;color:#16223D;border-radius:999px;padding:2px 12px;font-size:.85rem}
+.task ol{margin:8px 0;padding:0 16px 0 36px}.task li{margin:5px 0}.task li em{font-style:normal;color:#8A6A22;font-weight:600;white-space:nowrap}
+.fill td{height:30px}
+svg.topo{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px}
+.cfg{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cfg pre{margin:0;background:#0F1B22;color:#D6E9EE;border-radius:10px;padding:10px 14px;font:12px/1.5 "JetBrains Mono","DejaVu Sans Mono",monospace;white-space:pre;overflow-x:auto}
+.cfg h4{margin:0 0 6px}
+.ans{color:#0F766E;font-weight:700}
+.printbar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
+.printbar button,.printbar a{border:0;border-radius:999px;padding:10px 20px;font:700 .95rem Inter;cursor:pointer;text-decoration:none}
+.printbar .p1{background:linear-gradient(135deg,#C9A24E,#A57F2C);color:#fff}.printbar .p2{background:#fff;border:1px solid var(--line);color:var(--navy)}
+@media (max-width:640px){.q ol{grid-template-columns:1fr}.exam-head{grid-template-columns:1fr}.cfg{grid-template-columns:1fr}.tn-mods{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.tn-mod{white-space:normal;font-size:.8rem;padding:8px 6px;text-align:center;line-height:1.2}}
+@media print{@page{size:A4;margin:14mm}body{background:#fff;font-size:10.5pt}.topnav,.fab,.printbar,.vsel,.foot{display:none!important}.wrap{max-width:none;padding:0}
+.exam-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;margin-top:0}.pb{break-before:page}.task .th,.note40{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body><header class="topnav"><div class="tn-in"><a class="tn-brand" href="index.html#m103"><span class="tn-logo">ID</span><span class="tn-name">Infrastructure <em>Digitale</em></span></a><nav class="tn-mods" aria-label="Modules"><a class="tn-mod" href="index.html#m103" aria-current="page">Conception d'un réseau</a><a class="tn-mod" href="index.html#auto">Automatisation</a><a class="tn-mod" href="index.html#veille">Veille technologique</a><a class="tn-mod" href="index.html#secu">Sécurité informatique</a></nav></div></header><main class="wrap"><header class="exam-head"><div><div class="tag">OFPPT · Infrastructure Digitale · 1re année</div>
+<h1>Examen de fin de module — <em>V2</em></h1>
+<div class="sub">Module : <b>Conception d'un réseau informatique</b> · Durée : <b>3 h</b> (théorie 30 min + pratique 2 h 30) · Clinique Al Amal</div></div>
+<div class="note40">/ 40<small>THÉORIE 10 · PRATIQUE 30</small></div></header><div class="vsel"><a class="" href="efm-v1.html">Variante V1</a><a class="on" href="efm-v2.html">Variante V2</a></div>
+<div class="printbar"><button class="p1" onclick="window.print()">Imprimer le sujet</button><a class="p2" href="index.html#m103">← Retour au module</a></div>
+<table class="idt"><tr><td><b>Nom :</b></td><td><b>Prénom :</b></td></tr><tr><td><b>Groupe :</b></td><td><b>CEF / N° :</b></td></tr></table>
+<div class="box keep"><div class="t"><i>★</i>Consignes</div><p>• Documents et Internet interdits. Calculatrice non programmable autorisée.<br>• <b>Partie 1</b> : cocher <b>une seule</b> réponse par question (1 point par bonne réponse, 0 si plusieurs cases cochées).<br>• <b>Partie 2</b> : réaliser le travail dans Cisco Packet Tracer, compléter les tableaux sur la copie, enregistrer le fichier sous <code>NOM_PRENOM_V2.pkt</code> et le rendre en fin d'épreuve.<br>• Les points de chaque tâche sont indiqués : une tâche partiellement réussie peut obtenir une partie des points.</p></div>
+<div class="part"><h2>Partie 1 — Théorie</h2><span class="pts">10 points · 30 min</span></div><div class="q"><div class="qh">1. Dans une topologie en étoile, que se passe-t-il si l&#x27;équipement central tombe en panne ?<span>1 pt</span></div><ol><li><i>A</i>Tout le réseau est coupé</li><li><i>B</i>Seul un poste est coupé</li><li><i>C</i>Rien</li><li><i>D</i>Le trafic contourne la panne</li></ol></div><div class="q"><div class="qh">2. Une adresse MAC comporte…<span>1 pt</span></div><ol><li><i>A</i>48 bits, dont les 24 premiers identifient le réseau IP</li><li><i>B</i>128 bits</li><li><i>C</i>32 bits</li><li><i>D</i>48 bits, dont les 24 premiers identifient le fabricant (OUI)</li></ol></div><div class="q"><div class="qh">3. Quelle est la valeur décimale de 11000000.10101000 ?<span>1 pt</span></div><ol><li><i>A</i>128.168</li><li><i>B</i>192.170</li><li><i>C</i>224.168</li><li><i>D</i>192.168</li></ol></div><div class="q"><div class="qh">4. Quel est le masque décimal d&#x27;un /26 ?<span>1 pt</span></div><ol><li><i>A</i>255.255.255.192</li><li><i>B</i>255.255.255.128</li><li><i>C</i>255.255.255.240</li><li><i>D</i>255.255.255.224</li></ol></div><div class="q"><div class="qh">5. Dans quel ordre se déroule l&#x27;obtention d&#x27;une adresse par DHCP ?<span>1 pt</span></div><ol><li><i>A</i>Discover, Offer, Request, Acknowledge</li><li><i>B</i>Request, Offer, Discover, Acknowledge</li><li><i>C</i>Discover, Request, Offer, Acknowledge</li><li><i>D</i>Offer, Discover, Acknowledge, Request</li></ol></div><div class="q"><div class="qh">6. Quelle est l&#x27;unité de données (PDU) de la couche Transport ?<span>1 pt</span></div><ol><li><i>A</i>Le paquet</li><li><i>B</i>Le segment</li><li><i>C</i>Le bit</li><li><i>D</i>La trame</li></ol></div><div class="q"><div class="qh">7. Qu&#x27;est-ce que le VLAN natif sur un trunk 802.1Q ?<span>1 pt</span></div><ol><li><i>A</i>Le VLAN le plus rapide</li><li><i>B</i>Le VLAN dont les trames circulent sans étiquette</li><li><i>C</i>Toujours le VLAN de gestion</li><li><i>D</i>Un VLAN interdit sur le trunk</li></ol></div><div class="q"><div class="qh">8. Sur un switch de niveau 3, quelle commande active le routage entre les SVI ?<span>1 pt</span></div><ol><li><i>A</i>ip routing</li><li><i>B</i>router ospf 1</li><li><i>C</i>encapsulation dot1Q</li><li><i>D</i>switchport mode trunk</li></ol></div><div class="q"><div class="qh">9. Quel est le rôle de VRRP ?<span>1 pt</span></div><ol><li><i>A</i>Chiffrer le trafic</li><li><i>B</i>Créer des VLAN</li><li><i>C</i>Supprimer les boucles de couche 2</li><li><i>D</i>Fournir une passerelle virtuelle partagée par plusieurs routeurs</li></ol></div><div class="q"><div class="qh">10. Routes : 10.0.0.0/8, 10.1.0.0/16, 10.1.5.0/24. Quelle route est utilisée pour 10.1.5.9 ?<span>1 pt</span></div><ol><li><i>A</i>10.1.5.0/24</li><li><i>B</i>10.0.0.0/8</li><li><i>C</i>10.1.0.0/16</li><li><i>D</i>La route par défaut</li></ol></div><div class="part pb"><h2>Partie 2 — Pratique</h2><span class="pts">30 points · 2 h 30</span></div>
+<h3>Contexte</h3><p>La <b>Clinique Al Amal</b> modernise le réseau de son bâtiment principal et le relie à son <b>annexe</b> de consultation. Le routage inter-VLAN est assuré par un <b>switch de niveau 3</b>. Vous êtes le technicien chargé de concevoir le plan d'adressage, puis de configurer et vérifier le réseau dans <b>Cisco Packet Tracer</b>.</p>
+<figure><svg viewBox="0 0 720 300" class="topo" font-family="Inter">
+<g stroke="#1B2A4A" stroke-width="2.4"><line x1="300" y1="90" x2="170" y2="170"/><line x1="380" y1="90" x2="510" y2="170"/><line x1="170" y1="190" x2="510" y2="190" stroke-dasharray="7 5"/><line x1="380" y1="70" x2="560" y2="40"/></g>
+<g text-anchor="middle" font-size="12">
+<rect x="290" y="48" width="100" height="44" rx="8" fill="#F1EEF8" stroke="#5B4B8A"/><text x="340" y="68" font-weight="700" fill="#5B4B8A">SW-CORE</text><text x="340" y="84" font-size="9.5">3560 niveau 3</text>
+<rect x="560" y="18" width="110" height="44" rx="8" fill="#FBF4E4" stroke="#B8913A"/><text x="615" y="38" font-weight="700" fill="#8A6A22">R-ANNEXE</text><text x="615" y="54" font-size="9.5">1941</text>
+<rect x="600" y="100" width="90" height="34" rx="8" fill="#E6F4F1" stroke="#0F766E"/><text x="645" y="122" font-weight="700" fill="#0F766E">SW-ANNEXE</text>
+<rect x="120" y="170" width="80" height="40" rx="8" fill="#E6F4F1" stroke="#0F766E"/><text x="160" y="195" font-weight="700" fill="#0F766E">SW1</text>
+<rect x="480" y="170" width="80" height="40" rx="8" fill="#E6F4F1" stroke="#0F766E"/><text x="520" y="195" font-weight="700" fill="#0F766E">SW2</text>
+<g fill="#EAF2FA" stroke="#2F6FA8"><rect x="40" y="250" width="96" height="28" rx="6"/><rect x="150" y="250" width="96" height="28" rx="6"/><rect x="430" y="250" width="96" height="28" rx="6"/><rect x="540" y="250" width="80" height="28" rx="6"/><rect x="600" y="160" width="100" height="28" rx="6"/></g>
+<text x="88" y="268" font-size="10.5">PC-MED V10</text><text x="198" y="268" font-size="10.5">PC-ACC V30</text><text x="478" y="268" font-size="10.5">PC-ADM V20</text><text x="580" y="268" font-size="10.5">SRV V40</text><text x="650" y="178" font-size="10.5">PC-ANNEXE</text>
+<g font-size="9" fill="#555"><text x="250" y="118">Fa0/1 — G0/1</text><text x="455" y="118">Fa0/2 — G0/1</text><text x="340" y="182">G0/2 — G0/2 (redondant)</text><text x="450" y="46">G0/1 — G0/0</text><text x="675" y="88">G0/1</text></g>
+</g>
+<g stroke="#2F6FA8" stroke-width="1.5"><line x1="140" y1="210" x2="88" y2="250"/><line x1="170" y1="210" x2="198" y2="250"/><line x1="505" y1="210" x2="478" y2="250"/><line x1="535" y1="210" x2="580" y2="250"/><line x1="645" y1="134" x2="650" y2="160"/></g>
+<line x1="615" y1="62" x2="645" y2="100" stroke="#1B2A4A" stroke-width="2.4"/>
+</svg><figcaption>Topologie à réaliser dans Packet Tracer</figcaption></figure>
+<h3>Cahier des charges</h3><p>Réseau attribué : <code>172.16.0.0/24</code> — découpage <b>VLSM</b> obligatoire.</p>
+<div class="tscroll"><table><tr><th>Réseau</th><th>VLAN</th><th>Hôtes nécessaires</th><th>Emplacement</th></tr><tr><td><b>MEDICAL</b></td><td>10</td><td>100</td><td>Bâtiment — SW1</td></tr><tr><td><b>ADMINISTRATION</b></td><td>20</td><td>40</td><td>Bâtiment — SW2</td></tr><tr><td><b>ACCUEIL</b></td><td>30</td><td>20</td><td>Bâtiment — SW1</td></tr><tr><td><b>SERVEURS</b></td><td>40</td><td>10</td><td>Bâtiment — SW2</td></tr><tr><td><b>ANNEXE</b></td><td>—</td><td>6</td><td>Annexe — SW-ANNEXE (LAN de R-ANNEXE)</td></tr><tr><td><b>LIAISON SW-CORE – R-ANNEXE</b></td><td>—</td><td>2</td><td>SW-CORE G0/1 – R-ANNEXE G0/0</td></tr></table></div><div class="tscroll"><table><tr><th>Équipement</th><th>Ports</th><th>Rôle</th></tr><tr><td><b>SW1</b></td><td><code>Fa0/1 – Fa0/12</code></td><td>Accès VLAN 10 MEDICAL</td></tr><tr><td><b>SW1</b></td><td><code>Fa0/13 – Fa0/18</code></td><td>Accès VLAN 30 ACCUEIL</td></tr><tr><td><b>SW2</b></td><td><code>Fa0/1 – Fa0/10</code></td><td>Accès VLAN 20 ADMINISTRATION</td></tr><tr><td><b>SW2</b></td><td><code>Fa0/11 – Fa0/14</code></td><td>Accès VLAN 40 SERVEURS</td></tr><tr><td><b>SW1 / SW2</b></td><td><code>G0/1</code></td><td>Trunk vers SW-CORE (Fa0/1 et Fa0/2)</td></tr><tr><td><b>SW1 – SW2</b></td><td><code>G0/2</code></td><td>Trunk redondant SW1–SW2</td></tr><tr><td><b>SW-CORE</b></td><td><code>G0/1</code></td><td>Port routé vers R-ANNEXE G0/0</td></tr><tr><td><b>R-ANNEXE</b></td><td><code>G0/1</code></td><td>LAN Annexe (SW-ANNEXE)</td></tr></table></div><ul><li><b>Routage inter-VLAN :</b> <b>Switch de niveau 3</b> (Cisco 3560) SW-CORE : une interface SVI <code>interface vlan X</code> par VLAN, routage activé avec <code>ip routing</code>.</li><li><b>Routage entre sites :</b> <b>Routage statique</b> : sur SW-CORE, une route statique vers le réseau de l'annexe ; sur R-ANNEXE, une <b>route par défaut</b> vers SW-CORE.</li><li><b>Redondance :</b> SW1, SW2 et SW-CORE forment un triangle (boucle de couche 2). Faire de <b>SW-CORE le pont racine STP</b> pour tous les VLAN et identifier le port bloqué.</li><li><b>Postes :</b> chaque poste reçoit la <b>deuxième</b> adresse utilisable de son réseau ; la passerelle est la <b>première</b> adresse utilisable.</li></ul><h3>Tâches à réaliser</h3><div class="task"><div class="th">A. Plan d&#x27;adressage VLSM<span>7 pts</span></div><ol><li>Calculer et compléter le tableau d&#x27;adressage des 6 réseaux (réseau/préfixe, masque, passerelle, plage, diffusion), en commençant par le plus grand besoin. <em>(6 pts)</em></li><li>Justifier le préfixe choisi pour le réseau MEDICAL et pour l&#x27;ANNEXE. <em>(1 pt)</em></li></ol></div><div class="tscroll"><table class="fill"><tr><th>Réseau</th><th>Adresse / préfixe</th><th>Masque</th><th>Passerelle</th><th>Plage utilisable</th><th>Diffusion</th></tr><tr><td><b>MEDICAL (100)</b></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><b>ADMINISTRATION (40)</b></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><b>ACCUEIL (20)</b></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><b>SERVEURS (10)</b></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><b>ANNEXE (6)</b></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><b>LIAISON (2)</b></td><td></td><td></td><td></td><td></td><td></td></tr></table></div><div class="task"><div class="th">B. Configuration de base des équipements<span>4 pts</span></div><ol><li>Nommer SW-CORE, SW1, SW2, R-ANNEXE et SW-ANNEXE et désactiver la résolution DNS des commandes. <em>(1 pt)</em></li><li>enable secret, mots de passe console et VTY, service password-encryption. <em>(2 pts)</em></li><li>Bannière d&#x27;avertissement et sauvegarde des configurations. <em>(1 pt)</em></li></ol></div><div class="task"><div class="th">C. VLAN et trunks<span>6 pts</span></div><ol><li>Créer et nommer les VLAN 10, 20, 30, 40 et le VLAN 99 NATIF sur SW-CORE, SW1 et SW2. <em>(2 pts)</em></li><li>Affecter les ports d&#x27;accès selon le tableau des ports. <em>(2 pts)</em></li><li>Configurer les trunks (SW-CORE : encapsulation dot1q) avec le VLAN natif 99. <em>(2 pts)</em></li></ol></div><div class="task"><div class="th">D. Routage inter-VLAN sur le switch de niveau 3<span>5 pts</span></div><ol><li>Créer les interfaces SVI vlan 10, 20, 30, 40 avec les adresses de passerelle et activer ip routing. <em>(3 pts)</em></li><li>Adresser les postes (PC-MED, PC-ADM, PC-ACC, SRV) et prouver par un ping que les VLAN communiquent entre eux. <em>(2 pts)</em></li></ol></div><div class="task"><div class="th">E. Routage statique vers l&#x27;annexe<span>5 pts</span></div><ol><li>Configurer le port routé G0/1 de SW-CORE (no switchport) et les interfaces de R-ANNEXE. <em>(1 pt)</em></li><li>Route statique sur SW-CORE vers le réseau ANNEXE et route par défaut sur R-ANNEXE. <em>(3 pts)</em></li><li>Vérifier les tables de routage (routes S et S*) et le ping PC-MED → PC-ANNEXE. <em>(1 pt)</em></li></ol></div><div class="task"><div class="th">F. Redondance et vérification<span>3 pts</span></div><ol><li>Faire de SW-CORE le pont racine pour tous les VLAN et indiquer le port bloqué par STP. <em>(2 pts)</em></li><li>Rendre les sorties : show vlan brief, show interfaces trunk, show ip route, show spanning-tree. <em>(1 pt)</em></li></ol></div><h3>Barème récapitulatif</h3><div class="tscroll"><table><tr><th>Partie</th><th>Points</th><th>Note obtenue</th></tr><tr><td>Théorie (10 questions)</td><td>10</td><td></td></tr><tr><td>A. Plan d&#x27;adressage VLSM</td><td>7</td><td></td></tr><tr><td>B. Configuration de base des équipements</td><td>4</td><td></td></tr><tr><td>C. VLAN et trunks</td><td>6</td><td></td></tr><tr><td>D. Routage inter-VLAN sur le switch de niveau 3</td><td>5</td><td></td></tr><tr><td>E. Routage statique vers l&#x27;annexe</td><td>5</td><td></td></tr><tr><td>F. Redondance et vérification</td><td>3</td><td></td></tr><tr><td><b>TOTAL</b></td><td><b>40</b></td><td></td></tr></table></div><p class="foot">Bonne chance ! · OFPPT Infrastructure Digitale · Module Conception d'un réseau informatique</p></main></body></html>
