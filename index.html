@@ -528,6 +528,20 @@ pre.hcfg span { display: inline; } pre.hcfg .okl { color: #7FE0B0; } pre.hcfg .k
 .row.chq { border: 1.5px solid var(--gold); background: linear-gradient(135deg, var(--d2-soft), var(--surface)); margin-top: 4px; }
 .row.chq .n { width: 2.6rem; height: 2.6rem; background: linear-gradient(135deg, #D9BD7A, #B8913A); color: #16223D; font-size: 11px; }
 @media (min-width: 880px) { #app:has(.hero) .row.chq { max-width: calc(50% - 5px); } }
+
+.scroll tr.rt-best td { background: var(--ok-soft) !important; font-weight: 600; }
+.scroll tr.rt-match td { background: var(--d2-soft) !important; }
+.scroll tr.rt-no td { color: var(--muted); }
+.st-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.st-r { border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); }
+.st-r h4 { margin: 0; font: 700 1rem var(--f-display); color: var(--head); } .st-r p { font-size: .8rem; }
+.st-c { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; text-align: left; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; font-size: .8rem; }
+.st-c code { background: none; padding: 0; font-size: .74rem; overflow-wrap: anywhere; }
+.st-c.on { border-color: var(--accent); background: var(--accent-soft); }
+.st-c.inv { border-color: var(--bad); background: var(--bad-soft); } .st-c em { font-style: normal; color: var(--bad); font-size: .75rem; width: 100%; }
+.trc { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 4px; font: 500 .85rem/1.5 var(--f-mono); }
+.trc li.ok { color: var(--ok); font-weight: 700; } .trc li.bad { color: var(--bad); font-weight: 700; }
+@media (max-width: 760px) { .st-grid { grid-template-columns: 1fr; } }
 /* Petits écrans */
 @media (max-width: 560px) {
   body { font-size: 16px; }
@@ -3218,6 +3232,149 @@ THEMES.push(
   ] }
 );
 
+/* ---------- Thème « Le routage statique et dynamique » (leçons 48 à 51) ---------- */
+THEMES.push(
+{ id: 48, ch: 9, t: "Les principes du routage", short: "Table de routage, plus long préfixe, distance administrative", sim: 'lookup',
+  def: "Router, c'est choisir par quelle interface envoyer un paquet pour qu'il se rapproche de son réseau de destination. Le routeur prend cette décision en consultant sa table de routage, ligne par ligne, pour chaque paquet.",
+  pts: [
+    "Un routeur relie des réseaux IP différents. Chaque interface est dans un réseau distinct, et le routeur ne transmet pas les diffusions.",
+    "Pour chaque paquet, le routeur lit l'adresse IP de destination et cherche dans sa table de routage la route correspondante.",
+    "Une route contient : le réseau de destination et son préfixe, la prochaine adresse (next-hop) ou l'interface de sortie, la distance administrative et la métrique.",
+    "Codes de la table Cisco (`show ip route`) : `C` réseau directement connecté, `L` adresse locale de l'interface, `S` route statique, `O` OSPF, `R` RIP, `D` EIGRP, `*` route par défaut candidate.",
+    "Règle du plus long préfixe : si plusieurs routes correspondent, le routeur choisit la plus précise (/24 avant /16 avant /8 avant /0).",
+    "Si aucune route ne correspond et qu'il n'y a pas de route par défaut, le paquet est détruit et un message ICMP « destination inaccessible » est renvoyé.",
+    "La distance administrative (AD) indique la confiance dans la source d'une route : plus elle est basse, plus la route est préférée. La métrique départage les routes d'un même protocole."
+  ],
+  table: { h: ["Source de la route", "Code", "Distance administrative"], r: [
+    ["Directement connectée", "C", "0"],
+    ["Statique", "S", "1"],
+    ["EIGRP (interne)", "D", "90"],
+    ["OSPF", "O", "110"],
+    ["RIP", "R", "120"],
+    ["Inconnue / inutilisable", "—", "255"]
+  ] },
+  kw: ["Table de routage", "Next-hop", "Plus long préfixe", "Distance administrative", "Métrique", "Route par défaut", "show ip route"],
+  ana: "Un routeur, c'est un carrefour avec des panneaux indicateurs. Le panneau le plus précis gagne : « Fès centre » est préféré à « Fès », lui-même préféré à « Toutes directions ».",
+  res: "Un routeur d'agence connaît ses deux LAN (routes C), une route statique vers le siège et une route par défaut vers Internet. Un paquet pour 8.8.8.8 ne correspond à aucun réseau connu : il part par la route par défaut.",
+  piege: "Croire que le routeur prend la première ligne de la table qui correspond. Il prend la route au préfixe le plus long, quel que soit l'ordre d'affichage.",
+  simIntro: "Choisis une adresse de destination : le routeur compare chaque route de sa table et retient celle qui a le préfixe le plus long.",
+  q: [
+    { q: "Sur quelle information le routeur base-t-il sa décision ?", o: ["L'adresse IP de destination du paquet", "L'adresse MAC source", "L'adresse IP source", "Le numéro de VLAN"], e: "Il cherche le réseau de destination dans sa table de routage." },
+    { q: "Plusieurs routes correspondent à la destination. Laquelle est choisie ?", o: ["Celle qui a le préfixe le plus long", "La première de la table", "Celle qui a le préfixe le plus court", "La route par défaut"], e: "Règle du plus long préfixe : la route la plus précise." },
+    { q: "Que signifie le code « C » dans show ip route ?", o: ["Réseau directement connecté", "Route Cisco", "Route copiée", "Route chiffrée"], e: "Le réseau d'une interface active du routeur." },
+    { q: "Quelle est la distance administrative d'une route statique ?", o: ["1", "0", "110", "120"], e: "0 = connectée, 1 = statique, 110 = OSPF, 120 = RIP." },
+    { q: "Une route OSPF (AD 110) et une route RIP (AD 120) mènent au même réseau. Laquelle est installée ?", o: ["La route OSPF", "La route RIP", "Les deux en alternance", "Aucune"], e: "La plus petite distance administrative l'emporte." },
+    { q: "Que fait le routeur sans route correspondante ni route par défaut ?", o: ["Il détruit le paquet et renvoie un message ICMP", "Il diffuse le paquet sur toutes les interfaces", "Il le renvoie à l'expéditeur tel quel", "Il le garde en mémoire"], e: "Le routeur ne diffuse jamais un paquet inconnu." },
+    { q: "Un routeur transmet-il les diffusions de couche 2 ?", o: ["Non, il sépare les domaines de diffusion", "Oui, sur toutes ses interfaces", "Oui, mais seulement le DHCP", "Seulement en IPv6"], e: "C'est l'une de ses différences essentielles avec le switch." }
+  ] },
+
+{ id: 49, ch: 9, t: "Le routage statique", short: "ip route, next-hop, route par défaut, route flottante", sim: 'static',
+  def: "Une route statique est saisie à la main par l'administrateur avec la commande `ip route`. Elle est simple et sûre, mais elle ne s'adapte pas toute seule quand le réseau change.",
+  pts: [
+    "Syntaxe : `ip route <réseau> <masque> <next-hop | interface de sortie> [distance]`. Exemple : `ip route 192.168.3.0 255.255.255.0 10.0.12.2`.",
+    "Le next-hop doit être joignable : une adresse dans un réseau directement connecté au routeur, sinon la route n'est pas utilisable.",
+    "Route par défaut : `ip route 0.0.0.0 0.0.0.0 <next-hop>`. Elle sert quand aucune route plus précise ne correspond, typiquement vers Internet.",
+    "Une communication marche dans les deux sens : il faut une route pour l'aller ET une route pour le retour. L'oubli de la route retour est l'erreur numéro 1.",
+    "Route statique flottante : une route de secours avec une distance administrative plus haute (ex. `ip route 0.0.0.0 0.0.0.0 10.0.99.1 200`). Elle n'est utilisée que si la route principale disparaît.",
+    "Avantages : aucun calcul, pas de trafic de protocole, contrôle total, sécurité. Limites : beaucoup de saisie dans un grand réseau, aucune adaptation automatique aux pannes.",
+    "Vérifier : `show ip route static`, `ping`, `traceroute`."
+  ],
+  table: { h: ["", "Statique", "Dynamique"], r: [
+    ["Configuration", "Manuelle, route par route", "Automatique, échange entre routeurs"],
+    ["Réaction à une panne", "Aucune (sauf route flottante)", "Recalcul automatique"],
+    ["Ressources", "Aucune", "CPU, mémoire, bande passante"],
+    ["Adapté à", "Petit réseau, route par défaut, réseau en étoile", "Réseau moyen ou grand, plusieurs chemins"]
+  ] },
+  kw: ["ip route", "Next-hop", "Interface de sortie", "Route par défaut", "0.0.0.0/0", "Route flottante", "Route retour"],
+  ana: "Une route statique, c'est un itinéraire écrit sur papier : parfait tant que la route est ouverte. Si un pont s'effondre, le papier ne change pas tout seul : il faut le réécrire, ou avoir prévu un itinéraire de secours (route flottante).",
+  res: "Une agence avec un seul lien vers le siège n'a besoin que d'une route par défaut vers le siège. Inutile d'y faire tourner un protocole de routage.",
+  piege: "Configurer la route aller sur R1 et oublier la route retour sur R3 : le ping part, arrive, mais la réponse ne revient jamais. On croit que le réseau est coupé alors qu'il manque une seule ligne.",
+  simIntro: "Coche les routes statiques à configurer sur chaque routeur, puis lance un ping : la trace montre le chemin aller, le chemin retour et l'endroit exact où le paquet est perdu.",
+  q: [
+    { q: "Quelle commande crée une route statique vers 192.168.3.0/24 via 10.0.12.2 ?", o: ["ip route 192.168.3.0 255.255.255.0 10.0.12.2", "route add 192.168.3.0 10.0.12.2", "ip static 192.168.3.0/24 10.0.12.2", "router static 192.168.3.0"], e: "Réseau, masque, puis next-hop." },
+    { q: "Comment écrit-on une route par défaut ?", o: ["ip route 0.0.0.0 0.0.0.0 <next-hop>", "ip route 255.255.255.255 0.0.0.0 <next-hop>", "ip default-route any", "ip route default"], e: "0.0.0.0/0 correspond à toutes les destinations." },
+    { q: "Le ping de PC1 vers PC3 échoue alors que R1 a une route vers le LAN de PC3. Cause la plus probable ?", o: ["La route retour vers le LAN de PC1 manque sur un routeur", "Le switch de PC1 est mal configuré", "La route aller est trop précise", "Le ping ne traverse pas les routeurs"], e: "La réponse doit aussi trouver son chemin." },
+    { q: "Qu'est-ce qu'une route statique flottante ?", o: ["Une route de secours avec une distance administrative plus élevée", "Une route qui change de next-hop toutes les minutes", "Une route sans masque", "Une route apprise par OSPF"], e: "Elle n'entre dans la table que si la route principale disparaît." },
+    { q: "Quel est le principal inconvénient du routage statique ?", o: ["Il ne s'adapte pas automatiquement aux pannes", "Il consomme beaucoup de bande passante", "Il est impossible à sécuriser", "Il ne fonctionne qu'en IPv6"], e: "Chaque changement demande une intervention manuelle." },
+    { q: "Quel next-hop est valide pour une route statique sur R1 ?", o: ["Une adresse dans un réseau directement connecté à R1", "N'importe quelle adresse du réseau", "L'adresse du PC destination", "L'adresse MAC du routeur voisin"], e: "R1 doit pouvoir joindre ce next-hop directement." },
+    { q: "Quelle commande affiche seulement les routes statiques ?", o: ["show ip route static", "show static", "show running-config ospf", "show ip interface brief"], e: "Les routes statiques apparaissent avec le code S." }
+  ] },
+
+{ id: 50, ch: 9, t: "Le routage dynamique", short: "RIP, OSPF, EIGRP, BGP, vecteur de distance, état de liens", sim: 'dyn',
+  def: "Avec le routage dynamique, les routeurs échangent automatiquement les réseaux qu'ils connaissent grâce à un protocole de routage. Ils construisent seuls leur table et la recalculent quand un lien tombe.",
+  pts: [
+    "IGP (à l'intérieur d'une organisation) : RIP, OSPF, EIGRP, IS-IS. EGP (entre organisations, sur Internet) : BGP.",
+    "Vecteur de distance (RIP) : chaque routeur annonce ses routes à ses voisins, comme une rumeur. Il ne connaît pas toute la topologie.",
+    "État de liens (OSPF) : chaque routeur reçoit la carte complète du réseau et calcule lui-même le meilleur chemin (algorithme SPF de Dijkstra).",
+    "RIP : métrique = nombre de sauts, maximum 15 (16 = inaccessible). Simple, mais ignore la vitesse des liens et converge lentement.",
+    "OSPF : métrique = coût, calculé à partir de la bande passante (coût = bande passante de référence ÷ débit du lien). Rapide, standard, adapté aux réseaux d'entreprise.",
+    "EIGRP : protocole avancé d'origine Cisco (bande passante et délai). BGP : le protocole qui relie les opérateurs d'Internet.",
+    "Convergence : le temps qu'il faut aux routeurs pour se mettre d'accord après un changement. Plus elle est rapide, moins la coupure dure."
+  ],
+  table: { h: ["Protocole", "Type", "Métrique", "AD", "Usage"], r: [
+    ["RIPv2", "Vecteur de distance", "Nombre de sauts (max 15)", "120", "Petits réseaux, labo"],
+    ["OSPF", "État de liens", "Coût (bande passante)", "110", "Entreprise, standard ouvert"],
+    ["EIGRP", "Vecteur de distance avancé", "Bande passante + délai", "90", "Réseaux Cisco"],
+    ["BGP", "Vecteur de chemin", "Attributs de chemin", "20 (externe)", "Internet, opérateurs"]
+  ] },
+  kw: ["Routage dynamique", "IGP", "EGP", "Vecteur de distance", "État de liens", "RIP", "OSPF", "EIGRP", "BGP", "Convergence"],
+  ana: "RIP compte les villes traversées ; OSPF regarde la carte et le type de route. Pour aller de Fès à Casablanca, RIP préfère la petite route qui traverse moins de villes, OSPF préfère l'autoroute, même si elle passe par plus de villes.",
+  res: "Une entreprise relie 12 sites avec des liens de vitesses différentes. Avec OSPF, quand une liaison fibre tombe, le trafic bascule automatiquement sur le lien de secours en quelques secondes, sans intervention.",
+  piege: "Penser que le chemin avec le moins de sauts est toujours le meilleur. Un lien lent sur 1 saut peut être bien pire que 3 sauts en fibre : c'est exactement la faiblesse de RIP.",
+  simIntro: "Choisis le type de routage, puis coupe des liens : observe le chemin choisi par la route statique, par RIP (moins de sauts) et par OSPF (plus petit coût).",
+  q: [
+    { q: "Quelle métrique utilise RIP ?", o: ["Le nombre de sauts", "La bande passante", "Le délai", "La charge du CPU"], e: "Maximum 15 sauts ; 16 = réseau inaccessible." },
+    { q: "Quelle métrique utilise OSPF ?", o: ["Le coût, basé sur la bande passante", "Le nombre de sauts", "L'adresse MAC", "Le numéro de VLAN"], e: "Coût = bande passante de référence ÷ débit du lien." },
+    { q: "OSPF est un protocole…", o: ["À état de liens", "À vecteur de distance", "Extérieur (EGP)", "Propriétaire de niveau 2"], e: "Chaque routeur connaît toute la topologie de sa zone." },
+    { q: "Quel protocole relie les opérateurs entre eux sur Internet ?", o: ["BGP", "RIP", "OSPF", "STP"], e: "BGP est le protocole extérieur (EGP) d'Internet." },
+    { q: "Qu'est-ce que la convergence ?", o: ["Le temps pour que tous les routeurs aient une vue cohérente après un changement", "La fusion de deux VLAN", "Le passage d'IPv4 à IPv6", "Le chiffrement des routes"], e: "Pendant la convergence, une partie du trafic peut être perdue." },
+    { q: "Pour un réseau RIP, combien de sauts maximum un réseau peut-il être éloigné ?", o: ["15", "255", "16", "100"], e: "À 16, il est considéré comme inaccessible." },
+    { q: "Pourquoi RIP peut-il choisir un mauvais chemin ?", o: ["Il ignore la vitesse des liens", "Il ne connaît pas les adresses IP", "Il n'envoie aucune mise à jour", "Il ne fonctionne que sur fibre"], e: "Un lien lent en 1 saut l'emporte sur 3 liens rapides." }
+  ] },
+
+{ id: 51, ch: 9, t: "Configurer OSPF à zone unique", short: "router ospf, network, area 0, voisins, coût", sim: 'pick',
+  scen: [
+    { s: "Deux routeurs reliés ne deviennent jamais voisins OSPF. L'un a « network 10.0.12.0 0.0.0.3 area 0 », l'autre « network 10.0.12.0 0.0.0.3 area 1 ».", o: ["Les numéros de zone ne correspondent pas", "Le router-id est trop petit", "Le coût est trop élevé", "Il manque une route statique"], a: 0, e: "Deux voisins OSPF doivent être dans la même zone sur le lien qui les relie." },
+    { s: "Le LAN 192.168.1.0/24 de R1 n'apparaît pas chez R2, alors que les deux routeurs sont voisins.", o: ["Le réseau 192.168.1.0 n'a pas été ajouté avec une commande network", "Le câble entre R1 et R2 est coupé", "R2 n'a pas de router-id", "Le LAN est en /24"], a: 0, e: "OSPF n'annonce que les réseaux des interfaces activées par une commande network (ou ip ospf area)." },
+    { s: "Tu veux qu'OSPF n'envoie pas de messages Hello vers le LAN des PC, tout en continuant à annoncer ce réseau.", o: ["passive-interface sur l'interface LAN", "Supprimer la commande network du LAN", "shutdown sur l'interface LAN", "Changer le router-id"], a: 0, e: "L'interface passive est annoncée, mais aucune relation de voisinage n'est cherchée de ce côté." },
+    { s: "Quelle commande permet de vérifier que R1 voit bien ses voisins OSPF ?", o: ["show ip route", "show ip ospf neighbor", "show vlan brief", "show cdp interface"], a: 1, e: "Un voisin en état FULL échange complètement ses informations." },
+    { s: "Avec la bande passante de référence par défaut (100 Mbit/s), quel est le coût OSPF d'un lien de 10 Mbit/s ?", o: ["1", "100", "10", "1000"], a: 2, e: "100 ÷ 10 = 10. Un lien FastEthernet (100 Mbit/s) a un coût de 1." },
+    { s: "Un lien de 1 Gbit/s et un lien de 100 Mbit/s ont le même coût OSPF (1). Comment corriger ?", o: ["Changer le router-id", "Passer en RIP", "auto-cost reference-bandwidth 10000 sur tous les routeurs", "Ajouter une route statique"], a: 2, e: "On augmente la bande passante de référence (en Mbit/s), de façon identique sur tous les routeurs." }
+  ],
+  def: "OSPF (Open Shortest Path First) est le protocole de routage dynamique standard des réseaux d'entreprise. Dans une conception simple, tous les routeurs sont dans une seule zone, la zone 0 (backbone).",
+  pts: [
+    "Activer OSPF : `router ospf 1` (1 = numéro de processus local), puis `router-id 1.1.1.1` pour identifier le routeur de façon unique.",
+    "Annoncer les réseaux : `network <adresse> <wildcard> area 0`. Exemple : `network 192.168.1.0 0.0.0.255 area 0`. Le wildcard est l'inverse du masque.",
+    "Les routeurs échangent des Hello pour découvrir leurs voisins, puis leurs bases de données de liens, et calculent les meilleurs chemins avec l'algorithme SPF.",
+    "Pour devenir voisins : même zone, même sous-réseau, mêmes timers Hello / Dead, même type d'authentification.",
+    "Coût d'un lien = bande passante de référence (100 Mbit/s par défaut) ÷ débit. 10 Mbit/s → 10, 100 Mbit/s et plus → 1 (d'où `auto-cost reference-bandwidth`).",
+    "`passive-interface` : on annonce le réseau du LAN sans y envoyer de Hello (sécurité et propreté).",
+    "Vérifications : `show ip ospf neighbor`, `show ip route ospf`, `show ip protocols`."
+  ],
+  table: { h: ["Commande", "Rôle"], r: [
+    ["router ospf 1", "Démarre le processus OSPF n° 1"],
+    ["router-id 1.1.1.1", "Fixe l'identifiant unique du routeur"],
+    ["network 10.0.12.0 0.0.0.3 area 0", "Active OSPF sur les interfaces de ce réseau, zone 0"],
+    ["passive-interface g0/0", "Pas de Hello vers le LAN, réseau annoncé quand même"],
+    ["auto-cost reference-bandwidth 10000", "Référence à 10 Gbit/s pour distinguer les liens rapides"],
+    ["show ip ospf neighbor", "Liste les voisins et leur état (FULL)"]
+  ] },
+  kw: ["OSPF", "Zone 0", "router-id", "network … area 0", "Wildcard", "Hello", "Voisin FULL", "Coût", "passive-interface"],
+  ana: "OSPF, c'est un groupe de livreurs qui partagent tous la même carte de la ville. Chacun calcule son trajet le plus rapide, et dès qu'une rue est fermée, l'information circule et chacun recalcule.",
+  res: "Trois routeurs en triangle avec OSPF : quand le lien direct R1–R3 tombe, R1 passe automatiquement par R2 en quelques secondes. Les utilisateurs remarquent à peine la coupure.",
+  piege: "Se tromper de wildcard dans la commande network (mettre le masque 255.255.255.0 au lieu de 0.0.0.255). L'interface n'est pas activée dans OSPF et le réseau n'est jamais annoncé.",
+  simIntro: "Résous ces situations de configuration et de dépannage OSPF : zone, réseaux annoncés, interface passive, coût.",
+  q: [
+    { q: "Quelle commande annonce le réseau 192.168.1.0/24 dans la zone 0 ?", o: ["network 192.168.1.0 0.0.0.255 area 0", "network 192.168.1.0 255.255.255.0 area 0", "ospf network 192.168.1.0/24", "ip ospf 192.168.1.0 area 0"], e: "OSPF utilise un wildcard dans la commande network." },
+    { q: "Comment s'appelle la zone principale d'OSPF ?", o: ["La zone 0 (backbone)", "La zone 1", "La zone par défaut 100", "La zone native"], e: "Dans une conception simple, tous les routeurs sont en zone 0." },
+    { q: "À quoi servent les paquets Hello ?", o: ["Découvrir et maintenir les voisins OSPF", "Attribuer des adresses IP", "Chiffrer les routes", "Tester la vitesse du lien"], e: "Ils sont envoyés régulièrement sur les interfaces OSPF actives." },
+    { q: "Quel est le coût OSPF par défaut d'un lien à 100 Mbit/s ?", o: ["1", "10", "100", "0"], e: "100 ÷ 100 = 1." },
+    { q: "Que fait passive-interface sur l'interface LAN ?", o: ["Annonce le réseau sans envoyer de Hello sur cette interface", "Désactive l'interface", "Supprime le réseau d'OSPF", "Change le coût à 0"], e: "Aucun voisin n'est recherché côté utilisateurs." },
+    { q: "Quel état indique que deux voisins OSPF ont fini de synchroniser leurs informations ?", o: ["FULL", "DOWN", "INIT", "BLOCKING"], e: "show ip ospf neighbor affiche FULL." },
+    { q: "Quelle condition est nécessaire pour que deux routeurs deviennent voisins OSPF ?", o: ["Être dans la même zone et le même sous-réseau", "Avoir le même router-id", "Avoir le même nom d'hôte", "Être du même modèle"], e: "Le router-id, au contraire, doit être unique." }
+  ] }
+);
+
 /* ---------- Thème « La sécurité informatique » (leçons 39 à 47) ---------- */
 const SECU_PDF = 'docs/securite-informatique.pdf';
 THEMES.push(
@@ -4098,7 +4255,119 @@ function simCraap(el) {
   draw();
 }
 
-const SIMS = { order: simOrder, risk: simRisk, phish: simPhish, pwd: simPwd, hash: simHash, harden: simHarden, acl: simAcl, wifi: simWifi, backup: simBackup, query: simQuery, craap: simCraap, redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
+
+/* ---------- Simulations : routage ---------- */
+const rtN = s => s.split('.').reduce((a, b) => a * 256 + (+b), 0);
+const rtIn = (ip, net, len) => len === 0 || Math.floor(rtN(ip) / Math.pow(2, 32 - len)) === Math.floor(rtN(net) / Math.pow(2, 32 - len));
+const rtBin = (ip, len) => ip.split('.').map(o => (+o).toString(2).padStart(8, '0')).join('').split('').map((c, i) => (i < len ? `<b>${c}</b>` : c) + (i % 8 === 7 && i < 31 ? '.' : '')).join('');
+
+/* --- Recherche dans la table de routage (plus long préfixe) --- */
+function simLookup(el) {
+  const T = [['C', '192.168.1.0', 24, 'G0/0', 'directement connecté'], ['S', '10.0.0.0', 8, 'via 172.16.0.2', 'statique'], ['O', '10.1.0.0', 16, 'via 172.16.0.6', 'OSPF'], ['O', '10.1.5.0', 24, 'via 172.16.0.10', 'OSPF'], ['S*', '0.0.0.0', 0, 'via 203.0.113.1', 'route par défaut']];
+  const D = ['10.1.5.20', '10.1.9.9', '10.200.1.1', '192.168.1.50', '8.8.8.8', '172.17.3.4'];
+  let d = 0;
+  function draw() {
+    const ip = D[d]; let best = -1;
+    T.forEach((r, i) => { if (rtIn(ip, r[1], r[2]) && (best < 0 || r[2] > T[best][2])) best = i; });
+    el.innerHTML = `<div class="sim"><div class="field"><label>Adresse de destination du paquet</label><div class="seg">${D.map((x, i) => `<button data-s="d" data-i="${i}" aria-pressed="${d === i}">${x}</button>`).join('')}</div></div>
+      <div class="scroll"><table><thead><tr><th>Code</th><th>Réseau</th><th>Sortie</th><th>Correspond ?</th></tr></thead><tbody>${T.map((r, i) => { const m = rtIn(ip, r[1], r[2]); return `<tr class="${i === best ? 'rt-best' : m ? 'rt-match' : 'rt-no'}"><td>${r[0]}</td><td><code>${r[1]}/${r[2]}</code></td><td>${esc(r[3])}</td><td>${m ? (i === best ? '✔ OUI — préfixe le plus long, CHOISIE' : `✔ oui (/${r[2]}, moins précise)`) : '✘ non'}</td></tr>`; }).join('')}</tbody></table></div>
+      <div class="block"><h3>Comparaison binaire (bits du préfixe en gras)</h3><code class="hx">${ip.padEnd(15)} ${rtBin(ip, best >= 0 ? T[best][2] : 0)}</code><code class="hx">${(T[best][1] + '/' + T[best][2]).padEnd(15)} ${rtBin(T[best][1], T[best][2])}</code></div>
+      <div class="fb ok"><b>Décision : ${esc(T[best][3])}</b><p>${T.filter(r => rtIn(ip, r[1], r[2])).length} route(s) correspondent. Le routeur retient la ${esc(T[best][4])} ${T[best][1]}/${T[best][2]}, car c'est la plus précise (préfixe /${T[best][2]}).${T[best][2] === 0 ? ' Aucune autre route ne correspond : la route par défaut sert de « dernier recours ».' : ''}</p></div></div>`;
+  }
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s="d"]'); if (b) { d = +b.dataset.i; draw(); } });
+  draw();
+}
+
+/* --- Routage statique : aller, retour et ping --- */
+function simStatic(el) {
+  const R = {
+    R1: { c: [['192.168.1.0', 24, 'G0/0'], ['10.0.12.0', 30, 'S0/0']], ip: ['192.168.1.1', '10.0.12.1'] },
+    R2: { c: [['10.0.12.0', 30, 'S0/0'], ['10.0.23.0', 30, 'S0/1'], ['192.168.2.0', 24, 'G0/0']], ip: ['10.0.12.2', '10.0.23.1', '192.168.2.1'] },
+    R3: { c: [['10.0.23.0', 30, 'S0/1'], ['192.168.3.0', 24, 'G0/0']], ip: ['10.0.23.2', '192.168.3.1'] }
+  };
+  const NH = { '10.0.12.1': 'R1', '10.0.12.2': 'R2', '10.0.23.1': 'R2', '10.0.23.2': 'R3' };
+  const C = [
+    ['R1', '192.168.3.0', 24, '10.0.12.2'], ['R1', '192.168.2.0', 24, '10.0.12.2'], ['R1', '0.0.0.0', 0, '10.0.12.2'], ['R1', '192.168.3.0', 24, '10.0.23.2'],
+    ['R2', '192.168.3.0', 24, '10.0.23.2'], ['R2', '192.168.1.0', 24, '10.0.12.1'],
+    ['R3', '192.168.1.0', 24, '10.0.23.1'], ['R3', '192.168.2.0', 24, '10.0.23.1'], ['R3', '0.0.0.0', 0, '10.0.23.1']
+  ];
+  const PCS = { PC1: ['192.168.1.10', 'R1'], PC2: ['192.168.2.10', 'R2'], PC3: ['192.168.3.10', 'R3'] };
+  const mask = l => [0, 1, 2, 3].map(i => { const b = Math.max(0, Math.min(8, l - i * 8)); return 256 - Math.pow(2, 8 - b); }).join('.');
+  let on = {}, src = 'PC1', dst = 'PC3', res = null;
+  const valid = c => R[c[0]].c.some(n => rtIn(c[3], n[0], n[1]));
+  function route(r, ip) {
+    let best = null;
+    R[r].c.forEach(n => { if (rtIn(ip, n[0], n[1]) && (!best || n[1] > best.l)) best = { l: n[1], t: 'C', n: n[0], out: n[2], hop: null }; });
+    C.forEach((c, i) => { if (on[i] && c[0] === r && valid(c) && rtIn(ip, c[1], c[2]) && (!best || c[2] > best.l)) best = { l: c[2], t: c[2] ? 'S' : 'S*', n: c[1], hop: c[3] }; });
+    return best;
+  }
+  function trip(from, to) {
+    const ip = PCS[to][0]; let r = PCS[from][1]; const L = []; let ttl = 6;
+    while (ttl--) {
+      const b = route(r, ip);
+      if (!b) { L.push(['bad', `${r} : aucune route vers ${ip} → paquet détruit (destination inaccessible)`]); return [false, L]; }
+      if (b.t === 'C') { L.push(['ok', `${r} : ${ip} est dans le réseau connecté ${b.n}/${b.l} (${b.out}) → livré à ${to}`]); return [true, L]; }
+      L.push(['', `${r} : route ${b.t} ${b.n}/${b.l} via ${b.hop} → envoyé à ${NH[b.hop]}`]); r = NH[b.hop];
+    }
+    L.push(['bad', 'Boucle de routage : TTL épuisé']); return [false, L];
+  }
+  function draw() {
+    const rows = ['R1', 'R2', 'R3'].map(r => `<div class="st-r"><h4>${r}</h4><p class="muted">Connectés : ${R[r].c.map(n => n[0] + '/' + n[1]).join(', ')}</p>${C.map((c, i) => c[0] !== r ? '' : `<button class="st-c${on[i] ? ' on' : ''}${on[i] && !valid(c) ? ' inv' : ''}" data-s="c" data-i="${i}"><span>${on[i] ? '☑' : '☐'}</span><code>ip route ${c[1]} ${mask(c[2])} ${c[3]}</code>${on[i] && !valid(c) ? '<em>next-hop non joignable : route non installée</em>' : ''}</button>`).join('')}</div>`).join('');
+    let out = '';
+    if (res) {
+      out = `<div class="block"><h3>Aller ${src} → ${dst}</h3><ol class="trc">${res.a[1].map(l => `<li class="${l[0]}">${esc(l[1])}</li>`).join('')}</ol></div>`;
+      if (res.a[0]) out += `<div class="block"><h3>Retour ${dst} → ${src} (la réponse)</h3><ol class="trc">${res.r[1].map(l => `<li class="${l[0]}">${esc(l[1])}</li>`).join('')}</ol></div>`;
+      const ok = res.a[0] && res.r[0];
+      out += `<div class="fb ${ok ? 'ok' : 'bad'}"><b>${ok ? 'Ping réussi : Reply from ' + PCS[dst][0] : res.a[0] ? 'Ping échoué : la requête arrive, mais la réponse ne revient pas' : 'Ping échoué : la requête n\'arrive pas'}</b><p>${ok ? 'Il existe une route à l\'aller ET au retour sur chaque routeur traversé.' : res.a[0] ? 'Il manque une route retour vers le réseau de ' + src + '. C\'est l\'oubli le plus fréquent.' : 'Ajoute la route manquante sur le routeur indiqué en rouge.'}</p></div>`;
+    }
+    el.innerHTML = `<div class="sim"><svg viewBox="0 0 640 120" class="map"><g class="link"><line x1="60" y1="60" x2="170" y2="60"/><line x1="230" y1="60" x2="290" y2="60"/><line x1="350" y1="60" x2="410" y2="60"/><line x1="470" y1="60" x2="580" y2="60"/><line x1="320" y1="80" x2="320" y2="100"/></g>
+      <g class="n"><rect x="20" y="42" width="60" height="36" rx="6"/><text x="50" y="65" text-anchor="middle">PC1</text><rect x="170" y="42" width="60" height="36" rx="6"/><text x="200" y="65" text-anchor="middle">R1</text><rect x="290" y="42" width="60" height="36" rx="6"/><text x="320" y="65" text-anchor="middle">R2</text><rect x="410" y="42" width="60" height="36" rx="6"/><text x="440" y="65" text-anchor="middle">R3</text><rect x="560" y="42" width="60" height="36" rx="6"/><text x="590" y="65" text-anchor="middle">PC3</text><rect x="295" y="96" width="50" height="22" rx="5"/><text x="320" y="112" text-anchor="middle" class="sub">PC2</text></g>
+      <text x="115" y="30" text-anchor="middle" class="sub">192.168.1.0/24</text><text x="260" y="30" text-anchor="middle" class="sub">10.0.12.0/30</text><text x="380" y="30" text-anchor="middle" class="sub">10.0.23.0/30</text><text x="525" y="30" text-anchor="middle" class="sub">192.168.3.0/24</text><text x="400" y="112" class="sub">192.168.2.0/24</text></svg>
+      <div class="st-grid">${rows}</div>
+      <div class="fl"><div class="field"><label>Ping depuis</label><div class="seg">${Object.keys(PCS).map(p => `<button data-s="src" data-v="${p}" aria-pressed="${src === p}">${p}</button>`).join('')}</div></div><div class="field"><label>Vers</label><div class="seg">${Object.keys(PCS).map(p => `<button data-s="dst" data-v="${p}" aria-pressed="${dst === p}">${p}</button>`).join('')}</div></div></div>
+      <div class="actions"><button class="btn" data-s="ping">Lancer le ping</button><button class="btn alt" data-s="reset">Tout effacer</button></div>${out}</div>`;
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return; const s = b.dataset.s;
+    if (s === 'c') on[b.dataset.i] = !on[b.dataset.i];
+    else if (s === 'src') src = b.dataset.v; else if (s === 'dst') dst = b.dataset.v;
+    else if (s === 'reset') on = {};
+    if (s === 'ping' && src !== dst) res = { a: trip(src, dst), r: trip(dst, src) }; else if (s !== 'ping') res = null;
+    draw();
+  });
+  draw();
+}
+
+/* --- Statique, RIP ou OSPF : quel chemin ? --- */
+function simDyn(el) {
+  const LK = { a: ['R1', 'R4', 10, 'Lien direct 10 Mbit/s'], b: ['R1', 'R2', 1000, 'R1–R2 1 Gbit/s'], c: ['R2', 'R3', 1000, 'R2–R3 1 Gbit/s'], d: ['R3', 'R4', 1000, 'R3–R4 1 Gbit/s'] };
+  const P = [{ n: 'Direct (R1 → R4)', l: ['a'] }, { n: 'Fibre (R1 → R2 → R3 → R4)', l: ['b', 'c', 'd'] }];
+  let proto = 'rip', down = {};
+  const cost = k => Math.max(1, Math.round(10000 / LK[k][2]));
+  function draw() {
+    const up = p => p.l.every(k => !down[k]);
+    const hops = p => p.l.length, pc = p => p.l.reduce((s, k) => s + cost(k), 0);
+    let ch = null;
+    if (proto === 'static') ch = up(P[0]) ? P[0] : null;
+    else { const c = P.filter(up); if (c.length) ch = c.reduce((a, b) => (proto === 'rip' ? hops(a) <= hops(b) : pc(a) <= pc(b)) ? a : b); }
+    const used = k => ch && ch.l.indexOf(k) >= 0;
+    const ln = (k, x1, y1, x2, y2) => `<line class="link ${down[k] ? 'blk' : used(k) ? 'out' : ''}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke-width:${used(k) ? 5 : 3}"/><text x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 8}" text-anchor="middle" class="sub">${LK[k][2] >= 1000 ? '1 Gb/s' : '10 Mb/s'} · coût ${cost(k)}</text>`;
+    const msg = proto === 'static' ? (ch ? "La route statique de R1 pointe vers R4 par le lien direct. Elle est configurée à la main : elle ne regarde ni le débit ni l'état des autres chemins." : "Le lien direct est coupé, mais la route statique ne change pas toute seule : le trafic est perdu tant qu'un administrateur n'intervient pas (ou qu'une route flottante n'existe pas).")
+      : proto === 'rip' ? (ch ? `RIP compte les sauts : ${ch.n} = ${hops(ch)} saut${hops(ch) > 1 ? 's' : ''}. ${ch === P[0] ? "Il choisit le lien à 10 Mbit/s, 100 fois plus lent que la fibre !" : "Le lien direct étant coupé, RIP a convergé vers la fibre."}` : 'Plus aucun chemin : réseau inaccessible.')
+      : (ch ? `OSPF additionne les coûts (référence 10 Gbit/s) : ${P.map(p => p.n.split(' (')[0] + ' = ' + (up(p) ? pc(p) : '∞')).join(' ; ')}. Il choisit le plus petit coût.` : 'Plus aucun chemin : réseau inaccessible.');
+    el.innerHTML = `<div class="sim"><div class="field"><label>Type de routage sur R1</label><div class="seg"><button data-s="p" data-v="static" aria-pressed="${proto === 'static'}">Route statique</button><button data-s="p" data-v="rip" aria-pressed="${proto === 'rip'}">RIP (sauts)</button><button data-s="p" data-v="ospf" aria-pressed="${proto === 'ospf'}">OSPF (coût)</button></div></div>
+      <svg viewBox="0 0 600 230" class="map">${ln('a', 120, 60, 480, 60)}${ln('b', 80, 60, 180, 180)}${ln('c', 180, 180, 420, 180)}${ln('d', 420, 180, 520, 60)}
+      <g class="n"><rect x="40" y="42" width="80" height="36" rx="6"/><text x="80" y="65" text-anchor="middle">R1</text><rect x="480" y="42" width="80" height="36" rx="6"/><text x="520" y="65" text-anchor="middle">R4</text><rect x="140" y="162" width="80" height="36" rx="6"/><text x="180" y="185" text-anchor="middle">R2</text><rect x="380" y="162" width="80" height="36" rx="6"/><text x="420" y="185" text-anchor="middle">R3</text></g>
+      <text x="80" y="30" text-anchor="middle" class="sub">LAN source</text><text x="520" y="30" text-anchor="middle" class="sub">LAN destination</text></svg>
+      <div class="field"><label>Couper / rétablir un lien</label><div class="seg">${Object.keys(LK).map(k => `<button data-s="l" data-k="${k}" aria-pressed="${!!down[k]}">${down[k] ? '✂ ' : ''}${LK[k][3]}</button>`).join('')}</div></div>
+      <div class="scroll"><table><thead><tr><th>Chemin</th><th>Sauts (RIP)</th><th>Coût (OSPF)</th><th>État</th></tr></thead><tbody>${P.map(p => `<tr class="${ch === p ? 'rt-best' : ''}"><td>${p.n}</td><td>${hops(p)}</td><td>${pc(p)}</td><td>${up(p) ? (ch === p ? '✔ utilisé' : 'disponible') : '✂ coupé'}</td></tr>`).join('')}</tbody></table></div>
+      <div class="fb ${ch ? 'ok' : 'bad'}"><b>${ch ? 'Chemin choisi : ' + ch.n : 'Destination inaccessible'}</b><p>${msg}</p></div></div>`;
+  }
+  el.addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; if (b.dataset.s === 'p') proto = b.dataset.v; else down[b.dataset.k] = !down[b.dataset.k]; draw(); });
+  draw();
+}
+
+const SIMS = { lookup: simLookup, static: simStatic, dyn: simDyn, order: simOrder, risk: simRisk, phish: simPhish, pwd: simPwd, hash: simHash, harden: simHarden, acl: simAcl, wifi: simWifi, backup: simBackup, query: simQuery, craap: simCraap, redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
 
 /* ---------- Application ---------- */
 
@@ -4225,7 +4494,25 @@ const CHAPQ = {
 ]
 };
 
-const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique", "La sécurité informatique"];
+CHAPQ[9] = [
+  { q: "Quel équipement choisit le chemin d'un paquet entre deux réseaux IP ?", o: ["Le routeur", "Le switch de niveau 2", "Le hub", "Le point d'accès"], e: "Il consulte sa table de routage pour chaque paquet." },
+  { q: "Table de R1 : 10.0.0.0/8, 10.1.0.0/16 et 10.1.5.0/24. Quelle route est utilisée pour 10.1.5.9 ?", o: ["10.1.5.0/24", "10.0.0.0/8", "10.1.0.0/16", "La route par défaut"], e: "Plus long préfixe : la route la plus précise l'emporte." },
+  { q: "Même table : quelle route est utilisée pour 10.1.200.1 ?", o: ["10.1.0.0/16", "10.1.5.0/24", "10.0.0.0/8", "Aucune"], e: "10.1.200.1 n'est pas dans 10.1.5.0/24, mais il est dans 10.1.0.0/16, plus précise que /8." },
+  { q: "Que représente 0.0.0.0/0 dans une table de routage ?", o: ["La route par défaut", "Une route invalide", "Le réseau local", "L'adresse de diffusion"], e: "Elle correspond à toute destination sans route plus précise." },
+  { q: "Quelle source de route a la distance administrative la plus faible ?", o: ["Réseau directement connecté (0)", "Statique (1)", "OSPF (110)", "RIP (120)"], e: "Plus l'AD est basse, plus la route est jugée fiable." },
+  { q: "Quelle commande crée une route statique par défaut vers 203.0.113.1 ?", o: ["ip route 0.0.0.0 0.0.0.0 203.0.113.1", "ip default 203.0.113.1", "ip route 203.0.113.1 0.0.0.0", "route default 203.0.113.1"], e: "Réseau 0.0.0.0, masque 0.0.0.0, puis le next-hop." },
+  { q: "PC1 → PC3 échoue. R1 a une route vers le LAN de PC3, R3 n'a aucune route vers le LAN de PC1. Que se passe-t-il ?", o: ["La requête arrive mais la réponse ne revient pas", "La requête n'atteint jamais R3", "Le ping réussit", "R1 diffuse le paquet"], e: "Il faut toujours une route aller ET une route retour." },
+  { q: "Une route statique a la distance administrative 200, une route OSPF existe vers le même réseau. Laquelle est utilisée ?", o: ["La route OSPF (110)", "La route statique (200)", "Les deux à tour de rôle", "Aucune"], e: "C'est le principe de la route statique flottante : elle ne sert que si OSPF perd la route." },
+  { q: "Quel est l'avantage principal du routage dynamique ?", o: ["Il s'adapte automatiquement aux pannes et aux changements", "Il ne consomme aucune ressource", "Il est plus simple qu'une route statique dans un petit réseau", "Il remplace l'adressage IP"], e: "Les routeurs recalculent leurs chemins sans intervention." },
+  { q: "RIP choisit un chemin selon…", o: ["Le plus petit nombre de sauts", "La plus grande bande passante", "Le plus petit délai", "L'adresse IP la plus basse"], e: "Maximum 15 sauts." },
+  { q: "OSPF choisit un chemin selon…", o: ["Le plus petit coût total, basé sur la bande passante", "Le plus petit nombre de sauts", "Le premier voisin découvert", "La plus grande adresse MAC"], e: "Coût = bande passante de référence ÷ débit du lien." },
+  { q: "Quel protocole est à état de liens ?", o: ["OSPF", "RIP", "BGP", "STP"], e: "Chaque routeur connaît la topologie complète de sa zone." },
+  { q: "Quelle commande annonce le réseau 10.0.12.0/30 dans OSPF zone 0 ?", o: ["network 10.0.12.0 0.0.0.3 area 0", "network 10.0.12.0 255.255.255.252 area 0", "ip route 10.0.12.0 0.0.0.3 ospf", "router ospf 10.0.12.0"], e: "OSPF utilise le wildcard : /30 → 0.0.0.3." },
+  { q: "Quelle commande vérifie les voisins OSPF ?", o: ["show ip ospf neighbor", "show ip route static", "show mac address-table", "show vlan brief"], e: "Un voisin en état FULL échange complètement ses informations." },
+  { q: "Dans la table de routage Cisco, que signifie le code « O » ?", o: ["Une route apprise par OSPF", "Une route obsolète", "Une route de sortie", "Une route originale"], e: "S = statique, R = RIP, D = EIGRP, C = connectée, L = locale." }
+];
+
+const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique", "La sécurité informatique", "Le routage statique et dynamique"];
 const CLEAD = [
   "Composants, catégories, topologies et tendances : le vocabulaire de base.",
   "Ethernet, adresses MAC, vitesse de commutation et Wi-Fi.",
@@ -4235,7 +4522,8 @@ const CLEAD = [
   "Segmenter un switch, trunks 802.1Q, configuration Cisco, routage inter-VLAN et dépannage.",
   "Pourquoi doubler les équipements, et les protocoles STP et VRRP qui évitent les boucles et les pannes de passerelle.",
   "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion, cadre légal et projet de veille.",
-  "Menaces, authentification, cryptographie, équipements, pare-feu et ACL, Wi-Fi, sauvegardes et réponse à incident."
+  "Menaces, authentification, cryptographie, équipements, pare-feu et ACL, Wi-Fi, sauvegardes et réponse à incident.",
+  "Table de routage et plus long préfixe, routes statiques et par défaut, RIP et OSPF, configuration d'OSPF à zone unique."
 ];
 
 /* ---------- Labs VLAN ---------- */
@@ -4302,8 +4590,8 @@ function labHTML() {
 const app = document.getElementById('app');
 /* ---------- Modules (menu du haut) ---------- */
 const MODULES = [
-  { id: 'm103', menu: "Conception d'un réseau", name: "Conception d'un réseau <em>informatique</em>", chaps: [0, 1, 2, 3, 4, 5, 6], labs: true,
-    lead: "Types de réseaux, réseaux locaux, adressage IP, modèles et protocoles, commutation, VLAN et redondance." },
+  { id: 'm103', menu: "Conception d'un réseau", name: "Conception d'un réseau <em>informatique</em>", chaps: [0, 1, 2, 3, 4, 5, 9, 6], labs: true,
+    lead: "Types de réseaux, réseaux locaux, adressage IP, modèles et protocoles, commutation, VLAN, routage statique et dynamique, redondance." },
   { id: 'veille', menu: 'Veille technologique', name: 'Veille <em>technologique</em>', chaps: [7], cours: 'veille.html',
     lead: "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion et cadre légal." },
   { id: 'secu', menu: 'Sécurité informatique', name: 'Sécurité <em>informatique</em>', chaps: [8], cours: 'securite.html', labs2: 'securite.html#tp',
