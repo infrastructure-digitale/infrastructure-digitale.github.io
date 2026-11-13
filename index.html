@@ -1,6 +1,6 @@
 <!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Réseaux Infrastructure Digitale</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=JetBrains+Mono:wght@500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Lora:ital,wght@0,600;0,700;1,600&display=swap">
 <style>
 /* Mise en page : une colonne de lecture, thèmes en lignes, onglets Cours / Simulation / Quiz, une simulation par thème */
 :root {
@@ -332,6 +332,152 @@ pre.code { margin: 0; padding: 12px 14px; background: #0F1B22; color: #D6E9EE; b
 .navlab { display: flex; flex-wrap: wrap; gap: 10px; }
 svg .link.blk { stroke: var(--d2); stroke-dasharray: 7 6; }
 svg .mk.ok circle { stroke: var(--ok); }
+
+/* ==========================================================
+   Thème élégant : bleu nuit, sarcelle et or (Lora + Inter)
+   ========================================================== */
+:root {
+  --bg: #F6F3EC; --surface: #FFFFFF; --ink: #1F2633; --muted: #5E6673; --line: #E3DED3;
+  --accent: #0F766E; --accent-ink: #FFFFFF; --accent-soft: #E6F4F1;
+  --d2: #B8913A; --d2-soft: #FBF4E4; --ok: #2F7D5B; --ok-soft: #E3F3EA; --bad: #A84A62; --bad-soft: #FBEEF1;
+  --navy: #1B2A4A; --navy2: #2C3E66; --gold: #B8913A; --gold-l: #D9BD7A; --sky: #2F6FA8; --sky-soft: #EAF2FA; --violet: #5B4B8A; --violet-soft: #F1EEF8;
+  --head: #1B2A4A; --shadow: 0 1px 2px rgba(27,42,74,.06), 0 6px 20px rgba(27,42,74,.06);
+  --f-display: "Lora", Georgia, "Times New Roman", serif;
+  --f-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1626; --surface: #17213A; --ink: #E8ECF4; --muted: #A3ADC2; --line: #2A3654;
+    --accent: #5FC4B4; --accent-ink: #0F1626; --accent-soft: #15343A;
+    --d2: #D9BD7A; --d2-soft: #3A3020; --ok: #6FD3A2; --ok-soft: #153A2B; --bad: #E8899C; --bad-soft: #3E1F28;
+    --navy: #0B1222; --navy2: #1B2A4A; --sky: #8DB8E8; --sky-soft: #1B2B44; --violet: #B9A8E8; --violet-soft: #2A2442;
+    --head: #F1E3BE; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1626; --surface: #17213A; --ink: #E8ECF4; --muted: #A3ADC2; --line: #2A3654;
+  --accent: #5FC4B4; --accent-ink: #0F1626; --accent-soft: #15343A;
+  --d2: #D9BD7A; --d2-soft: #3A3020; --ok: #6FD3A2; --ok-soft: #153A2B; --bad: #E8899C; --bad-soft: #3E1F28;
+  --navy: #0B1222; --navy2: #1B2A4A; --sky: #8DB8E8; --sky-soft: #1B2B44; --violet: #B9A8E8; --violet-soft: #2A2442;
+  --head: #F1E3BE; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+}
+body {
+  font: 16.5px/1.62 var(--f-body);
+  background: radial-gradient(1200px 500px at 85% -10%, rgba(184,145,58,.10), transparent 60%), var(--bg);
+  background-attachment: fixed;
+}
+#app { max-width: 780px; }
+#app:has(.hero) { max-width: 1100px; }
+h1, h2, h3 { color: var(--head); letter-spacing: -.005em; }
+.eyebrow { color: var(--gold); font-weight: 600; letter-spacing: .14em; }
+code { background: var(--d2-soft); color: var(--ink); }
+
+/* Boutons */
+.btn { background: linear-gradient(135deg, var(--accent), #0B5A54); border-radius: 999px; padding: 12px 24px; box-shadow: 0 4px 14px rgba(15,118,110,.25); transition: transform .15s, box-shadow .15s; }
+:root[data-theme="dark"] .btn:not(.alt):not(.gold) { background: var(--accent); }
+:root[data-theme="dark"] .hero .btn { background: linear-gradient(135deg, #C9A24E, #A57F2C); color: #fff; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(15,118,110,.3); }
+.btn.alt { background: var(--surface); border: 1.5px solid var(--line); box-shadow: none; }
+.btn.alt:hover { border-color: var(--gold); }
+.btn.gold { background: linear-gradient(135deg, #C9A24E, #A57F2C); color: #fff; box-shadow: 0 4px 14px rgba(184,145,58,.3); }
+.ghost { color: var(--accent); }
+
+/* Accueil : bandeau */
+.hero {
+  position: relative; overflow: hidden; border-radius: 22px; padding: clamp(26px, 5vw, 48px);
+  background: linear-gradient(150deg, #16223D 0%, #1B2A4A 50%, #0F4F5C 100%); color: #fff; box-shadow: var(--shadow); gap: 16px;
+}
+.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; border: 1.5px solid rgba(217,189,122,.30); pointer-events: none; }
+.hero::before { width: 380px; height: 380px; right: -120px; top: -140px; }
+.hero::after { width: 240px; height: 240px; right: -50px; top: -70px; }
+.hero .eyebrow { color: var(--gold-l); }
+.hero h1 { color: #fff; font-size: clamp(2.1rem, 7vw, 3.4rem); font-weight: 700; }
+.hero h1 em { color: var(--gold-l); font-style: italic; }
+.hero p.lead { color: #C9D4E5; font-size: 1.05rem; }
+.hero .btn { background: linear-gradient(135deg, #C9A24E, #A57F2C); color: #fff; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+.hero .stats { color: #9FB2CC; }
+.hero .bar-g { width: 56px; height: 3px; background: var(--gold-l); border-radius: 2px; }
+
+/* Thèmes et leçons */
+.chap { padding-top: 26px; gap: 16px; }
+.chead { flex-direction: row; align-items: flex-start; gap: 14px; }
+.cnum { flex: none; font: 700 1.9rem/1 var(--f-display); color: var(--gold); min-width: 2.4rem; padding-top: 2px; }
+.chap h2 { font-size: clamp(1.35rem, 4.6vw, 1.8rem); }
+.chead .muted { margin-top: 4px; }
+.list { border-top: 0; gap: 10px; }
+.row {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  box-shadow: var(--shadow); transition: transform .15s, border-color .15s;
+}
+.row:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--gold); }
+.row .n { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--navy); color: var(--gold-l); font-weight: 600; }
+.row strong { font-family: var(--f-display); color: var(--head); }
+.row:hover strong { color: var(--accent); }
+@media (min-width: 880px) {
+  #app:has(.hero) .list { display: grid; grid-template-columns: 1fr 1fr; }
+}
+.chip { background: var(--d2-soft); }
+.cq { padding-top: 4px; }
+
+/* Fiche de leçon */
+.fiche h2 { font-size: clamp(1.7rem, 5.6vw, 2.3rem); }
+.tabs { border-radius: 999px; padding: 4px; gap: 4px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.tab { border: 0 !important; border-radius: 999px; min-height: 42px; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--navy); color: #fff; }
+:root[data-theme="dark"] .tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+.block h3 { color: var(--gold); font-weight: 600; letter-spacing: .14em; display: flex; align-items: center; gap: 10px; }
+.block h3::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.def { font-family: var(--f-display); font-size: 1.14rem; line-height: 1.6; background: var(--sky-soft); border-left: 4px solid var(--sky); padding: 14px 18px; border-radius: 0 12px 12px 0; }
+.sim .def, .fb .def, .score + .def { background: none; border: 0; padding: 0; font-family: var(--f-body); }
+.pts li::marker { color: var(--gold); }
+.tip, .reseau, .piege { border-radius: 0 12px 12px 0; padding: 14px 18px; border-left: 5px solid; }
+.tip { background: var(--accent-soft); border-color: var(--accent); }
+.tip b { color: var(--accent); }
+.reseau { background: var(--violet-soft); border: 0; border-left: 5px solid var(--violet); }
+.reseau b { color: var(--violet); }
+.piege { background: var(--bad-soft); border-color: var(--bad); }
+.piege b { color: var(--bad); }
+.tip b::before { content: "✓  "; } .reseau b::before { content: "◆  "; } .piege b::before { content: "!  "; }
+.kws span { border: 0; font-weight: 600; font-size: .88rem; padding: 4px 12px; }
+.kws span:nth-child(5n+1) { background: var(--sky-soft); color: var(--sky); }
+.kws span:nth-child(5n+2) { background: var(--accent-soft); color: var(--accent); }
+.kws span:nth-child(5n+3) { background: var(--d2-soft); color: var(--d2); }
+.kws span:nth-child(5n+4) { background: var(--bad-soft); color: var(--bad); }
+.kws span:nth-child(5n+5) { background: var(--violet-soft); color: var(--violet); }
+.scroll { border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+.scroll table th { background: var(--navy); color: #fff; letter-spacing: .08em; }
+.scroll table tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--bg) 55%, var(--surface)); }
+td:first-child { color: var(--head); }
+.pdfbox { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-radius: 14px; background: linear-gradient(135deg, var(--d2-soft), var(--surface)); border: 1px solid var(--line); }
+.pdfbox p { font-size: .95rem; }
+.pdfbox strong { font-family: var(--f-display); color: var(--head); display: block; font-size: 1.05rem; }
+
+/* Simulations et quiz */
+.sim { border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 18px; }
+.opt { border: 1px solid var(--line); border-radius: 12px; transition: border-color .15s, transform .15s; }
+.opt:hover:not(:disabled) { border-color: var(--gold); transform: translateX(2px); }
+.opt .l { display: inline-flex; width: 1.7rem; height: 1.7rem; border-radius: 50%; align-items: center; justify-content: center; background: var(--d2-soft); color: var(--d2); font-weight: 600; line-height: 1; }
+.fb { border-radius: 12px; border-width: 1px; border-left-width: 5px; }
+.bar { height: 7px; } .bar i { background: linear-gradient(90deg, var(--accent), var(--gold)); }
+.score { color: var(--head); }
+.seg button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+details { border: 1px solid var(--line); border-radius: 12px; }
+
+/* Petits écrans */
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .hero { border-radius: 18px; }
+  .hero::before { width: 260px; height: 260px; right: -110px; top: -110px; }
+  .hero::after { display: none; }
+  .cnum { font-size: 1.5rem; min-width: 1.9rem; }
+  .def { font-size: 1.04rem; padding: 12px 14px; }
+  .row { padding: 12px 14px; grid-template-columns: 2rem minmax(0, 1fr); }
+  .row .chip { grid-column: 2; justify-self: start; }
+  .tabs { border-radius: 14px; }
+  .tab { font-size: .92rem; padding: 8px 4px; }
+  .actions .btn, .actions a.btn { flex: 1 1 100%; }
+}
 </style>
 
 <main id="app"></main>
@@ -2635,6 +2781,377 @@ THEMES.push(
   ] }
 );
 
+/* ---------- Thème « La veille technologique » (leçons 30 à 38) ---------- */
+const VEILLE_PDF = 'docs/veille-technologique.pdf';
+THEMES.push(
+{ id: 30, ch: 7, pdf: VEILLE_PDF, t: "Introduction à la veille", short: "Définition, 4 types de veille, donnée / information / connaissance", sim: 'pick',
+  scen: [
+    { s: "Tu lis un article sur la nouvelle norme Wi-Fi 802.11be (Wi-Fi 7).", o: ["Veille concurrentielle", "Veille technologique", "Veille réglementaire", "Veille commerciale"], a: 1, e: "Une nouvelle norme technique relève de la veille technologique." },
+    { s: "Ton chef veut savoir à quel prix un intégrateur concurrent vend ses installations de caméras IP.", o: ["Veille technologique", "Veille réglementaire", "Veille concurrentielle", "Veille commerciale"], a: 2, e: "On observe ce que font les autres entreprises : c'est la veille concurrentielle." },
+    { s: "La CNDP publie une nouvelle délibération sur la vidéosurveillance.", o: ["Veille réglementaire", "Veille technologique", "Veille commerciale", "Veille concurrentielle"], a: 0, e: "Une règle à respecter (loi, délibération, norme obligatoire) relève de la veille réglementaire." },
+    { s: "Plusieurs clients demandent si l'entreprise peut installer du Wi-Fi dans les cafés.", o: ["Veille technologique", "Veille réglementaire", "Veille concurrentielle", "Veille commerciale"], a: 3, e: "On écoute les besoins des clients et du marché : c'est la veille commerciale." },
+    { s: "« 192.168.1.0/24 ». C'est…", o: ["Une connaissance", "Une information", "Une donnée", "Une décision"], a: 2, e: "Un fait brut, sans contexte, est une donnée." },
+    { s: "« La salle B est presque pleine (240 postes) : il faut passer en /23 avant la rentrée. » C'est…", o: ["Une donnée", "Une connaissance", "Une information", "Une rumeur"], a: 1, e: "L'information est analysée et mène à une décision : c'est une connaissance." }
+  ],
+  def: "La veille technologique est une activité continue et organisée qui consiste à rechercher, collecter, analyser et partager les informations sur les évolutions techniques d'un domaine, afin de prendre de meilleures décisions et d'anticiper les changements.",
+  pts: [
+    "Continue : ce n'est pas une recherche faite une seule fois, c'est une habitude quotidienne ou hebdomadaire.",
+    "Organisée : on suit une méthode (le cycle de veille), avec des sources et des outils choisis.",
+    "Partagée : une veille qui reste dans la tête d'une seule personne ne sert pas à l'équipe.",
+    "Donnée = fait brut (« 46 Gbit/s »). Information = donnée + contexte (« le Wi-Fi 7 atteint 46 Gbit/s en théorie »). Connaissance = information comprise et utilisable (« je conseille du Wi-Fi 7 pour la salle de réunion »).",
+    "Quatre types de veille : technologique, concurrentielle, réglementaire, commerciale. Ensemble, elles forment la veille stratégique (ou intelligence économique).",
+    "En réseaux, tout change vite : Wi-Fi 6 puis 7, IPv6, SDN, Zero Trust, IA. Sans veille, le technicien propose des solutions dépassées.",
+    "En cybersécurité, une faille publiée (une `CVE`) est souvent exploitée en quelques jours. Celui qui l'apprend en premier peut appliquer le correctif (patch) à temps."
+  ],
+  table: { h: ["Type de veille", "Question posée", "Exemple en réseaux"], r: [
+    ["Technologique", "Quelles technologies arrivent ?", "Le Wi-Fi 7 est-il prêt pour nos clients ?"],
+    ["Concurrentielle", "Que font les autres entreprises ?", "Un concurrent propose du SD-WAN moins cher"],
+    ["Réglementaire", "Quelles règles respecter ?", "Nouvelle obligation sur les données personnelles"],
+    ["Commerciale", "Que veulent les clients ?", "Les PME demandent du télétravail sécurisé"]
+  ] },
+  kw: ["Veille technologique", "Intelligence économique", "Donnée", "Information", "Connaissance", "CVE", "Patch", "Anticipation"],
+  ana: "Un radar d'aéroport tourne en permanence et prévient la tour de contrôle avant qu'il soit trop tard. La veille est ton radar personnel sur les nouveautés du métier. Moyen mnémotechnique des 4 types : « Ton Concurrent Respecte les Clients ».",
+  res: "Un fabricant de pare-feu publie une faille critique sur son VPN SSL. Le technicien qui suit les alertes du maCERT met à jour les deux pare-feu de l'entreprise le jour même, avant que les pirates ne l'exploitent.",
+  piege: "Confondre veille et simple recherche Google. Chercher une fois une réponse à un problème, ce n'est pas de la veille : la veille est régulière, organisée et partagée.",
+  simIntro: "Pour chaque situation, choisis la bonne réponse : type de veille ou niveau de l'information.",
+  q: [
+    { q: "La veille technologique est une activité…", o: ["Continue et organisée", "Ponctuelle, faite une fois par an", "Réservée aux chercheurs", "Uniquement commerciale"], e: "La veille est une habitude régulière, qui suit une méthode." },
+    { q: "Surveiller les lois et les normes obligatoires, c'est la veille…", o: ["Réglementaire", "Concurrentielle", "Commerciale", "Technologique"], e: "Lois, délibérations, normes obligatoires : veille réglementaire." },
+    { q: "Quelle est la différence entre une donnée et une information ?", o: ["L'information est une donnée avec un contexte", "Il n'y a aucune différence", "La donnée est plus utile que l'information", "L'information est toujours chiffrée"], e: "Donnée = fait brut. Information = donnée + contexte. Connaissance = information analysée et utilisable." },
+    { q: "Pourquoi la veille est-elle vitale en cybersécurité ?", o: ["Les failles publiées sont exploitées très vite", "Les équipements ne changent jamais", "Les pirates préviennent avant d'attaquer", "Les correctifs s'installent tout seuls"], e: "Une CVE critique peut être exploitée en quelques jours : il faut l'apprendre tôt pour corriger à temps." },
+    { q: "Les 4 types de veille réunis forment…", o: ["La veille stratégique (intelligence économique)", "Le cycle de veille", "La méthode CRAAP", "Le plan d'adressage"], e: "Technologique + concurrentielle + réglementaire + commerciale = veille stratégique." },
+    { q: "Quel est le dernier verbe de la définition de la veille ?", o: ["Partager", "Copier", "Oublier", "Stocker"], e: "Rechercher, collecter, analyser… et partager : une veille non diffusée ne sert pas à l'équipe." }
+  ] },
+
+{ id: 31, ch: 7, pdf: VEILLE_PDF, t: "Le cycle de la veille", short: "5 étapes, axes de surveillance, push et pull, routine", sim: 'pick',
+  scen: [
+    { s: "Tu décides de surveiller « la 5G privée en entreprise ». Quelle étape du cycle ?", o: ["Collecter", "Cibler", "Diffuser", "Exploiter"], a: 1, e: "Choisir le sujet et les mots-clés, c'est cibler (étape 1)." },
+    { s: "Tu t'abonnes à 4 blogs et tu crées une alerte Google.", o: ["Cibler", "Analyser", "Collecter", "Diffuser"], a: 2, e: "Mettre en place les sources et récupérer l'information : collecter (étape 2)." },
+    { s: "Tu supprimes les articles publicitaires et tu résumes les 3 meilleurs.", o: ["Analyser", "Collecter", "Exploiter", "Cibler"], a: 0, e: "Trier, vérifier et résumer : analyser (étape 3)." },
+    { s: "Tu envoies un résumé par e-mail à l'équipe.", o: ["Exploiter", "Analyser", "Cibler", "Diffuser"], a: 3, e: "Transmettre aux bonnes personnes : diffuser (étape 4)." },
+    { s: "Le chef décide d'acheter un équipement de test 5G grâce à ta veille.", o: ["Diffuser", "Exploiter", "Collecter", "Cibler"], a: 1, e: "Utiliser l'information pour décider ou agir : exploiter (étape 5)." },
+    { s: "Feedly t'affiche automatiquement les nouveaux articles de tes blogs préférés.", o: ["Push (veille passive)", "Pull (veille active)", "Plagiat", "Infobésité"], a: 0, e: "L'information vient à toi sans que tu la cherches : c'est du push." },
+    { s: "Tu tapes « configurer OSPF multi-area » dans Google.", o: ["Push", "Diffusion", "Pull (veille active)", "Exploitation"], a: 2, e: "Tu vas chercher l'information toi-même : c'est du pull." }
+  ],
+  def: "La veille suit un cycle de 5 étapes qui se répète : cibler, collecter, analyser, diffuser, exploiter. À la fin du cycle, on recommence en tenant compte de ce qu'on a appris.",
+  pts: [
+    "1. Cibler : définir le sujet, les mots-clés (français et anglais) et les objectifs.",
+    "2. Collecter : chercher l'information dans des sources choisies à l'avance.",
+    "3. Analyser : trier, vérifier, résumer, comparer.",
+    "4. Diffuser : transmettre aux bonnes personnes, au bon format.",
+    "5. Exploiter : utiliser l'information pour décider ou agir.",
+    "Un axe de surveillance est un sujet précis : « les failles critiques sur les équipements Cisco et Fortinet » plutôt que « la sécurité ». On en choisit 2 à 4.",
+    "Le plan de veille est un tableau : axe, mots-clés, sources, outil, fréquence.",
+    "Pull = je vais chercher (Google, forums). Push = l'information vient à moi (RSS, alertes, newsletters). Une bonne veille combine les deux.",
+    "15 à 20 minutes par jour à heure fixe suffisent. Attention à l'infobésité : trop de sources tuent la veille."
+  ],
+  table: { h: ["Étape", "Ce qu'on fait", "Exemple : veille Wi-Fi 7"], r: [
+    ["1. Cibler", "Sujet, mots-clés, objectifs", "« Wi-Fi 7 », « 802.11be », « MLO »"],
+    ["2. Collecter", "Chercher dans des sources choisies", "Wi-Fi Alliance, blogs Cisco et Aruba, alerte Google"],
+    ["3. Analyser", "Trier, vérifier, résumer", "Garder 5 articles fiables, comparer Wi-Fi 6 / 6E / 7"],
+    ["4. Diffuser", "Transmettre", "Newsletter d'une page à l'équipe"],
+    ["5. Exploiter", "Décider, agir", "Proposer des bornes Wi-Fi 7 dans un devis"]
+  ] },
+  kw: ["Cycle de veille", "CCADE", "Axe de surveillance", "Plan de veille", "Pull", "Push", "Routine", "Infobésité"],
+  ana: "Retiens C-C-A-D-E, qui se prononce « cascade » : Cibler, Collecter, Analyser, Diffuser, Exploiter. L'information tombe d'une étape à l'autre comme l'eau d'une cascade.",
+  res: "Pour sécuriser le télétravail de 40 employés, un technicien suit deux axes : « VPN et accès distant » (Feedly, une fois par semaine) et « failles des solutions VPN » (alertes maCERT, chaque jour, car la sécurité est urgente).",
+  piege: "Vouloir tout surveiller. 300 articles par jour, c'est zéro article lu. Mieux vaut 3 axes précis et 10 bonnes sources qu'une montagne d'abonnements.",
+  simIntro: "Identifie l'étape du cycle de veille ou le mode (push / pull) qui correspond à chaque situation.",
+  q: [
+    { q: "Quelle est la première étape du cycle de veille ?", o: ["Cibler", "Collecter", "Diffuser", "Exploiter"], e: "On définit d'abord quoi surveiller, sinon on collecte au hasard." },
+    { q: "Recevoir une alerte Google par e-mail, c'est du…", o: ["Push", "Pull", "Plagiat", "Ciblage"], e: "L'information arrive automatiquement : push." },
+    { q: "L'infobésité, c'est…", o: ["Une surcharge d'informations qu'on n'arrive plus à traiter", "Un virus informatique", "Un outil de veille", "Une méthode d'analyse"], e: "Remède : réduire ses sources aux meilleures et se désabonner sans regret." },
+    { q: "Lequel est un bon axe de surveillance ?", o: ["Les failles critiques sur les pare-feu Fortinet", "L'informatique", "La sécurité", "Internet"], e: "Un bon axe est précis : on sait quoi chercher et on peut créer des alertes ciblées." },
+    { q: "Que contient un plan de veille ?", o: ["Axes, mots-clés, sources, outils, fréquence", "Uniquement une liste de sites", "Le budget de l'entreprise", "Les mots de passe des outils"], e: "Le plan de veille est la feuille de route de la veille." },
+    { q: "Que signifie le moyen mnémotechnique CCADE ?", o: ["Cibler, Collecter, Analyser, Diffuser, Exploiter", "Copier, Coller, Archiver, Diffuser, Effacer", "Chercher, Classer, Acheter, Donner, Envoyer", "Cibler, Contrôler, Auditer, Décider, Évaluer"], e: "Les 5 étapes du cycle, dans l'ordre." },
+    { q: "Combien de temps par jour suffit pour une bonne veille organisée ?", o: ["15 à 20 minutes", "4 heures", "Aucune, une fois par an suffit", "Toute la journée"], e: "La régularité compte plus que la durée." }
+  ] },
+
+{ id: 32, ch: 7, pdf: VEILLE_PDF, t: "Les sources d'information", short: "Sources primaires et secondaires, 4 familles, sources de référence", sim: 'pick',
+  scen: [
+    { s: "La RFC 8200 qui décrit IPv6.", o: ["Source secondaire", "Source primaire", "Source sponsorisée", "Rumeur"], a: 1, e: "La RFC est le texte officiel de la norme : source primaire." },
+    { s: "Une vidéo YouTube qui explique IPv6 en 10 minutes.", o: ["Source primaire", "Source officielle", "Source secondaire", "Norme"], a: 2, e: "Elle reprend et explique une information venant d'ailleurs : source secondaire." },
+    { s: "Dans quelle famille ranger l'IEEE ?", o: ["Officielle et institutionnelle", "Constructeur", "Communauté", "Média"], a: 0, e: "L'IEEE publie les normes Ethernet (802.3) et Wi-Fi (802.11)." },
+    { s: "Dans quelle famille ranger Reddit r/networking ?", o: ["Officielle", "Constructeur", "Média", "Communauté"], a: 3, e: "Forums et réseaux d'entraide sont des sources communautaires : retours concrets, qualité variable." },
+    { s: "Un blog annonce qu'un switch est « 3 fois plus rapide que tous les autres », avec un bouton « Acheter maintenant ». Que fais-tu d'abord ?", o: ["Je le partage tout de suite", "Je cherche la fiche officielle et des tests indépendants", "Je l'achète", "Je le copie dans ma newsletter"], a: 1, e: "Le but est de vendre : on remonte à la source primaire et on croise avec des sources neutres." },
+    { s: "Où trouver les alertes officielles de cybersécurité au Maroc ?", o: ["maCERT (DGSSI)", "Un forum anonyme", "Une publicité", "Le blog d'un vendeur"], a: 0, e: "Le maCERT, rattaché à la DGSSI, publie les alertes et recommandations nationales." }
+  ],
+  def: "Une source primaire est l'origine de l'information (la norme, l'annonce du constructeur, le bulletin de sécurité). Une source secondaire reprend et explique une information venant d'ailleurs (article de presse, vidéo, résumé de blog).",
+  pts: [
+    "Plus on s'éloigne de la source primaire, plus le risque d'erreur augmente. Il faut toujours essayer d'y remonter.",
+    "Famille 1, officielles : IETF (les `RFC`), IEEE (normes 802.x), maCERT / DGSSI, CERT-FR / ANSSI, NVD et CVE, ANRT, CNDP.",
+    "Famille 2, constructeurs : Cisco, Juniper, Huawei, Aruba, Fortinet, Palo Alto, Microsoft. Très précis, mais pas neutres : ils veulent vendre.",
+    "Famille 3, communautés : Cisco Community, Reddit (r/networking, r/ccna), Stack Exchange, GitHub. Retours d'expérience réels, qualité variable.",
+    "Famille 4, médias : LeMagIT, ZDNet, 01net, newsletters, podcasts, YouTube, salons (GITEX Africa).",
+    "Environ 80 % de l'information technique de qualité paraît d'abord en anglais. Un traducteur (DeepL) aide au début ; le vocabulaire vient avec le temps : release, patch, vulnerability, deprecated, end-of-life.",
+    "Pour un avis neutre, croiser au moins 2 sources de familles différentes."
+  ],
+  table: { h: ["Famille", "Points forts", "Points faibles", "Fiabilité"], r: [
+    ["Officielles", "Source primaire, exacte, gratuite", "Technique, souvent en anglais", "★★★★★"],
+    ["Constructeurs", "Très précis sur leurs produits", "Pas neutre : objectif commercial", "★★★★☆"],
+    ["Communautés", "Retours d'expérience concrets", "Erreurs possibles", "★★★☆☆"],
+    ["Médias", "Faciles à lire, actualité", "Source secondaire, parfois sponsorisée", "★★★☆☆"]
+  ] },
+  kw: ["Source primaire", "Source secondaire", "RFC", "IETF", "IEEE", "maCERT", "CERT-FR", "CVE", "CVSS", "Croisement"],
+  ana: "Une rumeur qui passe d'un stagiaire à l'autre : le formateur qui annonce la date de l'examen est la source primaire ; le stagiaire qui la répète au café est une source secondaire… et la date a parfois changé en route.",
+  res: "Avant de recommander un pare-feu, un technicien lit la fiche technique du constructeur (primaire), un test d'un média indépendant (secondaire) et des retours sur un forum professionnel (communauté).",
+  piege: "Faire confiance à une seule source, surtout si c'est le vendeur. Un constructeur dira toujours que son produit est le meilleur.",
+  simIntro: "Classe chaque source et choisis la bonne réaction face à une information.",
+  q: [
+    { q: "Une RFC est publiée par…", o: ["L'IETF", "Cisco", "Reddit", "L'ANRT"], e: "L'IETF publie les RFC, les standards techniques d'Internet (IP, TCP, OSPF, BGP…)." },
+    { q: "Une source primaire est…", o: ["L'origine de l'information", "La source la plus lue", "Toujours un forum", "Toujours en français"], e: "C'est celui qui a créé l'information : la norme, l'annonce officielle, le bulletin." },
+    { q: "Le maCERT est…", o: ["Le centre marocain de veille et d'alerte en cybersécurité", "Un constructeur de routeurs", "Un antivirus", "Un réseau social"], e: "Rattaché à la DGSSI, il publie les alertes de sécurité." },
+    { q: "Quel est le principal défaut des sources constructeurs ?", o: ["Elles ne sont pas neutres", "Elles sont toujours fausses", "Elles sont payantes", "Elles n'existent qu'en papier"], e: "Elles sont précises, mais leur objectif est aussi de vendre." },
+    { q: "Que trouve-t-on dans la base NVD / CVE ?", o: ["La liste des failles avec leur score de gravité", "Les prix des équipements", "Les offres d'emploi", "Les cours de CCNA"], e: "Chaque faille a un identifiant CVE et un score CVSS de 0 à 10." },
+    { q: "Pour un avis neutre sur un produit, il faut…", o: ["Croiser des sources de familles différentes", "Lire uniquement le site du vendeur", "Demander au vendeur", "Choisir l'article le plus récent"], e: "Constructeur + média indépendant + retour communautaire donnent une vision équilibrée." }
+  ] },
+
+{ id: 33, ch: 7, pdf: VEILLE_PDF, t: "Les outils de veille", short: "RSS, alertes, opérateurs de recherche, réseaux sociaux, IA", sim: 'pick',
+  scen: [
+    { s: "Tu veux lire chaque matin les nouveaux articles de 15 blogs, au même endroit.", o: ["Un agrégateur RSS (Feedly, Inoreader)", "Google Alerts", "Zotero", "Un assistant IA"], a: 0, e: "L'agrégateur centralise les flux RSS de tous tes sites." },
+    { s: "Tu veux être prévenu dès qu'on parle de « IPv6 Maroc » sur le web.", o: ["Un agrégateur RSS", "Une alerte (Google Alerts, Talkwalker)", "Notion", "Un forum"], a: 1, e: "L'alerte envoie un e-mail quand le mot-clé apparaît." },
+    { s: "Tu veux savoir quand une nouvelle version d'OpenDaylight sort.", o: ["Google Alerts", "Un podcast", "GitHub : Watch / Releases du projet", "LinkedIn"], a: 2, e: "GitHub notifie les nouvelles versions des projets suivis." },
+    { s: "Quelle requête donne des PDF sur la configuration d'OSPF ?", o: ["OSPF -pdf", "site:OSPF pdf", "\"OSPF\" OR pdf", "configuration OSPF filetype:pdf"], a: 3, e: "filetype: limite les résultats à un type de fichier." },
+    { s: "Quelle requête cherche « mot de passe » uniquement sur le site de l'ANSSI ?", o: ["\"mot de passe\" site:ssi.gouv.fr", "mot de passe filetype:ssi.gouv.fr", "intitle:ssi.gouv.fr", "-ssi.gouv.fr mot de passe"], a: 0, e: "site: limite la recherche à un seul site web." },
+    { s: "Tu veux gagner du temps en collant la configuration du routeur d'un client dans une IA publique.", o: ["Bonne idée, c'est rapide", "Interdit : ce sont des données confidentielles", "Possible si on enlève les espaces", "Obligatoire pour la veille"], a: 1, e: "Jamais de configurations, mots de passe, plans IP ou données personnelles dans une IA publique." }
+  ],
+  def: "Un flux RSS (Really Simple Syndication) est un fichier mis à jour automatiquement par un site, qui liste ses derniers articles. Un agrégateur (Feedly, Inoreader) récupère les flux de plusieurs sites et les affiche au même endroit.",
+  pts: [
+    "Pour trouver un flux RSS : chercher le logo orange RSS, ou ajouter `/feed` ou `/rss` à l'adresse du site.",
+    "Alertes : Google Alerts et Talkwalker Alerts (gratuits) envoient un e-mail quand un mot-clé apparaît. Choisir « une fois par jour maximum » et « seulement les meilleurs résultats ».",
+    "Opérateurs de recherche : `\" \"` expression exacte, `-` exclure, `OR` l'un ou l'autre, `site:` un seul site, `filetype:` type de fichier, `intitle:` dans le titre, `after:` après une date.",
+    "On combine les opérateurs : `\"zero trust\" filetype:pdf site:ssi.gouv.fr` donne uniquement des guides PDF officiels de l'ANSSI.",
+    "Réseaux sociaux : LinkedIn (experts, constructeurs, #networking), YouTube (labs, CCNA), podcasts dans les transports.",
+    "IA (Claude, ChatGPT, Perplexity…) : utile pour résumer, traduire, expliquer ou proposer des mots-clés. Risque : elle peut inventer des sources (hallucinations).",
+    "Règle d'or avec l'IA : ne jamais y coller de données confidentielles et toujours vérifier ce qu'elle affirme."
+  ],
+  table: { h: ["Besoin", "Outil conseillé", "Mode"], r: [
+    ["Suivre plusieurs sites", "Feedly, Inoreader", "Push"],
+    ["Surveiller un mot-clé", "Google Alerts, Talkwalker Alerts", "Push"],
+    ["Trouver une info précise", "Google + opérateurs, Google Scholar", "Pull"],
+    ["Suivre des experts", "LinkedIn, YouTube", "Push"],
+    ["Résumer, traduire", "Assistant IA, DeepL", "Pull"],
+    ["Suivre un logiciel", "GitHub (Watch / Releases)", "Push"]
+  ] },
+  kw: ["Flux RSS", "Agrégateur", "Feedly", "Google Alerts", "Opérateurs", "site:", "filetype:", "IA", "Hallucination"],
+  ana: "Sans RSS, tu passes chaque jour dans 20 boulangeries pour voir s'il y a du pain frais. Avec RSS, les 20 boulangeries livrent leur pain dans ta boîte aux lettres. Les opérateurs de recherche, eux, fonctionnent comme une ACL : on ne laisse passer que ce qui nous intéresse.",
+  res: "Une technicienne range ses flux Feedly en trois dossiers (Constructeurs, Sécurité, Wi-Fi) et lit les titres chaque matin avec son café. En 15 minutes, elle sait ce qui a changé dans son domaine.",
+  piege: "Croire l'IA sur parole. Elle peut citer un article ou une RFC qui n'existe pas. On vérifie toujours dans une source fiable.",
+  simIntro: "Choisis le bon outil ou la bonne requête pour chaque besoin de veille.",
+  q: [
+    { q: "Feedly est…", o: ["Un agrégateur de flux RSS", "Un pare-feu", "Un moteur de recherche", "Un antivirus"], e: "Il rassemble les flux RSS de plusieurs sites au même endroit." },
+    { q: "Quel opérateur limite la recherche à un seul site ?", o: ["site:", "filetype:", "intitle:", "after:"], e: "Exemple : VLAN site:cisco.com" },
+    { q: "Que fait « -prix » dans une recherche Google ?", o: ["Il exclut les pages contenant le mot « prix »", "Il trie par prix", "Il cherche les promotions", "Il cherche le mot « prix » exact"], e: "Le signe moins exclut un mot des résultats." },
+    { q: "Qu'est-ce qu'une hallucination d'IA ?", o: ["Une réponse inventée qui semble vraie", "Une panne du serveur", "Un virus", "Une mise à jour"], e: "L'IA peut inventer des sources ou des chiffres : il faut vérifier." },
+    { q: "Comment trouver souvent le flux RSS d'un site WordPress ?", o: ["Ajouter /feed à l'adresse", "Ajouter /admin à l'adresse", "Appeler le site", "Il n'existe jamais"], e: "Exemple : monsite.com/feed" },
+    { q: "Que ne faut-il jamais coller dans une IA publique ?", o: ["Les configurations et données confidentielles d'un client", "Un article public à résumer", "Un mot technique à expliquer", "Une phrase à traduire"], e: "Mots de passe, plans d'adressage, configurations et données personnelles restent dans l'entreprise." },
+    { q: "Quel outil prévient par e-mail quand un mot-clé apparaît en ligne ?", o: ["Google Alerts", "Zotero", "Packet Tracer", "OneNote"], e: "C'est le principe d'une alerte (mode push)." }
+  ] },
+
+{ id: 34, ch: 7, pdf: VEILLE_PDF, t: "Évaluer la fiabilité d'une source", short: "Méthode CRAAP, QQOQCP, fake news, cycle de la hype", sim: 'pick',
+  scen: [
+    { s: "« LE ROUTEUR ZX-9000 REND LES PIRATES IMPUISSANTS !!! » — pas d'auteur, pas de date, code promo -30 %, aucune source. Verdict ?", o: ["Source fiable", "Source douteuse : à écarter", "Source officielle", "Source primaire"], a: 1, e: "Note CRAAP d'environ 1/10 : pas de date, pas d'auteur, aucune preuve, but commercial." },
+    { s: "Dans CRAAP, quel critère vérifie la date de publication ?", o: ["Authority", "Purpose", "Currency (actualité)", "Accuracy"], a: 2, e: "Currency = actualité : date et mises à jour." },
+    { s: "Un guide de l'ANSSI publié l'an dernier, sourcé, sur ton sujet. Note CRAAP probable ?", o: ["0 à 4 / 10", "5 à 7 / 10", "Impossible à noter", "8 à 10 / 10"], a: 3, e: "Récent, pertinent, auteur officiel, sourcé, neutre : source fiable." },
+    { s: "« Toutes les entreprises vont passer au métavers d'ici 2 ans ! » (des centaines d'articles)", o: ["Pic des attentes exagérées", "Plateau de productivité", "Gouffre des désillusions", "Déclencheur"], a: 0, e: "Tout le monde en parle et promet que tout va changer : c'est le pic de la hype." },
+    { s: "« Les projets pilotes coûtent trop cher, beaucoup d'entreprises abandonnent. »", o: ["Pente de l'éclaircissement", "Gouffre des désillusions", "Pic des attentes", "Plateau"], a: 1, e: "Après l'emballement vient la déception : le gouffre." },
+    { s: "Une info importante n'apparaît que sur un seul site inconnu. Que fais-tu ?", o: ["Je la partage vite", "Je cherche 3 sources indépendantes avant de la croire", "Je la copie", "Je l'ignore toujours"], a: 1, e: "Règle des 3 sources, dont si possible une source primaire." }
+  ],
+  def: "La méthode CRAAP évalue un document selon 5 critères : Currency (actualité), Relevance (pertinence), Authority (autorité), Accuracy (exactitude) et Purpose (objectif). On note chaque critère de 0 à 2, pour un total sur 10.",
+  pts: [
+    "Actualité : date de publication, mise à jour, versions citées récentes.",
+    "Pertinence : répond-il à mon axe de veille, à mon niveau ?",
+    "Autorité : auteur identifié, site reconnu, contact disponible.",
+    "Exactitude : sources citées, chiffres vérifiables, pas de fautes.",
+    "Objectif : informer, vendre ou manipuler ? Ton neutre ou émotionnel ?",
+    "8 à 10 : fiable. 5 à 7 : à croiser. 0 à 4 : à écarter.",
+    "QQOQCP : Qui ? Quoi ? Où ? Quand ? Comment ? Pourquoi ? pour vérifier qu'une information est complète et comprise.",
+    "Signes d'une fake news : titre choc, majuscules et « !!! », pas d'auteur ni de date, aucune source, info introuvable ailleurs, joue sur la peur.",
+    "Signes d'un contenu sponsorisé : mention « partenaire », lien d'achat, code promo, un seul produit sans défaut, vocabulaire marketing.",
+    "Cycle de la hype (Gartner) : déclencheur, pic des attentes exagérées, gouffre des désillusions, pente de l'éclaircissement, plateau de productivité."
+  ],
+  table: { h: ["Critère CRAAP", "Question", "0 point", "2 points"], r: [
+    ["Actualité", "Est-ce récent ?", "Pas de date", "Moins de 2 ans"],
+    ["Pertinence", "Ça répond à mon besoin ?", "Hors sujet", "Parfaitement adapté"],
+    ["Autorité", "Qui écrit ?", "Anonyme", "Expert ou officiel"],
+    ["Exactitude", "Des preuves ?", "Aucune source", "Sourcé et vérifiable"],
+    ["Objectif", "Pourquoi c'est écrit ?", "Publicité déguisée", "Information neutre"]
+  ] },
+  kw: ["CRAAP", "QQOQCP", "Fiabilité", "Fake news", "Contenu sponsorisé", "Règle des 3 sources", "Cycle de la hype", "Gartner"],
+  ana: "Vérifier une source, c'est comme vérifier un billet de banque : on regarde plusieurs détails (filigrane, hologramme, toucher). Un seul détail suspect suffit pour se méfier.",
+  res: "Un message signale une faille critique dans le VPN de certains pare-feu. Le technicien applique le QQOQCP : qui publie (maCERT), quoi (exécution de code à distance), où (VPN SSL), quand (aujourd'hui), comment réagir (patch), pourquoi c'est grave (déjà exploitée).",
+  piege: "Confondre « tout le monde en parle » et « c'est prêt ». Au pic de la hype, beaucoup de technologies ne sont pas encore mûres pour les clients.",
+  simIntro: "Évalue chaque information : fiabilité, critère CRAAP ou phase du cycle de la hype.",
+  q: [
+    { q: "Dans CRAAP, le « P » (Purpose) vérifie…", o: ["L'objectif de l'auteur", "Le prix", "Le nombre de pages", "La police d'écriture"], e: "Informer, vendre ou manipuler : c'est l'objectif." },
+    { q: "Un article sans auteur, sans date et avec un code promo est…", o: ["Douteux", "Fiable", "Officiel", "Une source primaire"], e: "Il cumule les signaux d'alerte de CRAAP." },
+    { q: "La règle des 3 sources signifie…", o: ["Confirmer une info par 3 sources indépendantes", "Lire 3 articles par jour", "Avoir 3 outils de veille", "Publier 3 fois par semaine"], e: "Si l'info n'existe qu'à un seul endroit : méfiance." },
+    { q: "Après le pic des attentes exagérées vient…", o: ["Le gouffre des désillusions", "Le plateau de productivité", "Le déclencheur", "La pente de l'éclaircissement"], e: "L'emballement est suivi d'une phase de déception." },
+    { q: "Que signifie QQOQCP ?", o: ["Qui, Quoi, Où, Quand, Comment, Pourquoi", "Qualité, Quantité, Ordre, Coût, Prix", "Question, Quiz, Oral, Cours, Pratique", "Qui, Quoi, Outil, Coût, Plan"], e: "Une grille de questions pour analyser une information." },
+    { q: "Quel est un signe de contenu sponsorisé ?", o: ["Un lien d'achat avec code promo", "Une date de publication", "Un auteur identifié", "Des sources citées"], e: "L'objectif commercial est un signal d'alerte." },
+    { q: "Une note CRAAP de 6 / 10 signifie que la source…", o: ["Est à croiser avec une autre source", "Est parfaitement fiable", "Est à jeter immédiatement", "Est une source primaire"], e: "Entre 5 et 7 : moyenne, on vérifie ailleurs." }
+  ] },
+
+{ id: 35, ch: 7, pdf: VEILLE_PDF, t: "Traiter et organiser l'information", short: "Entonnoir, dossiers et tags, nommage, fiche de veille", sim: 'pick',
+  scen: [
+    { s: "Article : « Faille critique dans un switch Cisco, correctif disponible ». Quels tags ?", o: ["#faille #cisco #urgent", "#recette #voyage", "#wifi #musique", "Aucun tag"], a: 0, e: "Des tags courts et utiles pour retrouver l'article : sujet, marque, priorité." },
+    { s: "Comment nommer un guide IPv6 de l'ANSSI téléchargé le 4 novembre 2026 ?", o: ["document final v2 (1).pdf", "guide.pdf", "2026-11-04_Guide-IPv6_ANSSI.pdf", "ANSSI.pdf"], a: 2, e: "Convention AAAA-MM-JJ_Sujet_Source : les fichiers se rangent dans l'ordre chronologique." },
+    { s: "Tu as 100 articles cette semaine. Première étape du tri ?", o: ["Tout lire en entier", "Lire seulement les titres et jeter l'inutile", "Tout imprimer", "Tout transférer à l'équipe"], a: 1, e: "Lecture en 3 temps : titre, puis chapeau, puis article entier seulement s'il a passé les filtres." },
+    { s: "Un même article parle de Wi-Fi ET de sécurité. Comment le classer ?", o: ["Dans deux dossiers, en le copiant", "Le supprimer", "Le laisser dans les téléchargements", "Un dossier + plusieurs tags"], a: 3, e: "Un document va dans un seul dossier, mais peut porter plusieurs tags." },
+    { s: "Ta fiche de veille est un copier-coller de l'article. Correct ?", o: ["Non : il faut reformuler avec ses mots", "Oui, c'est plus rapide", "Oui, si l'article est long", "Oui, si on met des couleurs"], a: 0, e: "Reformuler prouve qu'on a compris, et respecte le droit d'auteur." },
+    { s: "Quel outil garde la source, l'auteur et la date, et génère des citations ?", o: ["Paint", "Zotero", "La corbeille", "Packet Tracer"], a: 1, e: "Zotero est un gestionnaire de références gratuit et open source." }
+  ],
+  def: "Traiter l'information, c'est la filtrer étape par étape comme dans un entonnoir : collecter, trier, vérifier, synthétiser. Le résultat est une fiche de veille d'une page, rangée pour être retrouvée facilement.",
+  pts: [
+    "Entonnoir : environ 100 articles collectés, 25 gardés après les titres, 10 après vérification CRAAP, 3 à 5 informations clés, 1 fiche.",
+    "Lecture en 3 temps : le titre (2 secondes), le chapeau et les intertitres (30 secondes), l'article entier seulement s'il a passé les deux filtres.",
+    "Dossiers : chaque document va dans un seul dossier (Veille / Wi-Fi, Veille / Sécurité / Failles…).",
+    "Tags : un même document peut avoir plusieurs étiquettes (#wifi #faille #urgent #cisco). C'est plus souple.",
+    "Nommage : `AAAA-MM-JJ_Sujet_Source.pdf`, par exemple `2026-11-10_Wifi7-MLO_BlogCisco.pdf`.",
+    "Outils : Notion (bases avec tags, partage), OneNote, Zotero (références et citations), Pearltrees, Raindrop.io.",
+    "Fiche de veille : titre, sources, note CRAAP, résumé reformulé (3 à 5 lignes), mots-clés, impact pour nous, action proposée."
+  ],
+  table: { h: ["Rubrique de la fiche", "Exemple : Wi-Fi 7"], r: [
+    ["Titre", "Le Wi-Fi 7 et la fonction MLO"],
+    ["Sources", "Wi-Fi Alliance, blog constructeur, LeMagIT"],
+    ["Fiabilité (CRAAP)", "9 / 10"],
+    ["Résumé", "La norme 802.11be utilise plusieurs bandes en même temps (MLO) : plus de débit, moins de latence"],
+    ["Impact", "Intéressant pour les salles de réunion et la visioconférence"],
+    ["Action", "Tester une borne Wi-Fi 7 au labo avant de la proposer"]
+  ] },
+  kw: ["Entonnoir", "Tri", "Synthèse", "Tags", "Arborescence", "Nommage", "Notion", "Zotero", "Fiche de veille", "Capitalisation"],
+  ana: "Ranger sa veille, c'est comme ranger une bibliothèque : les dossiers sont les étagères (un livre n'est que sur une étagère), les tags sont les étiquettes de couleur (un livre peut en avoir plusieurs).",
+  res: "Une équipe réseau partage une base Notion « Veille » : chaque fiche a des tags (#wifi, #faille, #urgent). Quand un client demande du Wi-Fi 7, il suffit de filtrer sur #wifi pour retrouver toutes les fiches en 10 secondes.",
+  piege: "Collecter sans jamais trier. 500 favoris jamais relus ne valent rien. Une information qu'on ne retrouve pas est une information perdue.",
+  simIntro: "Choisis la bonne façon de trier, classer, nommer ou résumer l'information.",
+  q: [
+    { q: "Un article peut avoir plusieurs…", o: ["Tags", "Dossiers à la fois", "Auteurs anonymes", "Dates de publication"], e: "Un seul dossier, mais autant de tags que nécessaire." },
+    { q: "Une fiche de veille doit…", o: ["Reformuler l'information avec ses propres mots", "Copier l'article", "Faire 10 pages", "Ne pas citer de sources"], e: "Une page maximum, reformulée, avec sources, impact et action." },
+    { q: "Pourquoi mettre la date au début du nom de fichier ?", o: ["Les fichiers se rangent dans l'ordre chronologique", "C'est obligatoire par la loi", "Le fichier est plus léger", "Pour cacher le sujet"], e: "Format AAAA-MM-JJ : le tri alphabétique devient un tri par date." },
+    { q: "Quel est l'ordre de l'entonnoir ?", o: ["Collecter, trier, vérifier, synthétiser", "Synthétiser, collecter, trier, vérifier", "Vérifier, collecter, synthétiser, trier", "Trier, synthétiser, collecter, vérifier"], e: "On part de beaucoup d'éléments bruts pour arriver à peu d'informations de grande valeur." },
+    { q: "Que doit contenir une fiche de veille ?", o: ["Sources, résumé, impact et action proposée", "Uniquement le lien de l'article", "L'article complet", "Le prix de l'article"], e: "Elle doit permettre de décider ou d'agir." },
+    { q: "Zotero sert surtout à…", o: ["Gérer les références et générer des citations", "Configurer un routeur", "Retoucher des photos", "Envoyer des alertes Google"], e: "Il enregistre auteur, titre, date et lien de chaque source." }
+  ] },
+
+{ id: 36, ch: 7, pdf: VEILLE_PDF, t: "Diffuser sa veille", short: "Adapter au public, newsletter, revue de presse, pitch oral", sim: 'pick',
+  scen: [
+    { s: "Une faille critique touche les routeurs de l'entreprise.", o: ["Revue de presse mensuelle", "Exposé oral le mois prochain", "Alerte flash immédiate", "Rien"], a: 2, e: "Urgence = message très court, envoyé tout de suite, avec l'action à faire." },
+    { s: "Le directeur doit choisir entre deux offres de pare-feu.", o: ["Note de synthèse d'une page", "Newsletter humoristique", "Post LinkedIn", "Alerte flash"], a: 0, e: "La direction veut coûts, risques, opportunités et une recommandation claire." },
+    { s: "Tu veux partager chaque semaine les nouveautés avec ton équipe.", o: ["Note de synthèse", "Newsletter hebdomadaire", "Alerte flash", "Revue de presse annuelle"], a: 1, e: "3 à 5 infos courtes avec liens et actions, lisibles en 2 minutes." },
+    { s: "Tu présentes le Wi-Fi 7 en réunion pendant 5 minutes. Par quoi commencer ?", o: ["La conclusion", "La liste des sources", "Les détails techniques", "Une accroche : une question ou un chiffre"], a: 3, e: "Pitch en 5 temps : accroche, contexte, explication, impact, conclusion." },
+    { s: "Ta newsletter fait 4 pages sans aucune action proposée.", o: ["Parfait", "Trop longue et pas concrète : règle des 3 C non respectée", "Il faut ajouter 2 pages", "Il faut enlever les sources"], a: 1, e: "Courte, Claire, Concrète : un titre = une idée, une source, une action." }
+  ],
+  def: "Diffuser, c'est transmettre la bonne information, à la bonne personne, au bon moment et au bon format. On adapte toujours le message au public : technicien, chef d'équipe ou direction.",
+  pts: [
+    "Technicien : détails techniques, commandes, configurations (fiche technique).",
+    "Chef d'équipe : impact sur le travail, délais, actions à mener (newsletter).",
+    "Direction : coûts, risques, opportunités, décision à prendre (note de synthèse).",
+    "Formats : newsletter (hebdomadaire), revue de presse (mensuelle), note de synthèse (ponctuelle), alerte flash (immédiate), exposé oral, espace partagé (Notion, Teams, wiki).",
+    "Règle des 3 C : Courte (2 minutes de lecture), Claire (un titre = une idée), Concrète (chaque info dit quoi faire). Toujours citer la source.",
+    "Pitch en 5 temps : 1. accroche, 2. contexte, 3. explication, 4. impact pour nous, 5. conclusion avec action proposée.",
+    "À l'oral : une idée par diapositive, environ 1 minute par diapo, chaque sigle expliqué la première fois, questions à la fin."
+  ],
+  table: { h: ["Format", "Fréquence", "Idéal pour"], r: [
+    ["Newsletter", "Hebdomadaire", "Informer toute l'équipe"],
+    ["Revue de presse", "Mensuelle", "Faire le point sur un sujet"],
+    ["Note de synthèse", "Ponctuelle", "Aider la direction à décider"],
+    ["Alerte flash", "Immédiate", "Faille critique, panne majeure"],
+    ["Exposé oral", "Ponctuelle", "Réunion, formation"],
+    ["Espace partagé", "Continue", "Base de connaissances de l'équipe"]
+  ] },
+  kw: ["Public cible", "Newsletter", "Revue de presse", "Note de synthèse", "Alerte flash", "Pitch en 5 temps", "Règle des 3 C"],
+  ana: "Un médecin n'explique pas un diagnostic de la même façon à un collègue, au patient et à la famille. Même information, trois messages différents : c'est pareil pour la veille.",
+  res: "Chaque lundi, l'équipe reçoit « La Veille Réseau » : une alerte sécurité avec l'action à faire avant vendredi, une nouveauté Wi-Fi, une nouvelle version d'OpenDaylight à tester et la commande Cisco de la semaine. Lecture : 2 minutes.",
+  piege: "Envoyer la même newsletter technique à la direction. Un directeur ne lira pas des commandes Cisco : il veut savoir combien ça coûte et quel risque on court.",
+  simIntro: "Choisis le format de diffusion adapté à chaque situation.",
+  q: [
+    { q: "Pour une faille critique, on diffuse…", o: ["Une alerte flash", "Une revue de presse mensuelle", "Un exposé dans un mois", "Rien du tout"], e: "Urgence : message court, immédiat, avec l'action à faire." },
+    { q: "Que signifie la règle des 3 C ?", o: ["Courte, Claire, Concrète", "Copier, Coller, Classer", "Chercher, Cibler, Collecter", "Coût, Calendrier, Client"], e: "Une newsletter lisible en 2 minutes, un titre par idée, une action par info." },
+    { q: "Que veut savoir la direction ?", o: ["Coûts, risques, opportunités et décision", "Les commandes Cisco exactes", "La liste de tous les articles lus", "Les tags utilisés"], e: "Format adapté : la note de synthèse d'une page." },
+    { q: "Quelle est la dernière étape du pitch en 5 temps ?", o: ["Conclusion avec une action proposée", "L'accroche", "Le contexte", "L'explication technique"], e: "Accroche, contexte, explication, impact, conclusion." },
+    { q: "Combien de temps compter par diapositive environ ?", o: ["1 minute", "10 secondes", "10 minutes", "30 minutes"], e: "Un exposé de 5 minutes tient en 5 diapositives environ." },
+    { q: "Que faut-il toujours indiquer pour chaque information diffusée ?", o: ["La source", "Le prix de l'abonnement", "Le nom de l'outil RSS", "L'heure de lecture"], e: "La source permet de vérifier et d'approfondir." }
+  ] },
+
+{ id: 37, ch: 7, pdf: VEILLE_PDF, t: "Éthique et cadre légal", short: "Droit d'auteur, données personnelles, loi 09-08, veille ou espionnage", sim: 'pick',
+  scen: [
+    { s: "Partager le lien d'un article de LeMagIT dans la newsletter.", o: ["Autorisé", "Interdit"], a: 0, e: "Partager un lien est toujours possible : on renvoie vers l'auteur." },
+    { s: "Copier un article entier d'un blog et le publier sous son nom sur LinkedIn.", o: ["Autorisé", "Interdit : c'est du plagiat"], a: 1, e: "Présenter le travail d'un autre comme le sien est interdit (droit d'auteur, loi 2-00)." },
+    { s: "Scanner le réseau Wi-Fi d'une entreprise voisine « pour tester sa sécurité ».", o: ["Autorisé si on ne casse rien", "Autorisé le week-end", "Interdit : accès sans autorisation (loi 07-03)", "Obligatoire pour la veille"], a: 2, e: "Sans autorisation écrite, c'est un délit puni par le Code pénal marocain." },
+    { s: "La plaquette commerciale d'un concurrent distribuée au GITEX.", o: ["Information noire", "Information grise", "Information blanche (légale)", "Information secrète"], a: 2, e: "Distribuée publiquement : information ouverte, donc blanche." },
+    { s: "Se faire passer pour un client afin d'obtenir le plan réseau d'un concurrent.", o: ["Information blanche", "Information grise", "Veille normale", "Information noire : espionnage illégal"], a: 3, e: "Fausse identité = ruse illégale. Ce n'est plus de la veille." },
+    { s: "Une conversation entendue entre deux ingénieurs d'un concurrent dans un salon.", o: ["Information grise", "Information blanche", "Information noire", "Donnée personnelle protégée"], a: 0, e: "Accessible mais discrète : zone grise, à utiliser avec prudence." }
+  ],
+  def: "La veille n'utilise que des informations ouvertes (publiques) et respecte la loi : droit d'auteur, protection des données personnelles et interdiction de l'accès frauduleux aux systèmes informatiques.",
+  pts: [
+    "Droit d'auteur : il protège articles, images, vidéos, logiciels. Au Maroc, c'est la loi n° 2-00 relative aux droits d'auteur et droits voisins.",
+    "Autorisé : citer une courte phrase entre guillemets avec la source, résumer avec ses mots, partager un lien, utiliser des images sous licence libre en respectant la licence.",
+    "Interdit : copier un article entier, plagier, diffuser un PDF payant ou une formation piratée, prendre n'importe quelle image trouvée sur Google.",
+    "Citer une source : auteur ou organisme, titre, site ou éditeur, date, lien.",
+    "Données personnelles : nom, e-mail, téléphone, adresse IP, photo… Au Maroc, loi 09-08 contrôlée par la CNDP. En Europe, le RGPD.",
+    "Information blanche (publique, légale), grise (accessible mais discrète), noire (obtenue par piratage, vol, fausse identité : illégale).",
+    "Au Maroc, la loi n° 07-03 (Code pénal) punit l'accès frauduleux aux systèmes informatiques, même « pour voir »."
+  ],
+  table: { h: ["", "Maroc", "Union européenne"], r: [
+    ["Données personnelles", "Loi 09-08 (2009)", "RGPD (2018)"],
+    ["Autorité de contrôle", "CNDP", "CNIL (France) et autorités nationales"],
+    ["Droit d'auteur", "Loi 2-00", "Directives européennes et lois nationales"],
+    ["Accès frauduleux", "Loi 07-03 (Code pénal)", "Lois pénales nationales"]
+  ] },
+  kw: ["Droit d'auteur", "Loi 2-00", "Plagiat", "Donnée personnelle", "Loi 09-08", "CNDP", "RGPD", "Information ouverte", "Espionnage", "Loi 07-03"],
+  ana: "Regarder la vitrine d'un magasin depuis la rue, c'est de la veille. Entrer par la porte de derrière pour lire les documents du gérant, c'est de l'espionnage. La vitrine est publique, l'arrière-boutique ne l'est pas.",
+  res: "Pour sa revue de presse, une technicienne résume chaque article en 3 lignes avec ses mots, met le lien vers l'original et cite l'auteur et la date. Elle respecte le droit d'auteur et son équipe peut tout vérifier.",
+  piege: "Penser que tout ce qui est accessible est permis. Un réseau Wi-Fi ouvert, un dossier partagé par erreur ou une fuite de données publiée sur un forum ne donnent aucun droit de les exploiter.",
+  simIntro: "Pour chaque action, décide si elle est autorisée et classe l'information (blanche, grise, noire).",
+  q: [
+    { q: "Au Maroc, les données personnelles sont protégées par…", o: ["La loi 09-08", "La loi 2-00", "Le RGPD uniquement", "Aucune loi"], e: "Loi 09-08, contrôlée par la CNDP. La loi 2-00 concerne le droit d'auteur." },
+    { q: "Se faire passer pour un client pour obtenir le plan réseau d'un concurrent, c'est…", o: ["De l'espionnage illégal", "De la veille normale", "De l'information blanche", "Une bonne pratique"], e: "Fausse identité = information noire, interdite." },
+    { q: "Lequel est autorisé ?", o: ["Citer une courte phrase entre guillemets avec la source", "Copier un article entier dans sa newsletter", "Diffuser un livre CCNA piraté", "Publier l'article d'un autre sous son nom"], e: "La courte citation sourcée est permise ; le reste viole le droit d'auteur." },
+    { q: "Une adresse IP peut être…", o: ["Une donnée personnelle", "Toujours anonyme", "Une œuvre protégée", "Une information noire"], e: "Elle peut permettre d'identifier une personne : c'est une donnée personnelle." },
+    { q: "Que punit la loi marocaine 07-03 ?", o: ["L'accès frauduleux aux systèmes informatiques", "Le partage de liens", "La lecture de blogs", "L'utilisation de Feedly"], e: "Tester un réseau sans autorisation écrite est un délit." },
+    { q: "Que contient une citation complète d'une source ?", o: ["Auteur, titre, site, date, lien", "Uniquement le lien", "Uniquement le titre", "Le prix de l'article"], e: "Ces éléments permettent de retrouver et de vérifier la source." }
+  ] },
+
+{ id: 38, ch: 7, pdf: VEILLE_PDF, t: "Le projet de veille", short: "Sujets, planning de 6 semaines, livrables, grille sur 20", sim: 'pick',
+  scen: [
+    { s: "Semaine 1 du projet. Que dois-tu rendre ?", o: ["Le plan de veille (sujet, axes, mots-clés, sources, outils, fréquence)", "La newsletter finale", "La soutenance", "Rien"], a: 0, e: "Tout commence par le ciblage : le plan de veille." },
+    { s: "Semaine 2. Que montres-tu au formateur ?", o: ["La soutenance", "Une capture de l'agrégateur RSS organisé et des alertes créées", "Les 4 fiches", "La note finale"], a: 1, e: "S2 : mise en place des outils, preuve par capture d'écran." },
+    { s: "Combien de fiches de veille faut-il produire entre S3 et S5 ?", o: ["1", "10", "4", "20"], a: 2, e: "4 fiches selon le modèle du cours, avec note CRAAP." },
+    { s: "Tu fais tout ton projet la nuit avant la soutenance. Que verra le jury ?", o: ["Rien du tout", "Un excellent suivi", "Des sources variées dans le temps", "Aucun suivi dans le temps : sources toutes de la même date"], a: 3, e: "20 minutes par jour pendant 6 semaines valent mieux que 10 heures la veille." },
+    { s: "Quel critère rapporte le plus de points dans la grille sur 20 ?", o: ["Les fiches de veille (5 points)", "L'éthique (1 point)", "La newsletter (3 points)", "Le plan de veille (3 points)"], a: 0, e: "Fiches 5, sources 4, oral 4, plan 3, newsletter 3, éthique 1." }
+  ],
+  def: "Le projet de veille met en œuvre tout le cycle sur un vrai sujet pendant 6 semaines : chaque stagiaire (ou binôme) devient le veilleur officiel d'un thème lié à l'infrastructure digitale et présente ses résultats à l'oral.",
+  pts: [
+    "Sujets au choix : sans fil (Wi-Fi 7, 6E, 5G privée, LoRaWAN), réseau (IPv6 au Maroc, SD-WAN, SDN / OpenDaylight, FTTH), sécurité (Zero Trust, SASE, ransomwares, failles des équipements), cloud (cloud souverain, virtualisation, data centers), IA et automatisation (AIOps, Ansible, Python), Green IT.",
+    "S1 : choix du sujet et plan de veille. S2 : mise en place des outils (RSS, alertes).",
+    "S2 à S5 : collecte et tri chaque semaine. S3 à S5 : rédaction des fiches de veille.",
+    "S5 : newsletter finale (règle des 3 C). S6 : soutenance (5 minutes + 3 minutes de questions, pitch en 5 temps).",
+    "Livrables : plan de veille, capture des outils, 4 fiches de veille, newsletter, soutenance.",
+    "Grille sur 20 : plan 3, qualité des sources 4, fiches 5, newsletter 3, oral 4, éthique 1.",
+    "Conseil : 20 minutes par jour. Le jury voit tout de suite une veille faite en une nuit."
+  ],
+  table: { h: ["Livrable", "Contenu", "Semaine"], r: [
+    ["Plan de veille", "Sujet, 2-3 axes, mots-clés FR/EN, sources, outils, fréquence", "S1"],
+    ["Capture des outils", "Agrégateur RSS organisé + alertes créées", "S2"],
+    ["4 fiches de veille", "Modèle du cours, avec note CRAAP", "S3 à S5"],
+    ["Newsletter finale", "1 page, règle des 3 C, sources citées", "S5"],
+    ["Soutenance", "5 min + 3 min de questions", "S6"]
+  ] },
+  kw: ["Projet", "Plan de veille", "Livrables", "Fiche de veille", "Newsletter", "Soutenance", "Grille d'évaluation"],
+  ana: "La veille, c'est comme le sport : une séance de 10 heures la veille du match ne remplace pas 20 minutes d'entraînement par jour pendant 6 semaines.",
+  res: "Un binôme choisit « IPv6 au Maroc ». Il suit l'ANRT, l'IETF et deux opérateurs, rédige 4 fiches (épuisement d'IPv4, double pile, adoption chez les opérateurs, sécurité IPv6) et termine par un lab Packet Tracer présenté à la soutenance.",
+  piege: "Choisir un sujet trop large (« la cybersécurité ») : impossible à couvrir en 6 semaines. Un sujet précis donne un dossier plus solide.",
+  simIntro: "Vérifie que tu connais l'organisation du projet de veille : planning, livrables et évaluation.",
+  q: [
+    { q: "Combien de semaines dure le projet de veille ?", o: ["6 semaines", "1 semaine", "1 an", "2 jours"], e: "De S1 (plan de veille) à S6 (soutenance)." },
+    { q: "Quel est le premier livrable ?", o: ["Le plan de veille", "La newsletter", "La soutenance", "Les fiches de veille"], e: "On commence toujours par cibler." },
+    { q: "Combien de temps dure la présentation orale ?", o: ["5 minutes + 3 minutes de questions", "1 heure", "30 secondes", "20 minutes sans questions"], e: "Format court : pitch en 5 temps." },
+    { q: "Combien de fiches de veille faut-il rendre ?", o: ["4", "1", "12", "Aucune"], e: "4 fiches entre la semaine 3 et la semaine 5." },
+    { q: "Pourquoi travailler un peu chaque jour plutôt qu'en une seule nuit ?", o: ["Pour montrer un vrai suivi dans le temps", "Parce que les outils ferment la nuit", "Pour avoir moins de sources", "Ce n'est pas utile"], e: "Une veille se construit dans la durée : le jury le voit aux dates des sources." },
+    { q: "Lequel est un sujet de projet assez précis ?", o: ["L'adoption d'IPv6 au Maroc", "L'informatique", "Internet", "La technologie"], e: "Un sujet précis permet de vraies fiches et une vraie analyse." }
+  ] }
+);
+
 /* ---------- Simulation : redondance et point unique de défaillance ---------- */
 function simRedund(el) {
   let arch = 'single', fault = 'none';
@@ -2871,7 +3388,7 @@ function simVrrp(el) {
 const SIMS = { redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
 
 /* ---------- Application ---------- */
-const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux"];
+const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique"];
 const CLEAD = [
   "Composants, catégories, topologies et tendances : le vocabulaire de base.",
   "Ethernet, adresses MAC, vitesse de commutation et Wi-Fi.",
@@ -2879,7 +3396,8 @@ const CLEAD = [
   "Les modèles OSI et TCP/IP, et les protocoles du quotidien.",
   "Le switch, la trame, les domaines et le protocole ARP.",
   "Segmenter un switch, trunks 802.1Q, configuration Cisco, routage inter-VLAN et dépannage.",
-  "Pourquoi doubler les équipements, et les protocoles STP et VRRP qui évitent les boucles et les pannes de passerelle."
+  "Pourquoi doubler les équipements, et les protocoles STP et VRRP qui évitent les boucles et les pannes de passerelle.",
+  "Rester à jour dans le métier : sources, outils, fiabilité, organisation, diffusion, cadre légal et projet de veille."
 ];
 
 /* ---------- Labs VLAN ---------- */
@@ -2961,17 +3479,17 @@ function go(view, tid, tab) { S.view = view; if (tid != null) S.tid = tid; if (t
 
 function homeHTML() {
   let nq = 0; THEMES.forEach(t => nq += t.q.length);
-  let h = `<div class="stack"><div class="hero"><div class="eyebrow">OFPPT · Infrastructure digitale · 1re année</div><h1>Réseaux informatiques</h1>
-    <p class="lead">Sept thèmes, vingt-neuf leçons. Pour chaque leçon : une fiche de cours, une simulation à manipuler et un QCM corrigé. Avancez à votre rythme.</p>
+  let h = `<div class="stack"><div class="hero"><div class="eyebrow">OFPPT · Infrastructure digitale · 1re année</div><h1>Réseaux <em>informatiques</em></h1><div class="bar-g"></div>
+    <p class="lead">${CHAPS.length} thèmes, ${THEMES.length} leçons. Pour chaque leçon : une fiche de cours, une simulation à manipuler et un QCM corrigé. Avancez à votre rythme.</p>
     <button class="btn" data-a="general">Quiz général · 20 questions</button>
     <p class="stats">${CHAPS.length} thèmes · ${THEMES.length} leçons · ${THEMES.length} simulations · ${nq} questions · ${LABS.length} labs VLAN</p></div>`;
   CHAPS.forEach((name, c) => {
     const L = inChap(c); let nc = 0; L.forEach(t => nc += t.q.length);
-    h += `<section class="chap"><div class="chead"><div><h2>${esc(name)}</h2><p class="muted">${esc(CLEAD[c])}</p></div></div><div class="list">`;
+    h += `<section class="chap"><div class="chead"><span class="cnum">${String(c + 1).padStart(2, '0')}</span><div><h2>${esc(name)}</h2><p class="muted">${esc(CLEAD[c])}</p></div></div><div class="list">`;
     L.forEach((t, k) => {
       h += `<button class="row" data-a="open" data-id="${t.id}"><span class="n">${k + 1}</span><span><strong>${esc(t.t)}</strong><small>${esc(t.short)}</small></span>${chipOf('t' + t.id)}</button>`;
     });
-    h += `</div><div class="cq"><button class="btn alt" data-a="chapter" data-c="${c}">Quiz du thème · ${Math.min(15, nc)} questions</button>${chipOf('c' + c)}</div></section>`;
+    h += `</div><div class="cq"><button class="btn alt" data-a="chapter" data-c="${c}">Quiz du thème · ${Math.min(15, nc)} questions</button>${L[0] && L[0].pdf ? `<a class="btn gold" href="${L[0].pdf}" target="_blank" rel="noopener" download>Cours complet en PDF</a>` : ''}${chipOf('c' + c)}</div></section>`;
   });
   h += labsHome();
   return h + `</div>`;
@@ -2990,6 +3508,7 @@ function themeHTML() {
     <div><div class="eyebrow">${esc(CHAPS[t.ch])} · leçon ${k} sur ${L.length}</div><h2>${esc(t.t)}</h2></div>
     <div class="tabs" role="tablist" style="grid-template-columns:repeat(${tabs.length},1fr)">${tabs.map(x => `<button class="tab" role="tab" data-a="tab" data-t="${x[0]}" aria-selected="${S.tab === x[0]}">${x[1]}</button>`).join('')}</div>`;
   if (S.tab === 'cours') {
+    if (t.pdf) h += `<div class="pdfbox"><p><strong>Cours complet en PDF</strong>Schémas, tableaux, astuces et exercices corrigés pour tout le thème.</p><a class="btn gold" href="${t.pdf}" target="_blank" rel="noopener" download>Télécharger le PDF</a></div>`;
     h += `<div class="block"><h3>Définition</h3><p class="def">${fmt(t.def)}</p></div>
       <div class="block"><h3>Points clés</h3><ul class="pts">${t.pts.map(p => `<li>${fmt(p)}</li>`).join('')}</ul></div>`;
     if (t.extra === 'frame') h += frameHTML();
