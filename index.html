@@ -524,6 +524,10 @@ pre.hcfg span { display: inline; } pre.hcfg .okl { color: #7FE0B0; } pre.hcfg .k
 .qcmc .n { width: 2.4rem !important; height: 2.4rem !important; background: linear-gradient(135deg, #D9BD7A, #B8913A) !important; color: #16223D !important; }
 .cnum { font-size: 1.5rem; }
 @media (max-width: 640px) { .rk-wrap { grid-template-columns: 1fr; } .qcmgrid { grid-template-columns: 1fr; } .bks { gap: 3px; } .bk { font-size: .68rem; padding: 6px 2px; } }
+
+.row.chq { border: 1.5px solid var(--gold); background: linear-gradient(135deg, var(--d2-soft), var(--surface)); margin-top: 4px; }
+.row.chq .n { width: 2.6rem; height: 2.6rem; background: linear-gradient(135deg, #D9BD7A, #B8913A); color: #16223D; font-size: 11px; }
+@media (min-width: 880px) { #app:has(.hero) .row.chq { max-width: calc(50% - 5px); } }
 /* Petits écrans */
 @media (max-width: 560px) {
   body { font-size: 16px; }
@@ -4097,6 +4101,130 @@ function simCraap(el) {
 const SIMS = { order: simOrder, risk: simRisk, phish: simPhish, pwd: simPwd, hash: simHash, harden: simHarden, acl: simAcl, wifi: simWifi, backup: simBackup, query: simQuery, craap: simCraap, redund: simRedund, stp: simStp, vrrp: simVrrp, vlanbc: simVlanBc, lab: simLab, hub: simHub, pick: simPick, explorer: simExplorer, mac: simMac, dom: simDom, arp: simArp, osi: simOsi, encaps: simEncaps, map: simMap, bits: simBits, ip: simIp, subnet: simSubnet, vlsm: simVlsm, macinfo: simMacinfo, transfer: simTransfer, topo: simTopo };
 
 /* ---------- Application ---------- */
+
+/* ---------- QCM spécialisés de fin de chapitre (module Conception d'un réseau) ---------- */
+const CHAPQ = {
+0: [
+  { q: "Lequel de ces éléments est un équipement d'interconnexion et non un terminal ?", o: ["Un switch", "Un ordinateur portable", "Une imprimante réseau", "Un smartphone"], e: "Les terminaux sont les points de départ ou d'arrivée des données ; le switch relie les terminaux entre eux." },
+  { q: "Quel équipement relie deux réseaux IP différents (par exemple le LAN et Internet) ?", o: ["Le routeur", "Le switch", "Le point d'accès Wi-Fi", "Le répéteur"], e: "Le routeur travaille en couche 3 et choisit le chemin entre réseaux." },
+  { q: "Quel support offre la plus grande distance et l'immunité aux perturbations électromagnétiques ?", o: ["La fibre optique", "Le câble à paires torsadées", "Le câble coaxial", "Le Wi-Fi"], e: "La fibre transporte de la lumière : pas de perturbation électromagnétique, longues distances." },
+  { q: "Un réseau qui couvre une seule maison ou un seul bâtiment est un…", o: ["LAN", "WAN", "MAN", "PAN"], e: "LAN : réseau local, à l'échelle d'un bâtiment ou d'un site." },
+  { q: "Les écouteurs Bluetooth reliés à un smartphone forment un…", o: ["PAN", "LAN", "MAN", "WAN"], e: "PAN : réseau personnel, quelques mètres autour d'une personne." },
+  { q: "Un réseau qui relie les agences d'une entreprise dans plusieurs villes du Maroc est un…", o: ["WAN", "LAN", "PAN", "VLAN"], e: "WAN : réseau étendu, à l'échelle d'un pays ou du monde." },
+  { q: "Dans un réseau client-serveur…", o: ["Un serveur central fournit les services aux clients", "Chaque poste est à la fois client et serveur", "Il n'y a aucun équipement réseau", "Les données ne sont jamais partagées"], e: "Le modèle pair-à-pair (peer-to-peer) est celui où chaque poste joue les deux rôles." },
+  { q: "Un intranet est…", o: ["Un réseau privé d'entreprise qui utilise les technologies d'Internet", "Le réseau Internet public", "Un câble interne au PC", "Un réseau sans fil personnel"], e: "Sites et services web réservés aux membres de l'organisation." },
+  { q: "Dans une topologie en étoile, que se passe-t-il si l'équipement central tombe en panne ?", o: ["Tout le réseau est coupé", "Seul un poste est coupé", "Rien, le trafic contourne la panne", "Le réseau devient un anneau"], e: "L'équipement central est un point unique de défaillance." },
+  { q: "Dans une topologie en étoile, si un câble vers un poste est coupé…", o: ["Seul ce poste perd la connexion", "Tout le réseau tombe", "Le switch redémarre", "Les autres postes ralentissent fortement"], e: "Chaque poste a son propre câble vers le centre." },
+  { q: "Quelle topologie offre la meilleure tolérance aux pannes, au prix le plus élevé ?", o: ["Maillée", "Bus", "Étoile", "Anneau simple"], e: "Plusieurs chemins entre les nœuds, mais beaucoup de câbles et de ports." },
+  { q: "Quelle topologie utilise un câble unique partagé, dont la coupure arrête tout ?", o: ["Bus", "Étoile", "Maillée", "Arbre"], e: "Topologie ancienne : un seul câble principal, très fragile." },
+  { q: "Le BYOD désigne…", o: ["L'utilisation de ses appareils personnels au travail", "Un protocole de routage", "Un type de câble", "Un logiciel antivirus"], e: "Bring Your Own Device : pratique qui pose des questions de sécurité." },
+  { q: "Le SDN consiste à…", o: ["Séparer le plan de contrôle et le piloter par logiciel depuis un contrôleur", "Supprimer tous les switchs", "Remplacer la fibre par le Wi-Fi", "Chiffrer tous les câbles"], e: "Software-Defined Networking : un contrôleur (ex. OpenDaylight) programme le réseau." },
+  { q: "Des capteurs de température connectés dans une usine sont un exemple de…", o: ["IoT (Internet des objets)", "BYOD", "VLAN", "PAN Bluetooth uniquement"], e: "Des objets connectés qui envoient des données sur le réseau." }
+],
+1: [
+  { q: "Quelle norme IEEE définit Ethernet ?", o: ["802.3", "802.11", "802.1Q", "802.15"], e: "802.11 = Wi-Fi, 802.1Q = étiquetage VLAN, 802.15 = réseaux personnels sans fil." },
+  { q: "Quelle est la longueur maximale d'un câble à paires torsadées (100BASE-TX, 1000BASE-T) ?", o: ["100 mètres", "10 mètres", "500 mètres", "2 kilomètres"], e: "Au-delà de 100 m, le signal se dégrade : il faut un switch ou de la fibre." },
+  { q: "Que signifie « 1000BASE-T » ?", o: ["1000 Mbit/s, bande de base, paires torsadées", "1000 mètres sur fibre", "1000 postes maximum", "1000 trames par seconde"], e: "Débit (1 Gbit/s), transmission en bande de base, T = twisted pair." },
+  { q: "Une adresse MAC comporte…", o: ["48 bits (6 octets)", "32 bits (4 octets)", "128 bits (16 octets)", "24 bits (3 octets)"], e: "Écrite en 12 chiffres hexadécimaux, par exemple 00:1A:2B:3C:4D:5E." },
+  { q: "Les 3 premiers octets d'une adresse MAC forment…", o: ["L'OUI, qui identifie le fabricant", "Le numéro de série de la carte", "L'adresse du réseau IP", "Le numéro de VLAN"], e: "OUI = Organizationally Unique Identifier, attribué par l'IEEE." },
+  { q: "Quelle est l'adresse MAC de diffusion (broadcast) ?", o: ["FF:FF:FF:FF:FF:FF", "00:00:00:00:00:00", "01:00:5E:00:00:01", "FF:FF:FF:00:00:00"], e: "Une trame envoyée à cette adresse est reçue par tous les équipements du domaine de diffusion." },
+  { q: "Une adresse MAC multicast se reconnaît…", o: ["Au bit de poids faible du premier octet à 1", "À son dernier octet égal à FF", "À sa longueur de 64 bits", "Au préfixe 00:00"], e: "Exemple : 01:00:5E:… Le premier octet est impair." },
+  { q: "En full-duplex…", o: ["On émet et on reçoit en même temps, sans collision", "On émet puis on reçoit chacun son tour", "Un seul poste parle sur tout le réseau", "Le débit est divisé par deux"], e: "Le half-duplex alterne émission et réception (comme un talkie-walkie)." },
+  { q: "CSMA/CD sert à…", o: ["Détecter et gérer les collisions en half-duplex", "Chiffrer les trames", "Attribuer des adresses IP", "Créer des VLAN"], e: "Utile sur les hubs ; inutile en full-duplex sur un switch." },
+  { q: "Combien de temps faut-il environ pour transférer 100 Mo (800 Mbit) sur un lien de 100 Mbit/s ?", o: ["8 secondes", "1 seconde", "100 secondes", "0,8 seconde"], e: "800 Mbit ÷ 100 Mbit/s = 8 s (sans compter les en-têtes)." },
+  { q: "Quel mode de commutation attend d'avoir reçu toute la trame et vérifie le FCS avant de la transmettre ?", o: ["Store-and-forward", "Cut-through", "Fragment-free", "Half-duplex"], e: "Le plus fiable : les trames erronées sont éliminées." },
+  { q: "Le mode cut-through…", o: ["Commence à transmettre dès la lecture de la MAC destination", "Vérifie toute la trame avant de l'envoyer", "Bloque les trames de diffusion", "Ne fonctionne qu'en Wi-Fi"], e: "Latence minimale, mais les trames erronées sont propagées." },
+  { q: "Quelle bande Wi-Fi porte le plus loin et traverse mieux les murs ?", o: ["2,4 GHz", "5 GHz", "6 GHz", "60 GHz"], e: "Plus la fréquence est basse, plus la portée est grande ; 5 et 6 GHz offrent plus de débit." },
+  { q: "Le Wi-Fi 6 correspond à la norme…", o: ["802.11ax", "802.11n", "802.11ac", "802.11b"], e: "802.11n = Wi-Fi 4, 802.11ac = Wi-Fi 5, 802.11ax = Wi-Fi 6 / 6E, 802.11be = Wi-Fi 7." },
+  { q: "Quel protocole de sécurité Wi-Fi faut-il éviter absolument ?", o: ["WEP", "WPA2-AES", "WPA3", "WPA3-Entreprise"], e: "WEP se casse en quelques minutes." }
+],
+2: [
+  { q: "Quelle est la valeur décimale du binaire 11000000 ?", o: ["192", "128", "224", "160"], e: "128 + 64 = 192." },
+  { q: "Quelle est l'écriture binaire de 10 ?", o: ["00001010", "00001100", "00000110", "00010010"], e: "8 + 2 = 10." },
+  { q: "Combien vaut FF en décimal ?", o: ["255", "256", "15", "240"], e: "15 × 16 + 15 = 255." },
+  { q: "Quelle adresse appartient à une plage privée (RFC 1918) ?", o: ["172.20.5.1", "172.32.5.1", "8.8.8.8", "193.194.1.1"], e: "Plages privées : 10.0.0.0/8, 172.16.0.0/12 (172.16 à 172.31), 192.168.0.0/16." },
+  { q: "L'adresse 127.0.0.1 est…", o: ["L'adresse de bouclage (loopback) de la machine", "La passerelle par défaut", "Une adresse publique", "L'adresse de diffusion"], e: "Elle permet de tester la pile TCP/IP de la machine elle-même." },
+  { q: "Combien de bits compte une adresse IPv6 ?", o: ["128", "32", "64", "48"], e: "Écrite en 8 groupes de 4 chiffres hexadécimaux." },
+  { q: "Quelle est la forme compressée de 2001:0DB8:0000:0000:0000:0000:0000:0001 ?", o: ["2001:DB8::1", "2001:DB8:0:1", "2001::DB8::1", "2001:DB8:1::"], e: "On supprime les zéros de tête et on remplace une seule suite de groupes nuls par « :: »." },
+  { q: "Pour le réseau 192.168.1.0/26, combien d'hôtes utilisables par sous-réseau ?", o: ["62", "64", "30", "126"], e: "6 bits d'hôte : 2⁶ − 2 = 62." },
+  { q: "Quel est le masque décimal d'un /27 ?", o: ["255.255.255.224", "255.255.255.192", "255.255.255.240", "255.255.255.248"], e: "27 bits à 1 : le dernier octet vaut 11100000 = 224." },
+  { q: "On découpe 192.168.10.0/24 en 4 sous-réseaux égaux. Quel est le nouveau préfixe ?", o: ["/26", "/25", "/27", "/28"], e: "4 = 2² : on emprunte 2 bits, 24 + 2 = 26." },
+  { q: "Quelle est l'adresse de diffusion du sous-réseau 192.168.10.64/26 ?", o: ["192.168.10.127", "192.168.10.128", "192.168.10.63", "192.168.10.255"], e: "Pas de 64 : le bloc va de .64 à .127." },
+  { q: "À quel sous-réseau appartient l'hôte 172.16.5.200/25 ?", o: ["172.16.5.128/25", "172.16.5.0/25", "172.16.5.192/25", "172.16.0.0/25"], e: "Blocs de 128 : 0–127 et 128–255. 200 est dans le second." },
+  { q: "Quel est le plus petit préfixe adapté à un réseau de 50 hôtes ?", o: ["/26", "/27", "/25", "/28"], e: "/26 offre 62 hôtes ; /27 n'en offre que 30." },
+  { q: "En VLSM, par quel besoin commence-t-on l'allocation ?", o: ["Le plus grand", "Le plus petit", "L'ordre alphabétique", "N'importe lequel"], e: "On place d'abord les grands blocs pour éviter les chevauchements et le gaspillage." },
+  { q: "Pour une liaison point à point entre deux routeurs, quel préfixe évite le gaspillage en IPv4 ?", o: ["/30", "/24", "/28", "/26"], e: "/30 = 2 adresses utilisables, exactement ce qu'il faut (le /31 existe aussi sur certains équipements)." }
+],
+3: [
+  { q: "Quelle couche du modèle OSI est responsable du routage entre réseaux ?", o: ["Couche 3 — Réseau", "Couche 2 — Liaison", "Couche 4 — Transport", "Couche 7 — Application"], e: "Adressage IP et choix du chemin." },
+  { q: "Quelle est l'unité de données (PDU) de la couche 2 ?", o: ["La trame", "Le paquet", "Le segment", "Le bit"], e: "Couche 4 : segment ; couche 3 : paquet ; couche 2 : trame ; couche 1 : bits." },
+  { q: "Dans quel ordre se fait l'encapsulation à l'émission ?", o: ["Données → segment → paquet → trame → bits", "Bits → trame → paquet → segment → données", "Paquet → segment → trame → bits", "Trame → paquet → segment → données"], e: "Chaque couche ajoute son en-tête en descendant." },
+  { q: "Un switch classique travaille principalement à la couche…", o: ["2", "1", "3", "7"], e: "Il lit les adresses MAC des trames." },
+  { q: "Combien de couches compte le modèle TCP/IP ?", o: ["4", "7", "5", "3"], e: "Application, Transport, Internet, Accès réseau." },
+  { q: "La couche Application de TCP/IP regroupe les couches OSI…", o: ["5, 6 et 7", "1 et 2", "3 et 4", "4, 5 et 6"], e: "Session, Présentation et Application." },
+  { q: "Quelle est la différence principale entre TCP et UDP ?", o: ["TCP est fiable et orienté connexion, UDP est rapide sans garantie", "UDP est plus fiable que TCP", "TCP n'utilise pas de ports", "UDP chiffre les données"], e: "TCP : accusés de réception, retransmission. UDP : pas de connexion, idéal pour la voix ou le streaming." },
+  { q: "Comment TCP établit-il une connexion ?", o: ["Par une poignée de main en 3 temps : SYN, SYN-ACK, ACK", "Par une requête ARP", "Par un broadcast DHCP", "Il n'établit pas de connexion"], e: "Three-way handshake." },
+  { q: "Quel protocole attribue automatiquement une adresse IP aux postes ?", o: ["DHCP", "DNS", "ARP", "SMTP"], e: "Échange DORA : Discover, Offer, Request, Acknowledge." },
+  { q: "Quel service traduit un nom comme www.ofppt.ma en adresse IP ?", o: ["DNS", "DHCP", "FTP", "NTP"], e: "Domain Name System, port 53." },
+  { q: "Quel port utilise HTTPS par défaut ?", o: ["443", "80", "22", "25"], e: "HTTP 80, SSH 22, SMTP 25, HTTPS 443." },
+  { q: "Quel protocole sert à l'administration à distance chiffrée d'un équipement ?", o: ["SSH (port 22)", "Telnet (port 23)", "HTTP (port 80)", "TFTP (port 69)"], e: "Telnet transmet tout en clair." },
+  { q: "Quel protocole envoie les e-mails entre serveurs de messagerie ?", o: ["SMTP", "POP3", "IMAP", "SNMP"], e: "POP3 et IMAP servent à récupérer les e-mails." },
+  { q: "Lequel est un point commun entre OSI et TCP/IP ?", o: ["Ils découpent la communication en couches avec encapsulation", "Ils ont le même nombre de couches", "Ils sont tous deux uniquement théoriques", "Ils n'utilisent pas d'adresses"], e: "OSI est un modèle de référence ; TCP/IP est le modèle réellement utilisé sur Internet." },
+  { q: "DNS utilise principalement…", o: ["UDP port 53", "TCP port 80", "UDP port 67", "TCP port 25"], e: "UDP 53 pour les requêtes (TCP 53 pour les gros transferts)." }
+],
+4: [
+  { q: "Comment un switch remplit-il sa table d'adresses MAC ?", o: ["Il lit la MAC source des trames reçues", "Il lit la MAC destination", "L'administrateur saisit toutes les adresses", "Il interroge le serveur DHCP"], e: "Il associe chaque MAC source au port d'arrivée." },
+  { q: "Que fait un switch d'une trame dont la MAC destination est inconnue ?", o: ["Il l'inonde sur tous les ports sauf celui d'arrivée", "Il la supprime", "Il la renvoie à l'expéditeur", "Il l'envoie au routeur"], e: "Inondation (flooding) : la réponse lui apprendra ensuite où se trouve la destination." },
+  { q: "Que fait un switch d'une trame de diffusion (FF:FF:FF:FF:FF:FF) ?", o: ["Il la transmet sur tous les ports du VLAN sauf celui d'arrivée", "Il la bloque", "Il la transmet au seul routeur", "Il la transforme en unicast"], e: "Un switch ne bloque pas la diffusion ; seul un routeur ou un VLAN la limite." },
+  { q: "Combien de domaines de collision crée un switch de 24 ports ?", o: ["24", "1", "2", "12"], e: "Chaque port est son propre domaine de collision." },
+  { q: "Combien de domaines de diffusion crée un switch de 24 ports sans VLAN ?", o: ["1", "24", "2", "0"], e: "Tous les ports reçoivent les diffusions." },
+  { q: "Quel équipement sépare les domaines de diffusion ?", o: ["Le routeur", "Le hub", "Le switch sans VLAN", "Le répéteur"], e: "Le routeur ne relaie pas les diffusions de couche 2." },
+  { q: "Un hub de 8 ports forme…", o: ["1 domaine de collision et 1 domaine de diffusion", "8 domaines de collision", "8 domaines de diffusion", "Aucun domaine"], e: "Le hub répète les bits sur tous les ports." },
+  { q: "Quel type de switch peut alimenter des téléphones IP ou des points d'accès par le câble réseau ?", o: ["Switch PoE", "Switch non administrable", "Switch empilable seulement", "Hub"], e: "PoE : Power over Ethernet." },
+  { q: "Un switch de niveau 3 peut…", o: ["Router entre VLAN", "Seulement répéter des bits", "Uniquement fonctionner en Wi-Fi", "Remplacer un câble"], e: "Il combine commutation et routage (interfaces SVI)." },
+  { q: "Que permet un switch administrable par rapport à un switch non administrable ?", o: ["Configurer des VLAN, la sécurité et la supervision", "Avoir plus de couleurs de LED", "Fonctionner sans électricité", "Supprimer les adresses MAC"], e: "Un switch non administrable fonctionne « tel quel », sans réglage." },
+  { q: "Quelle commande Cisco affiche la table MAC d'un switch ?", o: ["show mac address-table", "show ip route", "show vlan brief", "show arp"], e: "Elle liste les MAC apprises, leur VLAN et leur port." },
+  { q: "À quoi sert ARP ?", o: ["Trouver l'adresse MAC qui correspond à une adresse IP", "Trouver l'IP à partir d'un nom", "Attribuer une IP", "Chiffrer les trames"], e: "Address Resolution Protocol, en IPv4." },
+  { q: "La requête ARP est envoyée en…", o: ["Diffusion (broadcast)", "Unicast vers le routeur", "Multicast vers les serveurs", "Point à point chiffré"], e: "« Qui a l'IP 192.168.1.1 ? » est demandé à tous ; la réponse revient en unicast." },
+  { q: "Un PC veut joindre une machine d'un autre réseau. De quelle MAC demande-t-il l'adresse via ARP ?", o: ["Celle de sa passerelle par défaut", "Celle de la machine distante", "Celle du serveur DNS", "Aucune, ARP est inutile"], e: "La trame va d'abord au routeur ; c'est lui qui transmet ensuite." },
+  { q: "Quelle commande affiche le cache ARP sous Windows ?", o: ["arp -a", "ipconfig /release", "tracert", "netstat -r"], e: "Sur un équipement Cisco : show ip arp." }
+],
+5: [
+  { q: "Qu'est-ce qu'un VLAN ?", o: ["Un réseau local logique qui segmente un switch en plusieurs domaines de diffusion", "Un câble plus rapide", "Un type de routeur", "Un réseau sans fil"], e: "Les postes de VLAN différents ne se voient pas sans routage." },
+  { q: "Quel est le VLAN par défaut d'un switch Cisco ?", o: ["VLAN 1", "VLAN 0", "VLAN 99", "VLAN 1005"], e: "Tous les ports y sont au départ ; on évite de l'utiliser pour les utilisateurs." },
+  { q: "Quelle norme ajoute une étiquette VLAN dans les trames d'un trunk ?", o: ["IEEE 802.1Q", "IEEE 802.3", "IEEE 802.11", "IEEE 802.1X"], e: "Une étiquette de 4 octets contenant le numéro de VLAN." },
+  { q: "Un port d'accès…", o: ["Appartient à un seul VLAN, ses trames ne sont pas étiquetées", "Transporte plusieurs VLAN étiquetés", "Relie toujours deux routeurs", "N'a pas de VLAN"], e: "C'est le port où l'on branche un PC ou une imprimante." },
+  { q: "Un trunk sert à…", o: ["Transporter plusieurs VLAN sur un même lien", "Brancher un seul PC", "Remplacer le routeur", "Bloquer la diffusion"], e: "Entre switchs, ou entre un switch et un routeur." },
+  { q: "Le VLAN natif sur un trunk 802.1Q est…", o: ["Le VLAN dont les trames circulent sans étiquette", "Le VLAN le plus rapide", "Toujours le VLAN de gestion", "Interdit sur le trunk"], e: "Il doit être identique aux deux extrémités." },
+  { q: "Quelle commande place un port dans le VLAN 10 ?", o: ["switchport access vlan 10", "vlan 10 access", "switchport trunk vlan 10", "ip vlan 10"], e: "Précédée de switchport mode access." },
+  { q: "Quelle commande vérifie les VLAN et les ports d'accès de chacun ?", o: ["show vlan brief", "show ip interface brief", "show running-config interface", "show cdp neighbors"], e: "Les ports trunk n'apparaissent pas dans cette liste." },
+  { q: "Quelle commande vérifie les trunks et les VLAN qu'ils transportent ?", o: ["show interfaces trunk", "show vlan brief", "show mac address-table", "show ip route"], e: "Elle affiche aussi le VLAN natif." },
+  { q: "Pourquoi faut-il un routeur ou un switch de niveau 3 entre deux VLAN ?", o: ["Chaque VLAN est un réseau IP distinct", "Pour augmenter le débit", "Pour alimenter les PC", "Pour créer le VLAN 1"], e: "Passer d'un réseau IP à un autre, c'est du routage." },
+  { q: "Dans le router-on-a-stick, chaque VLAN utilise…", o: ["Une sous-interface du routeur avec encapsulation dot1Q", "Un routeur différent", "Un câble différent vers le routeur", "Une adresse MAC différente sur le PC"], e: "Exemple : interface g0/0.10 / encapsulation dot1Q 10 / ip address…" },
+  { q: "Sur un switch de niveau 3, le routage inter-VLAN utilise…", o: ["Des interfaces SVI (interface vlan X) et ip routing", "Des sous-interfaces sur le PC", "Uniquement le VLAN natif", "Un hub"], e: "Chaque SVI sert de passerelle à son VLAN." },
+  { q: "Deux PC du VLAN 10 sur deux switchs différents ne se voient pas. Sur un même switch, tout fonctionne. Cause probable ?", o: ["Le lien entre les switchs n'est pas en trunk ou le VLAN 10 n'y est pas autorisé", "La passerelle des PC est fausse", "Le routeur est éteint", "Le câble des PC est trop court"], e: "Même VLAN = même réseau : le routeur n'intervient pas." },
+  { q: "Un PC est dans le bon VLAN mais ne joint pas les autres VLAN. Que vérifier en priorité ?", o: ["Sa passerelle par défaut et la sous-interface du routeur", "La table MAC du switch", "La longueur du câble", "Le nom du switch"], e: "Pour sortir de son VLAN, le PC doit passer par sa passerelle." },
+  { q: "Quel est l'intérêt principal des VLAN ?", o: ["Réduire les domaines de diffusion et séparer les services", "Augmenter le nombre de ports physiques", "Remplacer l'adressage IP", "Supprimer le besoin de câbles"], e: "Sécurité et performance : comptabilité, élèves, invités séparés." }
+],
+6: [
+  { q: "Qu'est-ce qu'un point unique de défaillance (SPOF) ?", o: ["Un élément dont la panne coupe tout le service", "Un port inutilisé", "Un câble trop long", "Un protocole lent"], e: "Un seul switch central, un seul routeur, un seul accès Internet." },
+  { q: "Une disponibilité de 99,99 % représente environ combien d'arrêt par an ?", o: ["53 minutes", "8 h 46", "3,65 jours", "5 minutes"], e: "99,9 % ≈ 8 h 46, 99,99 % ≈ 53 min, 99,999 % ≈ 5 min." },
+  { q: "Quel est le principal inconvénient de la redondance ?", o: ["Le coût et la complexité", "La baisse de disponibilité", "L'impossibilité de faire de la maintenance", "La perte de vitesse des câbles"], e: "Matériel doublé, configuration et tests plus exigeants." },
+  { q: "Pourquoi des liens redondants entre switchs créent-ils un risque ?", o: ["Ils forment des boucles de couche 2 (tempêtes de diffusion)", "Ils divisent le débit par deux", "Ils empêchent le DHCP", "Ils suppriment les VLAN"], e: "Une trame de diffusion tournerait sans fin : il faut STP." },
+  { q: "Quel est le rôle de STP ?", o: ["Bloquer certains ports pour supprimer les boucles tout en gardant des liens de secours", "Router entre VLAN", "Attribuer des adresses IP", "Doubler la passerelle par défaut"], e: "Spanning Tree Protocol, norme IEEE 802.1D." },
+  { q: "Comment est élu le pont racine (root bridge) ?", o: ["Le plus petit Bridge ID : priorité puis adresse MAC", "Le switch le plus récent", "Le switch avec le plus de ports", "Le plus grand numéro de VLAN"], e: "Priorité par défaut 32768 ; en cas d'égalité, la plus petite MAC gagne." },
+  { q: "Comment forcer un switch à devenir pont racine ?", o: ["Lui donner une priorité plus basse (ex. 4096)", "Lui donner une priorité plus haute", "Le redémarrer en premier", "Changer son nom"], e: "spanning-tree vlan 1 priority 4096 (multiple de 4096)." },
+  { q: "Sur le pont racine, tous les ports sont…", o: ["Désignés (en transmission)", "Bloqués", "Racines", "Désactivés"], e: "Les ports racines se trouvent sur les autres switchs." },
+  { q: "Qu'apporte RSTP (802.1w) par rapport à STP classique ?", o: ["Une convergence beaucoup plus rapide", "Le chiffrement des trames", "La suppression des VLAN", "Le routage IP"], e: "Quelques secondes au lieu de 30 à 50 secondes." },
+  { q: "À quoi sert VRRP ?", o: ["Fournir une passerelle par défaut virtuelle partagée par plusieurs routeurs", "Supprimer les boucles de couche 2", "Attribuer des adresses MAC", "Créer des VLAN"], e: "Si le routeur Master tombe, le Backup reprend l'adresse virtuelle." },
+  { q: "Quelle passerelle configure-t-on sur les PC avec VRRP ?", o: ["L'adresse IP virtuelle", "L'adresse du routeur Master", "L'adresse du routeur Backup", "L'adresse du switch"], e: "Les PC ne voient jamais la bascule : la passerelle ne change pas." },
+  { q: "Comment est élu le routeur Master en VRRP ?", o: ["La plus haute priorité (par défaut 100)", "La plus basse priorité", "Le routeur le plus ancien", "Au hasard à chaque paquet"], e: "En cas d'égalité, la plus haute adresse IP l'emporte." },
+  { q: "Que signifie la préemption en VRRP ?", o: ["Un routeur de priorité supérieure reprend le rôle de Master quand il revient", "Le Backup ne devient jamais Master", "Les PC changent de passerelle", "Le Master s'éteint toutes les heures"], e: "En VRRP, la préemption est activée par défaut." },
+  { q: "Quel protocole Cisco propriétaire joue le même rôle que VRRP ?", o: ["HSRP", "OSPF", "CDP", "VTP"], e: "Hot Standby Router Protocol. VRRP, lui, est un standard (RFC)." },
+  { q: "Deux routeurs VRRP sont branchés sur un seul switch. Que reste-t-il comme faiblesse ?", o: ["Le switch est un point unique de défaillance", "Rien, tout est redondant", "Les routeurs font une boucle", "Les PC n'ont plus de passerelle"], e: "La redondance doit couvrir toute la chaîne." }
+]
+};
+
 const CHAPS = ["Les différents types de réseaux", "Les réseaux locaux", "L'adressage IP", "Les modèles et les protocoles", "La commutation", "Les VLAN", "La redondance des réseaux", "La veille technologique", "La sécurité informatique"];
 const CLEAD = [
   "Composants, catégories, topologies et tendances : le vocabulaire de base.",
@@ -4224,7 +4352,7 @@ function homeHTML() {
     L.forEach((t, k) => {
       h += `<button class="row" data-a="open" data-id="${t.id}"><span class="n">${k + 1}</span><span><strong>${esc(t.t)}</strong><small>${esc(t.short)}</small></span>${chipOf('t' + t.id)}</button>`;
     });
-    h += `</div><div class="cq"><button class="btn alt" data-a="chapter" data-c="${c}">Quiz du thème · ${Math.min(15, nc)} questions</button>${chipOf('c' + c)}</div></section>`;
+    h += `</div>` + (CHAPQ[c] ? `<button class="row chq" data-a="chapter" data-c="${c}"><span class="n">QCM</span><span><strong>QCM du chapitre · ${esc(name)}</strong><small>${CHAPQ[c].length} questions spécialisées, corrigées une par une${best('c' + c) ? ' · meilleur : ' + best('c' + c) : ''}</small></span><span class="chip">Fin de chapitre</span></button></section>` : `<div class="cq"><button class="btn alt" data-a="chapter" data-c="${c}">Quiz du thème · ${Math.min(15, nc)} questions</button>${chipOf('c' + c)}</div></section>`);
   });
   h += `<section class="chap"><div class="chead"><span class="cnum">QCM</span><div><h2>QCM du module</h2><p class="muted">Questions tirées au hasard dans toutes les leçons du module, corrigées une par une.</p></div></div>
     <div class="qcmgrid">${[[10, 'QCM rapide', '10 questions · 5 min'], [20, 'QCM complet', '20 questions · 10 min'], [40, 'Examen blanc', '40 questions · 25 min']].map(x => `<button class="row qcmc" data-a="general" data-n="${x[0]}"><span class="n">${x[0]}</span><span><strong>${x[1]}</strong><small>${x[2]}${best((S.mod === 'm103' ? 'gen' : 'gen-' + S.mod) + '-' + x[0]) ? ' · meilleur : ' + best((S.mod === 'm103' ? 'gen' : 'gen-' + S.mod) + '-' + x[0]) : ''}</small></span></button>`).join('')}</div></section>`;
@@ -4264,6 +4392,7 @@ function themeHTML() {
     const b = best('t' + t.id);
     h += `<div class="block"><h3>Quiz de la leçon</h3><p>${t.q.length} questions à choix unique, corrigées une par une. L'ordre des réponses change à chaque tirage.</p>${b ? `<p class="muted">Meilleur score : ${b}</p>` : ''}</div>
       <div class="actions"><button class="btn" data-a="startTheme">Commencer le quiz</button></div>`;
+    if (CHAPQ[t.ch] && k === L.length) h += `<button class="row chq" data-a="chapter" data-c="${t.ch}"><span class="n">QCM</span><span><strong>Fin du chapitre : QCM du chapitre</strong><small>${CHAPQ[t.ch].length} questions spécialisées sur « ${esc(CHAPS[t.ch])} »</small></span></button>`;
   }
   return h + `</div>`;
 }
@@ -4302,6 +4431,7 @@ function startQuiz(qs, title, key) {
   go('quiz');
 }
 function startChapter(c) {
+  if (CHAPQ[c]) return startQuiz(CHAPQ[c], 'QCM du chapitre · ' + CHAPS[c], 'c' + c);
   let all = []; inChap(c).forEach(t => { all = all.concat(t.q); });
   startQuiz(shuffle(all).slice(0, 15), CHAPS[c], 'c' + c);
 }
