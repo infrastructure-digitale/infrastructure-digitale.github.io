@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bases de la cybersécurité — Cours complet · Infrastructure Digitale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Lora:ital,wght@0,600;0,700;1,400;1,600&display=swap">
+<style>
+:root{
+  --navy:#1B2A4A; --navy2:#2C3E66; --teal:#0F766E; --teal-l:#E6F4F1;
+  --gold:#B8913A; --gold-l:#FBF4E4; --rose:#A84A62; --rose-l:#FBEEF1;
+  --violet:#5B4B8A; --violet-l:#F1EEF8; --sky:#2F6FA8; --sky-l:#EAF2FA;
+  --ink:#24292F; --muted:#5E6673; --line:#E3DED3; --cream:#FBF9F4;
+}
+
+
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Inter,"DejaVu Sans",sans-serif;font-size:10.2pt;line-height:1.58;color:var(--ink);margin:0}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--navy);line-height:1.25}
+h2{font-size:17pt;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);break-after:avoid}
+h2 .n{color:var(--gold);margin-right:8px}
+h3{font-size:12.5pt;margin:18px 0 6px;color:var(--teal);break-after:avoid}
+h4{font-size:11pt;margin:12px 0 4px;break-after:avoid}
+p{margin:6px 0 8px;text-align:justify}
+ul,ol{margin:4px 0 10px;padding-left:20px} li{margin:2px 0}
+strong{color:var(--navy)}
+
+  background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);color:#fff}
+
+
+/* KEYWORDS */
+.k{padding:1px 7px;border-radius:4px;font-weight:600;font-size:.94em;white-space:nowrap}
+.kb{background:var(--sky-l);color:var(--sky)} .kt{background:var(--teal-l);color:var(--teal)}
+.kg{background:var(--gold-l);color:#8A6A22} .kr{background:var(--rose-l);color:var(--rose)}
+.kv{background:var(--violet-l);color:var(--violet)}
+
+/* BOXES */
+.box{border-radius:10px;padding:11px 15px 9px 15px;margin:12px 0;;border-left:5px solid}
+.box .t{font-weight:700;font-size:8.6pt;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.box .t i{font-style:normal;display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:10pt}
+.box p{margin:3px 0}
+.def{background:var(--sky-l);border-color:var(--sky)} .def .t{color:var(--sky)} .def .t i{background:var(--sky)}
+.tip{background:var(--teal-l);border-color:var(--teal)} .tip .t{color:var(--teal)} .tip .t i{background:var(--teal)}
+.warn{background:var(--rose-l);border-color:var(--rose)} .warn .t{color:var(--rose)} .warn .t i{background:var(--rose)}
+.keep{background:var(--gold-l);border-color:var(--gold)} .keep .t{color:#8A6A22} .keep .t i{background:var(--gold)}
+.ana{background:var(--violet-l);border-color:var(--violet)} .ana .t{color:var(--violet)} .ana .t i{background:var(--violet)}
+.kwbox{border:1px dashed #CFC6B0;border-radius:10px;padding:9px 13px;margin:12px 0;background:#fff;}
+.kwbox .t{font-size:8.5pt;letter-spacing:1.6px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.kwbox .k{display:inline-block;margin:2px 3px}
+
+/* TABLES */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0 14px;font-size:9.2pt;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:8.8pt}
+td{padding:6px 9px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--cream)}
+tr{}
+td b{color:var(--navy)}
+.cap{font-size:8.5pt;color:var(--muted);text-align:center;font-style:italic;margin:-6px 0 12px}
+
+/* FIGURES */
+figure{margin:12px 0 14px;text-align:center;}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:8.5pt;color:var(--muted);font-style:italic;margin-top:4px}
+
+/* EXERCISES */
+.exo{border:1px solid var(--line);border-radius:10px;margin:12px 0;;overflow:hidden}
+.exo .h{background:var(--navy);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600;display:flex;justify-content:space-between}
+.exo .h span{color:#D9BD7A;font-weight:400}
+.exo .c{padding:8px 15px 6px}
+.cor{border:1px solid #CFE5DF;border-radius:10px;margin:10px 0;;overflow:hidden}
+.cor .h{background:var(--teal);color:#fff;padding:6px 14px;font-size:9.3pt;font-weight:600}
+.cor .c{padding:8px 15px 6px;background:#FAFDFC}
+.lines{border-bottom:1px dotted #bbb;height:18px}
+
+.section-intro{font-family:Lora;font-style:italic;color:var(--navy2);font-size:11pt}
+
+.toc .row{display:flex;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line)}
+.toc .row .nb{font-family:Lora;font-size:17pt;color:var(--gold);width:48px}
+.toc .row .tt{flex:1;font-family:Lora;font-size:12.5pt;color:var(--navy)}
+.toc .row .ds{font-size:8.8pt;color:var(--muted);display:block;font-family:Inter}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;}
+.card h4{margin:0 0 4px;font-size:10.5pt}
+.card p{font-size:9.2pt;margin:0;text-align:left}
+.pb{break-before:page}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+/* ===== Version web ===== */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(184,145,58,.10),transparent 60%),#F6F3EC;background-attachment:fixed;font-size:16px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 80px}
+p{text-align:left}
+section.toc,.page{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07);padding:clamp(18px,4vw,36px);margin:26px 0}
+/* topnav */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(22,34,61,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,189,122,.25);box-shadow:0 4px 20px rgba(11,18,34,.18)}
+.tn-in{max-width:1100px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px}
+.tn-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none}
+.tn-logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 14px Lora,serif;color:#16223D;background:linear-gradient(135deg,#E2C78A,#B8913A)}
+.tn-name{font:600 1.05rem Lora,serif;white-space:nowrap}.tn-name em{color:#D9BD7A}
+.tn-mods{display:flex;gap:6px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tn-mod{border:1px solid rgba(255,255,255,.18);color:#D6DEEC;border-radius:999px;padding:8px 16px;font-weight:600;font-size:.92rem;white-space:nowrap;text-decoration:none}
+.tn-mod:hover{border-color:#D9BD7A;color:#fff}
+.tn-mod[aria-current="page"]{background:linear-gradient(135deg,#D9BD7A,#B8913A);border-color:transparent;color:#16223D}
+/* hero */
+.hero{position:relative;overflow:hidden;margin:26px 0;border-radius:22px;padding:clamp(26px,6vw,56px);color:#fff;background:linear-gradient(155deg,#16223D 0%,#1B2A4A 45%,#0F4F5C 100%);box-shadow:0 10px 30px rgba(11,18,34,.2)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1.5px solid rgba(217,189,122,.3);pointer-events:none}
+.hero::before{width:420px;height:420px;right:-150px;top:-160px}.hero::after{width:260px;height:260px;right:-60px;top:-80px}
+.hero .tag{font-size:.78rem;letter-spacing:4px;color:#D9BD7A;text-transform:uppercase}
+.hero h1{font-family:Lora,serif;font-size:clamp(2.3rem,8vw,3.8rem);color:#fff;margin:12px 0 4px;line-height:1.05}
+.hero h1 em{color:#D9BD7A}.hero h1 br{display:none}
+.hero .bar{width:60px;height:3px;background:#D9BD7A;margin:18px 0}
+.hero .sub{font-size:1.08rem;color:#C9D4E5;max-width:620px;font-weight:300}
+.hero .chips{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.hero .chips span{border:1px solid rgba(217,189,122,.6);color:#EBDDB5;padding:4px 12px;border-radius:20px;font-size:.8rem}
+.hero .meta{margin-top:22px;font-size:.88rem;color:#AFC0D8;line-height:1.8}.hero .meta b{color:#fff}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;min-height:48px;font-weight:700;text-decoration:none;border:0}
+.btn.gold{background:linear-gradient(135deg,#C9A24E,#A57F2C);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn.ghostw{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3)}
+/* sommaire */
+.toc .row{text-decoration:none;color:inherit;border-radius:10px;padding:10px 8px;transition:background .15s}
+.toc .row:hover{background:var(--cream)}.toc .row:hover .tt{color:var(--teal)}
+/* chapter head */
+.chead2{display:grid;grid-template-columns:150px 1fr;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);margin:56px 0 22px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 8px 26px rgba(27,42,74,.07)}
+.ch-side{display:flex;flex-direction:column;justify-content:center;padding:20px;color:#fff}
+.ch-side .lbl{font-size:.72rem;letter-spacing:4px;opacity:.85}
+.ch-side .num{font:700 4.4rem/1 Lora,serif}
+.ch-body{padding:24px 28px}
+.ch-body h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin:0 0 8px}
+.ch-body .lead{font-family:Lora,serif;font-style:italic;color:var(--muted);font-size:1.05rem}
+.ch-body .obj{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.ch-body .obj h4{margin:0 0 4px;font-family:Inter;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.ch-body .quote{margin-top:16px;font-family:Lora,serif;font-style:italic;color:var(--navy2);border-left:3px solid var(--gold);padding-left:14px}
+/* contenus */
+h2{scroll-margin-top:80px}
+figure svg{width:100%;height:auto;max-width:680px}
+.tscroll{overflow-x:auto;margin:10px 0 16px;border-radius:10px}
+.tscroll table{margin:0;min-width:520px}
+details.cor{border:1px solid #CFE5DF;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+details.cor>summary{background:var(--teal);color:#fff;padding:9px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.cor>summary::-webkit-details-marker{display:none}
+details.cor>summary::after{content:"Voir le corrigé ▾";font-weight:400;font-size:.85rem;opacity:.85}
+details.cor[open]>summary::after{content:"Masquer ▴"}
+details.cor .c{padding:10px 16px;background:#FAFDFC}
+.exo,.box,.kwbox,.card{background-clip:padding-box}
+.fab{position:fixed;right:18px;bottom:18px;z-index:15;background:var(--navy);color:#D9BD7A;border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;box-shadow:0 8px 22px rgba(11,18,34,.3);font-size:.9rem}
+.foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+.foot a{color:var(--teal);font-weight:600}
+@media (max-width:640px){
+  .tn-in{flex-direction:column;align-items:stretch;gap:8px}.tn-mods{margin-left:0}.tn-mods{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.tn-mod{white-space:normal;padding:8px 6px;font-size:.8rem;line-height:1.2;text-align:center}
+  .chead2{grid-template-columns:1fr}.ch-side{flex-direction:row;align-items:baseline;gap:12px;padding:14px 20px}.ch-side .num{font-size:2.6rem}
+  .ch-body{padding:18px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero::after{display:none}
+  .toc .row .nb{width:38px;font-size:15pt}
+  body{font-size:15.5px}
+}
+@media print{.topnav,.fab,.hero-actions{display:none}}
+
+.chead2#tp .ch-side .num{font-size:3.4rem}
+details.cor pre{margin:6px 0}
+
+/* nav 6 entrées */
+.tn-in{max-width:1200px}.tn-mods{flex-wrap:wrap;justify-content:flex-end;overflow:visible}.tn-mod{padding:7px 12px;font-size:.86rem;min-height:36px}
+@media (max-width:640px){.tn-mods{grid-template-columns:repeat(3,1fr)}.tn-mod{padding:7px 4px;font-size:.76rem;text-align:center}}
+</style></head>
+<body><header class="topnav"><div class="tn-in"><a class="tn-brand" href="index.html#cyber"><span class="tn-logo">ID</span><span class="tn-name">Infrastructure <em>Digitale</em></span></a><nav class="tn-mods" aria-label="Modules"><a class="tn-mod" href="index.html#accueil">Accueil</a><a class="tn-mod" href="index.html#m103">Conception d'un réseau</a><a class="tn-mod" href="index.html#auto">Automatisation</a><a class="tn-mod" href="index.html#veille">Veille technologique</a><a class="tn-mod" href="index.html#secu">Sécurité informatique</a><a class="tn-mod" href="index.html#cyber" aria-current="page">Cybersécurité</a></nav></div></header>
+<main class="wrap">
+<!-- ============ COVER ============ -->
+<header class="hero" id="top"><div class="hin">
+<div class="tag">Module · Infrastructure digitale · Niveau débutant</div>
+<h1>Bases de la <br/><em>cybersécurité</em></h1>
+<div class="bar"></div>
+<div class="sub">Comprendre les cyberattaques, adopter les bons réflexes, protéger ses comptes, ses appareils et ses données, et savoir réagir face à un incident.</div>
+<div class="chips"><span>10 chapitres</span><span>6 études de cas réelles</span><span>10 labs avec solutions</span><span>Schémas &amp; tableaux</span><span>QCM corrigés</span></div>
+</div><div class="meta">
+<b>Public :</b> Stagiaires 1<sup>re</sup> année, niveau Bac+1 — débutants<br/>
+<b>Formateur :</b> M. Youssef MERZAK<br/>
+<b>Édition :</b> Novembre 2026
+  </div><div class="hero-actions"><a class="btn gold" href="#sommaire">Commencer le cours</a><a class="btn ghostw" download="" href="docs/bases-cybersecurite.pdf">Télécharger le PDF</a></div></header>
+<!-- ============ SOMMAIRE ============ -->
+<section class="toc" id="sommaire">
+<h2 style="margin-top:0">Sommaire</h2>
+<p class="section-intro" style="font-size:10pt">Ce cours ne demande aucune connaissance préalable en sécurité. On part de la vie de tous les jours (ton téléphone, tes comptes, tes e-mails) pour arriver aux réflexes d'un technicien : repérer une attaque, protéger un poste, lire un journal et réagir à un incident. Chaque chapitre se termine par des exercices ; les corrigés sont à la fin.</p>
+<a class="row" href="#ch1"><span class="nb">01</span><span class="tt">Qu'est-ce que la cybersécurité ?<span class="ds">Définitions, triade CIA, actifs, menaces, risques, chiffres clés</span></span></a>
+<a class="row" href="#ch2"><span class="nb">02</span><span class="tt">Qui attaque, et pourquoi ?<span class="ds">Profils d'attaquants, motivations, hackers éthiques, métiers de la cyber</span></span></a>
+<a class="row" href="#ch3"><span class="nb">03</span><span class="tt">Le déroulement d'une cyberattaque<span class="ds">Cyber kill chain, surface d'attaque, vulnérabilités, CVE</span></span></a>
+<a class="row" href="#ch4"><span class="nb">04</span><span class="tt">L'ingénierie sociale et le phishing<span class="ds">Manipulation, faux e-mails, SMS, appels, analyse d'URL</span></span></a>
+<a class="row" href="#ch5"><span class="nb">05</span><span class="tt">Les logiciels malveillants<span class="ds">Virus, ver, cheval de Troie, ransomware, spyware, botnet</span></span></a>
+<a class="row" href="#ch6"><span class="nb">06</span><span class="tt">Mots de passe, MFA et chiffrement<span class="ds">Attaques sur les comptes, gestionnaire, hachage, HTTPS</span></span></a>
+<a class="row" href="#ch7"><span class="nb">07</span><span class="tt">Les attaques sur les réseaux et le Web<span class="ds">Écoute, MITM, Wi-Fi public, DDoS, injection SQL, XSS</span></span></a>
+<a class="row" href="#ch8"><span class="nb">08</span><span class="tt">Se protéger : la défense en profondeur<span class="ds">Mises à jour, antivirus, pare-feu, sauvegardes, moindre privilège</span></span></a>
+<a class="row" href="#ch9"><span class="nb">09</span><span class="tt">Surveiller et détecter<span class="ds">Journaux, événements Windows, SOC, SIEM, indicateurs de compromission</span></span></a>
+<a class="row" href="#ch10"><span class="nb">10</span><span class="tt">Réagir à un incident et cadre légal<span class="ds">Les 6 étapes de la réponse, DGSSI, maCERT, lois 05-20, 09-08, 07-03</span></span></a>
+<a class="row" href="#cas"><span class="nb">ÉC</span><span class="tt">Études de cas<span class="ds">WannaCry, Colonial Pipeline, Equifax, Twitter, Target, CNSS Maroc</span></span></a>
+<a class="row" href="#tp"><span class="nb">TP</span><span class="tt">Labs pratiques<span class="ds">10 labs Windows, Linux et outils gratuits, avec solutions</span></span></a>
+<a class="row" href="#qcm"><span class="nb">+</span><span class="tt">QCM final · Glossaire · Corrigés<span class="ds">Pour réviser et vérifier ses réponses</span></span></a>
+<h3>Comment lire ce cours ?</h3>
+<div class="legend">
+<span class="k kb">Définition</span><span class="k kt">Astuce</span><span class="k kr">Attention</span><span class="k kg">À retenir</span><span class="k kv">Analogie</span>
+</div>
+<p>Les <span class="k kb">mots-clés</span> sont surlignés en couleur : <span class="k kb">bleu</span> = notion, <span class="k kt">vert</span> = protection ou bon réflexe, <span class="k kg">or</span> = idée essentielle, <span class="k kr">rose</span> = menace ou danger, <span class="k kv">violet</span> = méthode, outil ou protocole.</p>
+<div class="box warn"><div class="t"><i>!</i>Règle d'or du cours</div>
+<p>On étudie les attaques pour <b>apprendre à se défendre</b>. Tester une technique sur un appareil, un compte ou un réseau qui ne t'appartient pas, sans autorisation écrite, est un délit puni par la loi marocaine 07-03. Tous les labs se font sur ton propre poste, dans une machine virtuelle ou sur le réseau de l'école avec l'accord du formateur.</p></div>
+</section>
+<!-- ============ CHAPITRE 1 ============ -->
+<section class="chead2" id="ch1"><div class="ch-side" style="background:linear-gradient(180deg,#1B2A4A,#2C3E66)"><span class="lbl">CHAPITRE</span><span class="num">01</span></div><div class="ch-body">
+<h1>Qu'est-ce que la cybersécurité ?</h1>
+<div class="lead">Avant de se défendre, il faut savoir ce qu'on protège, contre quoi, et pourquoi c'est important.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Définir la cybersécurité avec ses propres mots</li>
+<li>Expliquer la triade CIA avec des exemples de la vie courante</li>
+<li>Distinguer actif, menace, vulnérabilité et risque</li>
+<li>Calculer un niveau de risque simple</li></ul></div>
+<div class="quote">« Il n'existe que deux types d'entreprises : celles qui ont été piratées, et celles qui ne le savent pas encore. » — adage du métier</div></div></section>
+<h2><span class="n">1.1</span>Une définition simple</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>La <span class="k kb">cybersécurité</span> est l'ensemble des moyens <b>techniques</b> (logiciels, matériels), <b>organisationnels</b> (règles, procédures) et <b>humains</b> (formation, vigilance) qui protègent les ordinateurs, les réseaux, les applications et les données contre les attaques, les accidents et les erreurs.</p></div>
+<p>Le préfixe « cyber » désigne tout ce qui se passe dans le monde numérique connecté : Internet, réseaux d'entreprise, téléphones, objets connectés, services en ligne (banque, administration, réseaux sociaux). Aujourd'hui, presque toute notre vie passe par ce monde : on paie, on étudie, on travaille, on se soigne et on communique en ligne. Une attaque informatique peut donc avoir des conséquences très concrètes : un hôpital qui ne peut plus soigner, une usine à l'arrêt, des salaires non versés, des photos privées publiées.</p>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Pense à ta maison. Tu fermes la porte à clé (mot de passe), tu ne donnes pas ta clé à un inconnu (ingénierie sociale), tu installes une alarme (détection), tu ranges les papiers importants dans un coffre (chiffrement) et tu as une assurance (sauvegarde). La cybersécurité, c'est exactement la même chose… pour ta vie numérique.</p></div>
+<h3>Sécurité informatique ou cybersécurité ?</h3>
+<p>Les deux expressions sont souvent utilisées l'une pour l'autre. On peut retenir la nuance suivante :</p>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Expression</th><th>Ce qu'elle désigne</th></tr>
+<tr><td><b>Sécurité de l'information</b></td><td>Protéger l'information sous toutes ses formes, y compris le papier et la parole (un dossier oublié sur un bureau, une conversation dans le bus).</td></tr>
+<tr><td><b>Sécurité informatique</b></td><td>Protéger les systèmes informatiques d'une organisation : serveurs, postes, réseau, applications.</td></tr>
+<tr><td><b>Cybersécurité</b></td><td>Protéger tout ce qui est connecté, face aux menaces venues du cyberespace (Internet). C'est le terme le plus utilisé aujourd'hui.</td></tr>
+</table></div>
+<h2><span class="n">1.2</span>La triade CIA : les trois choses à protéger</h2>
+<p>Tous les spécialistes du monde utilisent le même modèle pour dire « ce qui est sécurisé ». Il tient en trois lettres : <span class="k kg">C-I-A</span> en anglais, <span class="k kg">D-I-C</span> en français.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 250">
+<polygon fill="#FBF4E4" points="300,22 520,222 80,222" stroke="#B8913A" stroke-width="2"></polygon>
+<circle cx="300" cy="22" r="0"></circle>
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="54" rx="12" stroke="#2F6FA8" width="170" x="215" y="4"></rect>
+<text fill="#2F6FA8" font-size="13" font-weight="700" x="300" y="27">CONFIDENTIALITÉ</text>
+<text fill="#333" font-size="10.5" x="300" y="45">seuls les autorisés lisent</text>
+<rect fill="#E6F4F1" height="54" rx="12" stroke="#0F766E" width="170" x="10" y="190"></rect>
+<text fill="#0F766E" font-size="13" font-weight="700" x="95" y="213">INTÉGRITÉ</text>
+<text fill="#333" font-size="10.5" x="95" y="231">rien n'est modifié en cachette</text>
+<rect fill="#FBEEF1" height="54" rx="12" stroke="#A84A62" width="170" x="420" y="190"></rect>
+<text fill="#A84A62" font-size="13" font-weight="700" x="505" y="213">DISPONIBILITÉ</text>
+<text fill="#333" font-size="10.5" x="505" y="231">le service marche quand il faut</text>
+<text fill="#1B2A4A" font-family="Lora" font-size="22" font-weight="700" x="300" y="150">Données</text>
+<text fill="#5E6673" font-size="11" x="300" y="172">et services</text>
+</g>
+</svg>
+<figcaption>Figure 1.1 — La triade CIA : Confidentialité, Intégrité, Disponibilité</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:17%">Pilier</th><th style="width:28%">Question à se poser</th><th>Exemple d'atteinte</th><th style="width:24%">Protection</th></tr>
+<tr><td><b>Confidentialité</b></td><td>Qui peut lire cette information ?</td><td>Tes conversations WhatsApp volées ; le fichier des notes publié par erreur</td><td>Mot de passe, chiffrement, droits d'accès</td></tr>
+<tr><td><b>Intégrité</b></td><td>Est-ce que quelqu'un a pu la modifier ?</td><td>Un pirate change le RIB d'une facture ; une note modifiée dans la base</td><td>Hachage, signature, journaux</td></tr>
+<tr><td><b>Disponibilité</b></td><td>Est-ce que ça marche quand on en a besoin ?</td><td>Le site d'inscription saturé la veille de la date limite ; un ransomware bloque tous les PC</td><td>Sauvegardes, redondance, anti-DDoS</td></tr>
+</table></div>
+<p>On ajoute souvent deux notions : l'<span class="k kb">authenticité</span> (être sûr de l'identité de quelqu'un ou de l'origine d'un message) et la <span class="k kb">traçabilité</span> ou non-répudiation (garder la preuve de qui a fait quoi, pour qu'on ne puisse pas nier).</p>
+<div class="box tip"><div class="t"><i>✓</i>Astuce mémo</div>
+<p>Pour retenir le D-I-C, pense à ton bulletin de notes : il doit rester <b>secret</b> (confidentialité), <b>exact</b> (intégrité) et <b>consultable</b> le jour des résultats (disponibilité).</p></div>
+<h2><span class="n">1.3</span>Actif, menace, vulnérabilité, risque</h2>
+<p>Ces quatre mots reviennent dans tous les cours, tous les audits et toutes les offres d'emploi. Il faut absolument savoir les distinguer.</p>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Mot</th><th>Définition simple</th><th style="width:34%">Exemple (une école)</th></tr>
+<tr><td><span class="k kg">Actif</span></td><td>Ce qui a de la valeur et qu'on veut protéger</td><td>Le fichier des stagiaires, le serveur, la réputation de l'établissement</td></tr>
+<tr><td><span class="k kr">Menace</span></td><td>Ce qui peut causer un dommage (une personne, un logiciel, un événement)</td><td>Un pirate, un ransomware, un incendie, un employé maladroit</td></tr>
+<tr><td><span class="k kr">Vulnérabilité</span></td><td>Une faiblesse que la menace peut exploiter</td><td>Windows pas à jour, mot de passe « 123456 », salle serveur non fermée</td></tr>
+<tr><td><span class="k kg">Risque</span></td><td>La possibilité qu'une menace exploite une vulnérabilité et touche un actif</td><td>« Un ransomware chiffre le serveur non mis à jour et on perd les notes »</td></tr>
+<tr><td><span class="k kt">Contre-mesure</span></td><td>Ce qu'on met en place pour réduire le risque</td><td>Mises à jour, sauvegarde, mot de passe fort, MFA</td></tr>
+</table></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 120">
+<defs><marker id="c1a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<g font-size="12" text-anchor="middle">
+<rect fill="#FBEEF1" height="60" rx="12" stroke="#A84A62" width="130" x="5" y="30"></rect><text fill="#A84A62" font-weight="700" x="70" y="56">MENACE</text><text font-size="10.5" x="70" y="75">le pirate</text>
+<rect fill="#FBEEF1" height="60" rx="12" stroke="#A84A62" stroke-dasharray="5 4" width="140" x="165" y="30"></rect><text fill="#A84A62" font-weight="700" x="235" y="56">VULNÉRABILITÉ</text><text font-size="10.5" x="235" y="75">la porte mal fermée</text>
+<rect fill="#FBF4E4" height="60" rx="12" stroke="#B8913A" width="130" x="335" y="30"></rect><text fill="#8A6A22" font-weight="700" x="400" y="56">ACTIF</text><text font-size="10.5" x="400" y="75">les données</text>
+<rect fill="#1B2A4A" height="60" rx="12" width="120" x="495" y="30"></rect><text fill="#fff" font-weight="700" x="555" y="56">RISQUE</text><text fill="#D9BD7A" font-size="10.5" x="555" y="75">dommage possible</text>
+</g>
+<line marker-end="url(#c1a)" stroke="#B8913A" stroke-width="2" x1="135" x2="162" y1="60" y2="60"></line>
+<line marker-end="url(#c1a)" stroke="#B8913A" stroke-width="2" x1="305" x2="332" y1="60" y2="60"></line>
+<line marker-end="url(#c1a)" stroke="#B8913A" stroke-width="2" x1="465" x2="492" y1="60" y2="60"></line>
+</svg>
+<figcaption>Figure 1.2 — Une menace exploite une vulnérabilité pour atteindre un actif : c'est le risque</figcaption>
+</figure>
+<div class="box warn"><div class="t"><i>!</i>Piège classique</div>
+<p>Confondre <b>menace</b> et <b>vulnérabilité</b>. On ne peut pas supprimer les pirates (la menace existera toujours). En revanche, on peut supprimer les vulnérabilités : mettre à jour, changer le mot de passe faible, fermer la porte. C'est là que le technicien agit.</p></div>
+<h3>Calculer un niveau de risque</h3>
+<p>Pour savoir par quoi commencer, on note chaque risque avec une formule très simple :</p>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p style="text-align:center;font-size:12pt"><b>Risque = Probabilité × Impact</b>  (chacun noté de 1 à 4)</p>
+<p>De 1 à 4 : risque faible, on peut l'accepter. De 5 à 8 : à surveiller. 9 et plus : <b>prioritaire</b>, on agit tout de suite.</p></div>
+<div class="tscroll"><table>
+<tr><th>Scénario</th><th style="width:13%">Probabilité</th><th style="width:11%">Impact</th><th style="width:10%">Risque</th><th style="width:16%">Décision</th></tr>
+<tr><td>Phishing reçu par les employés</td><td>4</td><td>3</td><td><b>12</b></td><td>Prioritaire</td></tr>
+<tr><td>Ransomware sur un serveur sans sauvegarde</td><td>3</td><td>4</td><td><b>12</b></td><td>Prioritaire</td></tr>
+<tr><td>Vol d'un PC portable chiffré</td><td>2</td><td>2</td><td><b>4</b></td><td>Acceptable</td></tr>
+<tr><td>Inondation de la salle serveur</td><td>1</td><td>4</td><td><b>4</b></td><td>Accepter + assurance</td></tr>
+</table></div>
+<p>Face à un risque, on a quatre choix : le <span class="k kt">réduire</span> (mettre une contre-mesure), le <span class="k kt">transférer</span> (assurance, prestataire), l'<span class="k kt">éviter</span> (arrêter l'activité dangereuse) ou l'<span class="k kt">accepter</span> (en le notant par écrit).</p>
+<h2><span class="n">1.4</span>Quelques chiffres pour comprendre l'enjeu</h2>
+<div class="grid3">
+<div class="card"><h4>L'humain d'abord</h4><p>La grande majorité des attaques réussies commencent par une erreur humaine : un clic sur un lien piégé, un mot de passe réutilisé, une pièce jointe ouverte.</p></div>
+<div class="card"><h4>Tout le monde est visé</h4><p>Les pirates attaquent surtout en masse et automatiquement : ils ne cherchent pas « toi », ils cherchent n'importe quelle porte ouverte. Petite école, PME ou particulier : tout le monde est une cible.</p></div>
+<div class="card"><h4>Un secteur qui recrute</h4><p>Partout dans le monde, et au Maroc aussi, les entreprises manquent de techniciens formés à la cybersécurité. C'est un excellent débouché pour un profil infrastructure.</p></div>
+</div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Cybersécurité</span><span class="k kg">Triade CIA / DIC</span><span class="k kb">Confidentialité</span><span class="k kb">Intégrité</span><span class="k kb">Disponibilité</span><span class="k kg">Actif</span><span class="k kr">Menace</span><span class="k kr">Vulnérabilité</span><span class="k kg">Risque</span><span class="k kt">Contre-mesure</span>
+</div>
+<div class="exo"><div class="h">Exercice 1.1 — Quel pilier est touché ?<span>Facile</span></div><div class="c">
+<p>Pour chaque situation, indique le pilier de la triade CIA principalement touché.</p>
+<ol><li>Le site de l'OFPPT est inaccessible pendant 3 heures à cause d'une attaque.</li>
+<li>Un stagiaire modifie sa note dans le fichier Excel partagé.</li>
+<li>Un employé envoie la liste des salaires au mauvais destinataire.</li>
+<li>Un ransomware chiffre tous les fichiers du serveur.</li>
+<li>Un pirate lit les e-mails du directeur.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 1.2 — Actif, menace ou vulnérabilité ?<span>Facile</span></div><div class="c">
+<p>Classe chaque élément : <i>base de données clients, ancien Windows 7, employé mécontent, Wi-Fi sans mot de passe, site e-commerce, virus, pas de sauvegarde, coupure d'électricité.</i></p></div></div>
+<div class="exo"><div class="h">Exercice 1.3 — Évaluer et décider<span>Moyen</span></div><div class="c">
+<p>Une petite agence de voyage a un seul PC avec tous les dossiers clients, jamais sauvegardé. Les employés ouvrent souvent des pièces jointes.</p>
+<ol><li>Identifie l'actif, deux menaces et deux vulnérabilités.</li>
+<li>Évalue le risque « ransomware » (probabilité et impact) et donne la décision.</li>
+<li>Propose trois contre-mesures simples et peu coûteuses.</li></ol></div></div>
+<!-- ============ CHAPITRE 2 ============ -->
+<section class="chead2" id="ch2"><div class="ch-side" style="background:linear-gradient(180deg,#5B4B8A,#433669)"><span class="lbl">CHAPITRE</span><span class="num">02</span></div><div class="ch-body">
+<h1>Qui attaque, et pourquoi ?</h1>
+<div class="lead">Comprendre l'adversaire : ses profils, ses motivations et ses moyens.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Reconnaître les grands profils d'attaquants</li>
+<li>Relier chaque profil à une motivation</li>
+<li>Distinguer hacker éthique et cybercriminel</li>
+<li>Découvrir les métiers de la cybersécurité</li></ul></div>
+<div class="quote">« Connais ton ennemi et connais-toi toi-même : en cent batailles, tu ne seras jamais en péril. » — Sun Tzu</div></div></section>
+<h2><span class="n">2.1</span>Le mot « hacker »</h2>
+<p>Dans le langage courant, « hacker » veut dire « pirate ». À l'origine, pourtant, un <span class="k kb">hacker</span> est simplement une personne passionnée qui aime comprendre en profondeur comment fonctionne un système, et le détourner de son usage prévu. Ce qui fait la différence entre un professionnel et un criminel, c'est l'<b>autorisation</b> et l'<b>intention</b>.</p>
+<div class="tscroll"><table>
+<tr><th style="width:20%">Chapeau</th><th>Qui est-ce ?</th><th style="width:26%">Légal ?</th></tr>
+<tr><td><b>Chapeau blanc</b><br/>(white hat)</td><td>Hacker éthique : il teste la sécurité <b>avec l'accord écrit</b> du propriétaire, puis l'aide à corriger. Exemple : pentesteur, chercheur en bug bounty.</td><td><span class="k kt">Oui</span> — c'est un métier</td></tr>
+<tr><td><b>Chapeau noir</b><br/>(black hat)</td><td>Cybercriminel : il attaque sans autorisation pour voler, détruire ou gagner de l'argent.</td><td><span class="k kr">Non</span> — délit pénal</td></tr>
+<tr><td><b>Chapeau gris</b><br/>(grey hat)</td><td>Il entre sans autorisation, souvent « pour aider » ou par curiosité, puis prévient la victime.</td><td><span class="k kr">Non</span> — l'intention ne suffit pas</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>« Je voulais juste tester » n'est pas une excuse devant un juge. Accéder sans autorisation à un système, même sans rien casser, est puni par la loi 07-03 au Maroc. Le hacker éthique a toujours un <b>contrat signé</b> qui précise ce qu'il a le droit de tester.</p></div>
+<h2><span class="n">2.2</span>Les profils d'attaquants</h2>
+<div class="tscroll"><table>
+<tr><th style="width:20%">Profil</th><th>Motivation</th><th style="width:16%">Niveau</th><th style="width:28%">Exemple d'action</th></tr>
+<tr><td><b>Script kiddie</b></td><td>S'amuser, impressionner ses amis</td><td>Faible (outils tout faits)</td><td>Lancer un outil trouvé sur Internet contre un site</td></tr>
+<tr><td><b>Cybercriminel</b></td><td><span class="k kg">Argent</span></td><td>Moyen à élevé</td><td>Ransomware, vol de cartes bancaires, arnaques</td></tr>
+<tr><td><b>Hacktiviste</b></td><td>Idéologie, politique, message</td><td>Variable</td><td>Défigurer un site, publier des données, DDoS</td></tr>
+<tr><td><b>Menace interne</b></td><td>Vengeance, argent, ou simple erreur</td><td>Accès déjà ouvert</td><td>Employé qui copie des fichiers avant de partir</td></tr>
+<tr><td><b>Groupe étatique (APT)</b></td><td>Espionnage, sabotage, géopolitique</td><td>Très élevé</td><td>Attaque longue et discrète contre une administration</td></tr>
+<tr><td><b>Concurrent</b></td><td>Espionnage industriel</td><td>Variable</td><td>Voler un fichier clients ou des plans</td></tr>
+</table></div>
+<div class="box def"><div class="t"><i>i</i>APT</div>
+<p>Une <span class="k kr">APT</span> (Advanced Persistent Threat, menace persistante avancée) est un groupe très organisé, souvent soutenu par un État, qui reste caché des mois dans un réseau pour espionner. « Persistante » veut dire qu'il ne lâche pas.</p></div>
+<h3>Le cybercrime est devenu une industrie</h3>
+<p>Aujourd'hui, beaucoup de cybercriminels ne codent pas eux-mêmes : ils louent des outils. On parle de <span class="k kr">RaaS</span> (Ransomware as a Service) : un groupe développe le ransomware et le « loue » à des affiliés qui réalisent les attaques, puis ils partagent la rançon. Il existe aussi des vendeurs d'accès (ils vendent des mots de passe volés), des vendeurs de kits de phishing, des services de blanchiment… Comme une vraie entreprise, avec un support client !</p>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Le RaaS, c'est comme une franchise de restauration rapide : la marque fournit la recette, le matériel et la publicité ; le franchisé ouvre la boutique et reverse une partie du chiffre d'affaires. Ici, la « recette » est un logiciel criminel.</p></div>
+<h2><span class="n">2.3</span>Les motivations en un coup d'œil</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 170">
+<g font-size="11.5" text-anchor="middle">
+<circle cx="70" cy="80" fill="#FBF4E4" r="56" stroke="#B8913A"></circle><text fill="#8A6A22" font-weight="700" x="70" y="76">ARGENT</text><text font-size="10" x="70" y="93">rançon, vol</text>
+<circle cx="190" cy="80" fill="#EAF2FA" r="56" stroke="#2F6FA8"></circle><text fill="#2F6FA8" font-weight="700" x="190" y="76">ESPIONNAGE</text><text font-size="10" x="190" y="93">secrets, données</text>
+<circle cx="310" cy="80" fill="#F1EEF8" r="56" stroke="#5B4B8A"></circle><text fill="#5B4B8A" font-weight="700" x="310" y="76">IDÉOLOGIE</text><text font-size="10" x="310" y="93">message politique</text>
+<circle cx="430" cy="80" fill="#FBEEF1" r="56" stroke="#A84A62"></circle><text fill="#A84A62" font-weight="700" x="430" y="76">VENGEANCE</text><text font-size="10" x="430" y="93">employé fâché</text>
+<circle cx="545" cy="80" fill="#E6F4F1" r="50" stroke="#0F766E"></circle><text fill="#0F766E" font-weight="700" x="545" y="76">DÉFI</text><text font-size="10" x="545" y="93">réputation</text>
+</g>
+<text fill="#5E6673" font-size="10.5" font-style="italic" text-anchor="middle" x="300" y="160">La première motivation, de très loin, reste l'argent.</text>
+</svg>
+<figcaption>Figure 2.1 — Les cinq grandes motivations des attaquants</figcaption>
+</figure>
+<h2><span class="n">2.4</span>Les métiers de la cybersécurité</h2>
+<p>Face aux attaquants, on trouve deux grandes familles de défenseurs : la <span class="k kr">Red Team</span> (équipe rouge) qui joue le rôle de l'attaquant pour trouver les failles, et la <span class="k kb">Blue Team</span> (équipe bleue) qui défend, surveille et réagit.</p>
+<div class="tscroll"><table>
+<tr><th style="width:26%">Métier</th><th>Mission</th><th style="width:12%">Équipe</th></tr>
+<tr><td><b>Technicien / administrateur sécurité</b></td><td>Configure et maintient pare-feu, antivirus, sauvegardes, comptes. Souvent le premier poste après un diplôme infrastructure.</td><td>Bleue</td></tr>
+<tr><td><b>Analyste SOC</b></td><td>Surveille les alertes 24 h/24 dans un centre de sécurité et donne l'alerte.</td><td>Bleue</td></tr>
+<tr><td><b>Pentesteur</b></td><td>Réalise des tests d'intrusion autorisés et rédige un rapport de failles.</td><td>Rouge</td></tr>
+<tr><td><b>Analyste forensic</b></td><td>Enquête après une attaque : comment est entré le pirate, qu'a-t-il volé ?</td><td>Bleue</td></tr>
+<tr><td><b>RSSI</b></td><td>Responsable de la sécurité des SI : définit la politique de sécurité de l'entreprise.</td><td>Direction</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce carrière</div>
+<p>Un bon technicien sécurité est d'abord un bon technicien réseau et système. Tout ce que tu apprends en adressage IP, VLAN, routage, Windows et Linux est la base de la cybersécurité. Des plateformes gratuites comme TryHackMe (parcours débutant) ou les cours Cisco NetAcad « Introduction à la cybersécurité » permettent de continuer à progresser.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Hacker</span><span class="k kt">Chapeau blanc</span><span class="k kr">Chapeau noir</span><span class="k kr">Script kiddie</span><span class="k kr">Hacktiviste</span><span class="k kr">Menace interne</span><span class="k kr">APT</span><span class="k kr">RaaS</span><span class="k kv">Red Team</span><span class="k kv">Blue Team</span><span class="k kb">SOC</span>
+</div>
+<div class="exo"><div class="h">Exercice 2.1 — Identifier le profil<span>Facile</span></div><div class="c">
+<ol><li>Un groupe publie sur le site d'un ministère un message politique à la place de la page d'accueil.</li>
+<li>Un adolescent lance un outil de DDoS trouvé sur YouTube contre le serveur de jeu de son lycée.</li>
+<li>Un comptable licencié garde son accès et supprime des factures.</li>
+<li>Un groupe reste caché 8 mois dans le réseau d'un ministère des Affaires étrangères.</li>
+<li>Un gang chiffre les serveurs d'une clinique et demande 50 000 $ en bitcoins.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 2.2 — Légal ou pas ?<span>Moyen</span></div><div class="c">
+<p>Pour chaque cas, dis si c'est légal et justifie : (a) Karim scanne le réseau Wi-Fi de son voisin « pour voir » ; (b) une entreprise engage un pentesteur avec un contrat ; (c) Salma trouve une faille sur un site, entre dans la base de données puis prévient le site ; (d) un stagiaire teste un outil d'attaque dans une machine virtuelle sur son propre PC.</p></div></div>
+<!-- ============ CHAPITRE 3 ============ -->
+<section class="chead2" id="ch3"><div class="ch-side" style="background:linear-gradient(180deg,#A84A62,#7E3448)"><span class="lbl">CHAPITRE</span><span class="num">03</span></div><div class="ch-body">
+<h1>Le déroulement d'une cyberattaque</h1>
+<div class="lead">Une attaque n'est pas un clic magique : c'est une suite d'étapes. Couper une seule étape suffit souvent à tout arrêter.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Décrire les 7 étapes de la cyber kill chain</li>
+<li>Comprendre la notion de surface d'attaque</li>
+<li>Savoir ce qu'est une vulnérabilité, une CVE et un zero-day</li>
+<li>Associer à chaque étape une défense possible</li></ul></div>
+<div class="quote">« L'attaquant doit réussir toutes les étapes ; le défenseur n'a besoin d'en bloquer qu'une seule. »</div></div></section>
+<h2><span class="n">3.1</span>La cyber kill chain</h2>
+<p>La <span class="k kv">cyber kill chain</span> (chaîne d'attaque) est un modèle créé par l'entreprise Lockheed Martin. Il découpe une attaque en 7 étapes. Les défenseurs l'utilisent pour se demander : « à quelle étape puis-je arrêter l'attaquant ? »</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 200">
+<g font-size="10.5" text-anchor="middle">
+<g><path d="M4 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#1B2A4A"></path><text fill="#D9BD7A" font-weight="700" x="52" y="66">1</text><text fill="#fff" x="52" y="82">Repérage</text></g>
+<g><path d="M94 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#2C3E66"></path><text fill="#D9BD7A" font-weight="700" x="142" y="66">2</text><text fill="#fff" x="142" y="82">Armement</text></g>
+<g><path d="M184 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#2F6FA8"></path><text fill="#fff" font-weight="700" x="232" y="66">3</text><text fill="#fff" x="232" y="82">Livraison</text></g>
+<g><path d="M274 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#5B4B8A"></path><text fill="#fff" font-weight="700" x="322" y="66">4</text><text fill="#fff" x="322" y="82">Exploitation</text></g>
+<g><path d="M364 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#A84A62"></path><text fill="#fff" font-weight="700" x="412" y="66">5</text><text fill="#fff" x="412" y="82">Installation</text></g>
+<g><path d="M454 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#7E3448"></path><text fill="#fff" font-weight="700" x="502" y="66">6</text><text fill="#fff" x="502" y="82">Contrôle (C2)</text></g>
+<g><path d="M544 40 h80 l14 30 l-14 30 h-80 l14 -30 z" fill="#B8913A"></path><text fill="#fff" font-weight="700" x="592" y="66">7</text><text fill="#fff" x="592" y="82">Objectifs</text></g>
+<text fill="#5E6673" font-size="9.5" x="52" y="125">cherche des infos</text>
+<text fill="#5E6673" font-size="9.5" x="142" y="125">prépare le piège</text>
+<text fill="#5E6673" font-size="9.5" x="232" y="125">envoie le piège</text>
+<text fill="#5E6673" font-size="9.5" x="322" y="125">déclenche la faille</text>
+<text fill="#5E6673" font-size="9.5" x="412" y="125">s'installe</text>
+<text fill="#5E6673" font-size="9.5" x="502" y="125">pilote à distance</text>
+<text fill="#5E6673" font-size="9.5" x="592" y="125">vole, chiffre…</text>
+</g>
+<rect fill="#E6F4F1" height="36" rx="10" stroke="#0F766E" width="632" x="4" y="150"></rect>
+<text fill="#0F766E" font-size="11" font-weight="600" text-anchor="middle" x="320" y="173">Défense : bloquer n'importe quel maillon casse toute la chaîne</text>
+</svg>
+<figcaption>Figure 3.1 — Les 7 étapes de la cyber kill chain</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:17%">Étape</th><th>Ce que fait l'attaquant (exemple d'un ransomware)</th><th style="width:32%">Défense possible</th></tr>
+<tr><td><b>1. Repérage</b></td><td>Il cherche sur LinkedIn les noms des comptables, trouve le format des adresses e-mail, scanne les serveurs exposés sur Internet.</td><td>Limiter les infos publiques, sensibiliser, surveiller les scans</td></tr>
+<tr><td><b>2. Armement</b></td><td>Il prépare un fichier Excel piégé avec une macro malveillante.</td><td>(chez l'attaquant : difficile à bloquer)</td></tr>
+<tr><td><b>3. Livraison</b></td><td>Il envoie le fichier par e-mail : « Facture impayée – urgent ».</td><td>Filtre anti-spam, blocage des macros, formation</td></tr>
+<tr><td><b>4. Exploitation</b></td><td>La comptable ouvre le fichier et active les macros : le code s'exécute.</td><td>Mises à jour, compte sans droits admin</td></tr>
+<tr><td><b>5. Installation</b></td><td>Un programme espion s'installe et se relance à chaque démarrage.</td><td>Antivirus / EDR, liste blanche d'applications</td></tr>
+<tr><td><b>6. Commande &amp; contrôle</b></td><td>Le programme contacte le serveur du pirate (C2) pour recevoir des ordres.</td><td>Pare-feu sortant, filtrage DNS, détection</td></tr>
+<tr><td><b>7. Objectifs</b></td><td>Il se propage, vole les données puis chiffre tous les serveurs.</td><td>Segmentation, sauvegardes hors ligne, plan de réponse</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce mémo</div>
+<p>Pense à un cambriolage : <b>repérer</b> la maison, <b>préparer</b> ses outils, <b>arriver</b> sur place, <b>forcer</b> la serrure, <b>s'installer</b> discrètement, <b>communiquer</b> avec le complice dehors, <b>emporter</b> le butin.</p></div>
+<h2><span class="n">3.2</span>La surface d'attaque</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>La <span class="k kr">surface d'attaque</span> est l'ensemble de tous les points par lesquels un attaquant peut essayer d'entrer : services ouverts sur Internet, comptes utilisateurs, appareils, applications, prestataires… et personnes.</p></div>
+<p>Plus la surface est grande, plus il y a de portes à surveiller. Le premier réflexe du défenseur est donc de la <span class="k kt">réduire</span> : désinstaller ce qui ne sert pas, fermer les ports inutiles, supprimer les comptes des anciens employés, ne pas exposer un partage de fichiers sur Internet.</p>
+<div class="grid2">
+<div class="card"><h4>Surface numérique</h4><p>Serveurs web, VPN, messagerie, ports ouverts (RDP 3389, SMB 445…), applications, objets connectés, cloud.</p></div>
+<div class="card"><h4>Surface humaine et physique</h4><p>Employés (phishing, appels), visiteurs, clés USB, PC portables volés, salle serveur mal fermée, prestataires.</p></div>
+</div>
+<h2><span class="n">3.3</span>Vulnérabilités, CVE et zero-day</h2>
+<p>Une vulnérabilité est souvent une erreur dans un logiciel (un « bug ») qui permet de faire quelque chose d'imprévu : exécuter du code, lire des fichiers, devenir administrateur. Quand elle est découverte, l'éditeur publie un <span class="k kt">correctif</span> (patch, mise à jour).</p>
+<div class="tscroll"><table>
+<tr><th style="width:20%">Terme</th><th>Signification</th></tr>
+<tr><td><span class="k kv">CVE</span></td><td>Numéro unique donné à une vulnérabilité publique. Exemple : CVE-2017-0144 (la faille Windows SMB utilisée par WannaCry). Format : CVE-année-numéro.</td></tr>
+<tr><td><span class="k kv">CVSS</span></td><td>Note de gravité de 0 à 10. 0,1–3,9 faible ; 4–6,9 moyenne ; 7–8,9 élevée ; 9–10 critique.</td></tr>
+<tr><td><span class="k kr">Exploit</span></td><td>Programme ou technique qui utilise concrètement la vulnérabilité.</td></tr>
+<tr><td><span class="k kr">Zero-day</span></td><td>Faille inconnue de l'éditeur ou sans correctif : les défenseurs ont « zéro jour » pour se préparer. Rare et très chère.</td></tr>
+<tr><td><span class="k kt">Patch</span></td><td>Correctif publié par l'éditeur. L'installer ferme la faille.</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>La plupart des attaques n'utilisent <b>pas</b> de zero-day : elles exploitent des failles connues depuis des semaines ou des mois, pour lesquelles un correctif existe déjà. <b>Mettre à jour rapidement</b> est donc l'une des protections les plus efficaces et les moins chères.</p></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 120">
+<line stroke="#1B2A4A" stroke-width="3" x1="20" x2="600" y1="60" y2="60"></line>
+<g font-size="10.5" text-anchor="middle">
+<circle cx="70" cy="60" fill="#A84A62" r="9"></circle><text fill="#A84A62" font-weight="700" x="70" y="38">Faille créée</text><text x="70" y="88">bug dans le code</text>
+<circle cx="210" cy="60" fill="#5B4B8A" r="9"></circle><text fill="#5B4B8A" font-weight="700" x="210" y="38">Découverte</text><text x="210" y="88">chercheur ou pirate</text>
+<circle cx="350" cy="60" fill="#0F766E" r="9"></circle><text fill="#0F766E" font-weight="700" x="350" y="38">Patch publié</text><text x="350" y="88">+ CVE annoncée</text>
+<circle cx="510" cy="60" fill="#B8913A" r="9"></circle><text fill="#8A6A22" font-weight="700" x="510" y="38">Patch installé</text><text x="510" y="88">chez toi</text>
+<text fill="#A84A62" font-style="italic" x="280" y="112">zero-day</text>
+<text fill="#A84A62" font-style="italic" x="430" y="112">fenêtre de danger : à réduire !</text>
+</g>
+</svg>
+<figcaption>Figure 3.2 — Cycle de vie d'une vulnérabilité</figcaption>
+</figure>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">Cyber kill chain</span><span class="k kr">Repérage</span><span class="k kr">C2</span><span class="k kr">Surface d'attaque</span><span class="k kv">CVE</span><span class="k kv">CVSS</span><span class="k kr">Exploit</span><span class="k kr">Zero-day</span><span class="k kt">Patch</span>
+</div>
+<div class="exo"><div class="h">Exercice 3.1 — Remettre dans l'ordre<span>Facile</span></div><div class="c">
+<p>Remets dans l'ordre de la kill chain : (a) le malware contacte un serveur à l'étranger ; (b) le pirate consulte le site de l'entreprise pour trouver les noms ; (c) l'employé ouvre la pièce jointe ; (d) les fichiers sont chiffrés ; (e) l'e-mail piégé est envoyé ; (f) le malware se lance à chaque démarrage ; (g) le pirate prépare un document piégé.</p></div></div>
+<div class="exo"><div class="h">Exercice 3.2 — Lire une CVE<span>Moyen</span></div><div class="c">
+<p>Un bulletin indique : « CVE-2024-XXXX, score CVSS 9,8, exécution de code à distance sans authentification, correctif disponible ». (1) Que signifie le score ? (2) Pourquoi « sans authentification » est grave ? (3) Que dois-tu faire en tant que technicien, et dans quel délai ?</p></div></div>
+<!-- ============ CHAPITRE 4 ============ -->
+<section class="chead2" id="ch4"><div class="ch-side" style="background:linear-gradient(180deg,#B8913A,#8A6A22)"><span class="lbl">CHAPITRE</span><span class="num">04</span></div><div class="ch-body">
+<h1>L'ingénierie sociale et le phishing</h1>
+<div class="lead">Pourquoi casser un coffre-fort quand on peut demander gentiment la combinaison ?</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre les leviers psychologiques utilisés par les escrocs</li>
+<li>Reconnaître phishing, smishing, vishing et fraude au président</li>
+<li>Analyser un e-mail et une URL suspects</li>
+<li>Savoir comment réagir et signaler</li></ul></div>
+<div class="quote">« Les amateurs piratent les systèmes ; les professionnels piratent les gens. » — Bruce Schneier</div></div></section>
+<h2><span class="n">4.1</span>Qu'est-ce que l'ingénierie sociale ?</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>L'<span class="k kr">ingénierie sociale</span> est l'art de manipuler une personne pour qu'elle fasse quelque chose qu'elle ne devrait pas : donner un mot de passe, cliquer sur un lien, ouvrir une pièce jointe, faire un virement, ouvrir une porte.</p></div>
+<p>L'escroc ne s'attaque pas à la machine mais à nos réflexes humains. Il utilise toujours les mêmes <b>leviers psychologiques</b> :</p>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Levier</th><th>Exemple de phrase</th><th style="width:30%">Pourquoi ça marche</th></tr>
+<tr><td><b>Urgence</b></td><td>« Votre compte sera supprimé dans 24 heures »</td><td>On n'a pas le temps de réfléchir</td></tr>
+<tr><td><b>Autorité</b></td><td>« Ici le directeur, faites ce virement tout de suite »</td><td>On obéit à un chef</td></tr>
+<tr><td><b>Peur</b></td><td>« Une amende de 1 500 DH est en attente »</td><td>La panique coupe la réflexion</td></tr>
+<tr><td><b>Appât du gain</b></td><td>« Vous avez gagné un iPhone, payez juste les frais »</td><td>On a envie d'y croire</td></tr>
+<tr><td><b>Curiosité</b></td><td>« Voici les photos de la soirée » ; clé USB « Salaires 2026 »</td><td>On veut savoir</td></tr>
+<tr><td><b>Confiance / sympathie</b></td><td>« Salut, c'est Yassine du service informatique »</td><td>On aide volontiers un collègue</td></tr>
+</table></div>
+<h2><span class="n">4.2</span>Les principales techniques</h2>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Technique</th><th>Description</th></tr>
+<tr><td><span class="k kr">Phishing</span> (hameçonnage)</td><td>Faux e-mail envoyé en masse, imitant une banque, la poste, Netflix, Microsoft… pour voler des identifiants ou installer un malware.</td></tr>
+<tr><td><span class="k kr">Spear phishing</span></td><td>Phishing ciblé et personnalisé (nom, poste, collègues) : beaucoup plus crédible.</td></tr>
+<tr><td><span class="k kr">Smishing</span></td><td>Phishing par SMS ou WhatsApp : « Votre colis est bloqué, payez 12 DH ».</td></tr>
+<tr><td><span class="k kr">Vishing</span></td><td>Par appel téléphonique : faux conseiller bancaire, faux support Microsoft.</td></tr>
+<tr><td><span class="k kr">Fraude au président</span></td><td>L'escroc se fait passer pour un dirigeant et demande un virement urgent et confidentiel.</td></tr>
+<tr><td><span class="k kr">Quishing</span></td><td>Faux QR code (collé sur une affiche, un parking) qui mène à un faux site.</td></tr>
+<tr><td><span class="k kr">Appâtage (baiting)</span></td><td>Clé USB piégée laissée dans un parking ou une salle.</td></tr>
+<tr><td><span class="k kr">Tailgating</span></td><td>Suivre quelqu'un pour entrer dans une zone protégée sans badge.</td></tr>
+</table></div>
+<h2><span class="n">4.3</span>Repérer un e-mail de phishing</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 290">
+<rect fill="#fff" height="270" rx="12" stroke="#C9CED8" width="420" x="10" y="10"></rect>
+<rect fill="#F1F3F7" height="34" rx="12" width="420" x="10" y="10"></rect>
+<g fill="#24292F" font-size="10.5">
+<text x="24" y="32"><tspan font-weight="700">De :</tspan> Service Client Banque Atlas &lt;securite@atlasbank-verif.xyz&gt;</text>
+<text x="24" y="64"><tspan font-weight="700">Objet :</tspan> URGENT : votre compte sera suspendu !!</text>
+<text x="24" y="94">Cher client,</text>
+<text x="24" y="114">Nous avons detecté une activité inhabituelle. Votre compte</text>
+<text x="24" y="132">sera bloqué dans 24h si vous ne confirmé pas vos</text>
+<text x="24" y="150">informations bancaire.</text>
+<rect fill="#2F6FA8" height="30" rx="6" width="190" x="24" y="164"></rect><text fill="#fff" font-weight="700" text-anchor="middle" x="119" y="184">Vérifier mon compte</text>
+<text fill="#5E6673" x="24" y="218">Merci de saisir votre code PIN et votre code SMS.</text>
+<text fill="#5E6673" x="24" y="246">📎 Releve_compte.pdf.exe</text>
+</g>
+<g fill="#A84A62" font-size="10" font-weight="600">
+<line stroke="#A84A62" x1="330" x2="452" y1="28" y2="28"></line><text x="456" y="24">1. Domaine bizarre</text><text font-weight="400" x="456" y="37">« atlasbank-verif.xyz »</text>
+<line stroke="#A84A62" x1="290" x2="452" y1="60" y2="70"></line><text x="456" y="68">2. Urgence + menace</text>
+<line stroke="#A84A62" x1="352" x2="452" y1="128" y2="110"></line><text x="456" y="108">3. Fautes d'orthographe</text>
+<line stroke="#A84A62" x1="214" x2="452" y1="178" y2="150"></line><text x="456" y="148">4. Lien vers un faux site</text><text font-weight="400" x="456" y="161">(survoler pour voir l'URL)</text>
+<line stroke="#A84A62" x1="352" x2="452" y1="214" y2="196"></line><text x="456" y="194">5. Demande de code secret</text>
+<line stroke="#A84A62" x1="182" x2="452" y1="242" y2="238"></line><text x="456" y="236">6. Double extension .pdf.exe</text>
+</g>
+</svg>
+<figcaption>Figure 4.1 — Les six indices d'un e-mail de phishing</figcaption>
+</figure>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>Une banque, l'administration ou le service informatique ne te demandera <b>jamais</b> ton mot de passe, ton code PIN ou le code reçu par SMS, ni par e-mail, ni par téléphone. Toute demande de ce type est une arnaque.</p></div>
+<h2><span class="n">4.4</span>Lire une URL comme un pro</h2>
+<p>Le plus important est de trouver le <span class="k kg">vrai nom de domaine</span>. On le lit <b>juste avant le premier « / »</b> après « https:// », et on prend les <b>deux derniers morceaux</b> (nom + extension).</p>
+<figure>
+<svg font-family="monospace" viewbox="0 0 620 140">
+<text font-size="15" x="10" y="40"><tspan fill="#5E6673">https://</tspan><tspan fill="#2F6FA8">www.attijariwafabank.com</tspan><tspan fill="#B8913A">.securite-client</tspan><tspan fill="#A84A62" font-weight="700">.top</tspan><tspan fill="#5E6673">/login</tspan></text>
+<text font-size="15" x="10" y="100"><tspan fill="#5E6673">https://</tspan><tspan fill="#0F766E" font-weight="700">attijariwafabank.com</tspan><tspan fill="#5E6673">/fr/particuliers</tspan></text>
+<g font-family="Inter" font-size="10.5">
+<text fill="#A84A62" x="10" y="62">✗ Le vrai domaine est « securite-client.top » : le nom de la banque n'est qu'un sous-domaine trompeur.</text>
+<text fill="#0F766E" x="10" y="122">✓ Le vrai domaine est « attijariwafabank.com » : c'est le site officiel.</text>
+</g>
+</svg>
+<figcaption>Figure 4.2 — Le vrai domaine se lit à droite, juste avant le premier « / »</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:36%">Piège</th><th>Exemple</th></tr>
+<tr><td>Nom connu en sous-domaine</td><td>paypal.com.compte-verif.net</td></tr>
+<tr><td>Faute de frappe volontaire (typosquatting)</td><td>rnicrosoft.com (r + n = m), g00gle.com</td></tr>
+<tr><td>Extension différente</td><td>netflix-paiement.info, amazon.co-support.shop</td></tr>
+<tr><td>Raccourcisseur qui cache la destination</td><td>bit.ly/3xYz…</td></tr>
+<tr><td>Caractères d'autres alphabets</td><td>аpple.com avec un « а » cyrillique</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Le cadenas ne suffit pas</div>
+<p>Le cadenas (HTTPS) signifie seulement que la connexion est <b>chiffrée</b>, pas que le site est honnête. Les sites de phishing ont presque tous un cadenas, car les certificats sont gratuits.</p></div>
+<h2><span class="n">4.5</span>Que faire face à un message suspect ?</h2>
+<div class="grid2">
+<div class="card"><h4>Avant de cliquer</h4><p>Je m'arrête et je respire. Je vérifie l'expéditeur réel et l'URL en survolant le lien. Je contacte l'organisme par un canal officiel que je connais déjà (numéro au dos de la carte, application officielle), jamais celui donné dans le message.</p></div>
+<div class="card"><h4>Si j'ai cliqué ou donné un code</h4><p>Je ne cache rien : je préviens tout de suite le service informatique (ou ma banque). Je change le mot de passe concerné depuis un appareil sain et j'active la MFA. Je fais opposition à la carte si besoin. Plus on réagit vite, moins les dégâts sont grands.</p></div>
+</div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce</div>
+<p>Au Maroc, les contenus illicites et arnaques en ligne peuvent être signalés à la plateforme de la DGSN <b>e-blagh.ma</b>. En entreprise, on signale au service informatique ou au RSSI : un signalement rapide protège aussi les collègues.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kr">Ingénierie sociale</span><span class="k kr">Phishing</span><span class="k kr">Spear phishing</span><span class="k kr">Smishing</span><span class="k kr">Vishing</span><span class="k kr">Fraude au président</span><span class="k kr">Quishing</span><span class="k kr">Typosquatting</span><span class="k kg">Nom de domaine</span><span class="k kt">Signalement</span>
+</div>
+<div class="exo"><div class="h">Exercice 4.1 — Vrai domaine<span>Facile</span></div><div class="c">
+<p>Donne le vrai nom de domaine et dis si le lien est sûr : (1) https://www.cnss.ma/fr/espace-assure ; (2) https://cnss.ma.remboursement-amo.com/login ; (3) http://login-microsoftonline.support/office365 ; (4) https://www.google.com.drive-partage.net/doc ; (5) https://moncompte.inwi.ma/.</p></div></div>
+<div class="exo"><div class="h">Exercice 4.2 — Analyse d'un SMS<span>Moyen</span></div><div class="c">
+<p>« BARID AL-MAGHRIB : votre colis n°MA2638 est en attente. Frais de livraison 11,90 DH à régler avant ce soir : https://barid-livraison.click/pay ». Liste les indices de fraude, les leviers psychologiques utilisés, et la bonne réaction.</p></div></div>
+<div class="exo"><div class="h">Exercice 4.3 — Fraude au président<span>Moyen</span></div><div class="c">
+<p>La comptable d'une PME reçoit à 17 h 45 un e-mail « du directeur » (adresse directeur.pme@gmail.com) : « Je suis en réunion, je ne peux pas parler. Faites un virement de 85 000 DH à ce nouveau fournisseur avant 18 h. Restez discrète. » Quels sont les signaux d'alerte ? Quelle procédure l'entreprise devrait-elle imposer ?</p></div></div>
+<!-- ============ CHAPITRE 5 ============ -->
+<section class="chead2" id="ch5"><div class="ch-side" style="background:linear-gradient(180deg,#7E3448,#4E1F2C)"><span class="lbl">CHAPITRE</span><span class="num">05</span></div><div class="ch-body">
+<h1>Les logiciels malveillants</h1>
+<div class="lead">Virus, vers, chevaux de Troie, ransomwares : des familles différentes, mais des signes et des protections qu'on peut apprendre.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Distinguer les grandes familles de malwares</li>
+<li>Comprendre le fonctionnement d'un ransomware</li>
+<li>Reconnaître les signes d'une infection</li>
+<li>Connaître les moyens de prévention</li></ul></div>
+<div class="quote">« Un logiciel gratuit trop beau pour être vrai a souvent un prix caché. »</div></div></section>
+<h2><span class="n">5.1</span>Les familles de malwares</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kr">malware</span> (logiciel malveillant) est un programme conçu pour nuire : voler, espionner, détruire, chiffrer ou prendre le contrôle d'un appareil.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Famille</th><th>Comment il agit</th><th style="width:30%">Exemple / symptôme</th></tr>
+<tr><td><b>Virus</b></td><td>S'accroche à un fichier ou programme ; se propage quand on l'exécute ou le copie.</td><td>Programme infecté passé par clé USB</td></tr>
+<tr><td><b>Ver (worm)</b></td><td>Se propage <b>tout seul</b> d'une machine à l'autre en exploitant une faille du réseau.</td><td>WannaCry (2017) via SMB</td></tr>
+<tr><td><b>Cheval de Troie</b></td><td>Se cache dans un logiciel qui semble utile (jeu, « crack », faux lecteur vidéo).</td><td>« Photoshop gratuit » téléchargé sur un forum</td></tr>
+<tr><td><b>Ransomware</b></td><td>Chiffre les fichiers et réclame une rançon ; souvent vole aussi les données avant.</td><td>Fichiers renommés « .locked », note de rançon</td></tr>
+<tr><td><b>Spyware</b></td><td>Espionne : sites visités, messages, position, micro.</td><td>Batterie qui chauffe, données qui fuient</td></tr>
+<tr><td><b>Keylogger</b></td><td>Enregistre tout ce qu'on tape au clavier (mots de passe !).</td><td>Comptes piratés les uns après les autres</td></tr>
+<tr><td><b>Infostealer</b></td><td>Vole en quelques secondes les mots de passe enregistrés dans le navigateur et les cookies de session.</td><td>Comptes réseaux sociaux volés malgré la MFA</td></tr>
+<tr><td><b>Botnet</b></td><td>Réseau de machines « zombies » pilotées à distance, utilisées pour du spam ou des DDoS.</td><td>PC lent, trafic réseau anormal</td></tr>
+<tr><td><b>Adware</b></td><td>Affiche des publicités envahissantes, modifie la page d'accueil.</td><td>Pop-ups, barre d'outils inconnue</td></tr>
+<tr><td><b>Rootkit</b></td><td>Se cache au cœur du système pour rester invisible.</td><td>Antivirus désactivé tout seul</td></tr>
+<tr><td><b>Cryptominer</b></td><td>Utilise ton processeur pour miner de la cryptomonnaie.</td><td>Ventilateur à fond, CPU à 100 %</td></tr>
+</table></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Le <b>virus</b> a besoin d'un porteur, comme un rhume qui passe par une poignée de main. Le <b>ver</b> se déplace seul, comme un moustique qui va de maison en maison. Le <b>cheval de Troie</b>, c'est le cadeau géant devant la porte de la ville… avec des soldats cachés à l'intérieur.</p></div>
+<h2><span class="n">5.2</span>Zoom sur le ransomware</h2>
+<p>Le <span class="k kr">ransomware</span> (rançongiciel) est aujourd'hui la menace la plus redoutée des entreprises, des hôpitaux et des administrations.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 170">
+<defs><marker id="c5a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#A84A62"></path></marker></defs>
+<g font-size="10.5" text-anchor="middle">
+<rect fill="#FBEEF1" height="80" rx="12" stroke="#A84A62" width="110" x="4" y="30"></rect><text fill="#A84A62" font-weight="700" x="59" y="58">1. Entrée</text><text x="59" y="76">phishing, VPN</text><text x="59" y="92">sans MFA, faille</text>
+<rect fill="#FBEEF1" height="80" rx="12" stroke="#A84A62" width="110" x="134" y="30"></rect><text fill="#A84A62" font-weight="700" x="189" y="58">2. Propagation</text><text x="189" y="76">vole des comptes</text><text x="189" y="92">admin, se déplace</text>
+<rect fill="#FBEEF1" height="80" rx="12" stroke="#A84A62" width="110" x="264" y="30"></rect><text fill="#A84A62" font-weight="700" x="319" y="58">3. Vol</text><text x="319" y="76">copie les données</text><text x="319" y="92">vers l'extérieur</text>
+<rect fill="#FBEEF1" height="80" rx="12" stroke="#A84A62" width="110" x="394" y="30"></rect><text fill="#A84A62" font-weight="700" x="449" y="58">4. Destruction</text><text x="449" y="76">supprime les</text><text x="449" y="92">sauvegardes</text>
+<rect fill="#7E3448" height="80" rx="12" width="112" x="524" y="30"></rect><text fill="#fff" font-weight="700" x="580" y="58">5. Chiffrement</text><text fill="#fff" x="580" y="76">+ note de rançon</text><text fill="#F3C9D3" x="580" y="92">double extorsion</text>
+</g>
+<g stroke="#A84A62" stroke-width="2"><line marker-end="url(#c5a)" x1="114" x2="131" y1="70" y2="70"></line><line marker-end="url(#c5a)" x1="244" x2="261" y1="70" y2="70"></line><line marker-end="url(#c5a)" x1="374" x2="391" y1="70" y2="70"></line><line marker-end="url(#c5a)" x1="504" x2="521" y1="70" y2="70"></line></g>
+<text fill="#5E6673" font-size="10.5" font-style="italic" text-anchor="middle" x="320" y="150">Entre l'entrée et le chiffrement, il se passe souvent plusieurs jours : c'est le moment où l'on peut encore le détecter.</text>
+</svg>
+<figcaption>Figure 5.1 — Les étapes d'une attaque par ransomware</figcaption>
+</figure>
+<p>On parle de <span class="k kr">double extorsion</span> : « Payez pour récupérer vos fichiers… et payez encore pour que nous ne publiions pas vos données ».</p>
+<div class="box warn"><div class="t"><i>!</i>Faut-il payer la rançon ?</div>
+<p>Les autorités recommandent de <b>ne pas payer</b> : rien ne garantit qu'on récupère les fichiers, les données volées peuvent être publiées quand même, l'argent finance de nouvelles attaques, et la victime qui paie est souvent attaquée de nouveau. La vraie protection est en amont : <b>sauvegardes hors ligne</b> testées et plan de réponse.</p></div>
+<h2><span class="n">5.3</span>Comment un malware arrive-t-il ?</h2>
+<div class="grid3">
+<div class="card"><h4>Pièce jointe</h4><p>Facture, CV, colis : fichiers Office avec macros, archives ZIP, faux PDF « .pdf.exe ».</p></div>
+<div class="card"><h4>Téléchargement</h4><p>Logiciels piratés, cracks, faux lecteurs vidéo, applications hors du store officiel (APK).</p></div>
+<div class="card"><h4>Clé USB</h4><p>Clé trouvée ou prêtée, branchée par curiosité ou pour imprimer un document.</p></div>
+<div class="card"><h4>Faille réseau</h4><p>Système pas à jour exposé : un ver entre sans aucun clic.</p></div>
+<div class="card"><h4>Site piégé</h4><p>Fausse mise à jour du navigateur, publicité malveillante (malvertising).</p></div>
+<div class="card"><h4>Accès distant</h4><p>RDP ou VPN avec mot de passe faible ou volé, sans MFA.</p></div>
+</div>
+<h2><span class="n">5.4</span>Reconnaître une infection</h2>
+<div class="tscroll"><table>
+<tr><th style="width:40%">Signe</th><th>Malware possible</th></tr>
+<tr><td>PC soudain très lent, ventilateur à fond</td><td>Cryptominer, botnet</td></tr>
+<tr><td>Pop-ups, page d'accueil changée</td><td>Adware</td></tr>
+<tr><td>Antivirus désactivé sans raison</td><td>Rootkit, ransomware en préparation</td></tr>
+<tr><td>Fichiers illisibles avec une nouvelle extension</td><td>Ransomware</td></tr>
+<tr><td>Amis qui reçoivent des messages que tu n'as pas envoyés</td><td>Compte volé, infostealer</td></tr>
+<tr><td>Connexions réseau vers des pays inconnus</td><td>Cheval de Troie, C2</td></tr>
+</table></div>
+<h3>La bonne réaction</h3>
+<ol>
+<li><span class="k kt">Isoler</span> : débrancher le câble réseau et couper le Wi-Fi (sans éteindre brutalement le PC, pour garder des traces utiles à l'enquête).</li>
+<li><span class="k kt">Prévenir</span> immédiatement le service informatique.</li>
+<li><span class="k kt">Ne pas</span> payer, ne pas supprimer de fichiers, ne pas brancher de disque de sauvegarde sur la machine.</li>
+<li>Changer les mots de passe <b>depuis un autre appareil sain</b>.</li>
+</ol>
+<h2><span class="n">5.5</span>Se protéger des malwares</h2>
+<div class="tscroll"><table>
+<tr><th style="width:28%">Mesure</th><th>Pourquoi</th></tr>
+<tr><td><span class="k kt">Mises à jour</span></td><td>Ferment les failles exploitées par les vers et les exploits.</td></tr>
+<tr><td><span class="k kt">Antivirus / EDR</span></td><td>Microsoft Defender est intégré à Windows et suffit pour un particulier s'il est actif et à jour. En entreprise, un EDR surveille aussi les comportements suspects.</td></tr>
+<tr><td><span class="k kt">Compte standard</span></td><td>Sans droits administrateur, un malware ne peut pas s'installer partout.</td></tr>
+<tr><td><span class="k kt">Sources officielles</span></td><td>Logiciels depuis le site de l'éditeur ou le store ; jamais de crack.</td></tr>
+<tr><td><span class="k kt">Macros bloquées</span></td><td>Les fichiers Office venus d'Internet ne doivent pas exécuter de macros.</td></tr>
+<tr><td><span class="k kt">Extensions visibles</span></td><td>Afficher les extensions dans l'Explorateur révèle les « .pdf.exe ».</td></tr>
+<tr><td><span class="k kt">Sauvegarde 3-2-1</span></td><td>Dernier rempart contre le ransomware (voir chapitre 8).</td></tr>
+</table></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kr">Malware</span><span class="k kr">Virus</span><span class="k kr">Ver</span><span class="k kr">Cheval de Troie</span><span class="k kr">Ransomware</span><span class="k kr">Double extorsion</span><span class="k kr">Spyware</span><span class="k kr">Keylogger</span><span class="k kr">Infostealer</span><span class="k kr">Botnet</span><span class="k kt">EDR</span><span class="k kt">Isoler</span>
+</div>
+<div class="exo"><div class="h">Exercice 5.1 — Quelle famille ?<span>Facile</span></div><div class="c">
+<ol><li>Un programme se copie seul sur tous les PC du réseau qui ne sont pas à jour.</li>
+<li>Après avoir installé un « jeu gratuit », Amine voit son compte Instagram piraté.</li>
+<li>Tous les fichiers deviennent « .crypt » et un message demande 0,5 bitcoin.</li>
+<li>Le PC tourne à 100 % de CPU même quand on ne fait rien.</li>
+<li>Des milliers de caméras connectées attaquent ensemble un site web.</li></ol></div></div>
+<div class="exo"><div class="h">Exercice 5.2 — Réagir à une infection<span>Moyen</span></div><div class="c">
+<p>Lundi matin, une secrétaire t'appelle : ses fichiers ont une extension inconnue et un fichier « LISEZ-MOI.txt » est apparu sur le bureau. Écris, dans l'ordre, les 5 premières actions que tu fais, et ce que tu ne dois surtout pas faire.</p></div></div>
+<!-- ============ CHAPITRE 6 ============ -->
+<section class="chead2" id="ch6"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#0B5A54)"><span class="lbl">CHAPITRE</span><span class="num">06</span></div><div class="ch-body">
+<h1>Mots de passe, MFA et chiffrement</h1>
+<div class="lead">Ton mot de passe est la clé de ta maison numérique. Encore faut-il qu'elle soit solide, unique… et accompagnée d'une deuxième serrure.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Connaître les attaques contre les mots de passe</li>
+<li>Créer une phrase de passe solide et utiliser un gestionnaire</li>
+<li>Expliquer la MFA et ses différents facteurs</li>
+<li>Comprendre hachage, chiffrement symétrique et asymétrique, HTTPS</li></ul></div>
+<div class="quote">« Un mot de passe, c'est comme une brosse à dents : on ne le prête pas, et on n'utilise pas la même pour toute la famille. »</div></div></section>
+<h2><span class="n">6.1</span>Comment les pirates obtiennent les mots de passe</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Attaque</th><th>Principe</th><th style="width:28%">Protection</th></tr>
+<tr><td><span class="k kr">Force brute</span></td><td>Essayer toutes les combinaisons : aaaa, aaab, aaac…</td><td>Longueur ; verrouillage après X essais</td></tr>
+<tr><td><span class="k kr">Dictionnaire</span></td><td>Essayer des millions de mots de passe courants : 123456, azerty, Maroc2026…</td><td>Pas de mot ou date évidente</td></tr>
+<tr><td><span class="k kr">Credential stuffing</span></td><td>Réutiliser sur d'autres sites les couples e-mail / mot de passe volés lors d'une fuite.</td><td><b>Un mot de passe unique par site</b></td></tr>
+<tr><td><span class="k kr">Password spraying</span></td><td>Essayer un seul mot de passe courant sur des milliers de comptes.</td><td>Interdire les mots de passe faibles</td></tr>
+<tr><td><span class="k kr">Phishing</span></td><td>Faire taper le mot de passe sur un faux site.</td><td>Vérifier l'URL, MFA</td></tr>
+<tr><td><span class="k kr">Keylogger / infostealer</span></td><td>Voler ce qu'on tape ou ce que le navigateur a enregistré.</td><td>Antivirus, gestionnaire de mots de passe</td></tr>
+</table></div>
+<h2><span class="n">6.2</span>Un bon mot de passe</h2>
+<p>La qualité la plus importante d'un mot de passe est sa <span class="k kg">longueur</span>, bien plus que les symboles compliqués. Chaque caractère en plus multiplie le temps nécessaire pour le casser.</p>
+<div class="tscroll"><table>
+<tr><th>Mot de passe</th><th style="width:16%">Longueur</th><th style="width:30%">Temps estimé pour le casser*</th></tr>
+<tr><td>maroc2026</td><td>9</td><td><span class="k kr">instantané</span> (dictionnaire)</td></tr>
+<tr><td>P@ssw0rd!</td><td>9</td><td><span class="k kr">instantané</span> (très connu)</td></tr>
+<tr><td>Xk7#pQ2m</td><td>8</td><td><span class="k kr">quelques heures</span></td></tr>
+<tr><td>Cafe-Tajine-Velo-Nuage-47</td><td>25</td><td><span class="k kt">des siècles</span></td></tr>
+</table></div>
+<p class="cap">* Ordres de grandeur pour une attaque hors ligne sur du matériel moderne : ils varient beaucoup selon la protection utilisée par le site.</p>
+<div class="box tip"><div class="t"><i>✓</i>La phrase de passe</div>
+<p>Choisis 4 ou 5 mots sans rapport entre eux, ajoute un chiffre ou un séparateur : <b>Cafe-Tajine-Velo-Nuage-47</b>. C'est long, donc très solide, et pourtant facile à retenir. Évite les citations célèbres et les phrases de chansons.</p></div>
+<div class="box keep"><div class="t"><i>★</i>Les 4 règles d'or</div>
+<p>1. <b>Long</b> : 12 caractères minimum, idéalement une phrase de passe. 2. <b>Unique</b> : jamais le même mot de passe sur deux sites. 3. <b>Secret</b> : on ne le donne à personne, même au service informatique. 4. <b>Protégé par la MFA</b> sur les comptes importants (e-mail, banque, réseaux sociaux).</p></div>
+<h3>Le gestionnaire de mots de passe</h3>
+<p>Personne ne peut retenir 80 mots de passe uniques. La solution est un <span class="k kt">gestionnaire de mots de passe</span> (Bitwarden, KeePassXC, celui de ton navigateur ou de ton téléphone) : un coffre-fort chiffré qui génère et retient des mots de passe aléatoires pour chaque site. Tu ne retiens qu'<b>un seul</b> mot de passe maître, très solide. Bonus : il ne remplit pas automatiquement tes identifiants sur un faux site, car l'adresse ne correspond pas.</p>
+<h2><span class="n">6.3</span>L'authentification multifacteur (MFA)</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>La <span class="k kt">MFA</span> (ou 2FA, double authentification) consiste à prouver son identité avec <b>au moins deux facteurs de catégories différentes</b>. Même si le pirate vole ton mot de passe, il lui manque le deuxième facteur.</p></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 150">
+<g text-anchor="middle">
+<rect fill="#EAF2FA" height="110" rx="14" stroke="#2F6FA8" width="180" x="10" y="20"></rect><text fill="#2F6FA8" font-size="13" font-weight="700" x="100" y="48">CE QUE JE SAIS</text><text font-size="11" x="100" y="74">mot de passe</text><text font-size="11" x="100" y="92">code PIN</text><text fill="#5E6673" font-size="10" font-style="italic" x="100" y="110">connaissance</text>
+<rect fill="#E6F4F1" height="110" rx="14" stroke="#0F766E" width="180" x="210" y="20"></rect><text fill="#0F766E" font-size="13" font-weight="700" x="300" y="48">CE QUE J'AI</text><text font-size="11" x="300" y="74">téléphone (appli, SMS)</text><text font-size="11" x="300" y="92">clé de sécurité, carte</text><text fill="#5E6673" font-size="10" font-style="italic" x="300" y="110">possession</text>
+<rect fill="#FBF4E4" height="110" rx="14" stroke="#B8913A" width="180" x="410" y="20"></rect><text fill="#8A6A22" font-size="13" font-weight="700" x="500" y="48">CE QUE JE SUIS</text><text font-size="11" x="500" y="74">empreinte digitale</text><text font-size="11" x="500" y="92">visage</text><text fill="#5E6673" font-size="10" font-style="italic" x="500" y="110">biométrie</text>
+</g>
+</svg>
+<figcaption>Figure 6.1 — Les trois catégories de facteurs d'authentification</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:30%">Méthode de 2<sup>e</sup> facteur</th><th style="width:16%">Sécurité</th><th>Remarque</th></tr>
+<tr><td>Code par SMS</td><td>Moyenne</td><td>Mieux que rien, mais le SMS peut être détourné (vol de carte SIM).</td></tr>
+<tr><td>Application (Google / Microsoft Authenticator)</td><td>Bonne</td><td>Code qui change toutes les 30 secondes, ou notification à valider.</td></tr>
+<tr><td>Clé de sécurité / passkey</td><td>Très bonne</td><td>Résiste au phishing : la clé vérifie elle-même le vrai site.</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Piège : la fatigue MFA</div>
+<p>Certains pirates qui ont ton mot de passe envoient des dizaines de notifications « Approuver la connexion ? » en espérant que tu cliques par lassitude. <b>Ne valide jamais une demande que tu n'as pas déclenchée toi-même</b> : c'est le signe que ton mot de passe est connu. Change-le.</p></div>
+<p>Attention aussi : « mot de passe + question secrète » n'est <b>pas</b> de la MFA, car ce sont deux facteurs de la même catégorie (ce que je sais).</p>
+<h2><span class="n">6.4</span>Les bases de la cryptographie</h2>
+<h3>Hachage : l'empreinte digitale d'un fichier</h3>
+<p>Une fonction de <span class="k kv">hachage</span> (SHA-256 par exemple) transforme n'importe quelle donnée en une empreinte de taille fixe. Elle est <b>à sens unique</b> : on ne peut pas retrouver la donnée à partir de l'empreinte. Et le moindre changement donne une empreinte complètement différente.</p>
+<div class="tscroll"><table>
+<tr><th style="width:30%">Texte</th><th>Empreinte SHA-256 (début)</th></tr>
+<tr><td>Bonjour</td><td style="font-family:monospace">9172e8eec99f144f72eca9a568759580…</td></tr>
+<tr><td>bonjour</td><td style="font-family:monospace">2cb4b1431b84ec15d35ed83bb927e27e…</td></tr>
+</table></div>
+<p>Usages : <span class="k kt">vérifier l'intégrité</span> d'un fichier téléchargé (on compare l'empreinte avec celle publiée par l'éditeur) et <span class="k kt">stocker les mots de passe</span> : un site sérieux ne garde pas ton mot de passe, seulement son empreinte (avec un « sel » aléatoire).</p>
+<h3>Chiffrement : rendre illisible sans la clé</h3>
+<p>Le <span class="k kv">chiffrement</span> transforme un message lisible en message illisible, grâce à une <b>clé</b>. Seul celui qui a la bonne clé peut le déchiffrer. Contrairement au hachage, c'est réversible.</p>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Type</th><th>Principe</th><th style="width:24%">Exemples</th></tr>
+<tr><td><b>Symétrique</b></td><td>La <b>même clé</b> chiffre et déchiffre. Très rapide. Difficulté : transmettre la clé en sécurité.</td><td>AES (Wi-Fi WPA2, BitLocker, ZIP AES-256)</td></tr>
+<tr><td><b>Asymétrique</b></td><td>Une <b>paire de clés</b> : la clé <b>publique</b> (donnée à tout le monde) chiffre, la clé <b>privée</b> (gardée secrète) déchiffre.</td><td>RSA, ECC (HTTPS, SSH, signature électronique)</td></tr>
+</table></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p><b>Symétrique</b> : un cadenas à code que les deux amis connaissent. <b>Asymétrique</b> : une boîte aux lettres. Tout le monde peut y déposer une lettre par la fente (clé publique), mais seul le propriétaire a la clé pour l'ouvrir (clé privée).</p></div>
+<h3>HTTPS : les deux ensemble</h3>
+<p>Quand tu ouvres un site en <span class="k kv">HTTPS</span>, ton navigateur vérifie le <b>certificat</b> du site (sa carte d'identité numérique, signée par une autorité de confiance), puis utilise le chiffrement asymétrique pour échanger en secret une clé symétrique. Ensuite toute la conversation est chiffrée rapidement avec cette clé. Résultat : quelqu'un qui écoute le Wi-Fi voit passer des données illisibles.</p>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kr">Force brute</span><span class="k kr">Dictionnaire</span><span class="k kr">Credential stuffing</span><span class="k kt">Phrase de passe</span><span class="k kt">Gestionnaire</span><span class="k kt">MFA</span><span class="k kr">Fatigue MFA</span><span class="k kv">Hachage</span><span class="k kv">SHA-256</span><span class="k kv">AES</span><span class="k kv">Clé publique / privée</span><span class="k kv">HTTPS</span><span class="k kv">Certificat</span>
+</div>
+<div class="exo"><div class="h">Exercice 6.1 — Classer les mots de passe<span>Facile</span></div><div class="c">
+<p>Classe du plus faible au plus solide et justifie : <i>Youssef1990 ; azerty ; T!g3r ; Montagne-Orange-Stylo-Pluie ; Ofppt@2026 ; k9#Lm2$xQv8!pR4z</i>. Lequel est à la fois solide et facile à retenir ?</p></div></div>
+<div class="exo"><div class="h">Exercice 6.2 — MFA ou pas ?<span>Facile</span></div><div class="c">
+<p>Pour chaque combinaison, dis si c'est une vraie MFA : (a) mot de passe + code PIN ; (b) mot de passe + code de l'application Authenticator ; (c) carte bancaire + code PIN ; (d) empreinte + visage ; (e) mot de passe + clé de sécurité USB.</p></div></div>
+<div class="exo"><div class="h">Exercice 6.3 — Hachage ou chiffrement ?<span>Moyen</span></div><div class="c">
+<p>Quel outil faut-il utiliser ? (1) Vérifier qu'une image ISO de Linux n'a pas été modifiée ; (2) envoyer un fichier confidentiel par e-mail ; (3) stocker les mots de passe des utilisateurs d'un site ; (4) protéger le disque d'un PC portable en cas de vol ; (5) prouver qu'un document n'a pas été changé depuis sa signature.</p></div></div>
+<!-- ============ CHAPITRE 7 ============ -->
+<section class="chead2" id="ch7"><div class="ch-side" style="background:linear-gradient(180deg,#2F6FA8,#1F4F7C)"><span class="lbl">CHAPITRE</span><span class="num">07</span></div><div class="ch-body">
+<h1>Les attaques sur les réseaux et le Web</h1>
+<div class="lead">Les données voyagent à travers câbles, Wi-Fi et serveurs. Partout où elles passent, quelqu'un peut essayer de les lire, de les modifier ou de les bloquer.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre l'écoute réseau et l'attaque de l'homme du milieu</li>
+<li>Connaître les risques du Wi-Fi public</li>
+<li>Expliquer un DDoS avec ses propres mots</li>
+<li>Découvrir l'injection SQL et le XSS, et leurs protections</li></ul></div>
+<div class="quote">« Sur un réseau, tout ce qui n'est pas chiffré doit être considéré comme écrit sur une carte postale. »</div></div></section>
+<h2><span class="n">7.1</span>L'écoute (sniffing)</h2>
+<p>Sur un réseau, les données circulent en <b>paquets</b>. Un outil comme <span class="k kv">Wireshark</span> permet de les capturer et de les lire : c'est indispensable pour dépanner un réseau… et c'est aussi ce que fait un pirate. Si le protocole n'est pas chiffré (HTTP, Telnet, FTP), on lit les mots de passe <b>en clair</b>.</p>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Non chiffré (à éviter)</th><th style="width:22%">Chiffré (à utiliser)</th><th>Usage</th></tr>
+<tr><td><span class="k kr">HTTP</span> (port 80)</td><td><span class="k kt">HTTPS</span> (443)</td><td>Sites web</td></tr>
+<tr><td><span class="k kr">Telnet</span> (23)</td><td><span class="k kt">SSH</span> (22)</td><td>Administrer un routeur ou un serveur à distance</td></tr>
+<tr><td><span class="k kr">FTP</span> (21)</td><td><span class="k kt">SFTP</span> (22) / FTPS</td><td>Transférer des fichiers</td></tr>
+<tr><td><span class="k kr">POP3 / IMAP</span> simples</td><td><span class="k kt">IMAPS</span> (993) / SMTPS</td><td>Messagerie</td></tr>
+</table></div>
+<h2><span class="n">7.2</span>L'homme du milieu (MITM)</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Dans une attaque de l'<span class="k kr">homme du milieu</span> (Man-In-The-Middle), le pirate s'intercale entre deux machines qui croient se parler directement. Il peut lire, et même modifier, tout ce qui passe.</p></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 190">
+<defs><marker id="c7a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#A84A62"></path></marker>
+<marker id="c7b" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#9AA3B2"></path></marker></defs>
+<g font-size="11" text-anchor="middle">
+<rect fill="#EAF2FA" height="60" rx="12" stroke="#2F6FA8" width="130" x="10" y="40"></rect><text fill="#2F6FA8" font-weight="700" x="75" y="66">Victime</text><text x="75" y="84">PC du stagiaire</text>
+<rect fill="#E6F4F1" height="60" rx="12" stroke="#0F766E" width="130" x="480" y="40"></rect><text fill="#0F766E" font-weight="700" x="545" y="66">Passerelle</text><text x="545" y="84">routeur / Internet</text>
+<rect fill="#FBEEF1" height="60" rx="12" stroke="#A84A62" width="130" x="245" y="120"></rect><text fill="#A84A62" font-weight="700" x="310" y="146">Pirate</text><text x="310" y="164">« c'est moi le routeur »</text>
+</g>
+<line marker-end="url(#c7b)" stroke="#9AA3B2" stroke-dasharray="6 5" stroke-width="2" x1="140" x2="476" y1="60" y2="60"></line>
+<text fill="#9AA3B2" font-family="Inter" font-size="10" text-anchor="middle" x="310" y="52">chemin normal</text>
+<path d="M140 90 Q 190 140 242 145" fill="none" marker-end="url(#c7a)" stroke="#A84A62" stroke-width="2.5"></path>
+<path d="M375 145 Q 430 140 478 92" fill="none" marker-end="url(#c7a)" stroke="#A84A62" stroke-width="2.5"></path>
+</svg>
+<figcaption>Figure 7.1 — L'attaquant se place au milieu et relaie le trafic</figcaption>
+</figure>
+<p>Sur un réseau local, le pirate y arrive souvent par l'<span class="k kr">ARP spoofing</span> : il envoie de faux messages ARP pour faire croire que son adresse MAC est celle de la passerelle. Il peut aussi créer un <span class="k kr">faux point d'accès Wi-Fi</span> (« evil twin ») qui porte le même nom que le vrai.</p>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>La meilleure protection contre l'écoute et le MITM est le <b>chiffrement de bout en bout</b> (HTTPS, SSH, VPN) : même s'il intercepte les paquets, le pirate ne voit que du charabia. Et si le navigateur affiche une alerte de certificat, on <b>ne continue pas</b>.</p></div>
+<h2><span class="n">7.3</span>Le Wi-Fi public</h2>
+<div class="grid2">
+<div class="card"><h4>Les risques</h4><p>Réseau ouvert (sans mot de passe) : tout le monde est sur le même réseau que toi. Faux réseaux au nom du café ou de l'aéroport. Portail de connexion qui demande trop d'informations.</p></div>
+<div class="card"><h4>Les bons réflexes</h4><p>Préférer le partage de connexion de son téléphone. Vérifier le nom exact du réseau auprès du personnel. N'utiliser que des sites en HTTPS, pas d'opérations bancaires. Utiliser un VPN de confiance. Désactiver la connexion automatique aux réseaux ouverts.</p></div>
+</div>
+<h2><span class="n">7.4</span>Le déni de service (DoS / DDoS)</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Une attaque par <span class="k kr">déni de service</span> (DoS) vise à rendre un service indisponible en le saturant. Quand l'attaque vient de milliers de machines en même temps (souvent un botnet d'objets connectés), on parle de <span class="k kr">DDoS</span> (Distributed DoS). C'est le pilier <b>Disponibilité</b> qui est touché.</p></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Imagine 10 000 personnes qui appellent en même temps la pizzeria du quartier pour ne rien commander : les vrais clients n'arrivent plus à passer leur commande. La pizzeria n'est pas cassée, elle est juste saturée.</p></div>
+<p>Protections : services anti-DDoS de l'hébergeur ou d'un CDN (qui absorbent le trafic), limitation du nombre de requêtes, redondance des serveurs, et plan pour communiquer pendant l'attaque.</p>
+<h2><span class="n">7.5</span>Les attaques sur les applications web</h2>
+<h3>L'injection SQL</h3>
+<p>Un site web stocke ses données dans une base de données qu'il interroge avec le langage <b>SQL</b>. Si le site colle directement ce que l'utilisateur tape dans sa requête, un pirate peut taper… du code SQL.</p>
+<figure>
+<svg font-family="monospace" viewbox="0 0 620 175">
+<rect fill="#F6F8FA" height="75" rx="10" stroke="#D0D7DE" width="610" x="5" y="5"></rect>
+<text fill="#5E6673" font-family="Inter" font-size="11" x="18" y="28">Code vulnérable : la saisie est collée dans la requête</text>
+<text font-size="12.5" x="18" y="54"><tspan fill="#2F6FA8">SELECT * FROM users WHERE login='</tspan><tspan fill="#A84A62" font-weight="700">admin' OR '1'='1</tspan><tspan fill="#2F6FA8">' AND pass='…'</tspan></text>
+<text fill="#A84A62" font-family="Inter" font-size="10.5" x="18" y="72">→ « OR '1'='1' » est toujours vrai : le pirate est connecté sans mot de passe.</text>
+<rect fill="#E6F4F1" height="75" rx="10" stroke="#0F766E" width="610" x="5" y="95"></rect>
+<text fill="#0F766E" font-family="Inter" font-size="11" x="18" y="118">Code sécurisé : requête préparée</text>
+<text fill="#0F766E" font-size="12.5" x="18" y="144">SELECT * FROM users WHERE login = ? AND pass = ?</text>
+<text fill="#0F766E" font-family="Inter" font-size="10.5" x="18" y="162">→ la saisie est traitée comme un simple texte, jamais comme du code.</text>
+</svg>
+<figcaption>Figure 7.2 — L'injection SQL et sa protection par requête préparée</figcaption>
+</figure>
+<h3>Le XSS (Cross-Site Scripting)</h3>
+<p>Le pirate réussit à faire afficher son propre <b>code JavaScript</b> sur un site, par exemple dans un commentaire. Ce code s'exécute ensuite dans le navigateur de chaque visiteur et peut voler sa session. Protection : le site doit <span class="k kt">échapper</span> (neutraliser) les caractères spéciaux comme &lt; et &gt; avant d'afficher ce que tapent les utilisateurs.</p>
+<div class="box tip"><div class="t"><i>✓</i>L'OWASP Top 10</div>
+<p>L'OWASP est une fondation qui publie la liste des 10 risques les plus fréquents des applications web : contrôle d'accès défaillant, mauvaise configuration, injections, composants vulnérables… C'est la référence pour tout développeur ou testeur web.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Attaque</th><th>Pilier touché</th><th style="width:40%">Protection principale</th></tr>
+<tr><td>Écoute / sniffing</td><td>Confidentialité</td><td>Chiffrement (HTTPS, SSH, VPN)</td></tr>
+<tr><td>MITM / ARP spoofing</td><td>Confidentialité, intégrité</td><td>Chiffrement, DAI sur les switchs</td></tr>
+<tr><td>DDoS</td><td>Disponibilité</td><td>Anti-DDoS, CDN, redondance</td></tr>
+<tr><td>Injection SQL</td><td>Les trois</td><td>Requêtes préparées</td></tr>
+<tr><td>XSS</td><td>Confidentialité</td><td>Échappement des sorties</td></tr>
+</table></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kv">Wireshark</span><span class="k kr">Sniffing</span><span class="k kr">MITM</span><span class="k kr">ARP spoofing</span><span class="k kr">Evil twin</span><span class="k kr">DDoS</span><span class="k kr">Injection SQL</span><span class="k kt">Requête préparée</span><span class="k kr">XSS</span><span class="k kv">OWASP</span><span class="k kt">VPN</span>
+</div>
+<div class="exo"><div class="h">Exercice 7.1 — Choisir le bon protocole<span>Facile</span></div><div class="c">
+<p>Un administrateur utilise Telnet pour configurer ses switchs, FTP pour envoyer les sauvegardes et un intranet en HTTP. Explique le risque et propose le protocole de remplacement pour chacun.</p></div></div>
+<div class="exo"><div class="h">Exercice 7.2 — Au café<span>Facile</span></div><div class="c">
+<p>Dans un café, Nadia voit deux réseaux : « Cafe_Centre » (protégé) et « Cafe_Centre_Free » (ouvert). Elle veut consulter sa banque. Que lui conseilles-tu ? Quelle attaque risque-t-elle ?</p></div></div>
+<div class="exo"><div class="h">Exercice 7.3 — Injection SQL<span>Moyen</span></div><div class="c">
+<p>(1) Explique avec tes mots pourquoi la saisie <code>' OR '1'='1</code> permet de se connecter. (2) Quel pilier CIA est touché si le pirate lit la table des clients ? et s'il supprime la table ? (3) Quelle correction le développeur doit-il appliquer ?</p></div></div>
+<!-- ============ CHAPITRE 8 ============ -->
+<section class="chead2" id="ch8"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#1B2A4A)"><span class="lbl">CHAPITRE</span><span class="num">08</span></div><div class="ch-body">
+<h1>Se protéger : la défense en profondeur</h1>
+<div class="lead">Aucune protection n'est parfaite. La force vient de l'empilement de plusieurs couches.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Expliquer le principe de défense en profondeur</li>
+<li>Connaître les mesures d'hygiène de base d'un poste et d'un réseau</li>
+<li>Appliquer la règle de sauvegarde 3-2-1</li>
+<li>Appliquer le principe du moindre privilège</li></ul></div>
+<div class="quote">« La sécurité, c'est comme un oignon : plusieurs couches… et ça fait pleurer les attaquants. »</div></div></section>
+<h2><span class="n">8.1</span>Le principe de défense en profondeur</h2>
+<p>La <span class="k kg">défense en profondeur</span> consiste à placer <b>plusieurs couches de protection</b> successives. Si l'attaquant franchit une couche, la suivante peut encore l'arrêter, ou au moins le ralentir et le faire repérer.</p>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 280">
+<g text-anchor="middle">
+<rect fill="#F1EEF8" height="260" rx="24" stroke="#5B4B8A" width="560" x="20" y="10"></rect><text fill="#5B4B8A" font-size="11.5" font-weight="700" x="300" y="32">HUMAINS : sensibilisation, règles, procédures</text>
+<rect fill="#EAF2FA" height="218" rx="20" stroke="#2F6FA8" width="490" x="55" y="42"></rect><text fill="#2F6FA8" font-size="11.5" font-weight="700" x="300" y="64">PÉRIMÈTRE : pare-feu, filtrage e-mail, VPN avec MFA</text>
+<rect fill="#E6F4F1" height="176" rx="18" stroke="#0F766E" width="420" x="90" y="74"></rect><text fill="#0F766E" font-size="11.5" font-weight="700" x="300" y="96">RÉSEAU : VLAN, segmentation, Wi-Fi WPA3</text>
+<rect fill="#FBF4E4" height="134" rx="16" stroke="#B8913A" width="350" x="125" y="106"></rect><text fill="#8A6A22" font-size="11.5" font-weight="700" x="300" y="128">POSTE : mises à jour, antivirus, compte standard</text>
+<rect fill="#FBEEF1" height="92" rx="14" stroke="#A84A62" width="280" x="160" y="138"></rect><text fill="#A84A62" font-size="11.5" font-weight="700" x="300" y="160">APPLICATION : MFA, droits</text>
+<rect fill="#1B2A4A" height="50" rx="12" width="200" x="200" y="172"></rect><text fill="#fff" font-size="12" font-weight="700" x="300" y="194">DONNÉES</text><text fill="#D9BD7A" font-size="10" x="300" y="211">chiffrement + sauvegarde</text>
+</g>
+</svg>
+<figcaption>Figure 8.1 — Les couches de la défense en profondeur</figcaption>
+</figure>
+<h2><span class="n">8.2</span>L'hygiène numérique : les 10 mesures de base</h2>
+<div class="tscroll"><table>
+<tr><th style="width:6%">#</th><th style="width:30%">Mesure</th><th>En pratique</th></tr>
+<tr><td>1</td><td><span class="k kt">Mettre à jour</span></td><td>Windows Update, navigateur, applications, firmware des routeurs. Activer les mises à jour automatiques.</td></tr>
+<tr><td>2</td><td><span class="k kt">Antivirus actif</span></td><td>Microsoft Defender activé avec la protection en temps réel ; EDR en entreprise.</td></tr>
+<tr><td>3</td><td><span class="k kt">Pare-feu activé</span></td><td>Pare-feu Windows sur tous les profils ; seuls les ports nécessaires ouverts.</td></tr>
+<tr><td>4</td><td><span class="k kt">Comptes séparés</span></td><td>Un compte standard pour le quotidien, un compte administrateur uniquement pour administrer.</td></tr>
+<tr><td>5</td><td><span class="k kt">Mots de passe + MFA</span></td><td>Uniques, longs, dans un gestionnaire ; MFA partout où c'est possible.</td></tr>
+<tr><td>6</td><td><span class="k kt">Sauvegarder</span></td><td>Règle 3-2-1, et tester la restauration.</td></tr>
+<tr><td>7</td><td><span class="k kt">Chiffrer</span></td><td>BitLocker sur les PC portables, téléphone avec code.</td></tr>
+<tr><td>8</td><td><span class="k kt">Verrouiller</span></td><td>Windows + L dès qu'on quitte son poste ; verrouillage automatique.</td></tr>
+<tr><td>9</td><td><span class="k kt">Réduire</span></td><td>Désinstaller les logiciels inutiles, supprimer les comptes des personnes parties, fermer les services inutiles.</td></tr>
+<tr><td>10</td><td><span class="k kt">Sensibiliser</span></td><td>Former les utilisateurs au phishing ; encourager à signaler sans peur.</td></tr>
+</table></div>
+<h2><span class="n">8.3</span>Le moindre privilège</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Le <span class="k kg">principe du moindre privilège</span> : chaque personne (et chaque programme) ne reçoit que les droits <b>strictement nécessaires</b> à son travail, et seulement pour le temps nécessaire.</p></div>
+<p>Exemples : la secrétaire peut lire le dossier « Inscriptions » mais pas « Comptabilité » ; un stagiaire n'a pas de compte administrateur ; un compte de service ne peut que ce dont l'application a besoin. Si un compte est volé, les dégâts restent limités à ce qu'il pouvait faire.</p>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Dans un hôtel, la femme de ménage a un badge qui ouvre les chambres de son étage, pas le coffre-fort ni le bureau du directeur. Si elle perd son badge, le voleur n'ouvre que cet étage.</p></div>
+<h2><span class="n">8.4</span>Le pare-feu</h2>
+<p>Le <span class="k kt">pare-feu</span> (firewall) filtre le trafic entrant et sortant selon des règles : adresse source, adresse destination, protocole et port. On applique la règle « <b>tout ce qui n'est pas autorisé est interdit</b> ».</p>
+<div class="tscroll"><table>
+<tr><th style="width:10%">N°</th><th>Règle</th><th style="width:16%">Action</th></tr>
+<tr><td>1</td><td>Internet → serveur web, TCP 443 (HTTPS)</td><td><span class="k kt">Autoriser</span></td></tr>
+<tr><td>2</td><td>LAN admin → serveurs, TCP 22 (SSH)</td><td><span class="k kt">Autoriser</span></td></tr>
+<tr><td>3</td><td>Internet → n'importe quoi, TCP 3389 (RDP)</td><td><span class="k kr">Bloquer</span></td></tr>
+<tr><td>4</td><td>Tout le reste</td><td><span class="k kr">Bloquer</span></td></tr>
+</table></div>
+<h2><span class="n">8.5</span>La sauvegarde 3-2-1</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 600 150">
+<g text-anchor="middle">
+<circle cx="100" cy="70" fill="#1B2A4A" r="58"></circle><text fill="#D9BD7A" font-family="Lora" font-size="40" font-weight="700" x="100" y="72">3</text><text fill="#fff" font-size="10.5" x="100" y="98">copies des données</text>
+<circle cx="300" cy="70" fill="#0F766E" r="58"></circle><text fill="#fff" font-family="Lora" font-size="40" font-weight="700" x="300" y="72">2</text><text fill="#fff" font-size="10.5" x="300" y="98">supports différents</text>
+<circle cx="500" cy="70" fill="#B8913A" r="58"></circle><text fill="#fff" font-family="Lora" font-size="40" font-weight="700" x="500" y="72">1</text><text fill="#fff" font-size="10.5" x="500" y="98">copie hors site</text>
+<text fill="#5E6673" font-size="10.5" font-style="italic" x="300" y="145">+ au moins une copie hors ligne (déconnectée), que le ransomware ne peut pas atteindre</text>
+</g>
+</svg>
+<figcaption>Figure 8.2 — La règle de sauvegarde 3-2-1</figcaption>
+</figure>
+<p>Exemple : les fichiers originaux sur le serveur (copie 1), une sauvegarde chaque nuit sur un NAS (copie 2, autre support), et une sauvegarde hebdomadaire sur un disque externe qu'on débranche et qu'on range ailleurs, ou dans le cloud (copie 3, hors site).</p>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Une sauvegarde qu'on n'a jamais essayé de restaurer n'est qu'un espoir. Il faut <b>tester la restauration</b> régulièrement. Et un disque de sauvegarde branché en permanence sera chiffré par le ransomware en même temps que le reste.</p></div>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kg">Défense en profondeur</span><span class="k kt">Hygiène numérique</span><span class="k kt">Mise à jour</span><span class="k kg">Moindre privilège</span><span class="k kt">Pare-feu</span><span class="k kt">Sauvegarde 3-2-1</span><span class="k kt">Hors ligne</span><span class="k kt">BitLocker</span><span class="k kt">Segmentation</span>
+</div>
+<div class="exo"><div class="h">Exercice 8.1 — Placer dans la bonne couche<span>Facile</span></div><div class="c">
+<p>Place chaque mesure dans sa couche : formation au phishing, VLAN séparé pour les invités, BitLocker, Windows Update, MFA sur la messagerie, pare-feu en entrée de réseau, droits NTFS sur un dossier, sauvegarde hors ligne.</p></div></div>
+<div class="exo"><div class="h">Exercice 8.2 — Plan de sauvegarde<span>Moyen</span></div><div class="c">
+<p>Un cabinet de 5 personnes a 200 Go de dossiers sur un PC qui sert de serveur. Il possède un NAS et un abonnement cloud. Propose un plan respectant 3-2-1 (quoi, où, quand) et une procédure de test de restauration.</p></div></div>
+<div class="exo"><div class="h">Exercice 8.3 — Moindre privilège<span>Moyen</span></div><div class="c">
+<p>Dans une école, tous les employés utilisent le même compte « admin / admin123 » sur tous les PC. Liste les risques et propose une organisation des comptes et des droits.</p></div></div>
+<!-- ============ CHAPITRE 9 ============ -->
+<section class="chead2" id="ch9"><div class="ch-side" style="background:linear-gradient(180deg,#2C3E66,#0F4F5C)"><span class="lbl">CHAPITRE</span><span class="num">09</span></div><div class="ch-body">
+<h1>Surveiller et détecter</h1>
+<div class="lead">On ne peut pas empêcher toutes les attaques. Mais on peut les repérer vite, avant qu'elles ne fassent trop de dégâts.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Comprendre à quoi servent les journaux (logs)</li>
+<li>Lire les événements de sécurité Windows essentiels</li>
+<li>Repérer une attaque par force brute dans un journal</li>
+<li>Découvrir le rôle d'un SOC, d'un SIEM et des IOC</li></ul></div>
+<div class="quote">« Les traces ne mentent pas : il suffit de savoir les lire. »</div></div></section>
+<h2><span class="n">9.1</span>Les journaux : la boîte noire du système</h2>
+<div class="box def"><div class="t"><i>i</i>Définition</div>
+<p>Un <span class="k kb">journal</span> (log) est un fichier où un système note automatiquement ce qui se passe : connexions, erreurs, modifications, démarrages de services. Chaque ligne indique <b>quand</b>, <b>qui</b>, <b>quoi</b> et <b>d'où</b>.</p></div>
+<div class="box ana"><div class="t"><i>≈</i>Analogie</div>
+<p>Les journaux sont comme la boîte noire d'un avion ou les caméras d'un magasin : on ne les regarde pas tout le temps, mais quand il se passe quelque chose, ce sont eux qui racontent l'histoire.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:26%">Source</th><th>Où trouver les journaux</th></tr>
+<tr><td>Windows</td><td>Observateur d'événements (eventvwr.msc) → Journaux Windows → Sécurité, Système, Application</td></tr>
+<tr><td>Linux</td><td>/var/log/auth.log (connexions, sudo), /var/log/syslog ; commande journalctl</td></tr>
+<tr><td>Routeur / switch Cisco</td><td>show logging ; envoi vers un serveur Syslog</td></tr>
+<tr><td>Pare-feu, serveur web, antivirus</td><td>Console d'administration, fichiers de logs</td></tr>
+</table></div>
+<h2><span class="n">9.2</span>Les événements Windows à connaître</h2>
+<div class="tscroll"><table>
+<tr><th style="width:14%">ID</th><th>Signification</th><th style="width:38%">Pourquoi c'est intéressant</th></tr>
+<tr><td><b>4624</b></td><td>Ouverture de session réussie</td><td>Qui s'est connecté, quand, comment</td></tr>
+<tr><td><b>4625</b></td><td>Échec d'ouverture de session</td><td>Beaucoup d'échecs = force brute possible</td></tr>
+<tr><td><b>4740</b></td><td>Compte verrouillé</td><td>Trop d'erreurs de mot de passe</td></tr>
+<tr><td><b>4720</b></td><td>Compte utilisateur créé</td><td>Un pirate crée souvent un compte caché</td></tr>
+<tr><td><b>4732</b></td><td>Membre ajouté à un groupe local (ex. Administrateurs)</td><td>Élévation de privilèges suspecte</td></tr>
+<tr><td><b>7045</b></td><td>Nouveau service installé</td><td>Technique fréquente des malwares</td></tr>
+<tr><td><b>1102</b></td><td>Journal de sécurité effacé</td><td><span class="k kr">Alerte rouge</span> : quelqu'un efface ses traces</td></tr>
+</table></div>
+<h2><span class="n">9.3</span>Repérer une force brute</h2>
+<p>Voici un extrait (simplifié) du journal d'un serveur Linux exposé sur Internet :</p>
+<figure>
+<svg font-family="monospace" viewbox="0 0 620 200">
+<rect fill="#0F1A2E" height="190" rx="10" width="610" x="5" y="5"></rect>
+<g fill="#C9D4E5" font-size="11">
+<text x="18" y="30">08:14:02 sshd: Accepted password for karim from 10.0.5.21</text>
+<text fill="#F3A6B8" x="18" y="50">02:31:07 sshd: Failed password for root from 185.220.x.x</text>
+<text fill="#F3A6B8" x="18" y="70">02:31:08 sshd: Failed password for root from 185.220.x.x</text>
+<text fill="#F3A6B8" x="18" y="90">02:31:09 sshd: Failed password for admin from 185.220.x.x</text>
+<text fill="#F3A6B8" x="18" y="110">02:31:09 sshd: Failed password for test from 185.220.x.x</text>
+<text fill="#7A8699" x="18" y="130">… 1 842 lignes identiques en 6 minutes …</text>
+<text fill="#F7D774" font-weight="700" x="18" y="150">02:37:44 sshd: Accepted password for test from 185.220.x.x</text>
+<text fill="#F7D774" x="18" y="170">02:38:10 sudo: test : COMMAND=/usr/bin/wget http://…/x.sh</text>
+</g>
+</svg>
+<figcaption>Figure 9.1 — Force brute réussie : des centaines d'échecs depuis la même IP, puis un succès</figcaption>
+</figure>
+<p>Les indices : <b>la même adresse IP</b> étrangère, <b>des centaines d'échecs</b> en quelques minutes, sur des comptes courants (root, admin, test), <b>à une heure inhabituelle</b>… puis un <b>succès</b> sur le compte « test » au mot de passe faible, suivi du téléchargement d'un script. Le serveur est compromis : il faut l'isoler et lancer la réponse à incident.</p>
+<div class="box tip"><div class="t"><i>✓</i>Ce qui aurait évité ça</div>
+<p>Pas de compte « test » oublié, connexion SSH par clé plutôt que par mot de passe, interdiction de la connexion directe en root, verrouillage après plusieurs échecs (outil fail2ban), et SSH non exposé sur Internet ou réservé à un VPN.</p></div>
+<h2><span class="n">9.4</span>Le SOC, le SIEM et les IOC</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Terme</th><th>Explication simple</th></tr>
+<tr><td><span class="k kb">SOC</span></td><td>Security Operations Center : équipe (et salle) qui surveille la sécurité 24 h/24, analyse les alertes et déclenche la réaction.</td></tr>
+<tr><td><span class="k kv">SIEM</span></td><td>Logiciel qui collecte les journaux de toutes les machines, les met au même format et déclenche des alertes grâce à des règles. Exemple de règle : « plus de 20 échecs de connexion en 5 minutes depuis la même IP ».</td></tr>
+<tr><td><span class="k kr">IOC</span></td><td>Indicator of Compromise : trace qui prouve une attaque (adresse IP malveillante, nom de domaine, empreinte d'un fichier malveillant, nom de service bizarre).</td></tr>
+<tr><td><span class="k kb">Faux positif</span></td><td>Alerte déclenchée alors qu'il n'y a pas d'attaque (un employé qui a oublié son mot de passe). Le travail de l'analyste est de faire le tri.</td></tr>
+<tr><td><span class="k kv">IDS / IPS</span></td><td>Système qui analyse le trafic réseau : l'IDS <b>détecte</b> et alerte, l'IPS <b>bloque</b> en plus.</td></tr>
+</table></div>
+<figure>
+<svg font-family="Inter" viewbox="0 0 620 150">
+<defs><marker id="c9a" markerheight="10" markerwidth="10" orient="auto" refx="8" refy="5"><path d="M0,0 L10,5 L0,10 z" fill="#B8913A"></path></marker></defs>
+<g font-size="10.5" text-anchor="middle">
+<rect fill="#EAF2FA" height="30" rx="8" stroke="#2F6FA8" width="120" x="5" y="10"></rect><text x="65" y="30">Serveurs</text>
+<rect fill="#EAF2FA" height="30" rx="8" stroke="#2F6FA8" width="120" x="5" y="50"></rect><text x="65" y="70">Postes Windows</text>
+<rect fill="#EAF2FA" height="30" rx="8" stroke="#2F6FA8" width="120" x="5" y="90"></rect><text x="65" y="110">Pare-feu, switchs</text>
+<rect fill="#1B2A4A" height="60" rx="12" width="150" x="200" y="35"></rect><text fill="#fff" font-weight="700" x="275" y="61">SIEM</text><text fill="#D9BD7A" x="275" y="79">collecte + règles</text>
+<rect fill="#FBEEF1" height="60" rx="12" stroke="#A84A62" width="190" x="420" y="35"></rect><text fill="#A84A62" font-weight="700" x="515" y="61">Analyste SOC</text><text x="515" y="79">trie, enquête, réagit</text>
+</g>
+<g stroke="#B8913A" stroke-width="2"><line marker-end="url(#c9a)" x1="125" x2="197" y1="25" y2="55"></line><line marker-end="url(#c9a)" x1="125" x2="197" y1="65" y2="65"></line><line marker-end="url(#c9a)" x1="125" x2="197" y1="105" y2="75"></line><line marker-end="url(#c9a)" x1="350" x2="417" y1="65" y2="65"></line></g>
+<text fill="#8A6A22" font-size="9.5" text-anchor="middle" x="383" y="58">alertes</text>
+</svg>
+<figcaption>Figure 9.2 — Les journaux convergent vers le SIEM, qui alerte l'analyste du SOC</figcaption>
+</figure>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kb">Journal / log</span><span class="k kv">Observateur d'événements</span><span class="k kb">4624 / 4625</span><span class="k kr">Force brute</span><span class="k kb">SOC</span><span class="k kv">SIEM</span><span class="k kr">IOC</span><span class="k kb">Faux positif</span><span class="k kv">IDS / IPS</span><span class="k kt">fail2ban</span>
+</div>
+<div class="exo"><div class="h">Exercice 9.1 — Lire des ID d'événements<span>Facile</span></div><div class="c">
+<p>Sur un PC, tu trouves à 3 h du matin : 60 événements 4625, puis un 4624, puis un 4720 (création du compte « support2 »), puis un 4732 (ajout de « support2 » aux Administrateurs), puis un 1102. Raconte ce qui s'est passé en une phrase par événement. Quelle est ta conclusion ?</p></div></div>
+<div class="exo"><div class="h">Exercice 9.2 — Écrire une règle d'alerte<span>Moyen</span></div><div class="c">
+<p>Propose trois règles simples qu'un SIEM devrait appliquer pour une petite entreprise (condition + seuil + action), et un exemple de faux positif possible pour chacune.</p></div></div>
+<!-- ============ CHAPITRE 10 ============ -->
+<section class="chead2" id="ch10"><div class="ch-side" style="background:linear-gradient(180deg,#B8913A,#1B2A4A)"><span class="lbl">CHAPITRE</span><span class="num">10</span></div><div class="ch-body">
+<h1>Réagir à un incident et cadre légal</h1>
+<div class="lead">Le jour où l'attaque arrive, il est trop tard pour improviser. Il faut une méthode, des contacts… et connaître la loi.</div>
+<div class="obj"><h4>Objectifs du chapitre</h4>
+<ul><li>Connaître les 6 étapes de la réponse à incident</li>
+<li>Savoir quoi faire, et quoi ne pas faire, dans les premières minutes</li>
+<li>Connaître les acteurs marocains : DGSSI, maCERT, CNDP, DGSN</li>
+<li>Connaître les lois 07-03, 09-08 et 05-20</li></ul></div>
+<div class="quote">« Ce n'est pas l'attaque qui détruit une entreprise, c'est une réaction improvisée. »</div></div></section>
+<h2><span class="n">10.1</span>Événement ou incident ?</h2>
+<p>Un <span class="k kb">événement</span> est tout ce qui se passe et qu'on peut observer (une connexion, une alerte antivirus). Un <span class="k kr">incident de sécurité</span> est un événement qui porte atteinte, ou menace de porter atteinte, à la confidentialité, l'intégrité ou la disponibilité : malware actif, compte volé, fuite de données, site défiguré.</p>
+<h2><span class="n">10.2</span>Les 6 étapes de la réponse à incident</h2>
+<figure>
+<svg font-family="Inter" viewbox="0 0 640 150">
+<g font-size="10.5" text-anchor="middle">
+<circle cx="55" cy="60" fill="#1B2A4A" r="45"></circle><text fill="#D9BD7A" font-size="16" font-weight="700" x="55" y="56">1</text><text fill="#fff" x="55" y="74">Préparer</text>
+<circle cx="160" cy="60" fill="#2F6FA8" r="45"></circle><text fill="#fff" font-size="16" font-weight="700" x="160" y="56">2</text><text fill="#fff" x="160" y="74">Identifier</text>
+<circle cx="265" cy="60" fill="#A84A62" r="45"></circle><text fill="#fff" font-size="16" font-weight="700" x="265" y="56">3</text><text fill="#fff" x="265" y="74">Contenir</text>
+<circle cx="370" cy="60" fill="#7E3448" r="45"></circle><text fill="#fff" font-size="16" font-weight="700" x="370" y="56">4</text><text fill="#fff" x="370" y="74">Éradiquer</text>
+<circle cx="475" cy="60" fill="#0F766E" r="45"></circle><text fill="#fff" font-size="16" font-weight="700" x="475" y="56">5</text><text fill="#fff" x="475" y="74">Restaurer</text>
+<circle cx="580" cy="60" fill="#B8913A" r="45"></circle><text fill="#fff" font-size="16" font-weight="700" x="580" y="56">6</text><text fill="#fff" x="580" y="74">Leçons</text>
+<text fill="#5E6673" font-style="italic" x="320" y="135">Les leçons apprises améliorent la préparation : c'est une boucle.</text>
+</g>
+</svg>
+<figcaption>Figure 10.1 — Le cycle de réponse à incident</figcaption>
+</figure>
+<div class="tscroll"><table>
+<tr><th style="width:15%">Étape</th><th>Actions concrètes</th></tr>
+<tr><td><b>1. Préparer</b></td><td>Avant l'attaque : liste de contacts (IT, direction, prestataire, assureur), sauvegardes testées, inventaire des machines, procédure écrite, exercices.</td></tr>
+<tr><td><b>2. Identifier</b></td><td>Confirmer l'incident, comprendre ce qui est touché, noter l'heure et tout ce qu'on observe. Prévenir le responsable.</td></tr>
+<tr><td><b>3. Contenir</b></td><td>Empêcher la propagation : isoler la machine du réseau, bloquer le compte volé, couper un accès VPN. Ne pas éteindre brutalement : la mémoire contient des preuves.</td></tr>
+<tr><td><b>4. Éradiquer</b></td><td>Supprimer la cause : nettoyer ou réinstaller, corriger la faille, changer tous les mots de passe concernés.</td></tr>
+<tr><td><b>5. Restaurer</b></td><td>Remettre en service à partir de sauvegardes saines, surveiller de près pour vérifier que l'attaquant n'est pas revenu.</td></tr>
+<tr><td><b>6. Retour d'expérience</b></td><td>Réunion « leçons apprises » : que s'est-il passé, qu'est-ce qui a bien ou mal marché, quelles mesures ajouter ? Rédiger un rapport.</td></tr>
+</table></div>
+<div class="grid2">
+<div class="card" style="border-color:#0F766E"><h4 style="color:#0F766E">À faire</h4><p>Garder son calme. Isoler du réseau. Prévenir immédiatement. Noter tout (heure, messages, actions). Préserver les preuves (photos de l'écran, journaux). Utiliser un autre appareil pour communiquer.</p></div>
+<div class="card" style="border-color:#A84A62"><h4 style="color:#A84A62">À ne pas faire</h4><p>Cacher l'incident par peur. Éteindre ou réinstaller tout de suite sans avis. Payer la rançon seul. Brancher la sauvegarde sur la machine infectée. Contacter le pirate. Publier sur les réseaux sociaux.</p></div>
+</div>
+<h2><span class="n">10.3</span>Les acteurs de la cybersécurité au Maroc</h2>
+<div class="tscroll"><table>
+<tr><th style="width:22%">Acteur</th><th>Rôle</th></tr>
+<tr><td><span class="k kv">DGSSI</span></td><td>Direction Générale de la Sécurité des Systèmes d'Information, rattachée à l'Administration de la Défense Nationale : autorité nationale de cybersécurité ; elle édicte les règles et accompagne les administrations et les infrastructures d'importance vitale.</td></tr>
+<tr><td><span class="k kv">maCERT</span></td><td>Centre marocain de veille, de détection et de réponse aux attaques informatiques, au sein de la DGSSI : il publie des bulletins d'alerte sur les vulnérabilités et aide à traiter les incidents.</td></tr>
+<tr><td><span class="k kv">CNDP</span></td><td>Commission Nationale de contrôle de la protection des Données à caractère Personnel : veille au respect de la loi 09-08.</td></tr>
+<tr><td><span class="k kv">DGSN</span></td><td>Police : ses services spécialisés enquêtent sur la cybercriminalité ; la plateforme e-blagh.ma permet de signaler des contenus illicites en ligne.</td></tr>
+</table></div>
+<div class="box tip"><div class="t"><i>✓</i>Astuce veille</div>
+<p>Abonne-toi aux bulletins de sécurité du maCERT (site de la DGSSI) : ils annoncent les vulnérabilités critiques des produits courants (Windows, Cisco, Fortinet, navigateurs…) avec les correctifs à appliquer. C'est une excellente habitude de technicien.</p></div>
+<h2><span class="n">10.4</span>Le cadre légal marocain</h2>
+<div class="tscroll"><table>
+<tr><th style="width:16%">Loi</th><th>Ce qu'elle dit (en simple)</th><th style="width:30%">Exemple</th></tr>
+<tr><td><b>Loi 07-03</b><br/>(2003)</td><td>Complète le Code pénal (articles 607-3 à 607-11) : punit l'accès frauduleux à un système, le fait de s'y maintenir, d'entraver son fonctionnement, de modifier ou supprimer des données. La simple tentative est punie.</td><td>Se connecter au Wi-Fi ou au compte de quelqu'un sans autorisation ; lancer un DDoS</td></tr>
+<tr><td><b>Loi 09-08</b><br/>(2009)</td><td>Protège les données personnelles : collecte loyale et limitée, information des personnes, sécurité des données, déclaration à la CNDP. Droits d'accès, de rectification et d'opposition.</td><td>Une entreprise qui laisse fuiter le fichier de ses clients engage sa responsabilité</td></tr>
+<tr><td><b>Loi 05-20</b><br/>(2020)</td><td>Loi relative à la cybersécurité : fixe des règles de sécurité pour les administrations, les opérateurs et les infrastructures d'importance vitale, avec obligation de déclarer les incidents à l'autorité nationale (DGSSI).</td><td>Un opérateur d'importance vitale victime d'une attaque doit la déclarer</td></tr>
+</table></div>
+<div class="box warn"><div class="t"><i>!</i>Attention</div>
+<p>Par exemple, l'article 607-3 du Code pénal punit le simple fait d'accéder frauduleusement à tout ou partie d'un système d'un à trois mois d'emprisonnement et d'une amende, et les peines augmentent si des données sont supprimées ou modifiées. Télécharger, partager ou exploiter des données issues d'une fuite est également illégal.</p></div>
+<h3>Les normes et référentiels</h3>
+<p>Les entreprises s'appuient sur des référentiels reconnus : la norme <span class="k kv">ISO/IEC 27001</span> (système de management de la sécurité de l'information, avec certification), le <span class="k kv">NIST Cybersecurity Framework</span> (6 fonctions : gouverner, identifier, protéger, détecter, répondre, rétablir) et, au Maroc, la Directive Nationale de la Sécurité des Systèmes d'Information (DNSSI) publiée par la DGSSI.</p>
+<div class="kwbox"><div class="t">Mots-clés du chapitre</div>
+<span class="k kr">Incident</span><span class="k kt">Préparer</span><span class="k kt">Contenir</span><span class="k kt">Éradiquer</span><span class="k kt">Restaurer</span><span class="k kt">Retour d'expérience</span><span class="k kv">DGSSI</span><span class="k kv">maCERT</span><span class="k kv">CNDP</span><span class="k kg">Loi 07-03</span><span class="k kg">Loi 09-08</span><span class="k kg">Loi 05-20</span><span class="k kv">ISO 27001</span>
+</div>
+<div class="exo"><div class="h">Exercice 10.1 — Remettre en ordre<span>Facile</span></div><div class="c">
+<p>Associe chaque action à son étape : (a) débrancher le câble réseau du PC infecté ; (b) restaurer les fichiers depuis la sauvegarde de dimanche ; (c) réunion pour décider d'activer la MFA ; (d) l'antivirus signale un fichier suspect, on vérifie ; (e) réinstaller Windows et appliquer les correctifs ; (f) rédiger la fiche des contacts d'urgence.</p></div></div>
+<div class="exo"><div class="h">Exercice 10.2 — Quelle loi ?<span>Moyen</span></div><div class="c">
+<p>(1) Un stagiaire devine le mot de passe Wi-Fi du bureau des formateurs et s'y connecte. (2) Une clinique publie par erreur la liste de ses patients sur son site. (3) Un ministère subit une attaque et doit la signaler à l'autorité nationale. (4) Une personne télécharge et revend un fichier de données personnelles volé.</p></div></div>
+<!-- ============ ÉTUDES DE CAS ============ -->
+<section class="chead2" id="cas"><div class="ch-side" style="background:linear-gradient(180deg,#5B4B8A,#1B2A4A)"><span class="lbl">PARTIE</span><span class="num">ÉC</span></div><div class="ch-body">
+<h1>Études de cas réelles</h1>
+<div class="lead">Six attaques qui ont marqué l'histoire, racontées simplement. À chaque fois, une erreur « bête » a ouvert la porte.</div>
+<div class="obj"><h4>Méthode d'analyse</h4>
+<ul><li>Lire la fiche d'identité et le déroulé de l'attaque</li>
+<li>Repérer la porte d'entrée et les erreurs commises</li>
+<li>Relier aux notions du cours (CIA, kill chain, défenses)</li>
+<li>Répondre aux questions, puis comparer avec le corrigé</li></ul></div>
+<div class="quote">« Ceux qui ne tirent pas les leçons de l'histoire sont condamnés à la revivre. »</div></div></section>
+<h2 id="cas1"><span class="n">ÉC 1</span>WannaCry : le ver qui a paralysé des hôpitaux (2017)</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Fiche d'identité</th><th></th></tr>
+<tr><td><b>Date</b></td><td>12 mai 2017</td></tr>
+<tr><td><b>Type</b></td><td>Ransomware avec comportement de <b>ver</b> (propagation automatique)</td></tr>
+<tr><td><b>Porte d'entrée</b></td><td>Faille du protocole de partage Windows <b>SMBv1</b> (exploit « EternalBlue », CVE-2017-0144)</td></tr>
+<tr><td><b>Victimes</b></td><td>Plus de 200 000 ordinateurs dans environ 150 pays : hôpitaux britanniques (NHS), constructeurs automobiles, opérateurs télécoms, gares…</td></tr>
+<tr><td><b>Rançon</b></td><td>300 $ en bitcoins par machine, puis 600 $</td></tr>
+</table></div>
+<h3>Ce qui s'est passé</h3>
+<p>En mars 2017, Microsoft publie le correctif <b>MS17-010</b> qui ferme la faille SMB. Un mois plus tard, un groupe de pirates publie sur Internet l'outil EternalBlue, qui exploite cette faille. Le 12 mai, WannaCry se répand : sur chaque machine non corrigée, il chiffre les fichiers puis <b>cherche lui-même d'autres machines</b> vulnérables sur le réseau et sur Internet, sans aucun clic humain. Au Royaume-Uni, des hôpitaux doivent annuler des opérations et détourner des ambulances. L'épidémie est freinée le lendemain par un jeune chercheur qui découvre par hasard un « interrupteur » (kill switch) dans le code : un nom de domaine qu'il enregistre, ce qui stoppe le chiffrement sur les nouvelles infections.</p>
+<div class="box warn"><div class="t"><i>!</i>Les erreurs</div>
+<p>Correctif disponible depuis <b>deux mois</b> mais non installé ; vieux systèmes (Windows XP, Windows 7) encore en service ; protocole SMBv1 obsolète toujours activé ; port 445 accessible ; réseaux « à plat » sans segmentation.</p></div>
+<div class="exo"><div class="h">Questions — WannaCry<span>Étude de cas</span></div><div class="c">
+<ol><li>Pourquoi parle-t-on de « ver » et pas seulement de ransomware ?</li>
+<li>Quel pilier de la triade CIA a été le plus touché dans les hôpitaux ?</li>
+<li>Quelle mesure, à elle seule, aurait protégé la plupart des victimes ?</li>
+<li>Cite deux autres mesures qui auraient limité la propagation.</li></ol></div></div>
+<h2 id="cas2"><span class="n">ÉC 2</span>Colonial Pipeline : un seul mot de passe (2021)</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Fiche d'identité</th><th></th></tr>
+<tr><td><b>Date</b></td><td>Accès dès fin avril 2021 ; ransomware le 7 mai 2021</td></tr>
+<tr><td><b>Victime</b></td><td>Colonial Pipeline, le plus grand oléoduc de carburant des États-Unis (côte Est)</td></tr>
+<tr><td><b>Attaquant</b></td><td>Groupe DarkSide (modèle Ransomware as a Service)</td></tr>
+<tr><td><b>Porte d'entrée</b></td><td>Un ancien compte <b>VPN</b> qui n'était plus utilisé mais toujours actif, protégé par un <b>mot de passe seul, sans MFA</b> ; ce mot de passe avait fuité</td></tr>
+<tr><td><b>Conséquences</b></td><td>Près de 100 Go de données volés ; oléoduc arrêté pendant plusieurs jours par précaution ; pénuries et achats de panique dans les stations ; rançon d'environ 4,4 millions de dollars, dont une partie a ensuite été récupérée par la justice américaine</td></tr>
+</table></div>
+<h3>Ce qui s'est passé</h3>
+<p>Les attaquants se sont simplement <b>connectés</b> avec un identifiant valide sur un accès VPN oublié. Aucun piratage technique spectaculaire : une porte restée ouverte. Ils ont ensuite volé des données puis chiffré une partie du réseau informatique de gestion. Par peur que l'attaque atteigne les systèmes industriels, l'entreprise a elle-même arrêté l'oléoduc, ce qui a provoqué une crise d'approvisionnement.</p>
+<div class="exo"><div class="h">Questions — Colonial Pipeline<span>Étude de cas</span></div><div class="c">
+<ol><li>Cite les deux erreurs qui ont permis l'entrée des attaquants.</li>
+<li>Comment le mot de passe a-t-il pu être connu des pirates ? (deux hypothèses)</li>
+<li>Pourquoi l'entreprise a-t-elle arrêté l'oléoduc alors que les systèmes industriels n'étaient pas chiffrés ?</li>
+<li>Rédige trois règles de gestion des comptes qui auraient évité cette attaque.</li></ol></div></div>
+<h2 id="cas3"><span class="n">ÉC 3</span>Equifax : la mise à jour oubliée (2017)</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Fiche d'identité</th><th></th></tr>
+<tr><td><b>Victime</b></td><td>Equifax, agence américaine d'évaluation de crédit</td></tr>
+<tr><td><b>Porte d'entrée</b></td><td>Faille du composant web <b>Apache Struts</b> (CVE-2017-5638), corrigée par l'éditeur début mars 2017</td></tr>
+<tr><td><b>Durée</b></td><td>Intrusion de mi-mai à fin juillet 2017 (environ 2 mois et demi sans être détectée)</td></tr>
+<tr><td><b>Données volées</b></td><td>Données personnelles d'environ 147 millions de personnes (noms, dates de naissance, numéros de sécurité sociale, adresses)</td></tr>
+<tr><td><b>Conséquences</b></td><td>Démission de dirigeants, accord financier de plusieurs centaines de millions de dollars, perte de confiance durable</td></tr>
+</table></div>
+<h3>Ce qui s'est passé</h3>
+<p>Le correctif était disponible, une alerte interne avait même été diffusée, mais un portail web n'a pas été mis à jour et le scan de vérification ne l'a pas repéré. Les pirates ont exploité la faille, trouvé des identifiants stockés en clair et interrogé des dizaines de bases de données. De plus, un certificat expiré sur un outil d'inspection du trafic empêchait de voir le trafic chiffré sortant : le vol est passé inaperçu pendant des semaines.</p>
+<div class="exo"><div class="h">Questions — Equifax<span>Étude de cas</span></div><div class="c">
+<ol><li>Combien de temps s'est écoulé entre la publication du correctif et le début de l'intrusion ?</li>
+<li>Quel pilier CIA est touché ?</li>
+<li>Pourquoi un « certificat expiré » a-t-il aggravé l'attaque ?</li>
+<li>Propose une procédure de gestion des correctifs en 4 étapes pour une entreprise.</li></ol></div></div>
+<h2 id="cas4"><span class="n">ÉC 4</span>Twitter : l'appel téléphonique (2020)</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Fiche d'identité</th><th></th></tr>
+<tr><td><b>Date</b></td><td>15 juillet 2020</td></tr>
+<tr><td><b>Technique</b></td><td><b>Vishing</b> : appels téléphoniques à des employés en se faisant passer pour le support informatique interne</td></tr>
+<tr><td><b>Résultat</b></td><td>Accès à un outil d'administration interne ; 130 comptes visés, dont ceux de personnalités et d'entreprises très connues</td></tr>
+<tr><td><b>But</b></td><td>Arnaque : « Envoyez-moi des bitcoins, je vous rends le double » — plus de 100 000 $ récoltés en quelques heures</td></tr>
+<tr><td><b>Auteur principal</b></td><td>Un adolescent de 17 ans, arrêté peu après</td></tr>
+</table></div>
+<p>Les pirates ont appelé des employés en télétravail, se sont présentés comme des collègues du support et les ont guidés vers un faux site de connexion imitant l'intranet. Avec les identifiants récupérés, ils ont accédé à un outil interne trop puissant, accessible à trop de personnes, et ont publié de faux messages depuis des comptes certifiés.</p>
+<div class="exo"><div class="h">Questions — Twitter<span>Étude de cas</span></div><div class="c">
+<ol><li>Quel type d'ingénierie sociale a été utilisé ? Quel levier psychologique ?</li>
+<li>Quel principe de sécurité n'était pas respecté pour l'outil d'administration ?</li>
+<li>Quelle forme de MFA aurait résisté au faux site de connexion ?</li>
+<li>Pourquoi cette attaque montre-t-elle qu'il n'y a pas besoin d'être un « génie » pour pirater ?</li></ol></div></div>
+<h2 id="cas5"><span class="n">ÉC 5</span>Target : le prestataire de climatisation (2013)</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Fiche d'identité</th><th></th></tr>
+<tr><td><b>Victime</b></td><td>Target, grande chaîne de magasins américaine</td></tr>
+<tr><td><b>Porte d'entrée</b></td><td>Les identifiants d'un <b>prestataire</b> de chauffage et climatisation, volés par un malware envoyé par phishing</td></tr>
+<tr><td><b>Données volées</b></td><td>Environ 40 millions de cartes bancaires et des données de 70 millions de clients</td></tr>
+<tr><td><b>Fait marquant</b></td><td>Le logiciel de sécurité avait <b>déclenché des alertes</b>, qui n'ont pas été traitées à temps</td></tr>
+</table></div>
+<p>Avec le compte du prestataire, les pirates sont entrés dans le réseau. Celui-ci n'était pas assez <b>segmenté</b> : depuis la zone des fournisseurs, ils ont pu atteindre les caisses enregistreuses des magasins et y installer un malware qui copiait les numéros de carte au moment du paiement, pendant la période de Noël.</p>
+<div class="exo"><div class="h">Questions — Target<span>Étude de cas</span></div><div class="c">
+<ol><li>Pourquoi dit-on que la sécurité d'une entreprise dépend aussi de ses prestataires ?</li>
+<li>Quelle mesure réseau aurait empêché d'aller du compte prestataire aux caisses ?</li>
+<li>Les alertes existaient : quel maillon a manqué ? (pense au chapitre 9)</li>
+<li>Place les étapes de l'attaque sur la kill chain.</li></ol></div></div>
+<h2 id="cas6"><span class="n">ÉC 6</span>CNSS Maroc : une fuite de données massive (2025)</h2>
+<div class="tscroll"><table>
+<tr><th style="width:24%">Fiche d'identité</th><th></th></tr>
+<tr><td><b>Date</b></td><td>8 avril 2025</td></tr>
+<tr><td><b>Victime</b></td><td>Caisse Nationale de Sécurité Sociale (CNSS), après une attaque le même jour contre le site du ministère de l'Emploi</td></tr>
+<tr><td><b>Revendication</b></td><td>Un groupe se présentant comme algérien (« JabaRoot DZ ») publie les fichiers sur Telegram et sur un forum de pirates</td></tr>
+<tr><td><b>Données publiées</b></td><td>Plus de 50 000 fichiers PDF : déclarations de salaires concernant près de 2 millions de salariés et environ 500 000 entreprises (noms, numéros d'immatriculation, salaires…)</td></tr>
+<tr><td><b>Réactions</b></td><td>La CNSS ouvre une enquête, affirme que certains documents diffusés sont faux, inexacts ou tronqués et renforce ses mesures ; la CNDP rappelle que télécharger ou exploiter ces données est illégal</td></tr>
+</table></div>
+<p>C'est l'une des fuites de données les plus importantes de l'histoire du Maroc. Le chemin exact utilisé par les attaquants n'a pas été rendu public en détail. Pour les personnes concernées, le risque principal est l'<b>ingénierie sociale ciblée</b> : un escroc qui connaît ton employeur et ton salaire peut te contacter avec un message très crédible (faux conseiller CNSS, faux recruteur, fausse banque).</p>
+<div class="box keep"><div class="t"><i>★</i>À retenir</div>
+<p>Une fuite de données ne s'arrête pas le jour de l'attaque. Les données publiées servent pendant des années à des arnaques personnalisées. Après une fuite, la vigilance de chacun face aux appels et messages doit augmenter.</p></div>
+<div class="exo"><div class="h">Questions — CNSS<span>Étude de cas</span></div><div class="c">
+<ol><li>Quel pilier CIA est atteint ? Quel profil d'attaquant revendique l'attaque (chapitre 2) ?</li>
+<li>Quelle loi marocaine protège les données personnelles, et quelle autorité la contrôle ?</li>
+<li>Pourquoi est-il illégal de télécharger « juste pour voir » les fichiers publiés ?</li>
+<li>Rédige un SMS de sensibilisation (3 lignes) pour les salariés concernés.</li></ol></div></div>
+<h2><span class="n">Bilan</span>Ce que nous apprennent ces six cas</h2>
+<div class="tscroll"><table>
+<tr><th style="width:18%">Cas</th><th>Porte d'entrée</th><th style="width:38%">Mesure qui aurait fait la différence</th></tr>
+<tr><td>WannaCry</td><td>Faille non corrigée</td><td>Mises à jour + désactiver SMBv1 + segmentation</td></tr>
+<tr><td>Colonial</td><td>Compte VPN oublié sans MFA</td><td>MFA + suppression des comptes inutiles</td></tr>
+<tr><td>Equifax</td><td>Faille non corrigée</td><td>Gestion rigoureuse des correctifs + surveillance</td></tr>
+<tr><td>Twitter</td><td>Vishing</td><td>Sensibilisation + clés de sécurité + moindre privilège</td></tr>
+<tr><td>Target</td><td>Compte d'un prestataire</td><td>Segmentation + traitement des alertes</td></tr>
+<tr><td>CNSS</td><td>Non détaillée publiquement</td><td>Protection des données + vigilance après la fuite</td></tr>
+</table></div>
+<div class="box keep"><div class="t"><i>★</i>La leçon commune</div>
+<p>Aucune de ces attaques n'a eu besoin d'une technique impossible à arrêter. Elles ont exploité des <b>bases mal appliquées</b> : mises à jour, MFA, comptes, segmentation, vigilance humaine, surveillance. Les bases de la cybersécurité, ce sont exactement elles.</p></div>
+<!-- ============ LABS ============ -->
+<section class="chead2" id="tp"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#0F4F5C)"><span class="lbl">LABS</span><span class="num">TP</span></div><div class="ch-body">
+<h1>Labs pratiques</h1>
+<div class="lead">Dix manipulations guidées sur ton propre poste, avec des outils gratuits. Chaque lab se termine par sa solution.</div>
+<div class="obj"><h4>Matériel</h4>
+<ul><li>Un PC Windows 10/11 (le tien ou celui de la salle)</li>
+<li>Une machine virtuelle Linux (Ubuntu) pour les labs 7 et 10</li>
+<li>Navigateur web, Wireshark, 7-Zip, Nmap (gratuits)</li>
+<li>Un compte test créé pour l'occasion — jamais tes vrais comptes du réseau de l'école</li></ul></div>
+<div class="quote">« J'entends et j'oublie, je vois et je me souviens, je fais et je comprends. » — Confucius</div></div></section>
+<div class="box warn"><div class="t"><i>!</i>Charte du lab</div>
+<p>On travaille uniquement sur ses propres machines ou sur celles désignées par le formateur. On ne scanne pas, on n'écoute pas et on ne teste pas un réseau ou un compte d'autrui. Tout écart est une infraction (loi 07-03) et une faute disciplinaire.</p></div>
+<div class="tscroll"><table>
+<tr><th style="width:9%">Lab</th><th>Titre</th><th style="width:16%">Durée</th><th style="width:16%">Chapitre</th></tr>
+<tr><td>1</td><td>Vérifier ses comptes et activer la MFA</td><td>30 min</td><td>6</td></tr>
+<tr><td>2</td><td>Analyser un e-mail de phishing</td><td>40 min</td><td>4</td></tr>
+<tr><td>3</td><td>Démasquer des URL et des fichiers piégés</td><td>30 min</td><td>4, 5</td></tr>
+<tr><td>4</td><td>Vérifier l'intégrité d'un fichier par hachage</td><td>30 min</td><td>6</td></tr>
+<tr><td>5</td><td>Chiffrer un fichier et comprendre la clé</td><td>40 min</td><td>6</td></tr>
+<tr><td>6</td><td>Durcir un poste Windows</td><td>60 min</td><td>8</td></tr>
+<tr><td>7</td><td>Pare-feu et ports ouverts</td><td>45 min</td><td>8</td></tr>
+<tr><td>8</td><td>Observer HTTP et HTTPS avec Wireshark</td><td>60 min</td><td>7</td></tr>
+<tr><td>9</td><td>Détecter une force brute dans les journaux Windows</td><td>45 min</td><td>9</td></tr>
+<tr><td>10</td><td>Inventorier son labo avec Nmap</td><td>60 min</td><td>3, 8</td></tr>
+</table></div>
+<h2 id="lab1"><span class="n">Lab 1</span>Vérifier ses comptes et activer la MFA</h2>
+<div class="exo"><div class="h">Énoncé<span>30 min · Débutant</span></div><div class="c">
+<p><b>Objectif :</b> savoir si ses adresses e-mail ont fuité, et sécuriser son compte principal.</p>
+<ol><li>Va sur le site <b>haveibeenpwned.com</b> et saisis ton adresse e-mail personnelle. Note le nombre de fuites et les services concernés.</li>
+<li>Pour chaque fuite, lis quelles données ont été exposées (e-mail, mot de passe, téléphone…).</li>
+<li>Dans ton compte Google ou Microsoft, ouvre la page « Sécurité » et active la validation en deux étapes avec une application d'authentification.</li>
+<li>Note les <b>codes de secours</b> sur papier et range-les en lieu sûr.</li>
+<li>Installe un gestionnaire de mots de passe (Bitwarden ou KeePassXC) et crée un mot de passe maître sous forme de phrase de passe.</li>
+<li>Remplis le tableau : compte / mot de passe unique ? / MFA activée ? pour 5 de tes comptes.</li></ol>
+<p><b>Questions :</b> (a) Que faire si ton e-mail apparaît dans une fuite avec mot de passe ? (b) Pourquoi garder les codes de secours ? (c) Pourquoi l'application est-elle préférable au SMS ?</p></div></div>
+<details class="cor"><summary>Solution — Lab 1</summary><div class="c">
+<p>(a) Changer immédiatement le mot de passe du service touché <b>et de tous les sites où le même mot de passe était utilisé</b> (credential stuffing), puis activer la MFA. Avoir été dans une fuite n'est pas une faute : c'est le site qui a été piraté. (b) Si le téléphone est perdu, volé ou réinitialisé, les codes de secours sont le seul moyen de récupérer le compte. Ils se gardent hors ligne, pas dans un fichier du même ordinateur. (c) Le code de l'application est généré sur le téléphone et ne passe pas par le réseau mobile : il ne peut pas être détourné par une fraude à la carte SIM. Le tableau attendu doit montrer à terme « unique : oui » et « MFA : oui » au moins pour l'e-mail principal, qui sert à réinitialiser tous les autres comptes.</p></div></details>
+<h2 id="lab2"><span class="n">Lab 2</span>Analyser un e-mail de phishing</h2>
+<div class="exo"><div class="h">Énoncé<span>40 min · Débutant</span></div><div class="c">
+<p>Le formateur distribue l'e-mail suivant (reconstitué pour l'exercice) :</p>
+<div class="tscroll"><table>
+<tr><td style="width:24%"><b>De</b></td><td>Microsoft 365 &lt;no-reply@micros0ft-office365.com&gt;</td></tr>
+<tr><td><b>Répondre à</b></td><td>support.verification@gmail.com</td></tr>
+<tr><td><b>Objet</b></td><td>Action requise : votre boîte mail est pleine (99 %)</td></tr>
+<tr><td><b>Corps</b></td><td>« Bonjour utilisateur, vos messages entrants seront suprimés dans 12 heures. Cliquez ici pour augmenter gratuitement votre stockage. » Bouton « Augmenter » → https://office365-stockage.web.app/login</td></tr>
+<tr><td><b>En-tête technique</b></td><td>Authentication-Results : spf=fail ; dkim=none ; dmarc=fail</td></tr>
+</table></div>
+<ol><li>Relève tous les indices de phishing (au moins 7).</li>
+<li>Explique ce que signifient SPF, DKIM et DMARC « fail ».</li>
+<li>Dans Gmail ou Outlook, trouve où afficher l'« original » ou la « source » d'un e-mail réel que tu as reçu, et cherche la ligne Authentication-Results.</li>
+<li>Rédige le message que tu envoies au service informatique pour signaler cet e-mail.</li></ol></div></div>
+<details class="cor"><summary>Solution — Lab 2</summary><div class="c">
+<p><b>Indices :</b> domaine « micros0ft » avec un zéro (typosquatting) ; adresse de réponse Gmail différente de l'expéditeur ; urgence (12 heures) et peur (perte des messages) ; salutation impersonnelle « Bonjour utilisateur » ; faute « suprimés » ; lien vers un domaine qui n'appartient pas à Microsoft (web.app) ; offre « gratuite » ; résultats d'authentification en échec.</p>
+<p><b>SPF</b> vérifie que le serveur d'envoi est autorisé par le domaine ; <b>DKIM</b> ajoute une signature numérique prouvant que le message n'a pas été modifié ; <b>DMARC</b> dit quoi faire si ces contrôles échouent. Les trois en échec : l'e-mail ne vient pas du domaine qu'il prétend.</p>
+<p><b>Signalement type :</b> « Bonjour, j'ai reçu à 10 h 12 un e-mail se faisant passer pour Microsoft 365 (expéditeur no-reply@micros0ft-office365.com, objet “Action requise…”). Je n'ai pas cliqué. Je vous le transfère en pièce jointe. Cordialement. » On transfère le message <b>en pièce jointe</b> pour garder les en-têtes, on ne clique pas et on ne répond pas.</p></div></details>
+<h2 id="lab3"><span class="n">Lab 3</span>Démasquer des URL et des fichiers piégés</h2>
+<div class="exo"><div class="h">Énoncé<span>30 min · Débutant</span></div><div class="c">
+<ol><li>Pour chaque URL, écris le vrai nom de domaine et ton verdict (sûr / suspect) :<br/>
+a) https://www.ofppt.ma/fr/espace-stagiaire<br/>
+b) https://ofppt.ma.inscription-2026.online/form<br/>
+c) https://accounts.google.com/signin<br/>
+d) https://www.paypal.com@login-secure.ru/<br/>
+e) https://bit.ly/3Kx9Pq (lien raccourci reçu par SMS)</li>
+<li>Dans l'Explorateur Windows, onglet <b>Affichage</b>, coche « Extensions de noms de fichiers ». Crée un fichier texte nommé « facture.pdf.txt » et observe la différence d'affichage avec et sans l'option.</li>
+<li>Sur <b>virustotal.com</b>, onglet URL, analyse l'adresse a) puis consulte les résultats. Explique pourquoi il ne faut <b>jamais</b> envoyer sur ce site un document confidentiel.</li></ol></div></div>
+<details class="cor"><summary>Solution — Lab 3</summary><div class="c">
+<p>a) ofppt.ma — sûr. b) inscription-2026.online — <b>suspect</b> : « ofppt.ma » n'est qu'un sous-domaine. c) google.com — sûr. d) login-secure.ru — <b>suspect</b> : dans une URL, tout ce qui est avant « @ » est ignoré (c'est un nom d'utilisateur), le navigateur va sur login-secure.ru. e) on ne peut pas savoir : il faut dérouler le lien avec un service de prévisualisation ou, mieux, ne pas cliquer et passer par l'application officielle.</p>
+<p>Sans l'option, Windows masque la dernière extension : « facture.pdf.txt » s'affiche « facture.pdf ». Un fichier « facture.pdf.exe » se déguise de la même façon en PDF alors que c'est un programme. VirusTotal partage les fichiers envoyés avec des chercheurs en sécurité : un document confidentiel y deviendrait accessible à d'autres personnes.</p></div></details>
+<h2 id="lab4"><span class="n">Lab 4</span>Vérifier l'intégrité d'un fichier par hachage</h2>
+<div class="exo"><div class="h">Énoncé<span>30 min · Débutant</span></div><div class="c">
+<ol><li>Crée un fichier « note.txt » contenant « Note : 15/20 ».</li>
+<li>Dans PowerShell, calcule son empreinte : <code>Get-FileHash .\note.txt -Algorithm SHA256</code> (ou dans l'invite de commandes : <code>certutil -hashfile note.txt SHA256</code>). Note-la.</li>
+<li>Remplace « 15 » par « 18 », enregistre et recalcule l'empreinte. Compare.</li>
+<li>Remets « 15 » : que constates-tu ?</li>
+<li>Télécharge l'image ISO (ou un petit outil comme 7-Zip ou PuTTY) depuis le site officiel, calcule son SHA-256 et compare-le avec la valeur publiée sur le site.</li>
+<li>Sous Linux, refais l'étape 2 avec <code>sha256sum note.txt</code>.</li></ol>
+<p><b>Questions :</b> (a) Quel pilier de la triade CIA vérifie-t-on ? (b) Peut-on retrouver « Note : 15/20 » à partir de l'empreinte ? (c) Pourquoi MD5 et SHA-1 sont-ils déconseillés aujourd'hui ?</p></div></div>
+<details class="cor"><summary>Solution — Lab 4</summary><div class="c">
+<p>En changeant un seul caractère, l'empreinte change complètement. En revenant au texte d'origine, on retrouve exactement la première empreinte : le hachage est <b>déterministe</b>. Si l'empreinte du fichier téléchargé est identique à celle de l'éditeur, le fichier n'a pas été modifié ni corrompu ; sinon, on le supprime. (a) L'<b>intégrité</b>. (b) Non : le hachage est à sens unique, ce n'est pas du chiffrement. (c) Des chercheurs ont réussi à fabriquer deux fichiers différents ayant la même empreinte (« collision ») : un pirate pourrait donc faire passer un fichier modifié pour l'original. On utilise SHA-256 ou plus.</p></div></details>
+<h2 id="lab5"><span class="n">Lab 5</span>Chiffrer un fichier et comprendre la clé</h2>
+<div class="exo"><div class="h">Énoncé<span>40 min · Débutant</span></div><div class="c">
+<p><b>Partie A — à la main (chiffrement de César).</b> Chaque lettre est décalée de 3 rangs : A→D, B→E… Chiffre « RESEAU » puis déchiffre « VHFXULWH ». Combien d'essais faut-il au maximum pour casser ce chiffrement sans connaître la clé ?</p>
+<p><b>Partie B — 7-Zip.</b></p>
+<ol><li>Clic droit sur un dossier de test → 7-Zip → Ajouter à l'archive. Format <b>7z</b>, chiffrement <b>AES-256</b>, coche « Chiffrer les noms de fichiers », saisis une phrase de passe.</li>
+<li>Ouvre l'archive sans mot de passe : que vois-tu ? Puis avec le mot de passe.</li>
+<li>Explique comment transmettre ce fichier à un collègue de façon sûre.</li></ol>
+<p><b>Partie C — CyberChef (outil en ligne gratuit).</b> Encode le mot « Bonjour » en Base64 avec la recette « To Base64 », puis décode-le. Est-ce du chiffrement ?</p></div></div>
+<details class="cor"><summary>Solution — Lab 5</summary><div class="c">
+<p><b>A.</b> RESEAU → <b>UHVHDX</b> ; VHFXULWH → <b>SECURITE</b>. Il n'existe que 25 décalages possibles : on casse César en 25 essais au maximum. Leçon : un bon chiffrement repose sur un <b>espace de clés immense</b> (AES-256 : 2<sup>256</sup> clés possibles).</p>
+<p><b>B.</b> Sans mot de passe, on ne voit même pas les noms des fichiers ; le contenu est illisible. C'est du <b>chiffrement symétrique</b> : la même phrase de passe chiffre et déchiffre. On envoie l'archive par e-mail et la phrase de passe <b>par un autre canal</b> (appel, SMS), jamais dans le même message.</p>
+<p><b>C.</b> Base64 donne « Qm9uam91cg== ». Ce n'est <b>pas</b> du chiffrement : c'est un simple <b>encodage</b>, réversible par n'importe qui sans clé. Il sert à transporter des données, pas à les protéger.</p></div></details>
+<h2 id="lab6"><span class="n">Lab 6</span>Durcir un poste Windows</h2>
+<div class="exo"><div class="h">Énoncé<span>60 min · Débutant</span></div><div class="c">
+<p>Vérifie et note pour chaque point « conforme / non conforme / corrigé » :</p>
+<ol><li><b>Mises à jour</b> : Paramètres → Windows Update. Date de la dernière mise à jour ?</li>
+<li><b>Antivirus</b> : Sécurité Windows → Protection contre les virus et menaces. Protection en temps réel active ? Lance une analyse rapide.</li>
+<li><b>Pare-feu</b> : Sécurité Windows → Pare-feu. Activé sur les profils domaine, privé et public ?</li>
+<li><b>Comptes</b> : dans un invite PowerShell, tape <code>net localgroup Administrateurs</code>. Qui est administrateur ? Crée un compte standard pour l'usage quotidien.</li>
+<li><b>Verrouillage</b> : écran de veille avec mot de passe après 5 minutes ; teste Windows + L.</li>
+<li><b>Chiffrement</b> : <code>manage-bde -status</code> (en administrateur) ou Paramètres → Chiffrement de l'appareil. BitLocker actif ?</li>
+<li><b>Programmes</b> : liste les logiciels installés et repère ceux qui sont inutiles ou très anciens.</li>
+<li><b>Démarrage</b> : Gestionnaire des tâches → Démarrage. Y a-t-il des programmes inconnus ?</li></ol>
+<p>Rends une fiche de 8 lignes avec ton constat et les corrections faites.</p></div></div>
+<details class="cor"><summary>Solution — Lab 6</summary><div class="c">
+<p>Poste conforme : mises à jour de moins d'un mois et aucune en attente ; protection en temps réel, protection cloud et protection contre la falsification activées ; pare-feu actif sur les trois profils ; un seul compte administrateur en plus du compte intégré désactivé, l'utilisateur travaille avec un compte standard ; verrouillage automatique ≤ 5 min ; BitLocker « Protection activée » sur un PC portable ; pas de logiciel inutile ni obsolète (anciens lecteurs, barres d'outils) ; aucun programme de démarrage inconnu (en cas de doute, rechercher le nom de l'éditeur avant de désactiver). Chaque non-conformité corrigée réduit la surface d'attaque ; c'est l'application directe de l'hygiène numérique du chapitre 8.</p></div></details>
+<h2 id="lab7"><span class="n">Lab 7</span>Pare-feu et ports ouverts</h2>
+<div class="exo"><div class="h">Énoncé<span>45 min · Intermédiaire</span></div><div class="c">
+<p><b>Partie A — Windows.</b></p>
+<ol><li>Dans PowerShell, liste les ports en écoute : <code>netstat -ano | findstr LISTENING</code>. Repère les ports 135, 445, 3389 s'ils apparaissent.</li>
+<li>Associe un numéro de processus (PID) à son programme avec <code>tasklist | findstr &lt;PID&gt;</code>.</li>
+<li>Ouvre « Pare-feu Windows Defender avec fonctions avancées de sécurité » (wf.msc) et crée une règle de trafic <b>sortant</b> qui bloque le programme du Bloc-notes, ou le port TCP 80. Teste puis supprime la règle.</li></ol>
+<p><b>Partie B — Linux (machine virtuelle Ubuntu).</b></p>
+<ol><li><code>sudo ss -tulpn</code> : quels services écoutent ?</li>
+<li><code>sudo ufw status</code>, puis : <code>sudo ufw default deny incoming</code>, <code>sudo ufw allow 22/tcp</code>, <code>sudo ufw enable</code>.</li>
+<li>Vérifie avec <code>sudo ufw status verbose</code>.</li></ol></div></div>
+<details class="cor"><summary>Solution — Lab 7</summary><div class="c">
+<p>Sur Windows, on voit généralement 135 (RPC) et 445 (partage de fichiers SMB) ; 3389 n'apparaît que si le Bureau à distance est activé. Ces ports ne doivent <b>jamais</b> être accessibles depuis Internet (445 = WannaCry, 3389 = cible n° 1 des attaques par force brute). La règle de blocage sortant empêche le programme de se connecter : c'est ainsi qu'on coupe un malware qui veut joindre son serveur C2. Sous Linux, la politique « deny incoming » + « allow 22/tcp » applique le principe « tout ce qui n'est pas autorisé est interdit » ; on garde SSH ouvert pour ne pas perdre l'accès à la machine. Résultat attendu : <code>Status: active</code>, <code>Default: deny (incoming), allow (outgoing)</code>, <code>22/tcp ALLOW IN Anywhere</code>.</p></div></details>
+<h2 id="lab8"><span class="n">Lab 8</span>Observer HTTP et HTTPS avec Wireshark</h2>
+<div class="exo"><div class="h">Énoncé<span>60 min · Intermédiaire</span></div><div class="c">
+<ol><li>Installe Wireshark et lance une capture sur ta carte réseau active (Wi-Fi ou Ethernet) — uniquement sur ton propre poste.</li>
+<li>Ouvre un site de test volontairement non chiffré, par exemple <b>http://neverssl.com</b>, puis arrête la capture.</li>
+<li>Applique le filtre <code>http</code>. Clic droit sur une requête GET → Suivre → Flux TCP. Que peux-tu lire ?</li>
+<li>Relance une capture et ouvre <b>https://www.ofppt.ma</b>. Filtre <code>tls</code>, puis suis le flux TCP. Que vois-tu ?</li>
+<li>Applique le filtre <code>dns</code> : quels noms de sites apparaissent en clair ?</li>
+<li>Bonus : filtre <code>tls.handshake.extensions_server_name</code> pour voir le nom du site demandé dans la poignée de main TLS.</li></ol>
+<p><b>Questions :</b> (a) Qu'est-ce qu'un pirate sur le même Wi-Fi peut voir dans chaque cas ? (b) HTTPS cache-t-il tout ?</p></div></div>
+<details class="cor"><summary>Solution — Lab 8</summary><div class="c">
+<p>En HTTP, le flux TCP montre en clair la requête (GET, Host, User-Agent) et toute la page HTML : un formulaire de connexion enverrait l'identifiant et le mot de passe lisibles. En HTTPS, après la poignée de main, on ne voit que des « Application Data » illisibles. (a) En HTTP : tout. En HTTPS : l'adresse IP du serveur, le nom du site (requête DNS et champ SNI de la poignée de main), les horaires et les volumes, mais <b>pas</b> le contenu des pages, ni les mots de passe, ni les cookies. (b) Non : HTTPS protège le contenu, pas le fait qu'on visite tel site. Pour masquer aussi les sites visités sur un réseau non fiable, on utilise en plus un VPN de confiance.</p></div></details>
+<h2 id="lab9"><span class="n">Lab 9</span>Détecter une force brute dans les journaux Windows</h2>
+<div class="exo"><div class="h">Énoncé<span>45 min · Intermédiaire</span></div><div class="c">
+<ol><li>Crée un compte local de test : <code>net user testlab MotDePasse-Lab-2026 /add</code> (PowerShell en administrateur).</li>
+<li>Verrouille ta session (Windows + L) et tente 6 fois de te connecter au compte « testlab » avec un mauvais mot de passe, puis connecte-toi correctement.</li>
+<li>Ouvre l'Observateur d'événements (eventvwr.msc) → Journaux Windows → Sécurité → « Filtrer le journal actuel » → ID <b>4625</b>. Combien d'événements ? Quelles informations contiennent-ils ?</li>
+<li>Filtre ensuite sur l'ID <b>4624</b> et retrouve la connexion réussie.</li>
+<li>En PowerShell (administrateur) : <code>Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} -MaxEvents 10 | Format-List TimeCreated, Message</code></li>
+<li>Configure une stratégie de verrouillage : <code>net accounts /lockoutthreshold:5</code> puis refais l'étape 2. Quel nouvel événement apparaît ?</li>
+<li>Supprime le compte : <code>net user testlab /delete</code>.</li></ol></div></div>
+<details class="cor"><summary>Solution — Lab 9</summary><div class="c">
+<p>On trouve 6 événements 4625 (« Échec d'ouverture de session ») indiquant le nom du compte, l'heure, le type d'ouverture de session et la raison (« nom d'utilisateur inconnu ou mot de passe incorrect »), puis un 4624 pour la connexion réussie. Une série de 4625 rapprochés suivie d'un 4624 sur le même compte est la <b>signature typique d'une force brute réussie</b>. Avec le seuil de verrouillage à 5, la 5<sup>e</sup> erreur verrouille le compte et génère l'événement <b>4740</b> (« Un compte d'utilisateur a été verrouillé »). C'est exactement ce que surveille une règle de SIEM. Remarque : le verrouillage protège contre la force brute, mais un seuil trop bas peut être utilisé pour bloquer volontairement des comptes ; en entreprise, on combine seuil raisonnable et durée de verrouillage. Si la journalisation des échecs n'est pas active, on l'active via la stratégie d'audit (auditpol).</p></div></details>
+<h2 id="lab10"><span class="n">Lab 10</span>Inventorier son labo avec Nmap</h2>
+<div class="exo"><div class="h">Énoncé<span>60 min · Intermédiaire</span></div><div class="c">
+<p><b>Cadre :</b> uniquement le réseau virtuel de tes machines virtuelles (par exemple le réseau « Host-only » 192.168.56.0/24 de VirtualBox) ou le réseau de lab désigné par le formateur.</p>
+<ol><li>Sur la VM Ubuntu, installe un serveur web et SSH : <code>sudo apt install apache2 openssh-server</code>.</li>
+<li>Depuis l'hôte, découvre les machines actives : <code>nmap -sn 192.168.56.0/24</code></li>
+<li>Scanne la VM : <code>nmap 192.168.56.101</code> (adapte l'adresse). Quels ports sont ouverts ?</li>
+<li>Identifie les versions : <code>nmap -sV 192.168.56.101</code></li>
+<li>Arrête Apache (<code>sudo systemctl stop apache2</code>) puis active ufw avec seulement le port 22 (lab 7). Rescanne : que se passe-t-il ?</li>
+<li>Rédige un mini-rapport : machines trouvées, ports ouverts, services et versions, risques, recommandations.</li></ol></div></div>
+<details class="cor"><summary>Solution — Lab 10</summary><div class="c">
+<p>L'étape 2 liste les hôtes qui répondent (« Host is up »). L'étape 3 montre typiquement <code>22/tcp open ssh</code> et <code>80/tcp open http</code>. L'option -sV donne par exemple « OpenSSH 9.x » et « Apache httpd 2.4.x » : ces versions permettent de rechercher les CVE connues. Après l'arrêt d'Apache et l'activation d'ufw, seul le port 22 apparaît ouvert ; les autres sont « filtered » (bloqués par le pare-feu) ou fermés. <b>Recommandations du rapport :</b> désinstaller les services inutiles, garder les versions à jour, réserver SSH aux adresses d'administration et utiliser des clés, ne jamais exposer un service de test sur Internet. C'est exactement ce que fait un attaquant à l'étape « repérage » de la kill chain… et ce que le défenseur doit faire en premier pour connaître et réduire sa surface d'attaque.</p></div></details>
+<h2 class="" id="qcm"><span class="n">★</span>QCM final de révision</h2>
+<p class="section-intro">30 questions. Une seule bonne réponse par question. Compte 1 point par bonne réponse ; le corrigé est à la fin du document.</p>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:5%">#</th><th>Question</th><th style="width:50%">Réponses</th></tr>
+<tr><td>1</td><td>Le « D » de la triade DIC signifie…</td><td>a) Donnée · b) Disponibilité · c) Défense · d) Domaine</td></tr>
+<tr><td>2</td><td>Un mot de passe « 123456 » est…</td><td>a) une menace · b) un actif · c) une vulnérabilité · d) une contre-mesure</td></tr>
+<tr><td>3</td><td>Probabilité 3 et impact 4 donnent un risque…</td><td>a) de 12, prioritaire · b) de 7, à surveiller · c) de 1, acceptable · d) impossible à calculer</td></tr>
+<tr><td>4</td><td>Un pentesteur qui teste avec un contrat signé est…</td><td>a) un chapeau noir · b) un chapeau gris · c) un script kiddie · d) un chapeau blanc</td></tr>
+<tr><td>5</td><td>La première motivation des cybercriminels est…</td><td>a) l'argent · b) la curiosité · c) la politique · d) la vengeance</td></tr>
+<tr><td>6</td><td>Dans la kill chain, envoyer l'e-mail piégé correspond à…</td><td>a) le repérage · b) la livraison · c) l'installation · d) les objectifs</td></tr>
+<tr><td>7</td><td>Une faille sans correctif connu s'appelle…</td><td>a) une CVE · b) un patch · c) un zero-day · d) un botnet</td></tr>
+<tr><td>8</td><td>Un score CVSS de 9,8 est…</td><td>a) faible · b) moyen · c) élevé · d) critique</td></tr>
+<tr><td>9</td><td>Dans https://atlasbank.ma.verif-compte.top/login, le vrai domaine est…</td><td>a) verif-compte.top · b) atlasbank.ma · c) login · d) https</td></tr>
+<tr><td>10</td><td>Un faux SMS « colis en attente, payez 12 DH » est du…</td><td>a) vishing · b) smishing · c) tailgating · d) DDoS</td></tr>
+<tr><td>11</td><td>Le cadenas HTTPS garantit que…</td><td>a) le site est honnête · b) le site est officiel · c) la connexion est chiffrée · d) il n'y a pas de virus</td></tr>
+<tr><td>12</td><td>Un malware qui se propage tout seul par une faille réseau est…</td><td>a) un ver · b) un virus · c) un adware · d) un keylogger</td></tr>
+<tr><td>13</td><td>Fichiers renommés « .locked » et demande de bitcoins : c'est…</td><td>a) un spyware · b) un cryptominer · c) un rootkit · d) un ransomware</td></tr>
+<tr><td>14</td><td>Premier réflexe face à un PC infecté par un ransomware…</td><td>a) payer · b) l'isoler du réseau · c) brancher la sauvegarde · d) formater</td></tr>
+<tr><td>15</td><td>Réutiliser des identifiants volés sur d'autres sites s'appelle…</td><td>a) credential stuffing · b) phishing · c) sniffing · d) spoofing</td></tr>
+<tr><td>16</td><td>La qualité la plus importante d'un mot de passe est…</td><td>a) les symboles · b) les majuscules · c) la longueur · d) la date de naissance</td></tr>
+<tr><td>17</td><td>Lequel est une vraie MFA ?</td><td>a) mot de passe + code PIN · b) mot de passe + question secrète · c) empreinte + visage · d) mot de passe + code d'une application</td></tr>
+<tr><td>18</td><td>Tu reçois une demande MFA que tu n'as pas déclenchée : tu…</td><td>a) refuses et changes ton mot de passe · b) acceptes · c) ignores · d) éteins le téléphone</td></tr>
+<tr><td>19</td><td>SHA-256 est…</td><td>a) un chiffrement symétrique · b) une fonction de hachage · c) un antivirus · d) un protocole Wi-Fi</td></tr>
+<tr><td>20</td><td>Pour qu'une seule personne puisse lire un message, on le chiffre avec…</td><td>a) sa clé privée · b) ma clé privée · c) sa clé publique · d) Base64</td></tr>
+<tr><td>21</td><td>Pour administrer un routeur à distance, on remplace Telnet par…</td><td>a) FTP · b) SSH · c) HTTP · d) SMTP</td></tr>
+<tr><td>22</td><td>Une attaque qui sature un site avec des milliers de machines est…</td><td>a) un MITM · b) une injection SQL · c) un XSS · d) un DDoS</td></tr>
+<tr><td>23</td><td>La protection contre l'injection SQL est…</td><td>a) les requêtes préparées · b) l'antivirus · c) le Wi-Fi WPA3 · d) la sauvegarde</td></tr>
+<tr><td>24</td><td>La règle de sauvegarde 3-2-1 impose notamment…</td><td>a) 3 disques identiques · b) 1 copie hors site · c) 2 sauvegardes par jour · d) 1 seul support</td></tr>
+<tr><td>25</td><td>Donner à chacun uniquement les droits nécessaires, c'est…</td><td>a) la défense en profondeur · b) le chiffrement · c) le moindre privilège · d) la redondance</td></tr>
+<tr><td>26</td><td>L'événement Windows 4625 indique…</td><td>a) une connexion réussie · b) un échec de connexion · c) un journal effacé · d) un service installé</td></tr>
+<tr><td>27</td><td>L'outil qui centralise les journaux et déclenche des alertes est…</td><td>a) un SIEM · b) un VPN · c) un NAS · d) un switch</td></tr>
+<tr><td>28</td><td>Dans la réponse à incident, isoler la machine, c'est l'étape…</td><td>a) préparer · b) restaurer · c) leçons apprises · d) contenir</td></tr>
+<tr><td>29</td><td>La loi marocaine qui protège les données personnelles est…</td><td>a) 07-03 · b) 09-08 · c) 05-20 · d) 43-20</td></tr>
+<tr><td>30</td><td>Le centre marocain d'alerte et de réponse aux incidents est…</td><td>a) la CNDP · b) l'ANRT · c) le maCERT · d) l'OFPPT</td></tr>
+</table></div>
+<h2 class="" id="glossaire"><span class="n">A–Z</span>Glossaire</h2>
+<div class="tscroll"><table style="font-size:9pt">
+<tr><th style="width:24%">Terme</th><th>Définition simple</th></tr>
+<tr><td><b>Actif</b></td><td>Ce qui a de la valeur et qu'on veut protéger (données, matériel, réputation).</td></tr>
+<tr><td><b>AES</b></td><td>Algorithme standard de chiffrement symétrique.</td></tr>
+<tr><td><b>APT</b></td><td>Menace persistante avancée : groupe très organisé qui reste caché longtemps.</td></tr>
+<tr><td><b>ARP spoofing</b></td><td>Faux messages ARP pour se faire passer pour une autre machine (souvent la passerelle).</td></tr>
+<tr><td><b>Botnet</b></td><td>Réseau de machines infectées pilotées à distance.</td></tr>
+<tr><td><b>C2</b></td><td>Serveur de commande et de contrôle utilisé par l'attaquant pour piloter ses malwares.</td></tr>
+<tr><td><b>Certificat</b></td><td>Carte d'identité numérique d'un site, signée par une autorité de confiance.</td></tr>
+<tr><td><b>Cheval de Troie</b></td><td>Malware caché dans un logiciel qui semble utile.</td></tr>
+<tr><td><b>Chiffrement</b></td><td>Rendre un message illisible sans la clé ; c'est réversible avec la clé.</td></tr>
+<tr><td><b>CNDP</b></td><td>Commission nationale de contrôle de la protection des données personnelles (loi 09-08).</td></tr>
+<tr><td><b>Credential stuffing</b></td><td>Réutilisation automatique d'identifiants volés sur d'autres sites.</td></tr>
+<tr><td><b>CVE</b></td><td>Identifiant unique d'une vulnérabilité publique (CVE-année-numéro).</td></tr>
+<tr><td><b>CVSS</b></td><td>Note de gravité d'une vulnérabilité, de 0 à 10.</td></tr>
+<tr><td><b>DDoS</b></td><td>Déni de service distribué : saturation d'un service par de nombreuses machines.</td></tr>
+<tr><td><b>Défense en profondeur</b></td><td>Empilement de plusieurs couches de protection.</td></tr>
+<tr><td><b>DGSSI</b></td><td>Direction générale de la sécurité des systèmes d'information, autorité nationale marocaine.</td></tr>
+<tr><td><b>EDR</b></td><td>Antivirus évolué qui surveille le comportement des programmes et aide à réagir.</td></tr>
+<tr><td><b>Exploit</b></td><td>Programme ou technique qui utilise une vulnérabilité.</td></tr>
+<tr><td><b>Hachage</b></td><td>Calcul d'une empreinte à sens unique (ex. SHA-256) pour vérifier l'intégrité.</td></tr>
+<tr><td><b>Incident</b></td><td>Événement qui porte atteinte à la confidentialité, l'intégrité ou la disponibilité.</td></tr>
+<tr><td><b>Infostealer</b></td><td>Malware qui vole les mots de passe et cookies enregistrés dans le navigateur.</td></tr>
+<tr><td><b>Ingénierie sociale</b></td><td>Manipulation psychologique d'une personne pour obtenir une action ou une information.</td></tr>
+<tr><td><b>IOC</b></td><td>Indicateur de compromission : trace qui révèle une attaque (IP, domaine, empreinte).</td></tr>
+<tr><td><b>Journal (log)</b></td><td>Fichier où le système enregistre les événements.</td></tr>
+<tr><td><b>maCERT</b></td><td>Centre marocain de veille, de détection et de réponse aux attaques informatiques.</td></tr>
+<tr><td><b>MFA</b></td><td>Authentification avec au moins deux facteurs de catégories différentes.</td></tr>
+<tr><td><b>MITM</b></td><td>Attaque de l'homme du milieu : le pirate s'intercale dans une communication.</td></tr>
+<tr><td><b>Moindre privilège</b></td><td>Ne donner que les droits strictement nécessaires.</td></tr>
+<tr><td><b>Patch</b></td><td>Correctif publié par l'éditeur pour fermer une faille.</td></tr>
+<tr><td><b>Phishing</b></td><td>Hameçonnage : faux message pour voler des informations ou piéger un clic.</td></tr>
+<tr><td><b>Ransomware</b></td><td>Rançongiciel : chiffre les données et réclame une rançon.</td></tr>
+<tr><td><b>Risque</b></td><td>Probabilité qu'une menace exploite une vulnérabilité, multipliée par l'impact.</td></tr>
+<tr><td><b>SIEM</b></td><td>Outil qui centralise et analyse les journaux pour produire des alertes.</td></tr>
+<tr><td><b>SOC</b></td><td>Centre opérationnel de sécurité qui surveille en permanence.</td></tr>
+<tr><td><b>Surface d'attaque</b></td><td>Ensemble des points d'entrée possibles pour un attaquant.</td></tr>
+<tr><td><b>Typosquatting</b></td><td>Nom de domaine imitant un vrai avec une faute (rnicrosoft.com).</td></tr>
+<tr><td><b>VPN</b></td><td>Tunnel chiffré entre un appareil et un réseau.</td></tr>
+<tr><td><b>Ver</b></td><td>Malware qui se propage seul de machine en machine.</td></tr>
+<tr><td><b>XSS</b></td><td>Injection de code JavaScript dans une page web vue par d'autres visiteurs.</td></tr>
+<tr><td><b>Zero-day</b></td><td>Faille inconnue de l'éditeur ou sans correctif disponible.</td></tr>
+</table></div>
+<!-- ============ CORRIGÉS ============ -->
+<section class="chead2" id="corriges"><div class="ch-side" style="background:linear-gradient(180deg,#0F766E,#0B5A54)"><span class="lbl">ANNEXE</span><span class="num">✓</span></div><div class="ch-body">
+<h1>Corrigés</h1>
+<div class="lead">Essaie toujours de répondre seul avant de lire le corrigé : c'est l'effort qui fait apprendre.</div>
+<div class="obj"><h4>Contenu</h4>
+<ul><li>Corrigés des exercices des chapitres 1 à 10</li><li>Corrigés des six études de cas</li><li>Corrigé du QCM final</li><li>Les solutions des labs sont placées directement après chaque lab</li></ul></div>
+<div class="quote">« Une erreur comprise vaut mieux que dix bonnes réponses recopiées. »</div></div></section>
+<h2><span class="n">C1</span>Corrigés — Chapitre 1</h2>
+<details class="cor"><summary>Corrigé 1.1</summary><div class="c"><p>1) Disponibilité · 2) Intégrité · 3) Confidentialité · 4) Disponibilité (et intégrité, les fichiers sont modifiés) · 5) Confidentialité.</p></div></details>
+<details class="cor"><summary>Corrigé 1.2</summary><div class="c"><p><b>Actifs :</b> base de données clients, site e-commerce. <b>Menaces :</b> employé mécontent, virus, coupure d'électricité. <b>Vulnérabilités :</b> ancien Windows 7 (plus de mises à jour), Wi-Fi sans mot de passe, pas de sauvegarde.</p></div></details>
+<details class="cor"><summary>Corrigé 1.3</summary><div class="c"><p>1) Actif : les dossiers clients (et le PC). Menaces : ransomware, panne du disque, vol. Vulnérabilités : aucune sauvegarde, pièces jointes ouvertes sans vigilance. 2) Probabilité 3 (pièces jointes fréquentes), impact 4 (perte totale des dossiers) → risque <b>12, prioritaire</b>. 3) Sauvegarde 3-2-1 avec un disque externe débranché, mises à jour automatiques + Defender actif, sensibilisation de 30 minutes au phishing ; en bonus, compte standard pour le travail quotidien.</p></div></details>
+<h2><span class="n">C2</span>Corrigés — Chapitre 2</h2>
+<details class="cor"><summary>Corrigé 2.1</summary><div class="c"><p>1) Hacktiviste · 2) Script kiddie · 3) Menace interne · 4) Groupe étatique (APT) · 5) Cybercriminel (ransomware).</p></div></details>
+<details class="cor"><summary>Corrigé 2.2</summary><div class="c"><p>(a) Illégal : accès ou tentative d'accès sans autorisation (loi 07-03). (b) Légal : contrat signé qui fixe le périmètre. (c) Illégal : même avec une bonne intention, l'accès à la base est frauduleux ; la bonne pratique est de signaler la faille sans l'exploiter (ou via un programme de bug bounty). (d) Légal : c'est son propre matériel, dans un environnement isolé.</p></div></details>
+<h2><span class="n">C3</span>Corrigés — Chapitre 3</h2>
+<details class="cor"><summary>Corrigé 3.1</summary><div class="c"><p>Ordre : <b>b</b> (repérage) → <b>g</b> (armement) → <b>e</b> (livraison) → <b>c</b> (exploitation) → <b>f</b> (installation) → <b>a</b> (commande et contrôle) → <b>d</b> (objectifs).</p></div></details>
+<details class="cor"><summary>Corrigé 3.2</summary><div class="c"><p>1) 9,8 = gravité <b>critique</b>. 2) Le pirate n'a besoin d'aucun compte : n'importe qui sur Internet peut l'exploiter, souvent de façon automatisée. 3) Vérifier si nos systèmes sont concernés (inventaire), appliquer le correctif <b>en urgence</b> (sous 24 à 48 h pour un système exposé), ou appliquer une mesure de contournement en attendant ; puis vérifier dans les journaux qu'il n'y a pas eu d'exploitation.</p></div></details>
+<h2><span class="n">C4</span>Corrigés — Chapitre 4</h2>
+<details class="cor"><summary>Corrigé 4.1</summary><div class="c"><p>1) cnss.ma — sûr. 2) remboursement-amo.com — <b>piège</b>. 3) login-microsoftonline.support — <b>piège</b> (et en HTTP). 4) drive-partage.net — <b>piège</b>. 5) inwi.ma — sûr.</p></div></details>
+<details class="cor"><summary>Corrigé 4.2</summary><div class="c"><p>Indices : domaine « barid-livraison.click » qui n'est pas celui de Barid Al-Maghrib, petite somme pour paraître anodine, délai « avant ce soir », demande de paiement par lien. Leviers : urgence et confiance (marque connue). Réaction : ne pas cliquer, vérifier le suivi du colis sur le site ou l'application officielle, supprimer le SMS ; si on a payé, appeler sa banque pour bloquer la carte.</p></div></details>
+<details class="cor"><summary>Corrigé 4.3</summary><div class="c"><p>Signaux : adresse Gmail au lieu de l'adresse de l'entreprise, urgence (avant 18 h), autorité (directeur), confidentialité demandée, nouveau fournisseur, impossibilité de joindre le demandeur. Procédure : tout virement inhabituel ou tout changement de RIB doit être <b>confirmé par un rappel</b> au numéro connu du demandeur (jamais celui du message), avec double validation au-dessus d'un montant fixé ; aucune exception, même pour le directeur.</p></div></details>
+<h2><span class="n">C5</span>Corrigés — Chapitre 5</h2>
+<details class="cor"><summary>Corrigé 5.1</summary><div class="c"><p>1) Ver · 2) Cheval de Troie (avec infostealer) · 3) Ransomware · 4) Cryptominer · 5) Botnet (DDoS).</p></div></details>
+<details class="cor"><summary>Corrigé 5.2</summary><div class="c"><p>1) Faire débrancher le câble réseau et couper le Wi-Fi du poste. 2) Ne pas éteindre brutalement, photographier l'écran et la note de rançon. 3) Prévenir le responsable et lancer la procédure d'incident. 4) Vérifier si d'autres postes ou le serveur sont touchés et isoler si besoin. 5) Vérifier que les sauvegardes hors ligne sont intactes et ne pas les brancher sur le réseau infecté. <b>À ne pas faire :</b> payer, contacter les pirates, supprimer des fichiers, réinstaller sans analyse, cacher l'incident.</p></div></details>
+<h2><span class="n">C6</span>Corrigés — Chapitre 6</h2>
+<details class="cor"><summary>Corrigé 6.1</summary><div class="c"><p>Du plus faible au plus solide : azerty (dictionnaire) → Youssef1990 (prénom + année) → T!g3r (5 caractères) → Ofppt@2026 (prévisible) → Montagne-Orange-Stylo-Pluie (27 caractères) ≈ k9#Lm2$xQv8!pR4z (16 aléatoires). La phrase de passe est à la fois très solide et facile à retenir ; le mot de passe aléatoire est idéal… dans un gestionnaire.</p></div></details>
+<details class="cor"><summary>Corrigé 6.2</summary><div class="c"><p>(a) Non : deux fois « ce que je sais ». (b) Oui. (c) Oui : « ce que j'ai » + « ce que je sais ». (d) Non : deux fois « ce que je suis ». (e) Oui, et c'est la forme la plus résistante au phishing.</p></div></details>
+<details class="cor"><summary>Corrigé 6.3</summary><div class="c"><p>1) Hachage (comparer le SHA-256). 2) Chiffrement (archive AES ou chiffrement asymétrique). 3) Hachage salé. 4) Chiffrement du disque (BitLocker). 5) Signature électronique, qui combine hachage et clé privée.</p></div></details>
+<h2><span class="n">C7</span>Corrigés — Chapitre 7</h2>
+<details class="cor"><summary>Corrigé 7.1</summary><div class="c"><p>Ces trois protocoles transmettent tout <b>en clair</b>, y compris les mots de passe : quelqu'un qui écoute le réseau les lit. Remplacer Telnet par <b>SSH</b>, FTP par <b>SFTP</b> (ou FTPS), HTTP par <b>HTTPS</b>.</p></div></details>
+<details class="cor"><summary>Corrigé 7.2</summary><div class="c"><p>« Cafe_Centre_Free » est peut-être un faux point d'accès (<b>evil twin</b>) créé par un pirate pour faire du MITM. Conseil : demander le nom exact au personnel, préférer le partage de connexion du téléphone pour la banque, utiliser l'application officielle de la banque, refuser toute alerte de certificat.</p></div></details>
+<details class="cor"><summary>Corrigé 7.3</summary><div class="c"><p>1) La saisie ferme la chaîne de texte par l'apostrophe, puis ajoute une condition « OR '1'='1' » toujours vraie : la base répond « oui, cet utilisateur existe » sans vérifier le mot de passe. 2) Lecture : confidentialité. Suppression : intégrité et disponibilité. 3) Utiliser des <b>requêtes préparées</b> (paramétrées), valider les saisies, et donner à l'application un compte de base de données aux droits limités (moindre privilège).</p></div></details>
+<h2><span class="n">C8</span>Corrigés — Chapitre 8</h2>
+<details class="cor"><summary>Corrigé 8.1</summary><div class="c"><p>Humains : formation au phishing. Périmètre : pare-feu en entrée. Réseau : VLAN invités. Poste : Windows Update. Application : MFA sur la messagerie, droits NTFS sur le dossier. Données : BitLocker, sauvegarde hors ligne.</p></div></details>
+<details class="cor"><summary>Corrigé 8.2</summary><div class="c"><p>Copie 1 : les données sur le PC-serveur. Copie 2 : sauvegarde automatique chaque nuit sur le NAS (autre support), avec versions conservées 30 jours. Copie 3 : sauvegarde chiffrée vers le cloud chaque nuit (hors site), et idéalement un disque externe hebdomadaire débranché (hors ligne). Test : une fois par mois, restaurer un dossier au hasard dans un emplacement de test et vérifier qu'il s'ouvre ; une fois par an, simuler la restauration complète. Noter chaque test dans un registre.</p></div></details>
+<details class="cor"><summary>Corrigé 8.3</summary><div class="c"><p>Risques : un mot de passe connu de tous et facile à deviner ; impossible de savoir qui a fait quoi (pas de traçabilité) ; tout le monde a les droits admin, donc un malware peut tout installer ; un employé qui part garde l'accès. Organisation : un compte nominatif standard par personne avec mot de passe personnel ; un compte admin séparé réservé au technicien ; dossiers partagés avec des droits par service ; suppression des comptes au départ ; MFA sur la messagerie.</p></div></details>
+<h2><span class="n">C9</span>Corrigés — Chapitre 9</h2>
+<details class="cor"><summary>Corrigé 9.1</summary><div class="c"><p>60 × 4625 : quelqu'un essaie de deviner un mot de passe (force brute). 4624 : il a réussi à se connecter. 4720 : il crée un compte « support2 » pour revenir plus tard. 4732 : il donne à ce compte les droits administrateur. 1102 : il efface le journal pour cacher ses traces. Conclusion : <b>machine compromise</b>, il faut lancer la réponse à incident (isoler, désactiver les comptes, enquêter).</p></div></details>
+<details class="cor"><summary>Corrigé 9.2</summary><div class="c"><p>Exemples : (1) plus de 10 échecs de connexion en 5 min sur un même compte → alerte + verrouillage ; faux positif : un utilisateur qui a changé son mot de passe et dont le téléphone réessaie l'ancien. (2) connexion réussie d'un compte admin en dehors de 7 h–20 h → alerte ; faux positif : intervention de maintenance planifiée. (3) événement 1102 (journal effacé) → alerte critique immédiate ; faux positif : rare, nettoyage décidé par l'administrateur (qui doit alors être documenté).</p></div></details>
+<h2><span class="n">C10</span>Corrigés — Chapitre 10</h2>
+<details class="cor"><summary>Corrigé 10.1</summary><div class="c"><p>(f) Préparer · (d) Identifier · (a) Contenir · (e) Éradiquer · (b) Restaurer · (c) Retour d'expérience.</p></div></details>
+<details class="cor"><summary>Corrigé 10.2</summary><div class="c"><p>(1) Loi 07-03 : accès frauduleux à un système. (2) Loi 09-08 : manquement à la sécurité des données personnelles, contrôle de la CNDP. (3) Loi 05-20 : obligation de déclaration à l'autorité nationale (DGSSI). (4) Lois 07-03 et 09-08 : recel et traitement illicite de données personnelles.</p></div></details>
+<h2><span class="n">ÉC</span>Corrigés — Études de cas</h2>
+<details class="cor"><summary>WannaCry</summary><div class="c"><p>1) Parce qu'il se propage <b>tout seul</b> de machine en machine via la faille SMB, sans clic. 2) La <b>disponibilité</b> : les ordinateurs et les services de soin étaient inutilisables. 3) Installer le correctif MS17-010, publié deux mois plus tôt. 4) Désactiver SMBv1 et bloquer le port 445 depuis Internet ; segmenter le réseau ; remplacer les systèmes obsolètes ; sauvegardes hors ligne.</p></div></details>
+<details class="cor"><summary>Colonial Pipeline</summary><div class="c"><p>1) Un compte VPN inutilisé mais encore actif, et l'absence de MFA. 2) Réutilisation du même mot de passe sur un autre site qui a fuité, ou vol par phishing / infostealer. 3) Par précaution : ne sachant pas jusqu'où allait l'attaque, l'entreprise a préféré tout arrêter pour éviter que les systèmes industriels soient touchés, et ne pouvait plus gérer la facturation. 4) MFA obligatoire sur tous les accès distants ; revue régulière des comptes et désactivation immédiate des comptes inutilisés ou des personnes parties ; interdiction de réutiliser un mot de passe et contrôle des mots de passe déjà fuités.</p></div></details>
+<details class="cor"><summary>Equifax</summary><div class="c"><p>1) Environ deux mois (correctif début mars, intrusion mi-mai). 2) La <b>confidentialité</b>. 3) L'outil d'inspection ne pouvait plus analyser le trafic chiffré : l'exfiltration est restée invisible. 4) Inventaire de tous les systèmes et logiciels → veille sur les bulletins (maCERT, éditeurs) → application des correctifs critiques dans un délai fixé (ex. 48 h pour l'exposé) → vérification par un scan et suivi dans un tableau, avec un responsable nommé.</p></div></details>
+<details class="cor"><summary>Twitter</summary><div class="c"><p>1) <b>Vishing</b> (puis faux site de connexion) ; leviers : autorité et confiance (faux collègue du support), urgence. 2) Le <b>moindre privilège</b> : trop d'employés avaient accès à un outil très puissant. 3) Une clé de sécurité physique (FIDO2 / passkey) : elle vérifie le vrai domaine et refuse de fonctionner sur le faux site. 4) L'attaque reposait sur la manipulation de personnes et non sur une prouesse technique : la vigilance humaine est une défense essentielle.</p></div></details>
+<details class="cor"><summary>Target</summary><div class="c"><p>1) Un prestataire connecté au réseau devient une porte d'entrée : s'il est piraté, l'entreprise l'est aussi. 2) La <b>segmentation</b> (VLAN, pare-feu interne) : la zone prestataires ne doit pas pouvoir joindre les caisses. 3) Le traitement des alertes par une équipe de surveillance (SOC) : détecter ne sert à rien si personne ne réagit. 4) Repérage (prestataire choisi) → livraison (phishing chez le prestataire) → exploitation et installation (accès réseau puis malware sur les caisses) → commande et contrôle → objectifs (vol des numéros de carte).</p></div></details>
+<details class="cor"><summary>CNSS Maroc</summary><div class="c"><p>1) La <b>confidentialité</b> ; un groupe qui revendique une motivation politique : profil <b>hacktiviste</b> (et diffusion publique des données). 2) La <b>loi 09-08</b>, contrôlée par la <b>CNDP</b>. 3) Collecter, conserver ou utiliser des données personnelles obtenues illégalement est interdit, même sans les revendre ; c'est aussi participer à la diffusion de la fuite. 4) Exemple : « CNSS / fuite de données : la CNSS ne vous demandera jamais vos codes ou un paiement par SMS ou téléphone. En cas d'appel ou de message suspect, raccrochez et contactez l'organisme par son numéro officiel. »</p></div></details>
+<h2><span class="n">Q</span>Corrigé du QCM final</h2>
+<div class="tscroll"><table style="text-align:center">
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+<tr><td>b</td><td>c</td><td>a</td><td>d</td><td>a</td><td>b</td><td>c</td><td>d</td><td>a</td><td>b</td></tr>
+<tr><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+<tr><td>c</td><td>a</td><td>d</td><td>b</td><td>a</td><td>c</td><td>d</td><td>a</td><td>b</td><td>c</td></tr>
+<tr><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th></tr>
+<tr><td>b</td><td>d</td><td>a</td><td>b</td><td>c</td><td>b</td><td>a</td><td>d</td><td>b</td><td>c</td></tr>
+</table></div>
+<div class="grid3">
+<div class="card" style="border-color:#0F766E"><h4 style="color:var(--teal)">25 à 30</h4><p>Excellent : tu as les bons réflexes. Passe aux labs intermédiaires et aux plateformes d'entraînement.</p></div>
+<div class="card" style="border-color:#B8913A"><h4 style="color:#8A6A22">18 à 24</h4><p>Bien : relis les chapitres où tu t'es trompé et refais les simulations correspondantes sur le site.</p></div>
+<div class="card" style="border-color:#A84A62"><h4 style="color:var(--rose)">Moins de 18</h4><p>Reprends les encadrés « À retenir » et les mots-clés de chaque chapitre, puis refais le QCM dans une semaine.</p></div>
+</div>
+
+<p class="foot">Module Bases de la cybersécurité · OFPPT Infrastructure Digitale · <a href="index.html#cyber">Leçons, simulations et QCM</a> · <a href="docs/bases-cybersecurite.pdf" download>Version PDF</a></p>
+</main>
+<a class="fab" href="#sommaire">☰ Sommaire</a>
+</body></html>
