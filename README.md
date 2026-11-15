@@ -1,9 +1,9 @@
 # Réseaux informatiques · Infrastructure digitale
 
 Application web pour les stagiaires OFPPT de 1re année (Infrastructure digitale) :
-Page d'accueil (présentation de la filière Infrastructure Digitale) puis cinq modules (menu en haut du site) : Conception d'un réseau informatique (8 thèmes, 33 leçons, labs VLAN, QCM de fin de chapitre), Automatiser les tâches d'administration (Bash, PowerShell, Python : 9 leçons, 6 TP), Veille technologique (9 leçons) Sécurité informatique (9 leçons, 6 TP) et Bases de la cybersécurité (11 leçons, 10 labs, 6 études de cas). Les modules Automatisation et Sécurité sont verrouillés (contenu chiffré, accès formateur). Chaque leçon a une fiche de cours, une simulation et un QCM corrigé ; chaque module a un QCM de 10, 20 ou 40 questions.
+Page d'accueil (présentation de la filière Infrastructure Digitale) puis cinq modules (menu en haut du site) : Conception d'un réseau informatique (8 thèmes, 33 leçons, labs VLAN, labs Redondance STP et EtherChannel, QCM de fin de chapitre), Automatiser les tâches d'administration (Bash, PowerShell, Python : 9 leçons, 6 TP), Veille technologique (9 leçons) Sécurité informatique (9 leçons, 6 TP) et Bases de la cybersécurité (11 leçons, 10 labs, 6 études de cas). Les modules Automatisation et Sécurité sont verrouillés (contenu chiffré, accès formateur). Chaque leçon a une fiche de cours, une simulation et un QCM corrigé ; chaque module a un QCM de 10, 20 ou 40 questions.
 
-Site en ligne : https://infrastructure-digitale.netlify.app/
+Site en ligne : https://infrastructure-digitale.github.io/
 
 ## Organisation
 - Thème « Le routage statique et dynamique » (leçons 48 à 51) avec les simulations `simLookup`, `simStatic`, `simDyn`.
@@ -24,7 +24,9 @@ Tout le site tient dans `index.html` (HTML, CSS et JavaScript, sans dépendance 
 - Les leçons sont dans le tableau `THEMES`, les thèmes dans `CHAPS` et `CLEAD`.
 - Chaque simulation est une fonction déclarée dans `SIMS`.
 - Le thème « Les VLAN » ajoute `simVlanBc` (diffusion), `simLab` (lab interactif) et l'onglet Lab (`labTabHTML`).
+- Labs Packet Tracer : tableau `LABS` (catégorie `cat` : `vlan` par défaut, `red` pour la redondance). Labs 1 à 6 : VLAN ; lab 7 : STP (`labs/lab-7-stp.pdf`) ; lab 8 : EtherChannel (`labs/lab-8-etherchannel.pdf`).
+- Verrouillage : un lab s'ouvre seulement si `labs/lab-N.json` est présent. Supprimer ce fichier le reverrouille.
 
 ## Publication
-Le dépôt est relié à Netlify : chaque modification poussée sur la branche `main`
-est publiée automatiquement (fichier `netlify.toml`, aucune étape de build).
+Le site est publié par GitHub Pages : chaque modification poussée sur la branche `main`
+est publiée automatiquement (aucune étape de build).

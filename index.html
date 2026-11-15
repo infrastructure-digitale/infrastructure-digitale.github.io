@@ -303,6 +303,7 @@ svg .lk.v10 { stroke: var(--accent); }
 svg .lk.v20 { stroke: var(--d2); }
 svg .lk.v30 { stroke: var(--ok); }
 svg .lk.vt { stroke: var(--ink); stroke-width: 4.5; }
+svg .lk.blk { stroke-dasharray: 7 6; opacity: .55; }
 svg .nd rect { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
 svg .nd.sw rect { fill: var(--accent-soft); }
 svg .nd.r rect { fill: var(--d2-soft); }
@@ -5035,19 +5036,24 @@ const CLEAD = [
 ];
 
 /* ---------- Labs VLAN ---------- */
-const LABS = [{"id": 1, "niveau": "Débutant", "titre": "Mes premiers VLAN", "sous": "Un switch, quatre PC, deux services", "duree": "45 min", "locked": true}, {"id": 2, "niveau": "Facile", "titre": "Trois services, un switch", "sous": "Plages de ports, adressage par VLAN et diagnostic", "duree": "1 h 15", "locked": true}, {"id": 3, "niveau": "Intermédiaire", "titre": "Deux switchs et un trunk", "sous": "Un VLAN qui traverse plusieurs switchs", "duree": "1 h 30", "locked": true}, {"id": 4, "niveau": "Intermédiaire +", "titre": "Routage inter-VLAN : router-on-a-stick", "sous": "Faire communiquer deux VLAN avec un seul câble vers le routeur", "duree": "2 h", "locked": true}, {"id": 5, "niveau": "Avancé", "titre": "Trois switchs, trois VLAN et DHCP", "sous": "Un réseau d'entreprise complet : trunks, routage inter-VLAN et adresses automatiques", "duree": "2 h 30", "locked": true}, {"id": 6, "niveau": "Expert", "titre": "Cœur de réseau L3, sécurité et dépannage", "sous": "SVI, ACL entre VLAN, sécurité des ports et chasse aux pannes", "duree": "3 h", "locked": true}];
+const LABS = [{"id": 1, "niveau": "Débutant", "titre": "Mes premiers VLAN", "sous": "Un switch, quatre PC, deux services", "duree": "45 min", "locked": true}, {"id": 2, "niveau": "Facile", "titre": "Trois services, un switch", "sous": "Plages de ports, adressage par VLAN et diagnostic", "duree": "1 h 15", "locked": true}, {"id": 3, "niveau": "Intermédiaire", "titre": "Deux switchs et un trunk", "sous": "Un VLAN qui traverse plusieurs switchs", "duree": "1 h 30", "locked": true}, {"id": 4, "niveau": "Intermédiaire +", "titre": "Routage inter-VLAN : router-on-a-stick", "sous": "Faire communiquer deux VLAN avec un seul câble vers le routeur", "duree": "2 h", "locked": true}, {"id": 5, "niveau": "Avancé", "titre": "Trois switchs, trois VLAN et DHCP", "sous": "Un réseau d'entreprise complet : trunks, routage inter-VLAN et adresses automatiques", "duree": "2 h 30", "locked": true}, {"id": 6, "niveau": "Expert", "titre": "Cœur de réseau L3, sécurité et dépannage", "sous": "SVI, ACL entre VLAN, sécurité des ports et chasse aux pannes", "duree": "3 h", "locked": true}, {"id": 7, "cat": "red", "niveau": "Intermédiaire", "titre": "STP : une boucle sans tempête", "sous": "Trois switchs en triangle, un pont racine choisi et une bascule en cas de panne", "duree": "1 h 30", "pdf": "labs/lab-7-stp.pdf", "locked": true}, {"id": 8, "cat": "red", "niveau": "Intermédiaire +", "titre": "EtherChannel : deux câbles, un seul lien", "sous": "Agréger deux liens en LACP, faire passer un trunk et survivre à une coupure", "duree": "1 h 30", "pdf": "labs/lab-8-etherchannel.pdf", "locked": true}];
+const LCAT = { vlan: 'Lab VLAN', red: 'Lab Redondance' };
+const catOf = l => l.cat || 'vlan';
+const labsIn = c => LABS.filter(x => catOf(x) === c);
 function labTopoSVG(tp) {
   const N = {}; tp.nodes.forEach(n => { N[n.id] = n; });
   const SZ = { pc: [78, 44], sw: [100, 40], r: [100, 40], l3: [112, 44] };
   const exit = (n, ux, uy) => { const s = SZ[n.t], ex = Math.abs(ux) < 1e-6 ? 1e9 : s[0] / 2 / Math.abs(ux), ey = Math.abs(uy) < 1e-6 ? 1e9 : s[1] / 2 / Math.abs(uy); return Math.min(ex, ey); };
   let lines = '', labs = '', nodes = ''; const oc = {}; tp.links.forEach(l => { oc[l.a] = (oc[l.a] || 0) + 1; });
   tp.links.forEach(l => {
-    const a = N[l.a], b = N[l.b], dx = b.x - a.x, dy = b.y - a.y, len = Math.sqrt(dx * dx + dy * dy), ux = dx / len, uy = dy / len;
-    lines += `<line class="lk v${l.c}" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>`;
+    const a0 = N[l.a], b0 = N[l.b], dx = b0.x - a0.x, dy = b0.y - a0.y, len = Math.sqrt(dx * dx + dy * dy), ux = dx / len, uy = dy / len;
+    const ox = l.o ? -uy * l.o : 0, oy = l.o ? ux * l.o : 0, a = Object.assign({}, a0, { x: a0.x + ox, y: a0.y + oy }), b = Object.assign({}, b0, { x: b0.x + ox, y: b0.y + oy });
+    lines += `<line class="lk v${l.c}${l.blk ? ' blk' : ''}" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>`;
     const put = (n, txt, sx) => {
       if (!txt) return;
       const lw = txt.length * 6.4; let d = exit(n, sx * ux, sx * uy) + 8 + Math.abs(ux) * lw / 2 + Math.abs(uy) * 7; if (sx === 1 && oc[n.id] >= 4) d = len * 0.42;
-      labs += `<text class="pt" x="${(n.x + sx * ux * d).toFixed(1)}" y="${(n.y + sx * uy * d + 4).toFixed(1)}" text-anchor="middle">${esc(txt)}</text>`;
+      const hy = Math.abs(ux) > 0.9 && l.c === 't' ? (l.o > 0 ? 13 : -7) : 0;
+      labs += `<text class="pt" x="${(n.x + sx * ux * d).toFixed(1)}" y="${(n.y + sx * uy * d + 4 + hy).toFixed(1)}" text-anchor="middle">${esc(txt)}</text>`;
     };
     put(a, l.pa, 1); put(b, l.pb, -1);
     if (l.lab) {
@@ -5062,26 +5068,33 @@ function labTopoSVG(tp) {
     nodes += `<g class="nd ${n.t}${v}"><rect x="${n.x - s[0] / 2}" y="${n.y - s[1] / 2}" width="${s[0]}" height="${s[1]}" rx="${n.t === 'pc' ? 6 : 10}"/>
       <text class="nm" x="${n.x}" y="${n.y - 2}" text-anchor="middle">${esc(n.l)}</text><text class="sb" x="${n.x}" y="${n.y + 13}" text-anchor="middle">${esc(n.s || '')}</text></g>`;
   });
+  (tp.notes || []).forEach(t => { labs += `<text class="tl" x="${t.x}" y="${t.y}" text-anchor="middle">${esc(t.t)}</text>`; });
   return `<svg class="labmap" viewBox="0 0 640 ${tp.h}" role="img" aria-label="Topologie du lab">${lines}${nodes}${labs}</svg>`;
 }
 function ltable(h, rows) {
   return `<div class="scroll"><table><thead><tr>${h.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
-const labDots = n => '●'.repeat(n) + '○'.repeat(6 - n);
+const labDots = (n, t = 6) => '●'.repeat(n) + '○'.repeat(t - n);
 function labsHome() {
-  let h = `<section class="chap"><div class="chead"><div><h2>Labs VLAN</h2><p class="muted">Six travaux pratiques Packet Tracer, du plus simple au plus difficile. Le formateur débloque les labs au fur et à mesure.</p></div></div><div class="list">`;
-  LABS.forEach(l => {
+  const SEC = [['vlan', 'Labs VLAN', 'Six travaux pratiques Packet Tracer, du plus simple au plus difficile. Le formateur débloque les labs au fur et à mesure.'],
+    ['red', 'Labs Redondance : STP et EtherChannel', 'Deux travaux pratiques Packet Tracer pour éviter les boucles et doubler les liens entre switchs.']];
+  return SEC.map(([c, t, d]) => labsSec(c, t, d)).join('');
+}
+function labsSec(c, t, d) {
+  let h = `<section class="chap"><div class="chead"><div><h2>${t}</h2><p class="muted">${d}</p></div></div><div class="list">`;
+  labsIn(c).forEach((l, i) => {
     if (l.locked) { h += `<button class="row" disabled aria-disabled="true"><span class="n">&#128274;</span><span><strong>${esc(l.titre)}</strong><small>${esc(l.niveau)} · ${esc(l.sous)}</small></span><span class="chip">Verrouillé</span></button>`; return; }
-    h += `<button class="row" data-a="lab" data-id="${l.id}"><span class="n">${l.id}</span><span><strong>${esc(l.titre)}</strong><small>${esc(l.niveau)} · ${esc(l.sous)}</small></span><span class="chip">${esc(l.duree)}</span></button>`;
+    h += `<button class="row" data-a="lab" data-id="${l.id}"><span class="n">${i + 1}</span><span><strong>${esc(l.titre)}</strong><small>${esc(l.niveau)} · ${esc(l.sous)}</small></span><span class="chip">${esc(l.duree)}</span></button>`;
   });
   return h + `</div></section>`;
 }
 function labHTML() {
-  const b = LABS.filter(x => x.id === S.lab)[0], pdf = `labs/lab-${b.id}-vlan.pdf`;
+  const b = LABS.filter(x => x.id === S.lab)[0], pdf = b.pdf || `labs/lab-${b.id}-vlan.pdf`;
+  const L = labsIn(catOf(b)), k = L.indexOf(b), pv = L[k - 1], nx = L[k + 1], nt = catOf(b) === 'vlan' ? 6 : L.length;
   const tot = b.bareme.reduce((s, r) => s + r[1], 0);
   let h = `<div class="stack fiche"><button class="ghost" data-a="home">← Toutes les leçons et labs</button>
-    <div><div class="eyebrow">Lab VLAN · niveau ${b.id} sur ${LABS.length} · ${esc(b.niveau)}</div><h2>${esc(b.titre)}</h2><p class="muted" style="margin-top:6px">${esc(b.sous)}</p></div>
-    <div class="metas"><span class="chip">${esc(b.duree)}</span><span class="chip">${esc(b.materiel)}</span><span class="chip">${esc(b.logiciel)}</span><span class="dots" aria-label="Difficulté ${b.id} sur ${LABS.length}">${labDots(b.id)}</span></div>
+    <div><div class="eyebrow">${LCAT[catOf(b)]} · niveau ${k + 1} sur ${L.length} · ${esc(b.niveau)}</div><h2>${esc(b.titre)}</h2><p class="muted" style="margin-top:6px">${esc(b.sous)}</p></div>
+    <div class="metas"><span class="chip">${esc(b.duree)}</span><span class="chip">${esc(b.materiel)}</span><span class="chip">${esc(b.logiciel)}</span><span class="dots" aria-label="Difficulté ${k + 1} sur ${L.length}">${labDots(k + 1, nt)}</span></div>
     <div class="actions"><a class="btn" href="${pdf}" target="_blank" rel="noopener" download>Télécharger le PDF</a>${b.sim ? `<a class="btn alt" href="${b.sim.url}" target="_blank" rel="noopener">Version interactive</a>` : ''}</div>
     <div class="tip"><b>Pour retenir</b>${esc(b.analogie)}</div>
     <div class="block"><h3>Objectifs</h3><ul class="pts">${b.objectifs.map(o => `<li>${esc(o)}</li>`).join('')}</ul></div>
@@ -5092,7 +5105,7 @@ function labHTML() {
     <div class="block"><h3>Vérifications</h3>${ltable(['Commande ou test', 'Résultat attendu'], b.verifs)}</div>
     <div class="block"><h3>Pannes fréquentes</h3><details><summary>Symptômes, causes et corrections</summary><div>${ltable(['Symptôme', 'Cause probable', 'Correction'], b.pannes)}</div></details></div>
     <div class="block"><h3>Barème · ${tot} points</h3>${ltable(['Critère', 'Points'], b.bareme.map(r => [r[0], String(r[1])]))}</div>
-    <div class="navlab">${b.id > 1 ? `<button class="btn alt" data-a="lab" data-id="${b.id - 1}">← Lab ${b.id - 1}</button>` : ''}${b.id < LABS.length ? `<button class="btn" data-a="lab" data-id="${b.id + 1}" ${LABS[b.id].locked ? 'disabled' : ''}>${LABS[b.id].locked ? '&#128274; ' : ''}Lab ${b.id + 1} →</button>` : ''}</div></div>`;
+    <div class="navlab">${pv ? `<button class="btn alt" data-a="lab" data-id="${pv.id}">← Lab ${k}</button>` : ''}${nx ? `<button class="btn" data-a="lab" data-id="${nx.id}" ${nx.locked ? 'disabled' : ''}>${nx.locked ? '&#128274; ' : ''}Lab ${k + 2} →</button>` : ''}</div></div>`;
   return h;
 }
 const app = document.getElementById('app');
@@ -5215,7 +5228,7 @@ function homeHTML() {
   let h = `<div class="stack"><div class="hero"><div class="eyebrow">OFPPT · Infrastructure digitale · Module</div><h1>${M.name}</h1><div class="bar-g"></div>
     <p class="lead">${esc(M.lead)} Pour chaque leçon : une fiche de cours, une simulation à manipuler et un QCM corrigé.</p>
     <div class="actions">${M.cours ? `<a class="btn" href="${M.cours}">Lire le cours complet</a>` : ''}<button class="btn${M.cours ? ' alt' : ''}" data-a="general" data-n="20">QCM du module · 20 questions</button></div>
-    <p class="stats">${M.chaps.length} thème${M.chaps.length > 1 ? 's' : ''} · ${TH.length} leçons · ${nq} questions${M.labs ? ` · ${LABS.length} labs VLAN` : ''}</p></div>`;
+    <p class="stats">${M.chaps.length} thème${M.chaps.length > 1 ? 's' : ''} · ${TH.length} leçons · ${nq} questions${M.labs ? ` · ${labsIn('vlan').length} labs VLAN · ${labsIn('red').length} labs redondance` : ''}</p></div>`;
   M.chaps.forEach((c, ci) => {
     const name = CHAPS[c], L = inChap(c); let nc = 0; L.forEach(t => nc += t.q.length);
     h += `<section class="chap"><div class="chead"><span class="cnum">${String(ci + 1).padStart(2, '0')}</span><div><h2>${esc(name)}</h2><p class="muted">${esc(CLEAD[c])}</p></div></div><div class="list">`;
